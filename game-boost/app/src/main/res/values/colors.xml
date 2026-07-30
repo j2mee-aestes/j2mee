@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_deep">#0B1210</color>
+    <color name="bg_panel">#121C18</color>
+    <color name="bg_panel_elevated">#1A2A24</color>
+    <color name="accent_jade">#3DDC97</color>
+    <color name="accent_gold">#E8C547</color>
+    <color name="accent_mist">#8FB9A8</color>
+    <color name="text_primary">#F2F7F4</color>
+    <color name="text_secondary">#A7B8B0</color>
+    <color name="stroke_soft">#2A3D35</color>
+    <color name="danger_soft">#E07A5F</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

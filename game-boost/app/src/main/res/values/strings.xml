@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">명조 부스트</string>
+    <string name="hero_brand">MINGCHO BOOST</string>
+    <string name="hero_title">명조 전용 성능 세션</string>
+    <string name="hero_sub">태블릿에서 명조:워더링 웨이브 프레임을 안정적으로 유지합니다.</string>
+
+    <string name="select_game">게임 다시 선택</string>
+    <string name="boost_now">지금 부스트</string>
+    <string name="start_session">세션 시작</string>
+    <string name="stop_session">세션 종료</string>
+    <string name="launch_game">부스트 후 명조 실행</string>
+    <string name="grant_battery">배터리 최적화 예외</string>
+    <string name="grant_usage">사용정보 접근 허용</string>
+
+    <string name="no_game_selected">명조가 아직 연결되지 않음</string>
+    <string name="pick_game_hint">설치본을 자동 탐지하거나 직접 선택하세요</string>
+    <string name="never_boosted">아직 부스트하지 않음</string>
+    <string name="last_boost_at">마지막 부스트 %1$s</string>
+
+    <string name="profile_section">부스트 프로필</string>
+    <string name="auto_boost">명조 실행 감지 시 자동 부스트</string>
+    <string name="permissions_section">권한</string>
+    <string name="live_section">실시간 상태</string>
+    <string name="log_section">부스트 로그</string>
+    <string name="log_placeholder">부스트를 실행하면 적용 항목이 여기에 표시됩니다.</string>
+
+    <string name="status_ok">준비됨</string>
+    <string name="status_need_battery">예외 필요</string>
+    <string name="status_need_usage">자동 감지용 · 권한 필요</string>
+
+    <string name="ram_stats">RAM %1$d%% · 여유 %2$d / %3$d MB</string>
+    <string name="foreground_unknown">포그라운드 앱 미확인 (사용정보 권한 필요)</string>
+    <string name="low_memory">메모리 부족</string>
+
+    <string name="toast_select_game">명조 패키지를 먼저 선택하세요</string>
+    <string name="toast_boost_done">명조 부스트 적용 완료</string>
+    <string name="toast_session_started">명조 성능 세션 시작</string>
+    <string name="toast_session_stopped">세션 종료 · 락 해제</string>
+    <string name="toast_cannot_launch">명조를 실행할 수 없습니다. 설치 여부를 확인하세요.</string>
+    <string name="toast_auto_bound">설치된 명조를 자동으로 연결했습니다</string>
+
+    <string name="picker_title">게임 선택</string>
+    <string name="picker_search_hint">앱 이름 또는 패키지 검색</string>
+    <string name="picker_games_only">게임만 보기</string>
+    <string name="badge_game">GAME</string>
+    <string name="badge_mingcho">명조</string>
+
+    <string name="notification_channel">명조 성능 모니터</string>
+    <string name="notification_channel_desc">명조 플레이 중 메모리·자동 부스트 상태</string>
+    <string name="notification_title">명조 부스트 세션</string>
+    <string name="action_boost_now">부스트</string>
+    <string name="action_stop">종료</string>
+
+    <string name="tips_title">명조 팁</string>
+    <string name="tips_body">그래픽 프리셋은 중~상에 맞추고, 그림자/안티앨리어싱을 한 단계 낮추면 태블릿에서 프레임이 가장 안정적입니다. 충전 중·고성능 모드와 함께 쓰면 효과가 커집니다.</string>
+</resources>

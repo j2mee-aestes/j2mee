@@ -147,6 +147,7 @@ class PerformanceBooster(private val context: Context) {
         Runtime.getRuntime().gc()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun applyGameMode(targetPackage: String?): Boolean {
         // In-app GameManager.setGameMode is API 33+ and applies to this process.
         // For 명조 패키지 자체에는 ADB 스크립트(cmd game mode)가 더 확실합니다.

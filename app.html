@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHIP72 운영 MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12110f;
+      --paper: #f3efe6;
+      --sand: #e7e0d2;
+      --mist: #d8d1c3;
+      --signal: #e85d04;
+      --signal-deep: #c44d03;
+      --ok: #1f6b4a;
+      --muted: #5c574e;
+      --line: rgba(18, 17, 15, 0.12);
+      --font-display: "Syne", "IBM Plex Sans KR", sans-serif;
+      --font-body: "IBM Plex Sans KR", sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 100% 0%, rgba(232,93,4,0.12), transparent 55%),
+        linear-gradient(180deg, #f7f3ea, var(--paper));
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    button, input, select { font: inherit; color: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(243,239,230,0.85);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-inner {
+      width: min(1200px, calc(100% - 2rem));
+      margin: 0 auto;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 1.25rem;
+    }
+    .brand span { color: var(--signal); }
+    .top-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .btn {
+      border: 1px solid var(--ink);
+      background: transparent;
+      padding: 0.55rem 0.85rem;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+    .btn-dark { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+    .wrap {
+      width: min(1200px, calc(100% - 2rem));
+      margin: 1.5rem auto 3rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .stat {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+      padding: 1rem;
+    }
+    .stat .label { color: var(--muted); font-size: 0.82rem; font-weight: 600; }
+    .stat .value {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: -0.04em;
+      margin-top: 0.25rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(180px, 1fr));
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+    .column {
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--line);
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+    .column-head {
+      padding: 0.85rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700;
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .column-head span {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .column-body {
+      padding: 0.65rem;
+      display: grid;
+      gap: 0.55rem;
+      align-content: start;
+      flex: 1;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--mist);
+      padding: 0.85rem;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .card:hover {
+      border-color: var(--signal);
+      transform: translateY(-1px);
+    }
+    .card.active { outline: 2px solid var(--signal); }
+    .card-title { font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+    .card-meta { color: var(--muted); font-size: 0.8rem; }
+    .pack-pill {
+      display: inline-block;
+      margin-top: 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--signal);
+    }
+
+    .detail {
+      display: none;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+      padding: 1.2rem;
+    }
+    .detail.open { display: grid; }
+    .detail h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.35rem;
+    }
+    .detail .muted { color: var(--muted); margin-bottom: 1rem; }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+    .meta-box {
+      background: rgba(243,239,230,0.8);
+      padding: 0.75rem;
+      border: 1px solid var(--line);
+    }
+    .meta-box .k { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .meta-box .v { font-weight: 700; margin-top: 0.2rem; word-break: break-word; }
+
+    .stage-row, .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .check-list { display: grid; gap: 0.45rem; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.7rem 0.75rem;
+      background: #fff;
+      border: 1px solid var(--mist);
+      cursor: pointer;
+    }
+    .check-item input { margin-top: 0.2rem; accent-color: var(--signal); }
+    .check-item.done { opacity: 0.55; text-decoration: line-through; }
+    .progress {
+      height: 8px;
+      background: var(--sand);
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 0.75rem 0 1rem;
+    }
+    .progress > i {
+      display: block;
+      height: 100%;
+      background: var(--signal);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .manual {
+      display: grid;
+      gap: 0.65rem;
+      grid-template-columns: repeat(4, 1fr);
+      background: rgba(18,17,15,0.04);
+      border: 1px dashed var(--mist);
+      padding: 0.9rem;
+    }
+    .manual input, .manual select {
+      width: 100%;
+      border: 1px solid var(--mist);
+      background: #fff;
+      padding: 0.65rem 0.7rem;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 960px) {
+      .stats, .detail, .manual, .meta-grid { grid-template-columns: 1fr 1fr; }
+      .board { grid-auto-flow: column; grid-template-columns: repeat(5, 220px); }
+    }
+    @media (max-width: 640px) {
+      .stats, .manual, .meta-grid, .detail { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <a class="brand" href="index.html">SHIP<span>72</span> <span style="color:var(--muted);font-size:0.7em;font-weight:700;letter-spacing:0;">OPS</span></a>
+      <div class="top-actions">
+        <a class="btn" href="index.html">수주 랜딩</a>
+        <button class="btn" id="exportBtn" type="button">JSON 내보내기</button>
+        <button class="btn btn-dark" id="seedBtn" type="button">샘플 1건</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stats" id="stats"></div>
+
+    <form class="manual" id="manualForm">
+      <input name="name" required placeholder="이름/브랜드" />
+      <input name="contact" required placeholder="연락처" />
+      <select name="pack" required>
+        <option value="coach">Coach</option>
+        <option value="commerce">Commerce</option>
+        <option value="agency">Agency</option>
+      </select>
+      <button class="btn btn-primary" type="submit">수동 리드 추가</button>
+    </form>
+
+    <div class="board" id="board"></div>
+    <section class="detail" id="detail"></section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "ship72_leads_v1";
+    const STAGES = [
+      { id: "inquiry", label: "문의" },
+      { id: "proposal", label: "제안" },
+      { id: "paid", label: "입금" },
+      { id: "building", label: "제작" },
+      { id: "delivered", label: "납품" },
+    ];
+    const PACK_LABEL = {
+      coach: "Coach Pack",
+      commerce: "Commerce Pack",
+      agency: "Agency Pack",
+    };
+
+    function defaultChecklist() {
+      return [
+        { id: "kickoff", label: "킥오프 설문·목표 확정", done: false },
+        { id: "template", label: "업종 템플릿 선택", done: false },
+        { id: "draft", label: "랜딩 초안 조립", done: false },
+        { id: "form", label: "문의/신청 폼 연결", done: false },
+        { id: "copy", label: "광고 문구 키트 작성", done: false },
+        { id: "review", label: "고객 피드백 1회 반영", done: false },
+        { id: "qa", label: "모바일·속도·메타 점검", done: false },
+        { id: "handoff", label: "납품·인수인계", done: false },
+      ];
+    }
+
+    function readLeads() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+      catch { return []; }
+    }
+    function writeLeads(leads) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+    }
+
+    let selectedId = null;
+
+    function moneyHint(leads) {
+      return leads.filter((l) => ["paid", "building", "delivered"].includes(l.stage)).length * 159;
+    }
+
+    function render() {
+      const leads = readLeads();
+      const stats = document.getElementById("stats");
+      const byStage = Object.fromEntries(STAGES.map((s) => [s.id, leads.filter((l) => l.stage === s.id).length]));
+      stats.innerHTML = `
+        <div class="stat"><div class="label">전체 리드</div><div class="value">${leads.length}</div></div>
+        <div class="stat"><div class="label">제작 중</div><div class="value">${byStage.building || 0}</div></div>
+        <div class="stat"><div class="label">납품 완료</div><div class="value">${byStage.delivered || 0}</div></div>
+        <div class="stat"><div class="label">전환 추정(만원)</div><div class="value">${moneyHint(leads)}</div></div>
+      `;
+
+      const board = document.getElementById("board");
+      board.innerHTML = STAGES.map((stage) => {
+        const items = leads.filter((l) => l.stage === stage.id);
+        return `
+          <div class="column">
+            <div class="column-head">${stage.label}<span>${items.length}</span></div>
+            <div class="column-body">
+              ${items.length ? items.map(cardHTML).join("") : '<div class="empty">비어 있음</div>'}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      board.querySelectorAll(".card").forEach((el) => {
+        el.addEventListener("click", () => {
+          selectedId = el.dataset.id;
+          render();
+        });
+      });
+
+      renderDetail(leads);
+    }
+
+    function cardHTML(lead) {
+      const active = lead.id === selectedId ? "active" : "";
+      const when = new Date(lead.createdAt).toLocaleDateString("ko-KR");
+      return `
+        <button class="card ${active}" data-id="${lead.id}" type="button">
+          <div class="card-title">${escapeHtml(lead.name)}</div>
+          <div class="card-meta">${when} · ${escapeHtml(lead.contact || "-")}</div>
+          <div class="pack-pill">${PACK_LABEL[lead.pack] || lead.pack}</div>
+        </button>
+      `;
+    }
+
+    function renderDetail(leads) {
+      const detail = document.getElementById("detail");
+      const lead = leads.find((l) => l.id === selectedId);
+      if (!lead) {
+        detail.classList.remove("open");
+        detail.innerHTML = "";
+        return;
+      }
+      if (!lead.checklist) lead.checklist = defaultChecklist();
+      const done = lead.checklist.filter((c) => c.done).length;
+      const pct = Math.round((done / lead.checklist.length) * 100);
+
+      detail.classList.add("open");
+      detail.innerHTML = `
+        <div>
+          <h2>${escapeHtml(lead.name)}</h2>
+          <p class="muted">${escapeHtml(lead.goal || "목표 미입력")}</p>
+          <div class="meta-grid">
+            <div class="meta-box"><div class="k">연락처</div><div class="v">${escapeHtml(lead.contact || "-")}</div></div>
+            <div class="meta-box"><div class="k">팩</div><div class="v">${PACK_LABEL[lead.pack] || lead.pack}</div></div>
+            <div class="meta-box"><div class="k">예산</div><div class="v">${escapeHtml(String(lead.budget || "-"))}</div></div>
+            <div class="meta-box"><div class="k">접수</div><div class="v">${new Date(lead.createdAt).toLocaleString("ko-KR")}</div></div>
+          </div>
+          <div class="stage-row">
+            ${STAGES.map((s) => `<button class="btn ${lead.stage === s.id ? "btn-primary" : ""}" data-stage="${s.id}" type="button">${s.label}</button>`).join("")}
+          </div>
+          <div class="actions-row">
+            <button class="btn btn-dark" data-action="next" type="button">다음 단계</button>
+            <button class="btn" data-action="delete" type="button">삭제</button>
+          </div>
+        </div>
+        <div>
+          <strong>72시간 체크리스트</strong>
+          <div class="progress"><i style="width:${pct}%"></i></div>
+          <div class="check-list">
+            ${lead.checklist.map((c, i) => `
+              <label class="check-item ${c.done ? "done" : ""}">
+                <input type="checkbox" data-check="${i}" ${c.done ? "checked" : ""} />
+                <span>${escapeHtml(c.label)}</span>
+              </label>
+            `).join("")}
+          </div>
+        </div>
+      `;
+
+      detail.querySelectorAll("[data-stage]").forEach((btn) => {
+        btn.addEventListener("click", () => updateStage(lead.id, btn.dataset.stage));
+      });
+      detail.querySelector('[data-action="next"]').addEventListener("click", () => {
+        const idx = STAGES.findIndex((s) => s.id === lead.stage);
+        if (idx < STAGES.length - 1) updateStage(lead.id, STAGES[idx + 1].id);
+      });
+      detail.querySelector('[data-action="delete"]').addEventListener("click", () => {
+        if (!confirm("이 리드를 삭제할까요?")) return;
+        writeLeads(readLeads().filter((l) => l.id !== lead.id));
+        selectedId = null;
+        render();
+      });
+      detail.querySelectorAll("[data-check]").forEach((input) => {
+        input.addEventListener("change", () => {
+          const all = readLeads();
+          const target = all.find((l) => l.id === lead.id);
+          target.checklist[Number(input.dataset.check)].done = input.checked;
+          if (target.checklist.every((c) => c.done)) target.stage = "delivered";
+          writeLeads(all);
+          render();
+        });
+      });
+    }
+
+    function updateStage(id, stage) {
+      const all = readLeads();
+      const target = all.find((l) => l.id === id);
+      if (!target) return;
+      target.stage = stage;
+      writeLeads(all);
+      render();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    document.getElementById("manualForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const lead = {
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        stage: "inquiry",
+        budget: "159",
+        goal: "수동 추가 리드",
+        checklist: defaultChecklist(),
+        ...data,
+      };
+      const all = readLeads();
+      all.unshift(lead);
+      writeLeads(all);
+      selectedId = lead.id;
+      e.target.reset();
+      render();
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(readLeads(), null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `ship72-leads-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("seedBtn").addEventListener("click", () => {
+      const sample = {
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        stage: "inquiry",
+        name: "샘플 코치 스튜디오",
+        contact: "kakao:sample",
+        pack: "coach",
+        budget: "159",
+        goal: "8주 코스 신청 전환 개선",
+        checklist: defaultChecklist(),
+      };
+      const all = readLeads();
+      all.unshift(sample);
+      writeLeads(all);
+      selectedId = sample.id;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

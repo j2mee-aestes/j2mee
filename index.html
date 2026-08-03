@@ -1,168 +1,735 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="dark">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuroPhase v10 - EEG 시뮬레이션</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHIP72 — 72시간 매출 랜딩 납품</title>
+  <meta name="description" content="강사·쇼핑몰·에이전시를 위한 72시간 매출 랜딩 + 문의 자동화 납품." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12110f;
+      --paper: #f3efe6;
+      --sand: #e7e0d2;
+      --mist: #d8d1c3;
+      --signal: #e85d04;
+      --signal-deep: #c44d03;
+      --ok: #1f6b4a;
+      --muted: #5c574e;
+      --line: rgba(18, 17, 15, 0.12);
+      --shadow: 0 24px 60px rgba(18, 17, 15, 0.12);
+      --radius: 4px;
+      --font-display: "Syne", "IBM Plex Sans KR", sans-serif;
+      --font-body: "IBM Plex Sans KR", sans-serif;
+    }
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(232, 93, 4, 0.16), transparent 55%),
+        radial-gradient(900px 500px at -10% 20%, rgba(31, 107, 74, 0.08), transparent 50%),
+        linear-gradient(180deg, #f7f3ea 0%, var(--paper) 40%, #ebe4d7 100%);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; color: inherit; }
 
-    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+    .wrap {
+      width: min(1120px, calc(100% - 2.5rem));
+      margin-inline: auto;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Nav */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(243, 239, 230, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.04em;
+      display: flex;
+      align-items: baseline;
+      gap: 0.15rem;
+    }
+    .brand span { color: var(--signal); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .nav-cta:hover { background: var(--signal); transform: translateY(-1px); }
 
-        body {
-            background: #050816;
-            color: white;
-            font-family: sans-serif;
-            overflow-x: hidden;
-        }
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      align-items: end;
+      padding: 8.5rem 0 4.5rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 8% -5% auto auto;
+      width: min(58vw, 720px);
+      height: min(58vw, 720px);
+      background:
+        linear-gradient(135deg, rgba(232, 93, 4, 0.22), transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath fill='none' stroke='%2312110f' stroke-opacity='0.08' stroke-width='1' d='M0 80h160M80 0v160'/%3E%3C/svg%3E");
+      border-radius: 40% 60% 55% 45%;
+      filter: blur(0.2px);
+      animation: drift 14s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 2rem;
+      max-width: 760px;
+    }
+    .brand-hero {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(4.2rem, 14vw, 8.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.07em;
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .brand-hero span { color: var(--signal); }
+    .hero h1 {
+      font-size: clamp(1.35rem, 3.2vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      max-width: 18ch;
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 36ch;
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.95rem 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--signal); color: #fff; }
+    .btn-primary:hover { background: var(--signal-deep); }
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--paper); }
 
-        .v10-nav {
-            width: 100%;
-            padding: 20px 40px;
-            position: fixed;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            background: rgba(5, 8, 22, 0.5);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+    .ticker {
+      margin-top: 3.5rem;
+      border-block: 1px solid var(--line);
+      overflow: hidden;
+      background: rgba(255,255,255,0.28);
+    }
+    .ticker-track {
+      display: flex;
+      gap: 2.5rem;
+      width: max-content;
+      padding: 0.9rem 0;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      animation: marquee 28s linear infinite;
+      color: var(--muted);
+    }
+    .ticker-track strong { color: var(--ink); }
 
-        .v10-hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 40px;
-            background:
-                radial-gradient(circle at center, rgba(56,189,248,0.15), transparent 40%),
-                linear-gradient(to bottom, #050816, #0f172a);
-        }
+    /* Sections */
+    section { padding: 5.5rem 0; }
+    .section-kicker {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+      margin-bottom: 0.85rem;
+      max-width: 14ch;
+    }
+    .section-lead {
+      color: var(--muted);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+    }
 
-        .v10-hero-title {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 800;
-            background: linear-gradient(90deg, #38bdf8, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            letter-spacing: -2px;
-        }
+    .pack-list {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .pack {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.25rem;
+      padding: 1.5rem 1.35rem;
+      background: rgba(255,255,255,0.55);
+      transition: background 0.25s ease;
+    }
+    .pack:hover { background: rgba(255,255,255,0.9); }
+    .pack-code {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--signal);
+    }
+    .pack h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+    .pack p { color: var(--muted); font-size: 0.98rem; }
 
-        .v10-hero-sub {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            color: rgba(255,255,255,0.75);
-            max-width: 700px;
-            line-height: 1.7;
-        }
+    .include-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .include-item {
+      padding: 1.35rem 1.2rem;
+      border-top: 2px solid var(--ink);
+      background: rgba(255,255,255,0.35);
+    }
+    .include-item strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .include-item p { color: var(--muted); font-size: 0.95rem; }
 
-        #brain3d {
-            width: 100%;
-            height: 500px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            background: linear-gradient(to bottom, #0f172a, #020617);
-        }
-    </style>
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      counter-reset: step;
+    }
+    .step {
+      position: relative;
+      padding: 1.4rem 1.1rem;
+      background: var(--ink);
+      color: var(--paper);
+      min-height: 180px;
+      overflow: hidden;
+    }
+    .step::before {
+      counter-increment: step;
+      content: "T+" counter(step) "0";
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--signal);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+    .step:nth-child(1)::before { content: "T+0"; }
+    .step:nth-child(2)::before { content: "T+24"; }
+    .step:nth-child(3)::before { content: "T+48"; }
+    .step:nth-child(4)::before { content: "T+72"; }
+    .step h3 {
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .step p { color: rgba(243,239,230,0.72); font-size: 0.92rem; }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1rem;
+      align-items: stretch;
+    }
+    .price-main {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line);
+      padding: 2rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-main::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(232,93,4,0.25), transparent 70%);
+      pointer-events: none;
+    }
+    .price-tag {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 4.5rem);
+      letter-spacing: -0.06em;
+      line-height: 1;
+      margin: 1rem 0;
+    }
+    .price-tag small {
+      font-size: 0.35em;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+    .price-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      margin: 1.25rem 0 1.75rem;
+      color: var(--muted);
+    }
+    .price-list li::before {
+      content: "→";
+      color: var(--signal);
+      margin-right: 0.5rem;
+      font-weight: 700;
+    }
+    .price-side {
+      display: grid;
+      gap: 1rem;
+    }
+    .price-addon {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 1.4rem 1.2rem;
+    }
+    .price-addon h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
+    .price-addon p { color: rgba(243,239,230,0.7); font-size: 0.92rem; }
+    .price-addon .num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--signal);
+      margin-top: 0.8rem;
+      letter-spacing: -0.04em;
+    }
+
+    .apply {
+      background:
+        linear-gradient(180deg, rgba(18,17,15,0.02), rgba(18,17,15,0.05)),
+        rgba(255,255,255,0.35);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .apply-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    form {
+      display: grid;
+      gap: 0.85rem;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--line);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+    label {
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--mist);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.8rem 0.85rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--signal);
+      box-shadow: 0 0 0 3px rgba(232,93,4,0.15);
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .form-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .form-success {
+      display: none;
+      padding: 1.5rem;
+      background: #e8f4ee;
+      border: 1px solid rgba(31,107,74,0.25);
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .form-success.is-visible { display: block; }
+
+    footer {
+      padding: 2.5rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-inner a { font-weight: 600; color: var(--ink); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes drift {
+      from { transform: translate3d(0,0,0) rotate(0deg); }
+      to { transform: translate3d(-18px, 24px, 0) rotate(6deg); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .include-grid, .process, .pricing, .apply-layout, .form-row {
+        grid-template-columns: 1fr;
+      }
+      .pack { grid-template-columns: 1fr; gap: 0.35rem; }
+      .hero { padding-top: 7rem; }
+      section { padding: 4rem 0; }
+    }
+  </style>
 </head>
 <body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">SHIP<span>72</span></a>
+      <nav class="nav-links">
+        <a href="#packs">팩</a>
+        <a href="#process">프로세스</a>
+        <a href="#pricing">가격</a>
+        <a class="nav-cta" href="#apply">상담 신청</a>
+      </nav>
+    </div>
+  </header>
 
-    <header class="v10-nav">
-        <h2 style="color:#67e8f9;">NeuroPhase v10</h2>
-    </header>
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="brand-hero">SHIP<span>72</span></div>
+        <h1>72시간 안에 매출 랜딩을 납품합니다</h1>
+        <p>강사·쇼핑몰·에이전시를 위한 고정 패키지. 신청부터 인수인계까지, 수주 엔진으로 돌립니다.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#apply">72시간 패키지 신청</a>
+          <a class="btn btn-ghost" href="app.html">운영 MVP 열기</a>
+        </div>
+      </div>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span><strong>Coach Pack</strong> · 코스 신청 전환</span>
+          <span><strong>Commerce Pack</strong> · 상품 구매 동선</span>
+          <span><strong>Agency Pack</strong> · 견적·수주 페이지</span>
+          <span><strong>T+72</strong> · 납품 완료</span>
+          <span><strong>알림 자동화</strong> · 문의 즉시 수신</span>
+          <span><strong>Coach Pack</strong> · 코스 신청 전환</span>
+          <span><strong>Commerce Pack</strong> · 상품 구매 동선</span>
+          <span><strong>Agency Pack</strong> · 견적·수주 페이지</span>
+          <span><strong>T+72</strong> · 납품 완료</span>
+          <span><strong>알림 자동화</strong> · 문의 즉시 응답</span>
+        </div>
+      </div>
+    </section>
 
-    <main>
-        <section class="v10-hero">
-            <h1 class="v10-hero-title">NeuroPhase</h1>
-            <p class="v10-hero-sub">
-                환상통 치료를 위한 AI 기반 EEG 역위상 상쇄 플랫폼
-            </p>
-        </section>
+    <section id="packs">
+      <div class="wrap">
+        <p class="section-kicker">Who it's for</p>
+        <h2 class="section-title">세 타깃, 하나의 납품 기계</h2>
+        <p class="section-lead">업종만 갈라지고, 제작·검수·인수인계는 같은 파이프라인으로 처리합니다.</p>
+        <div class="pack-list">
+          <article class="pack">
+            <div class="pack-code">01</div>
+            <div>
+              <h3>Coach Pack — 강사 / 코치</h3>
+              <p>상담·코스 신청이 목적인 랜딩. 커리큘럼, 후기, 신청 폼까지 한 줄로 연결합니다.</p>
+            </div>
+          </article>
+          <article class="pack">
+            <div class="pack-code">02</div>
+            <div>
+              <h3>Commerce Pack — 쇼핑몰 / 브랜드</h3>
+              <p>상품·컬렉션 전환용 페이지. 구매/문의 CTA와 캠페인 문구 키트를 함께 넘깁니다.</p>
+            </div>
+          </article>
+          <article class="pack">
+            <div class="pack-code">03</div>
+            <div>
+              <h3>Agency Pack — 프리랜서 / 에이전시</h3>
+              <p>포트폴리오·견적 수주 페이지. 당신이 다시 외주를 받는 입구로 씁니다.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <div id="brain3d"></div>
-    </main>
+    <section id="include">
+      <div class="wrap">
+        <p class="section-kicker">What's included</p>
+        <h2 class="section-title">패키지에 들어가는 것</h2>
+        <p class="section-lead">기능을 늘리지 않습니다. 돈 나오는 동선만 고정합니다.</p>
+        <div class="include-grid">
+          <div class="include-item">
+            <strong>고전환 랜딩 1페이지</strong>
+            <p>히어로·제안·증거·FAQ·CTA. 업종 템플릿에서 출발합니다.</p>
+          </div>
+          <div class="include-item">
+            <strong>문의/신청 자동화</strong>
+            <p>폼 접수 → 알림 → 상태 기록. 놓치는 리드를 줄입니다.</p>
+          </div>
+          <div class="include-item">
+            <strong>광고 문구 키트 10개</strong>
+            <p>바로 돌릴 수 있는 헤드라인·CTA 카피 초안을 포함합니다.</p>
+          </div>
+          <div class="include-item">
+            <strong>기본 속도·SEO 세팅</strong>
+            <p>메타, OG, 모바일 레이아웃, 핵심 페이지 속도 점검.</p>
+          </div>
+          <div class="include-item">
+            <strong>1회 수정</strong>
+            <p>런칭 전 피드백 반영 1라운드. 범위는 체크리스트로 고정.</p>
+          </div>
+          <div class="include-item">
+            <strong>인수인계 노트</strong>
+            <p>수정 방법, 폼 확인법, 다음 액션 3개를 문서와 함께 전달.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
-        const container = document.getElementById('brain3d');
+    <section id="process">
+      <div class="wrap">
+        <p class="section-kicker">72-hour process</p>
+        <h2 class="section-title">시계처럼 돌아가는 납품</h2>
+        <p class="section-lead">감이 아니라 단계입니다. 각 구간이 끝나면 다음이 자동으로 열립니다.</p>
+        <div class="process">
+          <article class="step">
+            <h3>킥오프</h3>
+            <p>설문·레퍼런스·CTA 목표 확정. 템플릿 팩 선택.</p>
+          </article>
+          <article class="step">
+            <h3>초안 조립</h3>
+            <p>카피·섹션·폼 동선 조립. 내부 검수 1차.</p>
+          </article>
+          <article class="step">
+            <h3>다듬기</h3>
+            <p>고객 피드백 1회 반영. 문구·CTA·모바일 정리.</p>
+          </article>
+          <article class="step">
+            <h3>납품</h3>
+            <p>라이브·인수인계·다음 액션. 파이프라인 종료.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x020617);
+    <section id="pricing">
+      <div class="wrap">
+        <p class="section-kicker">Pricing</p>
+        <h2 class="section-title">가격은 단순하게</h2>
+        <p class="section-lead">커스텀 견적 전쟁 없이, 패키지로 닫습니다.</p>
+        <div class="pricing">
+          <div class="price-main">
+            <p class="section-kicker" style="margin:0">Core + Pack</p>
+            <div class="price-tag">159<small>만 원</small></div>
+            <ul class="price-list">
+              <li>코어 납품 + 업종 팩 1종</li>
+              <li>72시간 표준 일정</li>
+              <li>문구 키트 · 1회 수정 · 인수인계</li>
+            </ul>
+            <a class="btn btn-primary" href="#apply">이 패키지로 신청</a>
+          </div>
+          <div class="price-side">
+            <div class="price-addon">
+              <h3>급행 24h</h3>
+              <p>우선 배정, 압축 일정.</p>
+              <div class="num">+40만</div>
+            </div>
+            <div class="price-addon">
+              <h3>월 운영</h3>
+              <p>소규모 수정·성과 점검.</p>
+              <div class="num">29만/월</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            container.clientWidth / container.clientHeight,
-            0.1,
-            1000
-        );
+    <section class="apply" id="apply">
+      <div class="wrap apply-layout">
+        <div>
+          <p class="section-kicker">Apply</p>
+          <h2 class="section-title">상담 신청</h2>
+          <p class="section-lead">짧게 적으면 됩니다. 접수된 리드는 운영 MVP 파이프라인으로 들어갑니다.</p>
+        </div>
+        <div>
+          <div class="form-success" id="formSuccess">접수됐습니다. 운영 보드에서 확인하세요.</div>
+          <form id="leadForm">
+            <div class="form-row">
+              <label>이름 / 브랜드
+                <input name="name" required placeholder="예: 김서진 / SHIP72" />
+              </label>
+              <label>연락처
+                <input name="contact" required placeholder="카톡 ID 또는 전화" />
+              </label>
+            </div>
+            <label>타깃 팩
+              <select name="pack" required>
+                <option value="">선택</option>
+                <option value="coach">Coach Pack — 강사/코치</option>
+                <option value="commerce">Commerce Pack — 쇼핑몰/브랜드</option>
+                <option value="agency">Agency Pack — 프리랜서/에이전시</option>
+              </select>
+            </label>
+            <label>지금 가장 필요한 결과
+              <textarea name="goal" required placeholder="예: 코스 신청 전환을 높이고 싶습니다"></textarea>
+            </label>
+            <label>예산 구간
+              <select name="budget" required>
+                <option value="">선택</option>
+                <option value="159">159만 (표준)</option>
+                <option value="199">199만 (급행 포함)</option>
+                <option value="discuss">협의</option>
+              </select>
+            </label>
+            <button class="btn btn-primary" type="submit">신청 보내기</button>
+            <p class="form-note">데이터는 이 브라우저의 운영 MVP에 저장됩니다. 실제 운영 시 폼 서비스/CRM으로 연결하면 됩니다.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        container.appendChild(renderer.domElement);
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="brand">SHIP<span>72</span></div>
+      <a href="app.html">운영 MVP →</a>
+    </div>
+  </footer>
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        scene.add(ambientLight);
+  <script>
+    const STORAGE_KEY = "ship72_leads_v1";
 
-        const pointLight = new THREE.PointLight(0x38bdf8, 2);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
+    function readLeads() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
 
-        const geometry = new THREE.SphereGeometry(2, 64, 64);
+    function writeLeads(leads) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+    }
 
-        const material = new THREE.MeshStandardMaterial({
-            color: 0x7c3aed,
-            emissive: 0x38bdf8,
-            emissiveIntensity: 0.25,
-            roughness: 0.3,
-            metalness: 0.2
-        });
+    const form = document.getElementById("leadForm");
+    const success = document.getElementById("formSuccess");
 
-        const brain = new THREE.Mesh(geometry, material);
-        scene.add(brain);
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const lead = {
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        stage: "inquiry",
+        checklist: defaultChecklist(),
+        ...data,
+      };
+      const leads = readLeads();
+      leads.unshift(lead);
+      writeLeads(leads);
+      form.reset();
+      form.style.display = "none";
+      success.classList.add("is-visible");
+      success.innerHTML = '접수됐습니다. <a href="app.html" style="color:inherit;text-decoration:underline">운영 보드에서 확인 →</a>';
+    });
 
-        const ringGeometry = new THREE.TorusGeometry(2.7, 0.03, 16, 100);
-
-        const ringMaterial = new THREE.MeshBasicMaterial({
-            color: 0x38bdf8
-        });
-
-        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-        ring.rotation.x = Math.PI / 2;
-        scene.add(ring);
-
-        camera.position.z = 6;
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.enableZoom = false;
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            brain.rotation.y += 0.003;
-            brain.rotation.x += 0.001;
-
-            ring.rotation.z += 0.01;
-
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        });
-    </script>
-
+    function defaultChecklist() {
+      return [
+        { id: "kickoff", label: "킥오프 설문·목표 확정", done: false },
+        { id: "template", label: "업종 템플릿 선택", done: false },
+        { id: "draft", label: "랜딩 초안 조립", done: false },
+        { id: "form", label: "문의/신청 폼 연결", done: false },
+        { id: "copy", label: "광고 문구 키트 작성", done: false },
+        { id: "review", label: "고객 피드백 1회 반영", done: false },
+        { id: "qa", label: "모바일·속도·메타 점검", done: false },
+        { id: "handoff", label: "납품·인수인계", done: false },
+      ];
+    }
+  </script>
 </body>
 </html>

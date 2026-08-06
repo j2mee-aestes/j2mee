@@ -8,8 +8,8 @@ import type {
 export const PARTNER_TYPE_LABELS: Record<PartnerType, string> = {
   market: "수산시장",
   marketStore: "시장 점포",
-  restaurant: "식당",
-  processingShop: "손질 전문점",
+  restaurant: "식당·횟집",
+  processingShop: "손질 점포",
 };
 
 export const PARTNER_VERIFICATION_LABELS: Record<
@@ -38,12 +38,12 @@ export const COOKING_METHOD_LABELS: Record<CookingMethod, string> = {
   other: "기타 조리",
 };
 
-/** Marker colors for partner place types on the map. */
+/** Marker colors for partner subtypes (all under 수산시장 map filter). */
 export const PARTNER_MARKER_COLORS: Record<PartnerType, string> = {
   market: "#ea580c",
-  marketStore: "#ea580c",
-  restaurant: "#7c3aed",
-  processingShop: "#0d9488",
+  marketStore: "#f97316",
+  restaurant: "#c2410c",
+  processingShop: "#9a3412",
 };
 
 export const DEFAULT_NEARBY_RADIUS_KM = 10;

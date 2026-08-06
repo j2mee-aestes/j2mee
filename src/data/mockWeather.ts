@@ -7,9 +7,3 @@ export const mockWeather: WeatherSummary = {
   condition: "맑음",
   windSpeed: 3.2,
 };
-
-export const mockTideData = {
-  mul: "7물",
-  status: "조금",
-  currentTimeLabel: "14:20",
-};

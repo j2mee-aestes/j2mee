@@ -1,6 +1,5 @@
 export type MapCategory =
   | "fishing"
-  | "tide"
   | "market"
   | "restaurant"
   | "trash"

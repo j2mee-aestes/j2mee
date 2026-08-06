@@ -13,7 +13,6 @@ import { LocationDetailPanel } from "@/components/location/LocationDetailPanel";
 import { MapSection } from "@/components/map/MapSection";
 import { NearbyPartnerSection } from "@/components/partners/NearbyPartnerSection";
 import { PartnerDetailPanel } from "@/components/partners/PartnerDetailPanel";
-import { TidePanel } from "@/components/tide/TidePanel";
 import { WeatherCard } from "@/components/weather/WeatherCard";
 import type { LanguageCode } from "@/constants/languages";
 import { SAFETY_THRESHOLDS } from "@/constants/safetyThresholds";
@@ -28,10 +27,7 @@ import {
   searchMockLocations,
   type SearchablePlace,
 } from "@/data/mockMapLocations";
-import {
-  useTideData,
-  useWeatherData,
-} from "@/hooks/useSpotEnvironmentData";
+import { useWeatherData } from "@/hooks/useSpotEnvironmentData";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import { getWastePointById } from "@/lib/environment/wastePointRepository";
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
@@ -65,7 +61,7 @@ function isValidDateParam(value: string | null): value is string {
     return false;
   }
   const today = todayKst();
-  const max = addDays(today, SAFETY_THRESHOLDS.maxTideDateOffsetDays);
+  const max = addDays(today, SAFETY_THRESHOLDS.maxWeatherDateOffsetDays);
   return value >= today && value <= max;
 }
 
@@ -120,7 +116,7 @@ export function MapAppShell() {
       ? place.id
       : DEFAULT_SELECTED_LOCATION_ID;
   });
-  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [selectedDate] = useState(initialDate);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState("");
@@ -128,10 +124,8 @@ export function MapAppShell() {
   const [searchResults, setSearchResults] = useState<SearchablePlace[]>([]);
   const [panelNotice, setPanelNotice] = useState<string | null>(null);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
-  const [tideHighlighted, setTideHighlighted] = useState(false);
   const [focusRequestId, setFocusRequestId] = useState(0);
   const [fitRouteRequestId, setFitRouteRequestId] = useState(0);
-  const [chartExpanded, setChartExpanded] = useState(false);
   const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
   const [ploggingSession, setPloggingSession] =
     useState<PloggingSession>(EMPTY_SESSION);
@@ -194,7 +188,6 @@ export function MapAppShell() {
       .filter((point): point is NonNullable<typeof point> => point !== null);
   }, [selectedRoute]);
 
-  const tideState = useTideData(fishingSpotId, selectedDate);
   const weatherState = useWeatherData(fishingSpotId, selectedDate);
 
   const syncUrl = useCallback(
@@ -218,14 +211,6 @@ export function MapAppShell() {
     syncUrl(selectedLocationId, selectedDate);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- sync when selection changes only
   }, [selectedLocationId, selectedDate]);
-
-  useEffect(() => {
-    if (!tideHighlighted) {
-      return;
-    }
-    const timer = window.setTimeout(() => setTideHighlighted(false), 2200);
-    return () => window.clearTimeout(timer);
-  }, [tideHighlighted]);
 
   useEffect(() => {
     if (!mapNotice) {
@@ -345,12 +330,6 @@ export function MapAppShell() {
     setSearchResults(results);
   };
 
-  const handleTideSummaryClick = () => {
-    const card = document.getElementById("tide-summary-card");
-    card?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    setTideHighlighted(true);
-  };
-
   const handleToggleFavorite = () => {
     if (!selectedLocationId) {
       return;
@@ -392,7 +371,6 @@ export function MapAppShell() {
         searchNotice={searchNotice}
         searchResults={searchResults}
         onSelectSearchResult={selectAndFocusLocation}
-        onTideSummaryClick={handleTideSummaryClick}
       />
 
       <MobileCategoryBar
@@ -608,32 +586,12 @@ export function MapAppShell() {
             )}
 
             {fishingSpotId ? (
-              <>
-                <WeatherCard
-                  weather={weatherState.data}
-                  loading={weatherState.loading}
-                  error={weatherState.error}
-                  onRetry={weatherState.reload}
-                />
-                <div
-                  className={
-                    tideHighlighted
-                      ? "rounded-[var(--radius-lg)] ring-2 ring-[var(--color-ocean-400)]"
-                      : ""
-                  }
-                >
-                  <TidePanel
-                    tide={tideState.data}
-                    loading={tideState.loading}
-                    error={tideState.error}
-                    selectedDate={selectedDate}
-                    onDateChange={setSelectedDate}
-                    onRetry={tideState.reload}
-                    chartExpanded={chartExpanded}
-                    onToggleChart={() => setChartExpanded((value) => !value)}
-                  />
-                </div>
-              </>
+              <WeatherCard
+                weather={weatherState.data}
+                loading={weatherState.loading}
+                error={weatherState.error}
+                onRetry={weatherState.reload}
+              />
             ) : null}
           </aside>
         </main>

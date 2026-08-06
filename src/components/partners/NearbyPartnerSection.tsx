@@ -136,8 +136,11 @@ export function NearbyPartnerSection({
     <Card className={`flex flex-col gap-3 p-4 ${className}`}>
       <div>
         <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
-          주변 수산시장·식당
+          주변 수산시장
         </h3>
+        <p className="mt-0.5 text-[11px] text-[var(--color-text-muted)]">
+          손질·식당·횟집도 수산시장 카테고리에서 함께 안내합니다.
+        </p>
         <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
           {originName} 기준 약 {radiusKm}km · 직선거리 참고
         </p>

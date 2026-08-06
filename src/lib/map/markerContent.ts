@@ -6,7 +6,6 @@ import type { MapCategory, MapLocation } from "@/types/map";
 
 const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   fishing: "🎣",
-  tide: "🌊",
   market: "🛒",
   restaurant: "🍽",
   trash: "♻️",

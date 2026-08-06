@@ -9,12 +9,10 @@ export const SAFETY_THRESHOLDS = {
   waveCautionM: 0.8,
   /** Precipitation probability (%) for caution */
   precipCautionPercent: 50,
-  /** Tide data older than this (ms) is considered stale */
-  tideStaleMs: 6 * 60 * 60 * 1000,
   /** Weather data older than this (ms) is considered stale */
   weatherStaleMs: 3 * 60 * 60 * 1000,
-  /** Max selectable tide date offset from today (days) */
-  maxTideDateOffsetDays: 7,
+  /** Max selectable forecast date offset from today (days) */
+  maxWeatherDateOffsetDays: 7,
 } as const;
 
 export const ACTIVITY_STATUS_LABELS = {

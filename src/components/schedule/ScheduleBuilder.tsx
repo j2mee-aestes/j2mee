@@ -8,7 +8,6 @@ import { ScheduleItemList } from "@/components/schedule/ScheduleItemList";
 import { ScheduleMapPreview } from "@/components/schedule/ScheduleMapPreview";
 import { ScheduleShareButton } from "@/components/schedule/ScheduleShareButton";
 import { ScheduleSummary } from "@/components/schedule/ScheduleSummary";
-import { ScheduleTideHints } from "@/components/schedule/ScheduleTideHints";
 import { ScheduleWarnings } from "@/components/schedule/ScheduleWarnings";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import {
@@ -107,8 +106,8 @@ export function ScheduleBuilder({
             하루 일정 만들기
           </h1>
           <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-            낚시 → 시장·식당·손질 → 플로깅 순서를 권장하지만 자유롭게 수정할 수
-            있습니다.
+            낚시 → 수산시장(손질·식당 포함) → 플로깅 순서를 권장하지만 자유롭게
+            수정할 수 있습니다.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -160,11 +159,6 @@ export function ScheduleBuilder({
           scheduleApi.setSelectedItemId(id);
           setFocusItemId(id);
         }}
-      />
-
-      <ScheduleTideHints
-        fishingItem={fishingItem}
-        date={scheduleApi.schedule.date}
       />
 
       <ScheduleWarnings warnings={scheduleApi.warnings} />

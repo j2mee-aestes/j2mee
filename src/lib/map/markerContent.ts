@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS } from "@/constants/categories";
+import { FISHING_ALLOWED_COLORS } from "@/constants/safetyThresholds";
 import type { MapCategory, MapLocation } from "@/types/map";
 
 const CATEGORY_SYMBOL: Record<MapCategory, string> = {
@@ -11,12 +12,19 @@ const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   plogging: "👟",
 };
 
+function resolveMarkerColor(location: MapLocation): string {
+  if (location.category === "fishing" && location.fishingAllowedStatus) {
+    return FISHING_ALLOWED_COLORS[location.fishingAllowedStatus];
+  }
+  return CATEGORY_COLORS[location.category];
+}
+
 export function createMarkerContent(
   location: MapLocation,
   selected: boolean,
   onSelect: (id: string) => void,
 ): HTMLElement {
-  const color = CATEGORY_COLORS[location.category];
+  const color = resolveMarkerColor(location);
   const wrapper = document.createElement("div");
   wrapper.className = "padopado-marker";
   wrapper.style.cssText = `
@@ -52,7 +60,11 @@ export function createMarkerContent(
 
   const button = document.createElement("button");
   button.type = "button";
-  button.setAttribute("aria-label", location.name);
+  const statusHint =
+    location.category === "fishing" && location.fishingAllowedStatus
+      ? ` (${location.fishingAllowedStatus})`
+      : "";
+  button.setAttribute("aria-label", `${location.name}${statusHint}`);
   button.setAttribute("aria-pressed", selected ? "true" : "false");
   button.style.cssText = `
     width: ${selected ? "36px" : "30px"};
@@ -87,6 +99,38 @@ export function createMarkerContent(
   });
 
   wrapper.appendChild(button);
+
+  if (location.category === "fishing" && location.fishingAllowedStatus === "prohibited") {
+    const badge = document.createElement("span");
+    badge.textContent = "금지";
+    badge.style.cssText = `
+      margin-top: 4px;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 9px;
+      font-weight: 700;
+    `;
+    wrapper.appendChild(badge);
+  } else if (
+    location.category === "fishing" &&
+    location.fishingAllowedStatus === "restricted"
+  ) {
+    const badge = document.createElement("span");
+    badge.textContent = "제한";
+    badge.style.cssText = `
+      margin-top: 4px;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      background: #ffedd5;
+      color: #c2410c;
+      font-size: 9px;
+      font-weight: 700;
+    `;
+    wrapper.appendChild(badge);
+  }
+
   return wrapper;
 }
 

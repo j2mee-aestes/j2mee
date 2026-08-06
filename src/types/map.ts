@@ -23,6 +23,7 @@ export interface MapLocation {
   coordinates: Coordinates;
   description?: string;
   isVerified?: boolean;
+  fishingAllowedStatus?: import("./fishing").FishingAllowedStatus;
 }
 
 export interface PloggingRoute {

@@ -6,7 +6,7 @@ import type { LanguageCode } from "@/constants/languages";
 import { LANGUAGES } from "@/constants/languages";
 import { UI_TEXT } from "@/constants/uiText";
 import { mockTideData, mockWeather } from "@/data/mockTideData";
-import type { LocationDetail } from "@/types/fishing";
+import type { FishingSpot, LocationDetail } from "@/types/fishing";
 import {
   Bell,
   CloudSun,
@@ -26,7 +26,7 @@ interface HeaderProps {
   onSearchQueryChange: (value: string) => void;
   onSearchSubmit: () => void;
   searchNotice: string | null;
-  searchResults: LocationDetail[];
+  searchResults: Array<LocationDetail | FishingSpot>;
   onSelectSearchResult: (locationId: string) => void;
   onTideSummaryClick: () => void;
 }

@@ -1,12 +1,13 @@
-import type { TideTime } from "@/types/fishing";
-import { UI_TEXT } from "@/constants/uiText";
-
 interface TideTimeItemProps {
-  tide: TideTime;
+  tide: {
+    type: "high" | "low";
+    time: string;
+    height?: number;
+  };
 }
 
 export function TideTimeItem({ tide }: TideTimeItemProps) {
-  const label = tide.type === "high" ? UI_TEXT.highTide : UI_TEXT.lowTide;
+  const label = tide.type === "high" ? "만조" : "간조";
 
   return (
     <li className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2">

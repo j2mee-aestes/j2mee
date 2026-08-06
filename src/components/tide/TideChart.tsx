@@ -1,19 +1,26 @@
 import type { TideChartPoint } from "@/types/fishing";
-import { UI_TEXT } from "@/constants/uiText";
 
 interface TideChartProps {
   points: TideChartPoint[];
   currentTimeLabel: string;
   className?: string;
+  unitLabel?: string;
+  dateLabel?: string;
 }
 
 export function TideChart({
   points,
   currentTimeLabel,
   className = "",
+  unitLabel = "cm",
+  dateLabel,
 }: TideChartProps) {
   if (points.length === 0) {
-    return null;
+    return (
+      <p className="text-xs text-[var(--color-text-secondary)]">
+        시간별 조위 데이터가 없습니다.
+      </p>
+    );
   }
 
   const width = 320;
@@ -26,7 +33,9 @@ export function TideChart({
   const coords = points.map((point, index) => {
     const x =
       paddingX +
-      (points.length === 1 ? chartWidth / 2 : (index / (points.length - 1)) * chartWidth);
+      (points.length === 1
+        ? chartWidth / 2
+        : (index / (points.length - 1)) * chartWidth);
     const y = paddingY + chartHeight - (point.height / 100) * chartHeight;
     return { ...point, x, y };
   });
@@ -41,6 +50,10 @@ export function TideChart({
 
   return (
     <div className={className}>
+      <div className="mb-1 flex items-center justify-between text-[10px] text-[var(--color-text-muted)]">
+        <span>{dateLabel ?? "조위"}</span>
+        <span>단위: {unitLabel}</span>
+      </div>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className="h-36 w-full"
@@ -97,7 +110,7 @@ export function TideChart({
                   textAnchor="middle"
                   className="fill-slate-600 text-[9px]"
                 >
-                  {point.kind === "high" ? UI_TEXT.highTide : UI_TEXT.lowTide}
+                  {point.kind === "high" ? "만조" : "간조"}
                 </text>
               </g>
             );
@@ -136,11 +149,7 @@ export function TideChart({
           return null;
         })}
 
-        <text
-          x={paddingX}
-          y={height - 2}
-          className="fill-slate-400 text-[9px]"
-        >
+        <text x={paddingX} y={height - 2} className="fill-slate-400 text-[9px]">
           {points[0].time}
         </text>
         <text

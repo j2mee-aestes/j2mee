@@ -90,15 +90,3 @@ export const mockTrashBins: LocationDetail[] = [
     isVerified: true,
   },
 ];
-
-export const mockTideStations: LocationDetail[] = [
-  {
-    id: "loc-tide-1",
-    category: "tide",
-    name: "기장 조석 관측소",
-    address: "부산광역시 기장군 해안",
-    description: "인근 해안의 만조·간조 관측 정보를 제공하는 지점입니다.",
-    coordinates: { latitude: 35.2512, longitude: 129.2388 },
-    isVerified: true,
-  },
-];

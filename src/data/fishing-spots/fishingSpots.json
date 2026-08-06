@@ -1,0 +1,82 @@
+[
+  {
+    "id": "loc-hakri",
+    "name": "학리 방파제",
+    "address": "부산광역시 기장군 일광읍",
+    "coordinates": { "latitude": 35.2608, "longitude": 129.2336 },
+    "spotType": "breakwater",
+    "description": "초보자와 가족 단위 이용객이 접근하기 쉬운 방파제 낚시 장소입니다.",
+    "beginnerFriendly": true,
+    "parkingAvailable": true,
+    "toiletAvailable": true,
+    "lightingAvailable": true,
+    "safetyFenceAvailable": true,
+    "targetFish": ["감성돔", "우럭", "전갱이", "볼락"],
+    "accessDescription": "방파제 입구 주차장에서 도보 3분",
+    "cautionText": [
+      "테트라포드 출입 주의",
+      "만조 시 일부 구간 침수 가능",
+      "현장 통제 안내 우선 확인"
+    ],
+    "fishingAllowedStatus": "allowed",
+    "nearestTideStationId": "tide-gijang",
+    "verificationStatus": "admin",
+    "lastVerifiedAt": "2026-08-01",
+    "sourceName": "파도파도 mock 데이터",
+    "nearbyMarket": "일광수산시장",
+    "nearbyMarketDistanceKm": 3.1
+  },
+  {
+    "id": "loc-daebyeon",
+    "name": "대변항 방파제",
+    "address": "부산광역시 기장군 기장읍 대변리",
+    "coordinates": { "latitude": 35.2236, "longitude": 129.2281 },
+    "spotType": "port",
+    "description": "항구와 인접해 접근성이 좋고, 저녁 물때에 볼락·학꽁치가 잘 잡히는 포인트입니다.",
+    "beginnerFriendly": true,
+    "parkingAvailable": true,
+    "toiletAvailable": true,
+    "lightingAvailable": true,
+    "safetyFenceAvailable": false,
+    "targetFish": ["볼락", "학꽁치", "고등어"],
+    "accessDescription": "대변항 공영주차장 이용",
+    "cautionText": [
+      "야간 방파제 끝부분 조명 부족",
+      "강풍 시 접근 비권장"
+    ],
+    "fishingAllowedStatus": "restricted",
+    "restrictionDescription": "항만 작업 구간에 따라 일부 출입이 제한될 수 있습니다.",
+    "nearestTideStationId": "tide-gijang",
+    "verificationStatus": "partner",
+    "lastVerifiedAt": "2026-07-28",
+    "sourceName": "파도파도 mock 데이터",
+    "nearbyMarket": "기장시장",
+    "nearbyMarketDistanceKm": 2.4
+  },
+  {
+    "id": "loc-imrang",
+    "name": "임랑해수욕장 인근 낚시 포인트",
+    "address": "부산광역시 기장군 장안읍 임랑리",
+    "coordinates": { "latitude": 35.3185, "longitude": 129.2642 },
+    "spotType": "beach",
+    "description": "해수욕장과 가까운 연안 포인트로 플로깅 코스와 함께 즐기기 좋습니다.",
+    "beginnerFriendly": false,
+    "parkingAvailable": true,
+    "toiletAvailable": true,
+    "lightingAvailable": false,
+    "safetyFenceAvailable": false,
+    "targetFish": ["감성돔", "농어", "전어"],
+    "accessDescription": "임랑해수욕장 남측 해안도로",
+    "cautionText": [
+      "야간 조명 부족",
+      "여름철 피서객과 동선이 겹칠 수 있음"
+    ],
+    "fishingAllowedStatus": "unknown",
+    "nearestTideStationId": "tide-imrang",
+    "verificationStatus": "unverified",
+    "lastVerifiedAt": "2026-07-10",
+    "sourceName": "파도파도 mock 데이터",
+    "nearbyMarket": "일광수산시장",
+    "nearbyMarketDistanceKm": 5.2
+  }
+]

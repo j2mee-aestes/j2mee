@@ -1,8 +1,58 @@
-import type { Coordinates, MapCategory } from "./map";
+import type { Coordinates } from "./map";
 
+export type FishingSpotType =
+  | "breakwater"
+  | "port"
+  | "rock"
+  | "beach"
+  | "pier"
+  | "paid"
+  | "other";
+
+export type VerificationStatus =
+  | "official"
+  | "partner"
+  | "admin"
+  | "user"
+  | "unverified";
+
+export type FishingAllowedStatus =
+  | "allowed"
+  | "restricted"
+  | "prohibited"
+  | "unknown";
+
+export interface FishingSpot {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: Coordinates;
+  spotType: FishingSpotType;
+  description?: string;
+  beginnerFriendly?: boolean;
+  parkingAvailable?: boolean;
+  toiletAvailable?: boolean;
+  lightingAvailable?: boolean;
+  safetyFenceAvailable?: boolean;
+  targetFish?: string[];
+  accessDescription?: string;
+  cautionText?: string[];
+  fishingAllowedStatus: FishingAllowedStatus;
+  restrictionDescription?: string;
+  nearestTideStationId?: string;
+  weatherGridId?: string;
+  verificationStatus: VerificationStatus;
+  lastVerifiedAt?: string;
+  sourceName?: string;
+  sourceUrl?: string;
+  nearbyMarket?: string;
+  nearbyMarketDistanceKm?: number;
+}
+
+/** Non-fishing map places (market, trash, etc.) */
 export interface LocationDetail {
   id: string;
-  category: MapCategory;
+  category: import("./map").MapCategory;
   name: string;
   address: string;
   description: string;
@@ -18,25 +68,81 @@ export interface LocationDetail {
   isVerified?: boolean;
 }
 
-export interface TideTime {
+export interface TideStation {
+  id: string;
+  name: string;
+  coordinates: Coordinates;
+  sourceName: string;
+}
+
+export interface TideEvent {
   type: "high" | "low";
   time: string;
-  height?: number;
+  heightCm?: number;
 }
 
+export interface TideHourlyPoint {
+  time: string;
+  heightCm: number;
+}
+
+export interface DailyTideData {
+  stationId: string;
+  stationName: string;
+  date: string;
+  events: TideEvent[];
+  hourly: TideHourlyPoint[];
+  fetchedAt: string;
+  sourceName: string;
+  distanceKmFromSpot?: number;
+}
+
+export interface WeatherWarning {
+  type: string;
+  title: string;
+  severity: "info" | "warning" | "danger";
+  description?: string;
+  startedAt?: string;
+  endedAt?: string;
+}
+
+export interface WeatherData {
+  locationName?: string;
+  forecastTime: string;
+  temperatureC?: number;
+  feelsLikeC?: number;
+  condition?: string;
+  precipitationProbability?: number;
+  precipitationMm?: number;
+  windSpeedMs?: number;
+  windDirection?: string;
+  windGustMs?: number;
+  waveHeightM?: number;
+  visibilityKm?: number;
+  warnings?: WeatherWarning[];
+  fetchedAt: string;
+  sourceName: string;
+}
+
+export type ActivityStatus =
+  | "normal"
+  | "caution"
+  | "notRecommended"
+  | "restricted"
+  | "unknown";
+
+export interface ActivityEvaluation {
+  status: ActivityStatus;
+  label: string;
+  reasons: string[];
+  evaluatedAt: string;
+}
+
+/** Legacy chart helper shape used by TideChart */
 export interface TideChartPoint {
   time: string;
-  /** Relative height 0–100 for SVG chart */
   height: number;
   kind?: "high" | "low" | "now";
-}
-
-export interface TideDaySummary {
-  mul: string;
-  status: string;
-  times: TideTime[];
-  chartPoints: TideChartPoint[];
-  currentTimeLabel: string;
 }
 
 export interface WeatherSummary {

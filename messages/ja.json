@@ -34,7 +34,8 @@
     "source": "出典",
     "updated": "更新",
     "selectedPoint": "選択地点",
-    "myPage": "マイページ"
+    "myPage": "マイページ",
+    "privacy": "プライバシー"
   },
   "search": {
     "placeholder": "地域・場所・キーワードで検索",
@@ -433,5 +434,8 @@
     "importSkipped": "取り込みをスキップしました。",
     "importFailed": "取り込みに失敗しました。",
     "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）"
+  },
+  "a11y": {
+    "skipToContent": "本文へスキップ"
   }
 }

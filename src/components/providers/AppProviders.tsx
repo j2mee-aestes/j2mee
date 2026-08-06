@@ -1,5 +1,7 @@
 "use client";
 
+import { AppErrorBoundary } from "@/components/common/AppErrorBoundary";
+import { SkipLink } from "@/components/common/SkipLink";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { LocaleProvider } from "@/context/LocaleContext";
 import { ScheduleProvider } from "@/context/ScheduleContext";
@@ -9,7 +11,12 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <LocaleProvider>
-        <ScheduleProvider>{children}</ScheduleProvider>
+        <AppErrorBoundary>
+          <SkipLink />
+          <ScheduleProvider>
+            <div id="main-content">{children}</div>
+          </ScheduleProvider>
+        </AppErrorBoundary>
       </LocaleProvider>
     </SessionProvider>
   );

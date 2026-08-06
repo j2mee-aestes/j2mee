@@ -9,6 +9,7 @@
     "lint": "eslint",
     "check:i18n": "node scripts/check-translations.mjs",
     "test:auth": "node --test src/server/__tests__/ownership.test.mjs",
+    "test": "node --test src/server/__tests__/*.mjs src/lib/__tests__/*.mjs",
     "postinstall": "prisma generate"
   },
   "dependencies": {

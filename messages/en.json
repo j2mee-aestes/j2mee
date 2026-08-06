@@ -34,7 +34,8 @@
     "source": "Source",
     "updated": "Updated",
     "selectedPoint": "Selected point",
-    "myPage": "My page"
+    "myPage": "My page",
+    "privacy": "Privacy"
   },
   "search": {
     "placeholder": "Search by area, place, or keyword",
@@ -433,5 +434,8 @@
     "importSkipped": "Import skipped.",
     "importFailed": "Import failed.",
     "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
   }
 }

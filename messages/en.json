@@ -35,14 +35,17 @@
     "updated": "Updated",
     "selectedPoint": "Selected point",
     "myPage": "My page",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "home": "Home"
   },
   "search": {
     "placeholder": "Search by area, place, or keyword",
     "button": "Search",
-    "noResults": "No search results.",
+    "noResults": "No results found.",
     "resultsLabel": "Search results",
-    "movedTo": "Moved to “{name}”."
+    "movedTo": "Moved to “{name}”.",
+    "openInKakao": "Search “{query}” on Kakao Map",
+    "externalHint": "No PadoPado places matched — continue on Kakao Map."
   },
   "categories": {
     "all": {
@@ -69,6 +72,16 @@
       "label": "Plogging routes",
       "shortLabel": "Plogging",
       "description": "Coastal cleanup walking routes"
+    },
+    "attraction": {
+      "label": "Attractions",
+      "shortLabel": "Sights",
+      "description": "Coastal landmarks and scenic spots"
+    },
+    "leisure": {
+      "label": "Marine leisure",
+      "shortLabel": "Leisure",
+      "description": "Surfing, yacht, kayak, coastal bike and more"
     }
   },
   "map": {
@@ -439,5 +452,120 @@
   },
   "a11y": {
     "skipToContent": "Skip to content"
+  },
+  "home": {
+    "nav": {
+      "label": "Main menu",
+      "map": "Map",
+      "contribute": "Contribute",
+      "sources": "Data sources",
+      "privacy": "Privacy",
+      "login": "Log in"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "Fishing, markets, bins, plogging, sights, and leisure — kind steps connecting people and the sea",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "Open map",
+      "exploreMap": "Explore the map",
+      "contribute": "Contribute a place",
+      "getStarted": "Get started"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "Safer, kinder ways to enjoy the coast",
+      "body": "PadoPado brings fishing spots, seafood markets, bins, plogging routes, attractions, and leisure onto one map — with weather/wave context and community tips."
+    },
+    "features": {
+      "cta": "View",
+      "fishing": {
+        "title": "Fishing spots",
+        "body": "Check restrictions, safety, and target species."
+      },
+      "plogging": {
+        "title": "Plogging routes",
+        "body": "Preview walking time and crossings in a popup."
+      },
+      "bins": {
+        "title": "Bin map",
+        "body": "GeoJSON bins plus photo reports."
+      },
+      "attractions": {
+        "title": "Sights & leisure",
+        "body": "Explore starred attractions and leisure pins."
+      }
+    },
+    "partners": {
+      "lead": "Data & services we reference",
+      "names": "KMA · Kakao Map · KHOA · PadoPado community",
+      "link": "See data sources"
+    },
+    "footerCta": {
+      "title": "Start on the map",
+      "body": "Privacy and data sources are always available in the menu."
+    }
+  },
+  "sourcesPage": {
+    "title": "Data sources",
+    "body": "Public sources PadoPado references. Tap an item to open the original site.",
+    "backHome": "Back home"
+  },
+  "contribute": {
+    "title": "Contribute places",
+    "body": "Report bins, attractions, and fishing spots. After review they appear on the map. Attractions and fishing spots target 500 community votes for official listing.",
+    "bins": "Report a bin",
+    "binsBody": "Send a photo and location for collection points.",
+    "attractions": "Report an attraction",
+    "attractionsBody": "Nominate a sight and collect votes.",
+    "fishing": "Report a fishing spot",
+    "fishingBody": "Nominate a fishing point for community votes.",
+    "mileageNote": "Approved reports earn mileage (later redeemable for points).",
+    "voteThreshold": "Official listing target: {count} votes",
+    "formName": "Place name",
+    "formAddress": "Address / location note",
+    "formLat": "Latitude",
+    "formLng": "Longitude",
+    "formPhoto": "On-site photo",
+    "formNote": "Notes",
+    "useMyLocation": "Use my location",
+    "submit": "Submit report",
+    "submitted": "Report received. We’ll review it before publishing.",
+    "submitFailed": "Could not submit the report.",
+    "needAuth": "Please log in to contribute.",
+    "back": "Back to contribute menu"
+  },
+  "ploggingPopup": {
+    "title": "Route preview",
+    "walkingTime": "Estimated walking time",
+    "minutes": "{count} min",
+    "distance": "Distance",
+    "crosswalks": "Crosswalks on route",
+    "crosswalkCount": "{count}",
+    "crossings": "Crossing notes",
+    "surface": "Surface & walkability",
+    "openDetail": "Open details",
+    "close": "Close"
+  },
+  "attraction": {
+    "title": "Attraction",
+    "view3d": "View in 3D",
+    "close3d": "Close 3D",
+    "highlights": "Highlights",
+    "votes": "Community votes {count}"
+  },
+  "leisure": {
+    "title": "Leisure & sports",
+    "activity": "Activity",
+    "season": "Season notes"
+  },
+  "wave": {
+    "title": "Live waves",
+    "height": "Wave height",
+    "period": "Period",
+    "unavailable": "Wave data unavailable.",
+    "source": "KMA marine weather"
   }
 }

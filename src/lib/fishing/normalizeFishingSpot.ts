@@ -34,5 +34,6 @@ export function normalizeFishingSpot(
     sourceUrl: raw.sourceUrl,
     nearbyMarket: raw.nearbyMarket,
     nearbyMarketDistanceKm: raw.nearbyMarketDistanceKm,
+    imageUrls: raw.imageUrls,
   };
 }

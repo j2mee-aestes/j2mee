@@ -10,6 +10,8 @@ const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   restaurant: "🍽",
   trash: "♻️",
   plogging: "👟",
+  attraction: "⭐",
+  leisure: "⛵",
 };
 
 const WASTE_SYMBOL: Record<string, string> = {

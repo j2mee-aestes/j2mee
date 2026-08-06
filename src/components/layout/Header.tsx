@@ -26,6 +26,7 @@ interface HeaderProps {
   searchNotice: string | null;
   searchResults: SearchablePlace[];
   onSelectSearchResult: (locationId: string) => void;
+  externalKakaoQuery?: string | null;
 }
 
 const navLinkClass =
@@ -43,6 +44,7 @@ export function Header({
   searchNotice,
   searchResults,
   onSelectSearchResult,
+  externalKakaoQuery = null,
 }: HeaderProps) {
   const { t } = useTranslations();
 
@@ -59,7 +61,7 @@ export function Header({
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </IconButton>
 
-          <div className="group flex min-w-0 items-center gap-3">
+          <Link href="/" className="group flex min-w-0 items-center gap-3">
             <div
               className="ui-glow-pulse flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(145deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.7)] transition duration-300 group-hover:scale-[1.03]"
               aria-hidden
@@ -74,7 +76,7 @@ export function Header({
                 {t("common.serviceTagline")}
               </p>
             </div>
-          </div>
+          </Link>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
             <div className="hidden items-center gap-1.5 md:flex">
@@ -90,6 +92,12 @@ export function Header({
             </Link>
             <Link href="/schedule" className={`hidden sm:inline-flex ${navCtaClass}`}>
               {t("common.schedule")}
+            </Link>
+            <Link href="/sources" className={`hidden lg:inline-flex ${navLinkClass}`}>
+              {t("home.nav.sources")}
+            </Link>
+            <Link href="/contribute" className={`hidden md:inline-flex ${navLinkClass}`}>
+              {t("home.nav.contribute")}
             </Link>
             <Link href="/privacy" className={`hidden lg:inline-flex ${navLinkClass}`}>
               {t("common.privacy")}
@@ -147,6 +155,22 @@ export function Header({
           </p>
         ) : null}
 
+        {externalKakaoQuery ? (
+          <div className="ui-rise rounded-2xl border border-[var(--color-border)] bg-white/80 px-3 py-2 text-xs sm:text-sm">
+            <p className="text-[var(--color-text-secondary)]">
+              {t("search.externalHint")}
+            </p>
+            <a
+              href={`https://map.kakao.com/?q=${encodeURIComponent(externalKakaoQuery)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-1 inline-flex font-semibold text-[var(--color-accent-strong)]"
+            >
+              {t("search.openInKakao", { query: externalKakaoQuery })} →
+            </a>
+          </div>
+        ) : null}
+
         {searchResults.length > 0 ? (
           <div
             className="ui-rise glass-panel rounded-2xl p-2"
@@ -191,6 +215,12 @@ export function Header({
               </IconButton>
               <Link href="/activities" className={navLinkClass}>
                 {t("common.activities")}
+              </Link>
+              <Link href="/contribute" className={navLinkClass}>
+                {t("home.nav.contribute")}
+              </Link>
+              <Link href="/sources" className={navLinkClass}>
+                {t("home.nav.sources")}
               </Link>
               <Link href="/schedule" className={navCtaClass}>
                 {t("common.schedule")}

@@ -44,7 +44,11 @@
       "en": "A popular breakwater near Ilgwang Beach, easy for beginners and families.",
       "ja": "日光海水浴場エリアの代表的な防波堤ポイントで、初心者や家族連れにもアクセスしやすいです。",
       "zh-CN": "日光海水浴场一带代表性的防波堤钓点，适合新手和家庭。"
-    }
+    },
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+      "https://placehold.co/800x500/0284c7/ffffff?text=Hakri"
+    ]
   },
   {
     "id": "loc-ilgwang-tetrapod",
@@ -78,7 +82,10 @@
     "lastVerifiedAt": "2026-08-04",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 3.8
+    "nearbyMarketDistanceKm": 3.8,
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1439405326854-014607f694d7?w=800&q=80"
+    ]
   },
   {
     "id": "loc-idong",
@@ -151,7 +158,11 @@
       "en": "Daebyeon Port Breakwater",
       "ja": "大辺港防波堤",
       "zh-CN": "大边港防波堤"
-    }
+    },
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80",
+      "https://placehold.co/800x500/0369a1/ffffff?text=Daebyeon"
+    ]
   },
   {
     "id": "loc-jukseong",
@@ -184,7 +195,11 @@
     "lastVerifiedAt": "2026-07-28",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 3.2
+    "nearbyMarketDistanceKm": 3.2,
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=800&q=80",
+      "https://placehold.co/800x500/0ea5e9/ffffff?text=Jukseong"
+    ]
   },
   {
     "id": "loc-imrang",

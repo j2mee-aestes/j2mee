@@ -1,4 +1,5 @@
 import { mockWeatherProvider } from "@/lib/weather/mockWeatherProvider";
+import { kmaWeatherProvider } from "@/lib/weather/kmaWeatherProvider";
 import { normalizeWeatherData } from "@/lib/weather/normalizeWeatherData";
 import type { WeatherProvider } from "@/lib/weather/weatherProvider";
 import type { Coordinates } from "@/types/map";
@@ -9,11 +10,14 @@ const CACHE_TTL_MS = process.env.NODE_ENV === "development" ? 30_000 : 15 * 60_0
 
 function getWeatherProvider(): WeatherProvider {
   const hasRealConfig =
-    Boolean(process.env.WEATHER_API_KEY?.trim()) &&
-    Boolean(process.env.WEATHER_API_BASE_URL?.trim());
+    Boolean(process.env.KMA_API_KEY?.trim() || process.env.WEATHER_API_KEY?.trim()) &&
+    Boolean(
+      process.env.KMA_API_BASE_URL?.trim() ||
+        process.env.WEATHER_API_BASE_URL?.trim(),
+    );
 
   if (hasRealConfig) {
-    return mockWeatherProvider;
+    return kmaWeatherProvider;
   }
 
   return mockWeatherProvider;

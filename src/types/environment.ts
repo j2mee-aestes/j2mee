@@ -48,6 +48,11 @@ export interface PloggingRoute {
   cautionNotes?: string[];
   facilities?: string[];
   recommendedTimeDescription?: string;
+  walkingMinutes?: number;
+  crosswalkCount?: number;
+  crossingNotes?: string[];
+  surfaceNotes?: string[];
+  elevationGainM?: number;
   verificationStatus: VerificationStatus;
   lastVerifiedAt?: string;
   sourceName?: string;

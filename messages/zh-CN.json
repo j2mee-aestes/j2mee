@@ -35,14 +35,17 @@
     "updated": "更新",
     "selectedPoint": "所选地点",
     "myPage": "我的页面",
-    "privacy": "隐私说明"
+    "privacy": "隐私说明",
+    "home": "首页"
   },
   "search": {
     "placeholder": "按地区、地点或关键词搜索",
     "button": "搜索",
-    "noResults": "没有搜索结果。",
+    "noResults": "没有结果。",
     "resultsLabel": "搜索结果",
-    "movedTo": "已移动到“{name}”。"
+    "movedTo": "已移动到“{name}”。",
+    "openInKakao": "在 Kakao Map 搜索“{query}”",
+    "externalHint": "没有匹配的 PadoPado 地点 — 可继续在 Kakao Map 搜索。"
   },
   "categories": {
     "all": {
@@ -69,6 +72,16 @@
       "label": "净滩路线",
       "shortLabel": "净滩",
       "description": "海岸清洁步行路线"
+    },
+    "attraction": {
+      "label": "景点",
+      "shortLabel": "景点",
+      "description": "海岸名胜与散步点"
+    },
+    "leisure": {
+      "label": "海洋休闲",
+      "shortLabel": "休闲",
+      "description": "冲浪、游艇、皮划艇、海滨骑行等"
     }
   },
   "map": {
@@ -439,5 +452,120 @@
   },
   "a11y": {
     "skipToContent": "跳到正文"
+  },
+  "home": {
+    "nav": {
+      "label": "主菜单",
+      "map": "地图",
+      "contribute": "地点上报",
+      "sources": "数据来源",
+      "privacy": "隐私",
+      "login": "登录"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "钓鱼、水产市场、垃圾桶、拾荒健走、景点与休闲 — 连接人与海的善意脚步",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "打开地图",
+      "exploreMap": "查看地图",
+      "contribute": "上报地点",
+      "getStarted": "开始"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "更安全、更友善地享受海岸",
+      "body": "PadoPado 在一张地图上提供钓点、市场、垃圾桶、拾荒路线、景点与休闲信息，并结合气象/海浪与用户上报。"
+    },
+    "features": {
+      "cta": "查看",
+      "fishing": {
+        "title": "钓点",
+        "body": "查看限制、安全与目标鱼种。"
+      },
+      "plogging": {
+        "title": "拾荒路线",
+        "body": "弹窗预览步行时间与人行横道。"
+      },
+      "bins": {
+        "title": "垃圾桶地图",
+        "body": "支持 GeoJSON 与照片上报。"
+      },
+      "attractions": {
+        "title": "景点与休闲",
+        "body": "星标景点与休闲点位。"
+      }
+    },
+    "partners": {
+      "lead": "参考的数据与服务",
+      "names": "气象厅 · Kakao Map · 国立海洋调查院 · 社区",
+      "link": "查看数据来源"
+    },
+    "footerCta": {
+      "title": "从地图开始",
+      "body": "隐私与数据来源可随时在菜单中查看。"
+    }
+  },
+  "sourcesPage": {
+    "title": "数据来源",
+    "body": "PadoPado 参考的公开资料。点击即可打开原文站点。",
+    "backHome": "返回首页"
+  },
+  "contribute": {
+    "title": "地点上报",
+    "body": "上报垃圾桶、景点与钓点。审核后反映到地图。景点与钓点目标社区投票 500 票后考虑正式收录。",
+    "bins": "上报垃圾桶",
+    "binsBody": "用照片与位置告知回收点。",
+    "attractions": "上报景点",
+    "attractionsBody": "提名景点并收集投票。",
+    "fishing": "上报钓点",
+    "fishingBody": "提名钓点并收集社区投票。",
+    "mileageNote": "审核通过后可获得里程（后续可兑换积分）。",
+    "voteThreshold": "正式收录目标：{count} 票",
+    "formName": "地点名称",
+    "formAddress": "地址/位置说明",
+    "formLat": "纬度",
+    "formLng": "经度",
+    "formPhoto": "现场照片",
+    "formNote": "备注",
+    "useMyLocation": "使用当前位置",
+    "submit": "提交",
+    "submitted": "已收到上报，审核后发布。",
+    "submitFailed": "提交失败。",
+    "needAuth": "上报需要登录。",
+    "back": "返回上报菜单"
+  },
+  "ploggingPopup": {
+    "title": "路线预览",
+    "walkingTime": "预计步行时间",
+    "minutes": "{count} 分钟",
+    "distance": "距离",
+    "crosswalks": "人行横道",
+    "crosswalkCount": "{count} 处",
+    "crossings": "通行提示",
+    "surface": "路面",
+    "openDetail": "查看详情",
+    "close": "关闭"
+  },
+  "attraction": {
+    "title": "景点",
+    "view3d": "3D 查看",
+    "close3d": "关闭 3D",
+    "highlights": "亮点",
+    "votes": "社区投票 {count}"
+  },
+  "leisure": {
+    "title": "休闲运动",
+    "activity": "活动类型",
+    "season": "季节说明"
+  },
+  "wave": {
+    "title": "实时海浪",
+    "height": "浪高",
+    "period": "周期",
+    "unavailable": "无法获取海浪信息。",
+    "source": "气象厅海洋气象"
   }
 }

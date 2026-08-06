@@ -49,6 +49,7 @@ export interface FishingSpot {
   sourceUrl?: string;
   nearbyMarket?: string;
   nearbyMarketDistanceKm?: number;
+  imageUrls?: string[];
 }
 
 /** Non-fishing map places (market, trash, etc.) */

@@ -4,6 +4,7 @@ import { Card } from "@/components/common/Card";
 import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { EmptyState } from "@/components/common/EmptyState";
 import { TextButton } from "@/components/common/IconButton";
+import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
 import { BusinessStatusBadge } from "@/components/partners/BusinessStatusBadge";
 import { CatchPolicySection } from "@/components/partners/CatchPolicySection";
 import { PartnerInquiryForm } from "@/components/partners/PartnerInquiryForm";
@@ -94,6 +95,18 @@ export function PartnerDetailPanel({
             {partner.lastVerifiedAt ? ` · 마지막 확인일 ${partner.lastVerifiedAt}` : ""}
           </p>
         </div>
+
+        <PlaceImageGallery
+          images={
+            partner.imageUrls?.length
+              ? partner.imageUrls
+              : partner.imageUrl
+                ? [partner.imageUrl]
+                : undefined
+          }
+          alt={partner.name}
+          pendingLabel="이미지 준비 중"
+        />
 
         {distanceKm !== null && distanceKm !== undefined && originLabel ? (
           <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-xs text-[var(--color-text-secondary)]">

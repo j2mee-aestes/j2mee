@@ -56,5 +56,7 @@ export function normalizePloggingRoute(route: PloggingRoute): PloggingRoute {
     connectedWastePointIds: route.connectedWastePointIds ?? [],
     cautionNotes: route.cautionNotes ?? [],
     facilities: route.facilities ?? [],
+    crossingNotes: route.crossingNotes ?? [],
+    surfaceNotes: route.surfaceNotes ?? [],
   };
 }

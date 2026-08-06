@@ -1,6 +1,6 @@
 /**
  * Aggregated mock map locations for Kakao marker rendering.
- * Fishing, partners, waste points, and plogging come from repositories.
+ * Fishing, partners, waste points, plogging, attractions, and leisure come from repositories.
  */
 import type { MapLocation } from "@/types/map";
 import { getAllFishingSpots } from "@/lib/fishing/fishingSpotRepository";
@@ -10,6 +10,10 @@ import {
   searchPartners,
 } from "@/lib/partners/partnerRepository";
 import { partnerPlaceToMapLocation } from "@/lib/map/partnerMapLocation";
+import {
+  attractionPlaceToMapLocation,
+  leisurePlaceToMapLocation,
+} from "@/lib/map/attractionLeisureMapLocation";
 import {
   ploggingRouteToMapLocations,
   wastePointToMapLocation,
@@ -24,6 +28,18 @@ import {
   getWastePointById,
   searchWastePoints,
 } from "@/lib/environment/wastePointRepository";
+import {
+  getAllAttractions,
+  getAttractionById,
+  searchAttractions,
+} from "@/lib/attractions/attractionRepository";
+import {
+  getAllLeisurePlaces,
+  getLeisurePlaceById,
+  searchLeisurePlaces,
+} from "@/lib/leisure/leisureRepository";
+import type { AttractionPlace } from "@/types/attraction";
+import type { LeisurePlace } from "@/types/leisure";
 import type { FishingSpot } from "@/types/fishing";
 import type { PartnerPlace } from "@/types/partner";
 import type { PloggingRoute, WastePoint } from "@/types/environment";
@@ -32,7 +48,9 @@ export type SearchablePlace =
   | FishingSpot
   | PartnerPlace
   | WastePoint
-  | PloggingRoute;
+  | PloggingRoute
+  | AttractionPlace
+  | LeisurePlace;
 
 function fishingSpotToMapLocation(spot: FishingSpot): MapLocation {
   return {
@@ -52,6 +70,8 @@ export const mockMapLocations: MapLocation[] = [
   ...getAllPartners().map(partnerPlaceToMapLocation),
   ...getAllWastePoints().map(wastePointToMapLocation),
   ...getAllPloggingRoutes().flatMap(ploggingRouteToMapLocations),
+  ...getAllAttractions().map(attractionPlaceToMapLocation),
+  ...getAllLeisurePlaces().map(leisurePlaceToMapLocation),
 ];
 
 export function getLocationDetailById(
@@ -73,6 +93,14 @@ export function getLocationDetailById(
   const route = getPloggingRouteById(routeId);
   if (route) {
     return route;
+  }
+  const attraction = getAttractionById(id);
+  if (attraction) {
+    return attraction;
+  }
+  const leisure = getLeisurePlaceById(id);
+  if (leisure) {
+    return leisure;
   }
   return null;
 }
@@ -103,6 +131,8 @@ export function searchMockLocations(query: string): SearchablePlace[] {
     ...searchPartners(query),
     ...searchWastePoints(query),
     ...searchPloggingRoutes(query),
+    ...searchAttractions(query),
+    ...searchLeisurePlaces(query),
   ];
 }
 
@@ -134,4 +164,25 @@ export function isPloggingRoute(
       "difficulty" in value &&
       Array.isArray((value as PloggingRoute).coordinates),
   );
+}
+
+export function isAttraction(
+  value: SearchablePlace | null,
+): value is AttractionPlace {
+  return Boolean(
+    value &&
+      "verificationStatus" in value &&
+      !("activityType" in value) &&
+      !("services" in value) &&
+      !("spotType" in value) &&
+      !("status" in value) &&
+      !("startPoint" in value) &&
+      !("difficulty" in value),
+  );
+}
+
+export function isLeisure(
+  value: SearchablePlace | null,
+): value is LeisurePlace {
+  return Boolean(value && "activityType" in value);
 }

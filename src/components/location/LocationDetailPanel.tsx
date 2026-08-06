@@ -3,6 +3,7 @@
 import { Card } from "@/components/common/Card";
 import { EmptyState } from "@/components/common/EmptyState";
 import { IconButton, TextButton } from "@/components/common/IconButton";
+import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
 import { LocationFeatureBadge } from "@/components/location/LocationFeatureBadge";
 import { ActivityStatusCard } from "@/components/safety/ActivityStatusCard";
 import { useTranslations } from "@/context/LocaleContext";
@@ -151,18 +152,11 @@ export function LocationDetailPanel({
           ) : null}
         </div>
 
-        <div
-          className="relative h-28 overflow-hidden rounded-2xl border border-[var(--color-border)]"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #bae6fd 0%, #7dd3fc 35%, #99f6e4 70%, #bbf7d0 100%)",
-          }}
-          aria-hidden
-        >
-          <div className="absolute bottom-2 left-2 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-medium text-[var(--color-text-secondary)] backdrop-blur-sm">
-            {t("fishing.imagePending")}
-          </div>
-        </div>
+        <PlaceImageGallery
+          images={fishing.imageUrls}
+          alt={displayName}
+          pendingLabel={t("fishing.imagePending")}
+        />
 
         <div className="flex flex-wrap gap-2">
           {fishing.beginnerFriendly ? (

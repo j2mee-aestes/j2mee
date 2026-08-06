@@ -35,14 +35,17 @@
     "updated": "업데이트",
     "selectedPoint": "선택 지점",
     "myPage": "마이페이지",
-    "privacy": "개인정보 안내"
+    "privacy": "개인정보 안내",
+    "home": "홈"
   },
   "search": {
     "placeholder": "지역, 장소, 키워드로 검색해보세요",
     "button": "검색",
     "noResults": "검색 결과가 없습니다.",
     "resultsLabel": "검색 결과",
-    "movedTo": "“{name}” 위치로 이동했습니다."
+    "movedTo": "“{name}” 위치로 이동했습니다.",
+    "openInKakao": "카카오맵에서 “{query}” 검색",
+    "externalHint": "파도파도 장소가 없으면 카카오맵에서 이어서 찾아보세요."
   },
   "categories": {
     "all": {
@@ -69,6 +72,16 @@
       "label": "플로깅 코스",
       "shortLabel": "플로깅 코스",
       "description": "해안 정화 산책 코스"
+    },
+    "attraction": {
+      "label": "관광 명소",
+      "shortLabel": "관광",
+      "description": "해안 명소와 산책 포인트"
+    },
+    "leisure": {
+      "label": "해양 레저",
+      "shortLabel": "레저",
+      "description": "서핑·요트·카약·자전거 등 해안 레저"
     }
   },
   "map": {
@@ -392,7 +405,7 @@
   },
   "metadata": {
     "homeTitle": "파도파도",
-    "homeDescription": "낚시 장소, 수산시장·손질·식당, 쓰레기통·수거함, 플로깅 코스를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
+    "homeDescription": "낚시·수산시장·수거함·플로깅·관광·레저를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
     "scheduleTitle": "하루 일정 만들기 | 파도파도",
     "schedulesTitle": "저장된 일정 | 파도파도",
     "activitiesTitle": "활동 기록 | 파도파도",
@@ -439,5 +452,120 @@
   },
   "a11y": {
     "skipToContent": "본문으로 건너뛰기"
+  },
+  "home": {
+    "nav": {
+      "label": "주요 메뉴",
+      "map": "지도",
+      "contribute": "위치 제보",
+      "sources": "데이터 출처",
+      "privacy": "개인정보",
+      "login": "로그인"
+    },
+    "hero": {
+      "mediaLabel": "파도파도 소개 비주얼",
+      "tagline": "낚시·수산시장·수거함·플로깅·관광·레저를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
+      "pause": "소개 정지",
+      "play": "소개 재생"
+    },
+    "cta": {
+      "openMap": "지도 열기",
+      "exploreMap": "지도 살펴보기",
+      "contribute": "위치 제보하기",
+      "getStarted": "시작하기"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "바다를 즐기는 방법이 더 안전하고 친절해지도록",
+      "body": "파도파도는 낚시 포인트, 수산시장·손질, 쓰레기통, 플로깅 코스, 관광명소, 레저 정보를 한곳에서 보여줍니다. 기상·파도 참고 정보와 사용자 제보로 지도를 함께 키워 갑니다."
+    },
+    "features": {
+      "cta": "바로 보기",
+      "fishing": {
+        "title": "낚시 포인트",
+        "body": "제한·안전·대상 어종을 확인하고 일정을 세울 수 있습니다."
+      },
+      "plogging": {
+        "title": "플로깅 코스",
+        "body": "걷기 시간·횡단보도 등 코스 정보를 팝업으로 확인합니다."
+      },
+      "bins": {
+        "title": "쓰레기통 지도",
+        "body": "GeoJSON 기반 수거함 위치와 사진 제보를 지원합니다."
+      },
+      "attractions": {
+        "title": "관광·레저",
+        "body": "명소와 레저 스팟을 별표·핀으로 살펴보세요."
+      }
+    },
+    "partners": {
+      "lead": "참고하는 데이터·서비스",
+      "names": "기상청 · 카카오맵 · 국립해양조사원 · 파도파도 커뮤니티",
+      "link": "데이터 출처 자세히 보기"
+    },
+    "footerCta": {
+      "title": "지금 지도에서 시작해 보세요",
+      "body": "개인정보 안내와 데이터 출처는 메뉴에서 언제든 확인할 수 있습니다."
+    }
+  },
+  "sourcesPage": {
+    "title": "데이터 출처",
+    "body": "파도파도가 참고하는 공개 자료와 서비스입니다. 항목을 누르면 원문 사이트로 이동합니다.",
+    "backHome": "홈으로"
+  },
+  "contribute": {
+    "title": "위치 제보",
+    "body": "현장에서 확인한 쓰레기통·관광명소·낚시터를 제보해 주세요. 개발자 검토 후 지도에 반영됩니다. 관광명소·낚시터는 투표 500표 이상이면 공식 반영을 검토합니다.",
+    "bins": "쓰레기통 제보",
+    "binsBody": "사진과 위치정보로 수거함 위치를 알려 주세요.",
+    "attractions": "관광명소 제보",
+    "attractionsBody": "새로운 명소를 올리고 이웃의 투표를 모아 보세요.",
+    "fishing": "낚시터 제보",
+    "fishingBody": "낚시 포인트 후보를 올리고 커뮤니티 투표를 받습니다.",
+    "mileageNote": "검토 후 반영되면 마일리지가 적립됩니다. (추후 네이버 포인트 등 교환 예정)",
+    "voteThreshold": "공식 반영 기준: 투표 {count}표",
+    "formName": "장소 이름",
+    "formAddress": "주소·위치 설명",
+    "formLat": "위도",
+    "formLng": "경도",
+    "formPhoto": "현장 사진",
+    "formNote": "추가 설명",
+    "useMyLocation": "현재 위치 사용",
+    "submit": "제보 보내기",
+    "submitted": "제보가 접수되었습니다. 검토 후 반영됩니다.",
+    "submitFailed": "제보 전송에 실패했습니다.",
+    "needAuth": "제보하려면 로그인이 필요합니다.",
+    "back": "제보 메뉴로"
+  },
+  "ploggingPopup": {
+    "title": "코스 미리보기",
+    "walkingTime": "예상 걷기 시간",
+    "minutes": "{count}분",
+    "distance": "거리",
+    "crosswalks": "경로 횡단보도",
+    "crosswalkCount": "{count}곳",
+    "crossings": "횡단·교차 안내",
+    "surface": "노면·보행 환경",
+    "openDetail": "상세 보기",
+    "close": "닫기"
+  },
+  "attraction": {
+    "title": "관광명소",
+    "view3d": "3D로 보기",
+    "close3d": "3D 닫기",
+    "highlights": "하이라이트",
+    "votes": "커뮤니티 투표 {count}"
+  },
+  "leisure": {
+    "title": "레저·스포츠",
+    "activity": "활동 유형",
+    "season": "시즌 안내"
+  },
+  "wave": {
+    "title": "실시간 파도",
+    "height": "파고",
+    "period": "주기",
+    "unavailable": "파도 정보를 불러올 수 없습니다.",
+    "source": "기상청 해양기상"
   }
 }

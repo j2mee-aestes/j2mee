@@ -3,9 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { NearbyWastePointSection } from "@/components/environment/NearbyWastePointSection";
+import { PloggingCoursePopup } from "@/components/environment/PloggingCoursePopup";
 import { PloggingRouteDetail } from "@/components/environment/PloggingRouteDetail";
 import { PloggingRouteList } from "@/components/environment/PloggingRouteList";
 import { WastePointDetailPanel } from "@/components/environment/WastePointDetailPanel";
+import { AttractionDetailPanel } from "@/components/attractions/AttractionDetailPanel";
+import { LeisureDetailPanel } from "@/components/leisure/LeisureDetailPanel";
 import { DesktopSidebar } from "@/components/layout/DesktopSidebar";
 import { Header } from "@/components/layout/Header";
 import { MobileCategoryBar } from "@/components/layout/MobileCategoryBar";
@@ -13,20 +16,23 @@ import { LocationDetailPanel } from "@/components/location/LocationDetailPanel";
 import { MapSection } from "@/components/map/MapSection";
 import { NearbyPartnerSection } from "@/components/partners/NearbyPartnerSection";
 import { PartnerDetailPanel } from "@/components/partners/PartnerDetailPanel";
+import { WaveCard } from "@/components/weather/WaveCard";
 import { WeatherCard } from "@/components/weather/WeatherCard";
 import { SAFETY_THRESHOLDS } from "@/constants/safetyThresholds";
 import { useTranslations } from "@/context/LocaleContext";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSpots";
 import {
   getLocationDetailById,
+  isAttraction,
   isFishingSpot,
+  isLeisure,
   isPartnerPlace,
   isPloggingRoute,
   isWastePoint,
   searchMockLocations,
   type SearchablePlace,
 } from "@/data/mockMapLocations";
-import { useWeatherData } from "@/hooks/useSpotEnvironmentData";
+import { useWaveData, useWeatherData } from "@/hooks/useSpotEnvironmentData";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import { apiJson } from "@/lib/auth/clientApi";
 import { getWastePointById } from "@/lib/environment/wastePointRepository";
@@ -38,9 +44,10 @@ import {
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
 import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
 import type { CategoryFilter, Coordinates } from "@/types/map";
-import type { PloggingSession } from "@/types/environment";
+import type { PloggingRoute, PloggingSession } from "@/types/environment";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { CATEGORIES } from "@/constants/categories";
 
 function placeTypeForLocation(locationId: string): LocalFavorite["placeType"] {
   const place = getLocationDetailById(locationId);
@@ -49,6 +56,8 @@ function placeTypeForLocation(locationId: string): LocalFavorite["placeType"] {
   if (isPartnerPlace(place)) return place.type;
   if (isWastePoint(place)) return "trash";
   if (isPloggingRoute(place)) return "plogging";
+  if (isAttraction(place)) return "attraction";
+  if (isLeisure(place)) return "leisure";
   return "fishing";
 }
 
@@ -94,6 +103,12 @@ function resolvePlaceCategory(place: SearchablePlace): CategoryFilter {
   if (isPloggingRoute(place)) {
     return "plogging";
   }
+  if (isAttraction(place)) {
+    return "attraction";
+  }
+  if (isLeisure(place)) {
+    return "leisure";
+  }
   return "all";
 }
 
@@ -118,9 +133,14 @@ export function MapAppShell() {
   const initialDate = isValidDateParam(searchParams.get("date"))
     ? (searchParams.get("date") as string)
     : todayKst();
+  const initialCategoryParam = searchParams.get("category");
+  const initialCategory: CategoryFilter =
+    CATEGORIES.some((item) => item.id === initialCategoryParam)
+      ? (initialCategoryParam as CategoryFilter)
+      : "all";
 
   const [selectedCategory, setSelectedCategory] =
-    useState<CategoryFilter>("all");
+    useState<CategoryFilter>(initialCategory);
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
     initialSpot,
   );
@@ -139,6 +159,9 @@ export function MapAppShell() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchNotice, setSearchNotice] = useState<string | null>(null);
   const [searchResults, setSearchResults] = useState<SearchablePlace[]>([]);
+  const [externalKakaoQuery, setExternalKakaoQuery] = useState<string | null>(
+    null,
+  );
   const [panelNotice, setPanelNotice] = useState<string | null>(null);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [focusRequestId, setFocusRequestId] = useState(0);
@@ -146,6 +169,9 @@ export function MapAppShell() {
   const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
   const [ploggingSession, setPloggingSession] =
     useState<PloggingSession>(EMPTY_SESSION);
+  const [ploggingPreview, setPloggingPreview] = useState<PloggingRoute | null>(
+    null,
+  );
   const scheduleApi = useScheduleContext();
 
   const selectedLocation = useMemo(
@@ -168,6 +194,10 @@ export function MapAppShell() {
   const selectedRoute = isPloggingRoute(selectedLocation)
     ? selectedLocation
     : null;
+  const selectedAttraction = isAttraction(selectedLocation)
+    ? selectedLocation
+    : null;
+  const selectedLeisure = isLeisure(selectedLocation) ? selectedLocation : null;
 
   const relatedFishingSpot = useMemo(() => {
     if (!relatedFishingSpotId) {
@@ -206,6 +236,7 @@ export function MapAppShell() {
   }, [selectedRoute]);
 
   const weatherState = useWeatherData(fishingSpotId, selectedDate);
+  const waveState = useWaveData(fishingSpotId);
 
   const syncUrl = useCallback(
     (spotId: string | null, date: string) => {
@@ -255,33 +286,48 @@ export function MapAppShell() {
     if (!detail) {
       return;
     }
+    if (isPloggingRoute(detail)) {
+      setPloggingPreview(detail);
+      setSelectedCategory("plogging");
+      setSearchResults([]);
+      setSearchNotice(null);
+      setExternalKakaoQuery(null);
+      return;
+    }
     setSelectedLocationId(normalizedId);
     setSelectedCategory(resolvePlaceCategory(detail));
     if (isFishingSpot(detail)) {
       setRelatedFishingSpotId(detail.id);
     }
-    if (isPloggingRoute(detail)) {
-      setFitRouteRequestId((value) => value + 1);
-    } else {
-      setFocusRequestId((value) => value + 1);
-    }
+    setFocusRequestId((value) => value + 1);
     setPanelNotice(null);
     setSearchResults([]);
     setSearchNotice(null);
+    setExternalKakaoQuery(null);
   };
 
   const handleSelectLocation = (id: string) => {
     const normalizedId = id.endsWith("-end") ? id.replace(/-end$/, "") : id;
     const detail = getLocationDetailById(normalizedId);
+    if (detail && isPloggingRoute(detail)) {
+      setPloggingPreview(detail);
+      setSelectedCategory("plogging");
+      return;
+    }
     setSelectedLocationId(normalizedId);
     setPanelNotice(null);
     if (detail && isFishingSpot(detail)) {
       setRelatedFishingSpotId(detail.id);
     }
-    if (detail && isPloggingRoute(detail)) {
-      setSelectedCategory("plogging");
-      setFitRouteRequestId((value) => value + 1);
-    }
+  };
+
+  const confirmPloggingPreview = () => {
+    if (!ploggingPreview) return;
+    setSelectedLocationId(ploggingPreview.id);
+    setSelectedCategory("plogging");
+    setFitRouteRequestId((value) => value + 1);
+    setPloggingPreview(null);
+    setPanelNotice(null);
   };
 
   const handleAddPartnerToSchedule = (partnerId: string) => {
@@ -327,6 +373,7 @@ export function MapAppShell() {
     if (!trimmed) {
       setSearchNotice(null);
       setSearchResults([]);
+      setExternalKakaoQuery(null);
       return;
     }
 
@@ -334,9 +381,11 @@ export function MapAppShell() {
     if (results.length === 0) {
       setSearchResults([]);
       setSearchNotice(t("search.noResults"));
+      setExternalKakaoQuery(trimmed);
       return;
     }
 
+    setExternalKakaoQuery(null);
     if (results.length === 1) {
       selectAndFocusLocation(results[0].id);
       setSearchNotice(t("search.movedTo", { name: results[0].name }));
@@ -442,12 +491,14 @@ export function MapAppShell() {
           if (!value.trim()) {
             setSearchResults([]);
             setSearchNotice(null);
+            setExternalKakaoQuery(null);
           }
         }}
         onSearchSubmit={handleSearchSubmit}
         searchNotice={searchNotice}
         searchResults={searchResults}
         onSelectSearchResult={selectAndFocusLocation}
+        externalKakaoQuery={externalKakaoQuery}
       />
 
       <MobileCategoryBar
@@ -560,6 +611,14 @@ export function MapAppShell() {
               />
             ) : null}
 
+            {selectedAttraction ? (
+              <AttractionDetailPanel attraction={selectedAttraction} />
+            ) : null}
+
+            {selectedLeisure ? (
+              <LeisureDetailPanel place={selectedLeisure} />
+            ) : null}
+
             {selectedFishing ? (
               <LocationDetailPanel
                 location={selectedFishing}
@@ -578,7 +637,9 @@ export function MapAppShell() {
             {!selectedPartner &&
             !selectedWaste &&
             !selectedRoute &&
-            !selectedFishing ? (
+            !selectedFishing &&
+            !selectedAttraction &&
+            !selectedLeisure ? (
               <LocationDetailPanel
                 location={null}
                 isFavorite={false}
@@ -662,16 +723,32 @@ export function MapAppShell() {
             )}
 
             {fishingSpotId ? (
-              <WeatherCard
-                weather={weatherState.data}
-                loading={weatherState.loading}
-                error={weatherState.error}
-                onRetry={weatherState.reload}
-              />
+              <>
+                <WeatherCard
+                  weather={weatherState.data}
+                  loading={weatherState.loading}
+                  error={weatherState.error}
+                  onRetry={weatherState.reload}
+                />
+                <WaveCard
+                  wave={waveState.data}
+                  loading={waveState.loading}
+                  error={waveState.error}
+                  onRetry={waveState.reload}
+                />
+              </>
             ) : null}
           </aside>
         </main>
       </div>
+
+      {ploggingPreview ? (
+        <PloggingCoursePopup
+          route={ploggingPreview}
+          onClose={() => setPloggingPreview(null)}
+          onOpenDetail={confirmPloggingPreview}
+        />
+      ) : null}
     </div>
   );
 }

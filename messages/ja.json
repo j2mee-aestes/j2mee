@@ -35,14 +35,17 @@
     "updated": "更新",
     "selectedPoint": "選択地点",
     "myPage": "マイページ",
-    "privacy": "プライバシー"
+    "privacy": "プライバシー",
+    "home": "ホーム"
   },
   "search": {
     "placeholder": "地域・場所・キーワードで検索",
     "button": "検索",
-    "noResults": "検索結果がありません。",
+    "noResults": "結果がありません。",
     "resultsLabel": "検索結果",
-    "movedTo": "「{name}」へ移動しました。"
+    "movedTo": "「{name}」へ移動しました。",
+    "openInKakao": "カカオマップで「{query}」を検索",
+    "externalHint": "該当場所がない場合はカカオマップで続けて検索できます。"
   },
   "categories": {
     "all": {
@@ -69,6 +72,16 @@
       "label": "プロギングコース",
       "shortLabel": "プロギング",
       "description": "海岸清掃の散歩コース"
+    },
+    "attraction": {
+      "label": "観光スポット",
+      "shortLabel": "観光",
+      "description": "海岸の名所と散策ポイント"
+    },
+    "leisure": {
+      "label": "マリンレジャー",
+      "shortLabel": "レジャー",
+      "description": "サーフィン・ヨット・カヤック・自転車など"
     }
   },
   "map": {
@@ -439,5 +452,120 @@
   },
   "a11y": {
     "skipToContent": "本文へスキップ"
+  },
+  "home": {
+    "nav": {
+      "label": "メインメニュー",
+      "map": "地図",
+      "contribute": "位置投稿",
+      "sources": "データ出典",
+      "privacy": "プライバシー",
+      "login": "ログイン"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "釣り・市場・ゴミ箱・プロギング・観光・レジャーを一つの地図で",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "地図を開く",
+      "exploreMap": "地図を見る",
+      "contribute": "位置を投稿",
+      "getStarted": "はじめる"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "海をもっと安全に、やさしく",
+      "body": "パドパドは釣り場、水産市場、ゴミ箱、プロギング、観光、レジャーを一つの地図で案内します。"
+    },
+    "features": {
+      "cta": "見る",
+      "fishing": {
+        "title": "釣りポイント",
+        "body": "制限・安全・対象魚種を確認できます。"
+      },
+      "plogging": {
+        "title": "プロギング",
+        "body": "歩行時間や横断歩道をポップアップで確認。"
+      },
+      "bins": {
+        "title": "ゴミ箱マップ",
+        "body": "GeoJSONと写真投稿に対応。"
+      },
+      "attractions": {
+        "title": "観光・レジャー",
+        "body": "名所とレジャースポットを表示。"
+      }
+    },
+    "partners": {
+      "lead": "参照データ・サービス",
+      "names": "気象庁 · カカオマップ · 国立海洋調査院 · コミュニティ",
+      "link": "データ出典を見る"
+    },
+    "footerCta": {
+      "title": "地図から始めましょう",
+      "body": "プライバシーと出典はメニューから確認できます。"
+    }
+  },
+  "sourcesPage": {
+    "title": "データ出典",
+    "body": "参照している公開資料です。項目を押すと元サイトへ移動します。",
+    "backHome": "ホームへ"
+  },
+  "contribute": {
+    "title": "位置投稿",
+    "body": "ゴミ箱・観光名所・釣り場を投稿してください。審査後に地図へ反映します。観光・釣り場は投票500で公式反映を検討します。",
+    "bins": "ゴミ箱を投稿",
+    "binsBody": "写真と位置で回収場所を知らせてください。",
+    "attractions": "観光名所を投稿",
+    "attractionsBody": "新しい名所を投稿し投票を集めます。",
+    "fishing": "釣り場を投稿",
+    "fishingBody": "釣りポイント候補を投稿します。",
+    "mileageNote": "反映されるとマイレージが付与されます。",
+    "voteThreshold": "公式反映目安: 投票 {count}",
+    "formName": "場所名",
+    "formAddress": "住所・位置説明",
+    "formLat": "緯度",
+    "formLng": "経度",
+    "formPhoto": "現場写真",
+    "formNote": "補足",
+    "useMyLocation": "現在地を使う",
+    "submit": "送信",
+    "submitted": "受け付けました。審査後に反映します。",
+    "submitFailed": "送信に失敗しました。",
+    "needAuth": "投稿にはログインが必要です。",
+    "back": "投稿メニューへ"
+  },
+  "ploggingPopup": {
+    "title": "コースプレビュー",
+    "walkingTime": "推定歩行時間",
+    "minutes": "{count}分",
+    "distance": "距離",
+    "crosswalks": "横断歩道",
+    "crosswalkCount": "{count}箇所",
+    "crossings": "横断案内",
+    "surface": "路面",
+    "openDetail": "詳細",
+    "close": "閉じる"
+  },
+  "attraction": {
+    "title": "観光名所",
+    "view3d": "3Dで見る",
+    "close3d": "3Dを閉じる",
+    "highlights": "ハイライト",
+    "votes": "コミュニティ投票 {count}"
+  },
+  "leisure": {
+    "title": "レジャー・スポーツ",
+    "activity": "活動タイプ",
+    "season": "シーズン案内"
+  },
+  "wave": {
+    "title": "リアルタイム波",
+    "height": "波高",
+    "period": "周期",
+    "unavailable": "波情報を取得できません。",
+    "source": "気象庁海洋気象"
   }
 }

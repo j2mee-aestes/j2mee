@@ -1,0 +1,141 @@
+/**
+ * GeoJSON FeatureCollection mirrored from /public/data/waste-bins.geojson
+ * so bundlers can import without fetching public assets at runtime.
+ */
+export const wasteBinsGeoJson = {
+  type: "FeatureCollection" as const,
+  features: [
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2321, 35.2592] },
+      properties: {
+        id: "waste-geo-ilgwang-general-2",
+        name: "일광 주차장 옆 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 기장군 일광읍 일광해수욕장 주차장",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2342, 35.2618] },
+      properties: {
+        id: "waste-geo-ilgwang-recycling-1",
+        name: "일광 해안로 재활용 수거함",
+        type: "recycling",
+        address: "부산광역시 기장군 일광읍 해안로",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2338, 35.2556] },
+      properties: {
+        id: "waste-geo-ilgwang-line-2",
+        name: "일광 남측 폐낚싯줄 수거함",
+        type: "fishingLine",
+        address: "부산광역시 기장군 일광읍 학리 남측",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2268, 35.2256] },
+      properties: {
+        id: "waste-geo-daebyeon-general-2",
+        name: "대변항 어판장 인근 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 기장군 기장읍 대변항 어판장",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2274, 35.2232] },
+      properties: {
+        id: "waste-geo-daebyeon-line-1",
+        name: "대변항 방파제 폐낚싯줄 수거함",
+        type: "fishingLine",
+        address: "부산광역시 기장군 기장읍 대변항 방파제",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2254, 35.2245] },
+      properties: {
+        id: "waste-geo-daebyeon-recycling-1",
+        name: "대변항 입구 재활용 수거함",
+        type: "recycling",
+        address: "부산광역시 기장군 기장읍 기장해안로 대변항 입구",
+        status: "unknown",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2638, 35.3196] },
+      properties: {
+        id: "waste-geo-imrang-general-1",
+        name: "임랑 산책로 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 기장군 장안읍 임랑해수욕장 산책로",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2628, 35.3164] },
+      properties: {
+        id: "waste-geo-imrang-recycling-1",
+        name: "임랑 남측 재활용 수거함",
+        type: "recycling",
+        address: "부산광역시 기장군 장안읍 임랑리",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2148, 35.2442] },
+      properties: {
+        id: "waste-geo-gijang-general-1",
+        name: "기장읍 해안로 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 기장군 기장읍 기장해안로",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2162, 35.2428] },
+      properties: {
+        id: "waste-geo-gijang-line-1",
+        name: "기장 해안 폐낚싯줄 수거함",
+        type: "fishingLine",
+        address: "부산광역시 기장군 기장읍 해안 산책로",
+        status: "temporarilyUnavailable",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.1998, 35.1786] },
+      properties: {
+        id: "waste-geo-songjeong-general-1",
+        name: "송정해수욕장 산책로 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 해운대구 송정동 송정해수욕장",
+        status: "available",
+      },
+    },
+    {
+      type: "Feature" as const,
+      geometry: { type: "Point" as const, coordinates: [129.2272, 35.1908] },
+      properties: {
+        id: "waste-geo-jukseong-general-1",
+        name: "죽성리 해안 쓰레기통",
+        type: "generalTrash",
+        address: "부산광역시 기장군 기장읍 죽성리",
+        status: "available",
+      },
+    },
+  ],
+} as const;

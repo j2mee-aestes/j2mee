@@ -15,10 +15,21 @@ export function DataSourceInfo({
 }: DataSourceInfoProps) {
   return (
     <div
-      className={`rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 text-xs text-[var(--color-text-secondary)] ${className}`}
+      className={`rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/80 p-3 text-xs text-[var(--color-text-secondary)] ${className}`}
     >
       <p className="font-semibold text-[var(--color-text-primary)]">데이터 출처</p>
-      <p className="mt-1">{sourceName ?? "미상"}</p>
+      {sourceUrl ? (
+        <a
+          href={sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-1 inline-flex font-semibold text-[var(--color-accent-strong)] underline-offset-2 hover:underline"
+        >
+          {sourceName ?? "원문 보기"} →
+        </a>
+      ) : (
+        <p className="mt-1">{sourceName ?? "미상"}</p>
+      )}
       {isMock ? (
         <p className="mt-1 font-medium text-amber-800">
           현재는 UI 검증용 mock 데이터입니다.
@@ -28,16 +39,6 @@ export function DataSourceInfo({
       )}
       {lastVerifiedAt ? (
         <p className="mt-0.5">마지막 확인일: {lastVerifiedAt}</p>
-      ) : null}
-      {sourceUrl ? (
-        <a
-          href={sourceUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
-        >
-          원문 보기
-        </a>
       ) : null}
     </div>
   );

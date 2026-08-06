@@ -1,6 +1,7 @@
 "use client";
 
 import { TextButton } from "@/components/common/IconButton";
+import { useTranslations } from "@/context/LocaleContext";
 import type { ScheduleWarning } from "@/types/schedule";
 import { useEffect, useId, useRef } from "react";
 
@@ -27,6 +28,7 @@ export function ActivityStartConfirmation({
   onConfirm,
   onCancel,
 }: ActivityStartConfirmationProps) {
+  const { t } = useTranslations();
   const titleId = useId();
   const confirmRef = useRef<HTMLButtonElement>(null);
 
@@ -65,14 +67,13 @@ export function ActivityStartConfirmation({
         onClick={(event) => event.stopPropagation()}
       >
         <h2 id={titleId} className="text-base font-bold">
-          활동 시작 확인
+          {t("schedule.startConfirmTitle")}
         </h2>
         <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
           {title} · {date}
         </p>
         <p className="mt-3 rounded-[var(--radius-md)] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-900">
-          공개된 예보와 등록된 장소정보를 바탕으로 만든 일정입니다. 현장 통제,
-          기상특보와 시설 안내를 우선 확인해주세요.
+          {t("schedule.startConfirmBody")}
         </p>
 
         {[...blocking, ...warnings, ...info].length > 0 ? (
@@ -95,13 +96,13 @@ export function ActivityStartConfirmation({
           </ul>
         ) : (
           <p className="mt-3 text-xs text-[var(--color-text-secondary)]">
-            시작 전 확인된 주요 경고가 없습니다. 현장 안내를 우선하세요.
+            {t("schedule.noWarnings")}
           </p>
         )}
 
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <TextButton variant="ghost" className="w-full" onClick={onCancel}>
-            취소
+            {t("common.cancel")}
           </TextButton>
           <button
             ref={confirmRef}
@@ -110,7 +111,7 @@ export function ActivityStartConfirmation({
             onClick={onConfirm}
             className="inline-flex h-10 w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
-            확인하고 시작
+            {t("schedule.startConfirmAction")}
           </button>
         </div>
       </div>

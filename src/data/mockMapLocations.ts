@@ -77,14 +77,24 @@ export function getLocationDetailById(
   return null;
 }
 
+function normalizeSearch(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
 export function searchMockLocations(query: string): SearchablePlace[] {
-  const normalized = query.trim().toLowerCase();
+  const normalized = normalizeSearch(query);
   if (!normalized) {
     return [];
   }
 
   const fishingMatches = getAllFishingSpots().filter((spot) => {
-    const haystack = `${spot.name} ${spot.address}`.toLowerCase();
+    const localizedNames = spot.names
+      ? Object.values(spot.names).filter(Boolean).join(" ")
+      : "";
+    const fish = (spot.targetFish ?? []).join(" ");
+    const haystack = normalizeSearch(
+      `${spot.name} ${localizedNames} ${spot.address} ${fish} ${spot.description ?? ""}`,
+    );
     return haystack.includes(normalized);
   });
 

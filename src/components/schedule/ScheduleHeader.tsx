@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/common/Card";
+import { useTranslations } from "@/context/LocaleContext";
 import type { DaySchedule, TravelMode } from "@/types/schedule";
 
 interface ScheduleHeaderProps {
@@ -18,13 +19,18 @@ export function ScheduleHeader({
   onTravelModeChange,
   onFirstStartChange,
 }: ScheduleHeaderProps) {
-  const firstStart = schedule.items.find((item) => item.order === 1)?.startTime ?? "09:00";
+  const { t } = useTranslations();
+  const firstStart =
+    schedule.items.find((item) => item.order === 1)?.startTime ?? "09:00";
 
   return (
     <Card className="space-y-3 p-4">
       <div>
-        <label htmlFor="schedule-title" className="mb-1 block text-xs font-medium">
-          일정 제목
+        <label
+          htmlFor="schedule-title"
+          className="mb-1 block text-xs font-medium"
+        >
+          {t("schedule.titleLabel")}
         </label>
         <input
           id="schedule-title"
@@ -36,8 +42,11 @@ export function ScheduleHeader({
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
         <div>
-          <label htmlFor="schedule-date" className="mb-1 block text-xs font-medium">
-            날짜
+          <label
+            htmlFor="schedule-date"
+            className="mb-1 block text-xs font-medium"
+          >
+            {t("schedule.dateLabel")}
           </label>
           <input
             id="schedule-date"
@@ -52,7 +61,7 @@ export function ScheduleHeader({
             htmlFor="schedule-first-start"
             className="mb-1 block text-xs font-medium"
           >
-            첫 장소 시작시간
+            {t("schedule.firstStartLabel")}
           </label>
           <input
             id="schedule-first-start"
@@ -67,7 +76,7 @@ export function ScheduleHeader({
             htmlFor="schedule-travel-mode"
             className="mb-1 block text-xs font-medium"
           >
-            이동수단(참고)
+            {t("schedule.travelModeLabel")}
           </label>
           <select
             id="schedule-travel-mode"
@@ -77,8 +86,8 @@ export function ScheduleHeader({
             }
             className="h-10 w-full rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm"
           >
-            <option value="driving">차량</option>
-            <option value="walking">도보</option>
+            <option value="driving">{t("schedule.driving")}</option>
+            <option value="walking">{t("schedule.walking")}</option>
           </select>
         </div>
       </div>

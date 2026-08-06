@@ -1,11 +1,15 @@
 "use client";
 
+import { useTranslations } from "@/context/LocaleContext";
+
 interface CompletionHeroProps {
   title: string;
   date: string;
 }
 
 export function CompletionHero({ title, date }: CompletionHeroProps) {
+  const { t } = useTranslations();
+
   return (
     <section
       className="rounded-[var(--radius-lg)] border border-[var(--color-ocean-200)] bg-[var(--color-ocean-50)] p-5"
@@ -18,10 +22,10 @@ export function CompletionHero({ title, date }: CompletionHeroProps) {
         id="completion-hero-title"
         className="mt-1 text-2xl font-bold tracking-tight text-[var(--color-text-primary)]"
       >
-        오늘의 바다 일정이 완료되었어요!
+        {t("activity.completionHero")}
       </h1>
       <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
-        낚시부터 지역 방문과 플로깅까지 오늘의 활동을 정리했어요.
+        {t("activity.completionSub")}
       </p>
     </section>
   );

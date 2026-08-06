@@ -2,6 +2,8 @@
 
 import { FILTER_CHIP_CATEGORIES } from "@/constants/categories";
 import { getCategoryIcon } from "@/constants/categoryIcons";
+import { useTranslations } from "@/context/LocaleContext";
+import { getCategoryLabel } from "@/lib/i18n/categoryLabels";
 import type { CategoryFilter } from "@/types/map";
 
 interface MapFilterChipsProps {
@@ -13,11 +15,13 @@ export function MapFilterChips({
   selectedCategory,
   onCategoryChange,
 }: MapFilterChipsProps) {
+  const { t, locale } = useTranslations();
+
   return (
     <div
       className="flex max-w-full gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       role="toolbar"
-      aria-label="지도 필터"
+      aria-label={t("common.map")}
     >
       {FILTER_CHIP_CATEGORIES.map((category) => {
         const selected = selectedCategory === category.id;
@@ -40,7 +44,7 @@ export function MapFilterChips({
             >
               {getCategoryIcon(category.id, "h-3.5 w-3.5")}
             </span>
-            {category.shortLabel}
+            {getCategoryLabel(locale, category.id, "shortLabel")}
           </button>
         );
       })}

@@ -1,13 +1,20 @@
-export type LanguageCode = "KR" | "EN" | "JP" | "CN";
+import {
+  LOCALE_LABELS,
+  SUPPORTED_LOCALES,
+  type SupportedLocale,
+} from "@/i18n/config";
+
+/** @deprecated Prefer SupportedLocale from `@/i18n/config`. */
+export type LanguageCode = SupportedLocale;
 
 export interface LanguageOption {
-  code: LanguageCode;
+  code: SupportedLocale;
   label: string;
 }
 
-export const LANGUAGES: LanguageOption[] = [
-  { code: "KR", label: "한국어" },
-  { code: "EN", label: "English" },
-  { code: "JP", label: "日本語" },
-  { code: "CN", label: "中文" },
-];
+export const LANGUAGES: LanguageOption[] = SUPPORTED_LOCALES.map((code) => ({
+  code,
+  label: LOCALE_LABELS[code],
+}));
+
+export type { SupportedLocale };

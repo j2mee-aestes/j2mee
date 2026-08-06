@@ -11,6 +11,7 @@ import { NextActivityCard } from "@/components/activity/NextActivityCard";
 import { PartnerVisitResultForm } from "@/components/activity/PartnerVisitResultForm";
 import { PloggingResultForm } from "@/components/activity/PloggingResultForm";
 import { TextButton } from "@/components/common/IconButton";
+import { useTranslations } from "@/context/LocaleContext";
 import { useActivityRun } from "@/hooks/useActivityRun";
 import { calculateActivityProgress } from "@/lib/activity/calculateActivityProgress";
 import {
@@ -82,6 +83,7 @@ function hasMissingDisposal(run: ActivityRun): boolean {
 
 export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
   const router = useRouter();
+  const { t } = useTranslations();
   const { run, loading, error, storageOk, persist } =
     useActivityRun(activityRunId);
   const [userFocusItemId, setUserFocusItemId] = useState<string | null>(null);
@@ -172,7 +174,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
   if (loading) {
     return (
       <div className="mx-auto max-w-3xl px-3 py-8 text-sm text-[var(--color-text-secondary)]">
-        활동 기록을 불러오는 중…
+        {t("activity.loading")}
       </div>
     );
   }
@@ -181,11 +183,10 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
     return (
       <div className="mx-auto max-w-3xl space-y-3 px-3 py-8">
         <p className="text-sm text-red-700" role="alert">
-          {error ??
-            "활동 기록을 찾을 수 없습니다. 저장된 일정 목록에서 다시 확인해주세요."}
+          {error ?? t("activity.notFound")}
         </p>
         <Link href="/activities" className="text-sm text-[var(--color-ocean-700)] underline">
-          활동 기록 목록
+          {t("activity.historyList")}
         </Link>
       </div>
     );
@@ -194,7 +195,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
   if (run.status === "completed") {
     return (
       <div className="mx-auto max-w-3xl px-3 py-8 text-sm text-[var(--color-text-secondary)]">
-        완료 화면으로 이동 중…
+        {t("activity.redirectingComplete")}
       </div>
     );
   }
@@ -203,10 +204,10 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
     return (
       <div className="mx-auto max-w-3xl space-y-3 px-3 py-8">
         <p className="text-sm text-[var(--color-text-secondary)]">
-          취소된 일정입니다. 완료 결과에 포함되지 않습니다.
+          {t("activity.cancelledNotice")}
         </p>
         <Link href="/schedule" className="text-sm text-[var(--color-ocean-700)] underline">
-          새 일정 만들기
+          {t("activity.createNew")}
         </Link>
       </div>
     );
@@ -225,22 +226,18 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
         entry.status !== "skipped",
     );
     if (incompleteBefore) {
-      setOrderWarning(
-        "이전 활동이 아직 완료되지 않았습니다. 순서를 바꿔 시작할 수 있지만 일정 시간이 어긋날 수 있습니다.",
-      );
+      setOrderWarning(t("activity.orderOutOfSequence"));
     } else {
       setOrderWarning(null);
     }
     if (item.type === "fishing") {
       const spot = getFishingSpotById(item.sourceId);
       if (spot?.fishingAllowedStatus === "prohibited") {
-        setNotice(
-          "출입금지·낚시금지 장소는 시작할 수 없습니다. 건너뛰거나 일정에서 제거해주세요.",
-        );
+        setNotice(t("safety.prohibitedStart"));
         return;
       }
       if (spot?.fishingAllowedStatus === "restricted") {
-        setNotice("주의: 활동 비권장 장소입니다. 현장 안내를 우선 확인하세요.");
+        setNotice(t("safety.restrictedStart"));
       }
     }
     setUserFocusItemId(null);
@@ -286,17 +283,16 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
           href="/activities"
           className="text-xs font-medium text-[var(--color-ocean-700)]"
         >
-          활동 기록
+          {t("common.activities")}
         </Link>
         <TextButton type="button" variant="ghost" onClick={() => setStopOpen(true)}>
-          일정 중단하기
+          {t("activity.stop")}
         </TextButton>
       </div>
 
       {!storageOk ? (
         <p className="rounded-[var(--radius-md)] border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900" role="status">
-          이 브라우저에서는 활동 기록을 저장할 수 없습니다. 현재 화면을 닫으면
-          기록이 사라질 수 있습니다.
+          {t("activity.storageUnavailable")}
         </p>
       ) : null}
 
@@ -312,7 +308,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
       ) : null}
       {delayHint ? (
         <p className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-3 py-2 text-xs text-[var(--color-text-secondary)]" role="status">
-          {delayHint} 안내만 제공하며 일정 시간은 자동 변경되지 않습니다.
+          {delayHint} {t("activity.delayAutoNote")}
         </p>
       ) : null}
 
@@ -429,7 +425,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
           } else if (item.status === "notStarted" || item.status === "skipped") {
             void handleStart(item);
           } else if (item.status === "inProgress") {
-            setNotice(`현재 진행 중: ${item.title}`);
+            setNotice(`${t("activity.current")}: ${item.title}`);
           }
         }}
       />
@@ -441,7 +437,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
             className="w-full min-h-11"
             onClick={() => setStopOpen(true)}
           >
-            일정 중단하기
+            {t("activity.stop")}
           </TextButton>
           <TextButton
             type="button"
@@ -449,7 +445,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
             className="w-full min-h-11"
             onClick={() => setFinishOpen(true)}
           >
-            오늘의 바다 일정 완료하기
+            {t("activity.finish")}
           </TextButton>
         </div>
       </div>

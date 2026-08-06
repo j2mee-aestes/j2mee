@@ -5,7 +5,7 @@ import { KakaoMap, type KakaoMapHandle } from "@/components/map/KakaoMap";
 import { MapControls } from "@/components/map/MapControls";
 import { MapFallback, MapSkeleton } from "@/components/map/MapFallback";
 import { MapFilterChips } from "@/components/map/MapFilterChips";
-import { UI_TEXT } from "@/constants/uiText";
+import { useTranslations } from "@/context/LocaleContext";
 import { mockMapLocations } from "@/data/mockMapLocations";
 import { getAllPloggingRoutes } from "@/lib/environment/ploggingRouteRepository";
 import { useKakaoMaps } from "@/hooks/useKakaoMaps";
@@ -45,6 +45,7 @@ export function MapSection({
   focusRequestId = 0,
   fitRouteRequestId = 0,
 }: MapSectionProps) {
+  const { t } = useTranslations();
   const { status, retry } = useKakaoMaps();
   const mapRef = useRef<KakaoMapHandle>(null);
   const [locating, setLocating] = useState(false);
@@ -93,7 +94,7 @@ export function MapSection({
 
   const handleCurrentLocation = () => {
     if (!navigator.geolocation) {
-      onNotice(UI_TEXT.locationUnsupported);
+      onNotice(t("map.locationUnsupported"));
       return;
     }
 
@@ -111,14 +112,14 @@ export function MapSection({
       (error) => {
         setLocating(false);
         if (error.code === error.PERMISSION_DENIED) {
-          onNotice(UI_TEXT.locationPermissionNeeded);
+          onNotice(t("map.locationPermissionNeeded"));
           return;
         }
         if (error.code === error.TIMEOUT) {
-          onNotice(UI_TEXT.locationTimeout);
+          onNotice(t("map.locationTimeout"));
           return;
         }
-        onNotice(UI_TEXT.locationUnavailable);
+        onNotice(t("map.locationUnavailable"));
       },
       {
         enableHighAccuracy: true,
@@ -130,7 +131,7 @@ export function MapSection({
 
   return (
     <section
-      aria-label="지도"
+      aria-label={t("common.map")}
       className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-card)] sm:min-h-[440px] lg:min-h-0"
     >
       <div className="pointer-events-none absolute inset-x-3 top-3 z-30 flex justify-center sm:inset-x-4 sm:justify-start">
@@ -179,7 +180,7 @@ export function MapSection({
             {visibleLocations.length === 0 && selectedCategory !== "plogging" ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-6">
                 <p className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white/95 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-sm">
-                  {UI_TEXT.noPlaces}
+                  {t("map.noPlaces")}
                 </p>
               </div>
             ) : null}

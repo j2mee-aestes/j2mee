@@ -1,9 +1,9 @@
 "use client";
 
-import { BusinessStatusBadge } from "@/components/partners/BusinessStatusBadge";
 import { TextButton } from "@/components/common/IconButton";
-import { PARTNER_TYPE_LABELS, PARTNER_VERIFICATION_LABELS } from "@/constants/partners";
-import { formatDistanceKm } from "@/lib/geo/calculateDistance";
+import { BusinessStatusBadge } from "@/components/partners/BusinessStatusBadge";
+import { useTranslations } from "@/context/LocaleContext";
+import { formatLocaleDistanceKm } from "@/lib/i18n/formatDistance";
 import { getBusinessStatus } from "@/lib/partners/getBusinessStatus";
 import type { NearbyPartnerResult } from "@/types/partner";
 
@@ -22,17 +22,18 @@ export function PartnerCard({
   onAddToSchedule,
   scheduleAdded = false,
 }: PartnerCardProps) {
+  const { t, locale } = useTranslations();
   const { partner, distanceKm, estimatedDriveMinutes } = result;
   const business = getBusinessStatus(partner.businessHours);
   const policy = partner.catchPolicy;
   const acceptanceLabel =
     policy?.acceptanceStatus === "accepted"
-      ? "외부 수산물 접수 가능"
+      ? t("partner.acceptanceAccepted")
       : policy?.acceptanceStatus === "conditional"
-        ? "외부 수산물 조건부 접수"
+        ? t("partner.acceptanceConditional")
         : policy?.acceptanceStatus === "notAccepted"
-          ? "외부 수산물 접수 불가"
-          : "접수 여부 확인 필요";
+          ? t("partner.acceptanceNotAccepted")
+          : t("partner.acceptanceUnknown");
 
   return (
     <article
@@ -54,7 +55,8 @@ export function PartnerCard({
               {partner.name}
             </h3>
             <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-              {PARTNER_TYPE_LABELS[partner.type]} · {formatDistanceKm(distanceKm)}
+              {t(`partner.type.${partner.type}`)} ·{" "}
+              {formatLocaleDistanceKm(distanceKm, locale)}
             </p>
             <p className="mt-0.5 truncate text-[11px] text-[var(--color-text-muted)]">
               {partner.address}
@@ -65,24 +67,33 @@ export function PartnerCard({
 
         <ul className="mt-2 space-y-0.5 text-xs text-[var(--color-text-secondary)]">
           <li>
-            {partner.services.catchCleaning ? "손질 가능" : "손질 정보 없음"}
+            {partner.services.catchCleaning
+              ? t("partner.cleaningYes")
+              : t("partner.cleaningUnknown")}
           </li>
           <li>
-            {partner.services.catchCooking ? "조리 가능" : "조리 정보 없음"}
+            {partner.services.catchCooking
+              ? t("partner.cookingYes")
+              : t("partner.cookingUnknown")}
           </li>
           <li>{acceptanceLabel}</li>
-          {policy?.reservationRequired || partner.services.reservationAvailable ? (
-            <li>사전 문의 권장</li>
+          {policy?.reservationRequired ||
+          partner.services.reservationAvailable ? (
+            <li>{t("partner.inquiryRecommended")}</li>
           ) : null}
           <li>
-            검증: {PARTNER_VERIFICATION_LABELS[partner.verificationStatus]}
+            {t("partner.verifiedPrefix", {
+              status: t(`partner.verification.${partner.verificationStatus}`),
+            })}
           </li>
           {estimatedDriveMinutes !== null ? (
             <li>
-              예상 차량 이동 {estimatedDriveMinutes}분 (직선거리 참고값)
+              {t("partner.driveEstimate", {
+                minutes: estimatedDriveMinutes,
+              })}
             </li>
           ) : (
-            <li>이동시간 정보 준비 중</li>
+            <li>{t("partner.drivePending")}</li>
           )}
         </ul>
       </button>
@@ -93,7 +104,7 @@ export function PartnerCard({
           className="h-8 flex-1 text-xs"
           onClick={() => onSelect(partner.id)}
         >
-          상세보기
+          {t("partner.viewDetail")}
         </TextButton>
         {onAddToSchedule ? (
           <TextButton
@@ -102,7 +113,9 @@ export function PartnerCard({
             disabled={scheduleAdded}
             onClick={() => onAddToSchedule(partner.id)}
           >
-            {scheduleAdded ? "일정 추가됨" : "일정에 추가"}
+            {scheduleAdded
+              ? t("partner.addedToSchedule")
+              : t("partner.addToSchedule")}
           </TextButton>
         ) : null}
       </div>

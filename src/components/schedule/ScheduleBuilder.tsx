@@ -9,6 +9,7 @@ import { ScheduleMapPreview } from "@/components/schedule/ScheduleMapPreview";
 import { ScheduleShareButton } from "@/components/schedule/ScheduleShareButton";
 import { ScheduleSummary } from "@/components/schedule/ScheduleSummary";
 import { ScheduleWarnings } from "@/components/schedule/ScheduleWarnings";
+import { useTranslations } from "@/context/LocaleContext";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import {
   getLocationDetailById,
@@ -32,6 +33,7 @@ export function ScheduleBuilder({
   seedFishingSpotId = null,
 }: ScheduleBuilderProps) {
   const router = useRouter();
+  const { t } = useTranslations();
   const scheduleApi = useScheduleContext();
   const [focusItemId, setFocusItemId] = useState<string | null>(null);
   const [localNotice, setLocalNotice] = useState<string | null>(null);
@@ -66,7 +68,7 @@ export function ScheduleBuilder({
   const handleOpenStart = () => {
     scheduleApi.clearNotice();
     if (scheduleApi.schedule.items.length === 0) {
-      setLocalNotice("활동을 시작하려면 장소를 한 개 이상 추가해주세요.");
+      setLocalNotice(t("schedule.needItems"));
       return;
     }
     setStartOpen(true);
@@ -91,9 +93,7 @@ export function ScheduleBuilder({
       setStartOpen(false);
       router.push(`/activity/${run.id}`);
     } catch {
-      setLocalNotice(
-        "활동 기록을 저장하지 못했습니다. 브라우저 저장소 권한을 확인해주세요.",
-      );
+      setLocalNotice(t("schedule.saveFailed"));
       setStarting(false);
     }
   };
@@ -103,11 +103,10 @@ export function ScheduleBuilder({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h1 className="text-xl font-bold text-[var(--color-text-primary)]">
-            하루 일정 만들기
+            {t("schedule.title")}
           </h1>
           <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-            낚시 → 수산시장(손질·식당 포함) → 플로깅 순서를 권장하지만 자유롭게
-            수정할 수 있습니다.
+            {t("schedule.subtitle")}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -115,19 +114,19 @@ export function ScheduleBuilder({
             href="/"
             className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
           >
-            지도로
+            {t("schedule.toMap")}
           </Link>
           <Link
             href="/schedules"
             className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
           >
-            저장된 일정
+            {t("schedule.savedList")}
           </Link>
           <Link
             href="/activities"
             className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
           >
-            활동 기록
+            {t("schedule.activityHistory")}
           </Link>
         </div>
       </div>
@@ -166,7 +165,7 @@ export function ScheduleBuilder({
       <section className="space-y-3 pb-24">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-sm font-bold text-[var(--color-text-primary)]">
-            방문 장소
+            {t("schedule.places")}
           </h2>
           <RecommendedScheduleButton
             fishingSpot={recommendSpot}
@@ -203,7 +202,7 @@ export function ScheduleBuilder({
             className="w-full"
             onClick={scheduleApi.resetSchedule}
           >
-            전체 초기화
+            {t("schedule.reset")}
           </TextButton>
           <ScheduleShareButton
             schedule={scheduleApi.schedule}
@@ -214,14 +213,14 @@ export function ScheduleBuilder({
             className="w-full"
             onClick={() => void scheduleApi.saveToBrowser()}
           >
-            일정 저장
+            {t("schedule.save")}
           </TextButton>
           <TextButton
             variant="primary"
             className="w-full"
             onClick={handleOpenStart}
           >
-            이 일정으로 시작하기
+            {t("schedule.start")}
           </TextButton>
         </div>
       </div>

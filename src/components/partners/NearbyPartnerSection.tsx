@@ -11,6 +11,8 @@ import {
   DEFAULT_NEARBY_RADIUS_KM,
   EXPANDED_NEARBY_RADIUS_KM,
 } from "@/constants/partners";
+import { useTranslations } from "@/context/LocaleContext";
+import { formatLocaleDistanceKm } from "@/lib/i18n/formatDistance";
 import { findNearbyPartners } from "@/lib/partners/findNearbyPartners";
 import { getAllPartners } from "@/lib/partners/partnerRepository";
 import type { Coordinates } from "@/types/map";
@@ -79,6 +81,7 @@ export function NearbyPartnerSection({
   loadError = false,
   className = "",
 }: NearbyPartnerSectionProps) {
+  const { t, locale } = useTranslations();
   const [radiusKm, setRadiusKm] = useState(DEFAULT_NEARBY_RADIUS_KM);
   const [serviceFilter, setServiceFilter] =
     useState<PartnerServiceFilter>("all");
@@ -125,8 +128,8 @@ export function NearbyPartnerSection({
   if (loadError) {
     return (
       <EmptyState
-        title="시장·식당 정보를 불러오지 못했습니다."
-        description="잠시 후 다시 시도해주세요."
+        title={t("partner.loadError")}
+        description={t("partner.loadErrorHint")}
         className={className}
       />
     );
@@ -136,13 +139,16 @@ export function NearbyPartnerSection({
     <Card className={`flex flex-col gap-3 p-4 ${className}`}>
       <div>
         <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
-          주변 수산시장
+          {t("partner.nearbyTitle")}
         </h3>
         <p className="mt-0.5 text-[11px] text-[var(--color-text-muted)]">
-          손질·식당·횟집도 수산시장 카테고리에서 함께 안내합니다.
+          {t("partner.nearbyHint")}
         </p>
         <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-          {originName} 기준 약 {radiusKm}km · 직선거리 참고
+          {t("partner.distanceHint", {
+            origin: originName,
+            radius: formatLocaleDistanceKm(radiusKm, locale),
+          })}
         </p>
       </div>
 
@@ -169,14 +175,14 @@ export function NearbyPartnerSection({
         <EmptyState
           title={
             hasActiveExtra
-              ? "선택한 조건에 맞는 장소가 없습니다."
-              : "선택한 낚시터 주변에 등록된 장소가 없습니다."
+              ? t("partner.emptyFiltered")
+              : t("partner.emptyNearby")
           }
           description={
             hasActiveExtra
-              ? "필터를 변경해보세요."
+              ? t("partner.changeFilters")
               : radiusKm < EXPANDED_NEARBY_RADIUS_KM
-                ? "검색 반경을 넓혀 다시 찾아볼 수 있습니다."
+                ? t("partner.expandRadiusHint")
                 : undefined
           }
           icon={<Store className="h-5 w-5" />}
@@ -205,7 +211,9 @@ export function NearbyPartnerSection({
             className="h-8 text-xs"
             onClick={() => setShowAll(true)}
           >
-            더 보기 ({filtered.length - DEFAULT_NEARBY_LIMIT})
+            {t("partner.showMoreRemaining", {
+              count: filtered.length - DEFAULT_NEARBY_LIMIT,
+            })}
           </TextButton>
         ) : null}
         {radiusKm < EXPANDED_NEARBY_RADIUS_KM ? (
@@ -217,7 +225,9 @@ export function NearbyPartnerSection({
               setShowAll(false);
             }}
           >
-            반경 {EXPANDED_NEARBY_RADIUS_KM}km로 넓히기
+            {t("partner.expandToRadius", {
+              radius: EXPANDED_NEARBY_RADIUS_KM,
+            })}
           </TextButton>
         ) : null}
       </div>

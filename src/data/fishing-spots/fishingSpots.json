@@ -3,7 +3,10 @@
     "id": "loc-hakri",
     "name": "학리 방파제",
     "address": "부산광역시 기장군 일광읍 학리",
-    "coordinates": { "latitude": 35.2608, "longitude": 129.2336 },
+    "coordinates": {
+      "latitude": 35.2608,
+      "longitude": 129.2336
+    },
     "spotType": "breakwater",
     "description": "일광해수욕장권 대표 방파제·갯바위 포인트로 초보자와 가족 단위 접근이 쉽습니다.",
     "beginnerFriendly": true,
@@ -11,7 +14,13 @@
     "toiletAvailable": true,
     "lightingAvailable": true,
     "safetyFenceAvailable": true,
-    "targetFish": ["볼락", "학꽁치", "감성돔", "벵에돔", "고등어"],
+    "targetFish": [
+      "볼락",
+      "학꽁치",
+      "감성돔",
+      "벵에돔",
+      "고등어"
+    ],
     "accessDescription": "방파제 입구 주차장에서 도보 3분",
     "cautionText": [
       "테트라포드 출입 주의",
@@ -23,13 +32,28 @@
     "lastVerifiedAt": "2026-08-05",
     "sourceName": "공개 낚시 포인트 자료·현장 안내 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 3.5
+    "nearbyMarketDistanceKm": 3.5,
+    "names": {
+      "ko": "학리 방파제",
+      "en": "Hakri Breakwater",
+      "ja": "学里防波堤",
+      "zh-CN": "学里防波堤"
+    },
+    "descriptions": {
+      "ko": "일광해수욕장권 대표 방파제·갯바위 포인트로 초보자와 가족 단위 접근이 쉽습니다.",
+      "en": "A popular breakwater near Ilgwang Beach, easy for beginners and families.",
+      "ja": "日光海水浴場エリアの代表的な防波堤ポイントで、初心者や家族連れにもアクセスしやすいです。",
+      "zh-CN": "日光海水浴场一带代表性的防波堤钓点，适合新手和家庭。"
+    }
   },
   {
     "id": "loc-ilgwang-tetrapod",
     "name": "일광해수욕장 테트라포트",
     "address": "부산광역시 기장군 일광읍 이천리",
-    "coordinates": { "latitude": 35.2595, "longitude": 129.2342 },
+    "coordinates": {
+      "latitude": 35.2595,
+      "longitude": 129.2342
+    },
     "spotType": "breakwater",
     "description": "일광 해안도로 인근 테트라포트 구간으로 학꽁치·볼락 루어가 많이 이뤄집니다.",
     "beginnerFriendly": false,
@@ -37,7 +61,12 @@
     "toiletAvailable": true,
     "lightingAvailable": false,
     "safetyFenceAvailable": false,
-    "targetFish": ["학꽁치", "볼락", "벵에돔", "전어"],
+    "targetFish": [
+      "학꽁치",
+      "볼락",
+      "벵에돔",
+      "전어"
+    ],
     "accessDescription": "일광해수욕장 주차 후 해안도로 보행",
     "cautionText": [
       "테트라포드 미끄럼·낙상 위험",
@@ -55,7 +84,10 @@
     "id": "loc-idong",
     "name": "이동항 방파제",
     "address": "부산광역시 기장군 일광읍 이천리",
-    "coordinates": { "latitude": 35.2748, "longitude": 129.2415 },
+    "coordinates": {
+      "latitude": 35.2748,
+      "longitude": 129.2415
+    },
     "spotType": "port",
     "description": "접근성과 발판이 비교적 안정적인 기장 이동항 방파제 포인트입니다.",
     "beginnerFriendly": true,
@@ -63,7 +95,12 @@
     "toiletAvailable": false,
     "lightingAvailable": false,
     "safetyFenceAvailable": true,
-    "targetFish": ["볼락", "우럭", "학꽁치", "고등어"],
+    "targetFish": [
+      "볼락",
+      "우럭",
+      "학꽁치",
+      "고등어"
+    ],
     "accessDescription": "이동항 인근 공영·노상 주차 후 도보",
     "cautionText": [
       "방파제 끝부분 강풍 시 접근 비권장",
@@ -80,7 +117,10 @@
     "id": "loc-daebyeon",
     "name": "대변항 방파제",
     "address": "부산광역시 기장군 기장읍 대변리",
-    "coordinates": { "latitude": 35.2236, "longitude": 129.2281 },
+    "coordinates": {
+      "latitude": 35.2236,
+      "longitude": 129.2281
+    },
     "spotType": "port",
     "description": "대변항과 인접한 방파제·갯바위 포인트로 볼락·학꽁치가 잘 잡히는 구간입니다.",
     "beginnerFriendly": true,
@@ -88,7 +128,12 @@
     "toiletAvailable": true,
     "lightingAvailable": true,
     "safetyFenceAvailable": false,
-    "targetFish": ["볼락", "학꽁치", "고등어", "도다리"],
+    "targetFish": [
+      "볼락",
+      "학꽁치",
+      "고등어",
+      "도다리"
+    ],
     "accessDescription": "대변항 공영주차장 이용",
     "cautionText": [
       "야간 방파제 끝부분 조명 부족",
@@ -100,13 +145,22 @@
     "lastVerifiedAt": "2026-08-04",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 2.1
+    "nearbyMarketDistanceKm": 2.1,
+    "names": {
+      "ko": "대변항 방파제",
+      "en": "Daebyeon Port Breakwater",
+      "ja": "大辺港防波堤",
+      "zh-CN": "大边港防波堤"
+    }
   },
   {
     "id": "loc-jukseong",
     "name": "죽성 갯바위",
     "address": "부산광역시 기장군 기장읍 죽성리",
-    "coordinates": { "latitude": 35.2428, "longitude": 129.2505 },
+    "coordinates": {
+      "latitude": 35.2428,
+      "longitude": 129.2505
+    },
     "spotType": "rock",
     "description": "죽성리 해안 갯바위 구간으로 감성돔·볼락을 노리는 포인트입니다.",
     "beginnerFriendly": false,
@@ -114,7 +168,12 @@
     "toiletAvailable": false,
     "lightingAvailable": false,
     "safetyFenceAvailable": false,
-    "targetFish": ["감성돔", "볼락", "벵에돔", "우럭"],
+    "targetFish": [
+      "감성돔",
+      "볼락",
+      "벵에돔",
+      "우럭"
+    ],
     "accessDescription": "죽성리 해안도로 주차 후 도보",
     "cautionText": [
       "갯바위 미끄럼·파도 주의",
@@ -131,7 +190,10 @@
     "id": "loc-imrang",
     "name": "임랑방파제",
     "address": "부산광역시 기장군 장안읍 임랑리",
-    "coordinates": { "latitude": 35.3188, "longitude": 129.2632 },
+    "coordinates": {
+      "latitude": 35.3188,
+      "longitude": 129.2632
+    },
     "spotType": "breakwater",
     "description": "임랑해수욕장 인근 방파제 포인트로 플로깅 코스와 함께 즐기기 좋습니다.",
     "beginnerFriendly": true,
@@ -139,7 +201,12 @@
     "toiletAvailable": true,
     "lightingAvailable": false,
     "safetyFenceAvailable": true,
-    "targetFish": ["감성돔", "농어", "볼락", "학꽁치"],
+    "targetFish": [
+      "감성돔",
+      "농어",
+      "볼락",
+      "학꽁치"
+    ],
     "accessDescription": "임랑해수욕장 주차장에서 방파제까지 도보",
     "cautionText": [
       "피서철 인파와 동선 겹침",
@@ -150,13 +217,22 @@
     "lastVerifiedAt": "2026-08-05",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 9.5
+    "nearbyMarketDistanceKm": 9.5,
+    "names": {
+      "ko": "임랑방파제",
+      "en": "Imrang Breakwater",
+      "ja": "任浪防波堤",
+      "zh-CN": "任浪防波堤"
+    }
   },
   {
     "id": "loc-sinpyeong",
     "name": "신평소공원 인근 포인트",
     "address": "부산광역시 기장군 장안읍 임랑리 일대",
-    "coordinates": { "latitude": 35.3085, "longitude": 129.2588 },
+    "coordinates": {
+      "latitude": 35.3085,
+      "longitude": 129.2588
+    },
     "spotType": "rock",
     "description": "신평소공원·윷판대 인근 해안 포인트로 농어·볼락이 자주 언급됩니다.",
     "beginnerFriendly": false,
@@ -164,7 +240,12 @@
     "toiletAvailable": true,
     "lightingAvailable": false,
     "safetyFenceAvailable": false,
-    "targetFish": ["농어", "볼락", "벵에돔", "감성돔"],
+    "targetFish": [
+      "농어",
+      "볼락",
+      "벵에돔",
+      "감성돔"
+    ],
     "accessDescription": "신평소공원 주차 후 해안 산책로 이용",
     "cautionText": [
       "갯바위 구간 미끄럼 주의",
@@ -181,7 +262,10 @@
     "id": "loc-cheongsapo",
     "name": "청사포 방파제",
     "address": "부산광역시 해운대구 중동 청사포",
-    "coordinates": { "latitude": 35.1608, "longitude": 129.1948 },
+    "coordinates": {
+      "latitude": 35.1608,
+      "longitude": 129.1948
+    },
     "spotType": "breakwater",
     "description": "해운대 청사포 방파제·포구 인근 연안 포인트입니다.",
     "beginnerFriendly": true,
@@ -189,7 +273,12 @@
     "toiletAvailable": true,
     "lightingAvailable": true,
     "safetyFenceAvailable": true,
-    "targetFish": ["볼락", "학꽁치", "고등어", "전어"],
+    "targetFish": [
+      "볼락",
+      "학꽁치",
+      "고등어",
+      "전어"
+    ],
     "accessDescription": "청사포 공영주차장 이용",
     "cautionText": [
       "관광객과 동선이 겹칠 수 있음",
@@ -200,13 +289,22 @@
     "lastVerifiedAt": "2026-08-02",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "해운대시장",
-    "nearbyMarketDistanceKm": 2.8
+    "nearbyMarketDistanceKm": 2.8,
+    "names": {
+      "ko": "청사포 방파제",
+      "en": "Cheongsapo Breakwater",
+      "ja": "青沙浦防波堤",
+      "zh-CN": "青沙浦防波堤"
+    }
   },
   {
     "id": "loc-songjeong",
     "name": "송정 방파제",
     "address": "부산광역시 해운대구 송정동",
-    "coordinates": { "latitude": 35.1788, "longitude": 129.2045 },
+    "coordinates": {
+      "latitude": 35.1788,
+      "longitude": 129.2045
+    },
     "spotType": "breakwater",
     "description": "송정해수욕장 인근 방파제 포인트로 접근이 비교적 쉽습니다.",
     "beginnerFriendly": true,
@@ -214,7 +312,12 @@
     "toiletAvailable": true,
     "lightingAvailable": true,
     "safetyFenceAvailable": true,
-    "targetFish": ["볼락", "학꽁치", "전어", "고등어"],
+    "targetFish": [
+      "볼락",
+      "학꽁치",
+      "전어",
+      "고등어"
+    ],
     "accessDescription": "송정해수욕장 주차 후 방파제 도보 이동",
     "cautionText": [
       "피서철 혼잡",
@@ -231,7 +334,10 @@
     "id": "loc-unchon",
     "name": "운촌·우동 해안 방파제",
     "address": "부산광역시 해운대구 우동",
-    "coordinates": { "latitude": 35.1568, "longitude": 129.1588 },
+    "coordinates": {
+      "latitude": 35.1568,
+      "longitude": 129.1588
+    },
     "spotType": "breakwater",
     "description": "해운대 우동·운촌 해안도로 테트라포트·선착장 연안 포인트입니다.",
     "beginnerFriendly": false,
@@ -239,7 +345,12 @@
     "toiletAvailable": false,
     "lightingAvailable": true,
     "safetyFenceAvailable": false,
-    "targetFish": ["벵에돔", "볼락", "학꽁치", "삼치"],
+    "targetFish": [
+      "벵에돔",
+      "볼락",
+      "학꽁치",
+      "삼치"
+    ],
     "accessDescription": "해안도로 인근 주차 후 보행 (일부 구간 접근 제한)",
     "cautionText": [
       "일부 방파제 입구 통제 가능",

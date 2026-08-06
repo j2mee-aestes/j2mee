@@ -1,8 +1,9 @@
 "use client";
 
 import { TextButton } from "@/components/common/IconButton";
-import { formatDistanceKm } from "@/lib/geo/calculateDistance";
+import { useTranslations } from "@/context/LocaleContext";
 import { calculateActivityProgress } from "@/lib/activity/calculateActivityProgress";
+import { formatLocaleDistanceKm } from "@/lib/i18n/formatDistance";
 import type { ActivityRun } from "@/types/activity";
 import Link from "next/link";
 
@@ -12,36 +13,24 @@ interface ActivityHistoryListProps {
   onCopySchedule: (run: ActivityRun) => void;
 }
 
-function statusLabel(status: ActivityRun["status"]): string {
-  switch (status) {
-    case "ready":
-      return "시작 전";
-    case "inProgress":
-      return "진행 중";
-    case "completed":
-      return "완료";
-    case "cancelled":
-      return "취소됨";
-  }
-}
-
 export function ActivityHistoryList({
   runs,
   onDelete,
   onCopySchedule,
 }: ActivityHistoryListProps) {
+  const { t, locale } = useTranslations();
+
   if (runs.length === 0) {
     return (
       <div className="rounded-[var(--radius-lg)] border border-dashed border-[var(--color-border)] bg-white p-6 text-center">
         <p className="text-sm text-[var(--color-text-secondary)]">
-          아직 완료한 바다 일정이 없습니다. 새로운 일정을 만들어 활동을
-          시작해보세요.
+          {t("activity.emptyHistory")}
         </p>
         <Link
           href="/schedule"
           className="mt-4 inline-flex h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-4 text-sm font-medium text-white"
         >
-          새 일정 만들기
+          {t("activity.createNew")}
         </Link>
       </div>
     );
@@ -65,44 +54,46 @@ export function ActivityHistoryList({
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div>
                 <p className="text-xs text-[var(--color-text-secondary)]">
-                  {run.date} · {statusLabel(run.status)}
+                  {run.date} · {t(`activity.status.${run.status}`)}
                 </p>
                 <h2 className="mt-0.5 text-base font-bold text-[var(--color-text-primary)]">
                   {run.scheduleTitle}
                 </h2>
               </div>
               <p className="text-xs font-semibold text-[var(--color-ocean-700)]">
-                완료 {progress.completed} · 건너뜀 {progress.skipped}
+                {t("activity.completedSkipped", {
+                  completed: progress.completed,
+                  skipped: progress.skipped,
+                })}
               </p>
             </div>
             <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
-              계획 거리 {formatDistanceKm(run.plannedDistanceKm)}
-              {hasPlogging ? " · 플로깅 포함" : ""}
+              {t("activity.plannedDistance")}{" "}
+              {formatLocaleDistanceKm(run.plannedDistanceKm, locale)}
+              {hasPlogging ? ` · ${t("activity.includesPlogging")}` : ""}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Link
                 href={detailHref}
                 className="inline-flex h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white"
               >
-                {run.status === "completed" ? "완료 상세보기" : "이어서 진행"}
+                {run.status === "completed"
+                  ? t("activity.completeDetail")
+                  : t("activity.resume")}
               </Link>
               <TextButton type="button" onClick={() => onCopySchedule(run)}>
-                일정 복사
+                {t("activity.copySchedule")}
               </TextButton>
               <TextButton
                 type="button"
                 variant="ghost"
                 onClick={() => {
-                  if (
-                    window.confirm(
-                      "이 활동 기록을 삭제할까요? 삭제 후에는 복구할 수 없습니다.",
-                    )
-                  ) {
+                  if (window.confirm(t("activity.deleteConfirmDetail"))) {
                     onDelete(run.id);
                   }
                 }}
               >
-                기록 삭제
+                {t("activity.deleteRecord")}
               </TextButton>
             </div>
           </li>

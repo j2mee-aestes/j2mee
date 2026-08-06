@@ -1,7 +1,7 @@
 "use client";
 
 import { TextButton } from "@/components/common/IconButton";
-import { UI_TEXT } from "@/constants/uiText";
+import { useTranslations } from "@/context/LocaleContext";
 
 interface MapFallbackProps {
   variant: "missing-key" | "error";
@@ -9,14 +9,15 @@ interface MapFallbackProps {
 }
 
 export function MapFallback({ variant, onRetry }: MapFallbackProps) {
+  const { t } = useTranslations();
   const title =
     variant === "missing-key"
-      ? UI_TEXT.kakaoKeyMissingTitle
-      : UI_TEXT.kakaoLoadFailedTitle;
+      ? t("map.kakaoKeyMissingTitle")
+      : t("map.kakaoLoadFailedTitle");
   const body =
     variant === "missing-key"
-      ? UI_TEXT.kakaoKeyMissingBody
-      : UI_TEXT.kakaoLoadFailedBody;
+      ? t("map.kakaoKeyMissingBody")
+      : t("map.kakaoLoadFailedBody");
 
   return (
     <div className="flex h-full min-h-[360px] flex-col items-center justify-center gap-3 bg-[linear-gradient(160deg,#e0f2fe_0%,#ecfeff_45%,#f0fdf4_100%)] px-6 text-center sm:min-h-[440px]">
@@ -28,12 +29,8 @@ export function MapFallback({ variant, onRetry }: MapFallbackProps) {
           {body}
         </p>
         {variant === "error" && onRetry ? (
-          <TextButton
-            variant="primary"
-            className="mt-4"
-            onClick={onRetry}
-          >
-            {UI_TEXT.kakaoRetry}
+          <TextButton variant="primary" className="mt-4" onClick={onRetry}>
+            {t("map.kakaoRetry")}
           </TextButton>
         ) : null}
       </div>
@@ -42,18 +39,19 @@ export function MapFallback({ variant, onRetry }: MapFallbackProps) {
 }
 
 export function MapSkeleton() {
+  const { t } = useTranslations();
   return (
     <div
       className="relative h-full min-h-[360px] animate-pulse overflow-hidden bg-slate-100 sm:min-h-[440px]"
       aria-busy
-      aria-label={UI_TEXT.mapLoading}
+      aria-label={t("map.mapLoading")}
     >
       <div className="absolute inset-0 bg-[linear-gradient(120deg,#e2e8f0_0%,#f8fafc_40%,#e2e8f0_80%)]" />
       <div className="absolute left-4 top-4 h-9 w-64 rounded-full bg-white/70" />
       <div className="absolute right-4 top-4 h-28 w-11 rounded-[var(--radius-md)] bg-white/70" />
       <div className="absolute bottom-4 left-4 h-8 w-48 rounded-md bg-white/70" />
       <p className="absolute inset-0 flex items-center justify-center text-sm font-medium text-slate-500">
-        {UI_TEXT.mapLoading}
+        {t("map.mapLoading")}
       </p>
     </div>
   );

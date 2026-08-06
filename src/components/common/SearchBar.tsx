@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { UI_TEXT } from "@/constants/uiText";
+import { useTranslations } from "@/context/LocaleContext";
 
 interface SearchBarProps {
   value: string;
@@ -16,6 +16,8 @@ export function SearchBar({
   onSubmit,
   className = "",
 }: SearchBarProps) {
+  const { t } = useTranslations();
+
   return (
     <form
       className={`flex min-w-0 flex-1 items-center gap-2 ${className}`}
@@ -33,8 +35,8 @@ export function SearchBar({
           type="search"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          placeholder={UI_TEXT.searchPlaceholder}
-          aria-label={UI_TEXT.searchPlaceholder}
+          placeholder={t("search.placeholder")}
+          aria-label={t("search.placeholder")}
           className="min-w-0 flex-1 bg-transparent text-sm text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)]"
         />
       </label>
@@ -42,7 +44,7 @@ export function SearchBar({
         type="submit"
         className="inline-flex h-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-semibold text-white hover:bg-[var(--color-ocean-700)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
       >
-        {UI_TEXT.searchButton}
+        {t("search.button")}
       </button>
     </form>
   );

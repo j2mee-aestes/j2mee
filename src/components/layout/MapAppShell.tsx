@@ -14,9 +14,8 @@ import { MapSection } from "@/components/map/MapSection";
 import { NearbyPartnerSection } from "@/components/partners/NearbyPartnerSection";
 import { PartnerDetailPanel } from "@/components/partners/PartnerDetailPanel";
 import { WeatherCard } from "@/components/weather/WeatherCard";
-import type { LanguageCode } from "@/constants/languages";
 import { SAFETY_THRESHOLDS } from "@/constants/safetyThresholds";
-import { UI_TEXT } from "@/constants/uiText";
+import { useTranslations } from "@/context/LocaleContext";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSpots";
 import {
   getLocationDetailById,
@@ -90,6 +89,7 @@ const EMPTY_SESSION: PloggingSession = {
 };
 
 export function MapAppShell() {
+  const { t } = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -104,7 +104,6 @@ export function MapAppShell() {
 
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryFilter>("all");
-  const [language, setLanguage] = useState<LanguageCode>("KR");
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
     initialSpot,
   );
@@ -316,13 +315,13 @@ export function MapAppShell() {
     const results = searchMockLocations(trimmed);
     if (results.length === 0) {
       setSearchResults([]);
-      setSearchNotice(UI_TEXT.searchNoResults);
+      setSearchNotice(t("search.noResults"));
       return;
     }
 
     if (results.length === 1) {
       selectAndFocusLocation(results[0].id);
-      setSearchNotice(`“${results[0].name}” 위치로 이동했습니다.`);
+      setSearchNotice(t("search.movedTo", { name: results[0].name }));
       return;
     }
 
@@ -355,8 +354,6 @@ export function MapAppShell() {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--color-surface)]">
       <Header
-        language={language}
-        onLanguageChange={setLanguage}
         mobileMenuOpen={mobileMenuOpen}
         onMobileMenuToggle={() => setMobileMenuOpen((open) => !open)}
         searchQuery={searchQuery}
@@ -442,7 +439,7 @@ export function MapAppShell() {
                 wastePoint={selectedWaste}
                 originLabel={distanceOriginLabel}
                 distanceKm={wasteDistanceKm}
-                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                onDirections={() => setPanelNotice(t("common.directionsNotice"))}
                 notice={panelNotice}
               />
             ) : null}
@@ -491,7 +488,7 @@ export function MapAppShell() {
                   selectedLocationId && favorites[selectedLocationId],
                 )}
                 onToggleFavorite={handleToggleFavorite}
-                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                onDirections={() => setPanelNotice(t("common.directionsNotice"))}
                 onAddToSchedule={handleAddFishingToSchedule}
                 scheduleAdded={scheduleApi.isSourceInSchedule(selectedFishing.id)}
                 notice={panelNotice}
@@ -506,7 +503,7 @@ export function MapAppShell() {
                 location={null}
                 isFavorite={false}
                 onToggleFavorite={handleToggleFavorite}
-                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                onDirections={() => setPanelNotice(t("common.directionsNotice"))}
                 notice={panelNotice}
               />
             ) : null}
@@ -543,7 +540,7 @@ export function MapAppShell() {
             {scheduleApi.schedule.items.length > 0 ? (
               <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
                 <p className="font-semibold text-[var(--color-text-primary)]">
-                  임시 일정 ({scheduleApi.schedule.items.length})
+                  {t("common.schedule")} ({scheduleApi.schedule.items.length})
                 </p>
                 <ul className="mt-1.5 space-y-1">
                   {[...scheduleApi.schedule.items]
@@ -559,28 +556,27 @@ export function MapAppShell() {
                     href="/schedule"
                     className="inline-flex h-8 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-xs font-medium text-white"
                   >
-                    일정 편집
+                    {t("schedule.editLink")}
                   </Link>
                   <Link
                     href="/schedules"
                     className="inline-flex h-8 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-xs font-medium"
                   >
-                    저장 목록
+                    {t("schedule.savedList")}
                   </Link>
                 </div>
                 <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
-                  브라우저에 임시 저장되며, 정식 서버 저장은 다음 단계에서
-                  연결됩니다.
+                  {t("schedule.draftSavedLocal")}
                 </p>
               </div>
             ) : (
               <div className="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
-                <p>아직 일정에 추가된 장소가 없습니다.</p>
+                <p>{t("schedule.empty")}</p>
                 <Link
                   href="/schedule"
                   className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
                 >
-                  하루 일정 만들기 →
+                  {t("schedule.createLink")}
                 </Link>
               </div>
             )}

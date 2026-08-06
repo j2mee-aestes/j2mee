@@ -52,7 +52,8 @@ export const UI_TEXT = {
   kakaoKeyMissingBody:
     ".env.local에 NEXT_PUBLIC_KAKAO_MAP_APP_KEY를 등록해주세요.",
   kakaoLoadFailedTitle: "지도를 불러오지 못했습니다.",
-  kakaoLoadFailedBody: "잠시 후 다시 시도해주세요.",
+  kakaoLoadFailedBody:
+    "카카오 개발자 콘솔에서 [제품 설정] → [카카오맵] → [활성화 설정]을 ON으로 바꾼 뒤 다시 시도해주세요. 도메인(http://localhost:3000)도 JavaScript SDK 도메인에 등록되어 있어야 합니다.",
   kakaoRetry: "다시 시도",
   mapLoading: "지도를 불러오는 중…",
 } as const;

@@ -24,6 +24,8 @@ export interface MapLocation {
   description?: string;
   isVerified?: boolean;
   fishingAllowedStatus?: import("./fishing").FishingAllowedStatus;
+  /** Present when the pin represents a partner place (market/restaurant/processing). */
+  partnerType?: import("./partner").PartnerType;
 }
 
 export interface PloggingRoute {

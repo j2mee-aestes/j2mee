@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS } from "@/constants/categories";
+import { PARTNER_MARKER_COLORS } from "@/constants/partners";
 import { FISHING_ALLOWED_COLORS } from "@/constants/safetyThresholds";
 import type { MapCategory, MapLocation } from "@/types/map";
 
@@ -16,7 +17,17 @@ function resolveMarkerColor(location: MapLocation): string {
   if (location.category === "fishing" && location.fishingAllowedStatus) {
     return FISHING_ALLOWED_COLORS[location.fishingAllowedStatus];
   }
+  if (location.partnerType) {
+    return PARTNER_MARKER_COLORS[location.partnerType];
+  }
   return CATEGORY_COLORS[location.category];
+}
+
+function resolveMarkerSymbol(location: MapLocation): string {
+  if (location.partnerType === "processingShop") {
+    return "🔪";
+  }
+  return CATEGORY_SYMBOL[location.category];
 }
 
 export function createMarkerContent(
@@ -86,7 +97,7 @@ export function createMarkerContent(
     cursor: pointer;
     transition: transform 120ms ease;
   `;
-  button.textContent = CATEGORY_SYMBOL[location.category];
+  button.textContent = resolveMarkerSymbol(location);
   button.addEventListener("mouseenter", () => {
     button.style.transform = "scale(1.08)";
   });
@@ -96,6 +107,13 @@ export function createMarkerContent(
   button.addEventListener("click", (event) => {
     event.stopPropagation();
     onSelect(location.id);
+  });
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      event.stopPropagation();
+      onSelect(location.id);
+    }
   });
 
   wrapper.appendChild(button);

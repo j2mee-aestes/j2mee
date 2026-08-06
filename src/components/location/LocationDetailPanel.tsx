@@ -221,16 +221,18 @@ export function LocationDetailPanel({
           </div>
         ) : null}
 
-        {fishing?.nearbyMarket || facility?.nearbyMarket ? (
+        {facility?.nearbyMarket ? (
           <NearbyPlaceCard
             title={UI_TEXT.nearbyMarket}
-            name={(fishing?.nearbyMarket ?? facility?.nearbyMarket) as string}
-            distanceLabel={
-              fishing?.nearbyMarketDistanceKm !== undefined
-                ? `${UI_TEXT.distance}: ${fishing.nearbyMarketDistanceKm}km`
-                : facility?.distanceLabel
-            }
+            name={facility.nearbyMarket}
+            distanceLabel={facility.distanceLabel}
           />
+        ) : null}
+
+        {fishing ? (
+          <p className="text-xs text-[var(--color-text-muted)]">
+            주변 수산시장·식당은 아래 목록에서 거리순으로 확인할 수 있습니다.
+          </p>
         ) : null}
 
         {fishing ? (

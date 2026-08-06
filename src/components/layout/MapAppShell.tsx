@@ -7,6 +7,8 @@ import { Header } from "@/components/layout/Header";
 import { MobileCategoryBar } from "@/components/layout/MobileCategoryBar";
 import { LocationDetailPanel } from "@/components/location/LocationDetailPanel";
 import { MapSection } from "@/components/map/MapSection";
+import { NearbyPartnerSection } from "@/components/partners/NearbyPartnerSection";
+import { PartnerDetailPanel } from "@/components/partners/PartnerDetailPanel";
 import { TidePanel } from "@/components/tide/TidePanel";
 import { WeatherCard } from "@/components/weather/WeatherCard";
 import type { LanguageCode } from "@/constants/languages";
@@ -15,15 +17,20 @@ import { UI_TEXT } from "@/constants/uiText";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSpots";
 import {
   getLocationDetailById,
+  isFacilityLocation,
   isFishingSpot,
+  isPartnerPlace,
   searchMockLocations,
 } from "@/data/mockMapLocations";
 import {
   useTideData,
   useWeatherData,
 } from "@/hooks/useSpotEnvironmentData";
-import type { FishingSpot, LocationDetail } from "@/types/fishing";
+import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
+import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
+import type { SearchablePlace } from "@/data/mockMapLocations";
 import type { CategoryFilter } from "@/types/map";
+import type { ScheduleItem } from "@/types/partner";
 
 function todayKst(): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -54,6 +61,16 @@ function isValidDateParam(value: string | null): value is string {
   return value >= today && value <= max;
 }
 
+function resolvePlaceCategory(place: SearchablePlace): CategoryFilter {
+  if (isFishingSpot(place)) {
+    return "fishing";
+  }
+  if (isPartnerPlace(place)) {
+    return partnerTypeToMapCategory(place.type);
+  }
+  return place.category;
+}
+
 export function MapAppShell() {
   const router = useRouter();
   const pathname = usePathname();
@@ -73,19 +90,24 @@ export function MapAppShell() {
   const [selectedLocationId, setSelectedLocationId] = useState<string | null>(
     initialSpot,
   );
+  const [relatedFishingSpotId, setRelatedFishingSpotId] = useState<
+    string | null
+  >(() => {
+    const place = initialSpot ? getLocationDetailById(initialSpot) : null;
+    return place && isFishingSpot(place) ? place.id : DEFAULT_SELECTED_LOCATION_ID;
+  });
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState("");
   const [searchNotice, setSearchNotice] = useState<string | null>(null);
-  const [searchResults, setSearchResults] = useState<
-    Array<LocationDetail | FishingSpot>
-  >([]);
+  const [searchResults, setSearchResults] = useState<SearchablePlace[]>([]);
   const [panelNotice, setPanelNotice] = useState<string | null>(null);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [tideHighlighted, setTideHighlighted] = useState(false);
   const [focusRequestId, setFocusRequestId] = useState(0);
   const [chartExpanded, setChartExpanded] = useState(false);
+  const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([]);
 
   const selectedLocation = useMemo(
     () =>
@@ -95,13 +117,41 @@ export function MapAppShell() {
     [selectedLocationId],
   );
 
-  const fishingSpotId =
-    selectedLocation && isFishingSpot(selectedLocation)
-      ? selectedLocation.id
+  const selectedPartner = isPartnerPlace(selectedLocation)
+    ? selectedLocation
+    : null;
+  const selectedFishing = isFishingSpot(selectedLocation)
+    ? selectedLocation
+    : null;
+  const selectedFacility = isFacilityLocation(selectedLocation)
+    ? selectedLocation
+    : null;
+
+  const relatedFishingSpot = useMemo(() => {
+    if (!relatedFishingSpotId) {
+      return null;
+    }
+    const place = getLocationDetailById(relatedFishingSpotId);
+    return place && isFishingSpot(place) ? place : null;
+  }, [relatedFishingSpotId]);
+
+  const fishingSpotId = selectedFishing?.id ?? null;
+
+  const partnerDistanceKm =
+    selectedPartner && relatedFishingSpot
+      ? calculateDistanceKm(
+          relatedFishingSpot.coordinates,
+          selectedPartner.coordinates,
+        )
       : null;
 
   const tideState = useTideData(fishingSpotId, selectedDate);
   const weatherState = useWeatherData(fishingSpotId, selectedDate);
+
+  const schedulePartnerIds = useMemo(
+    () => scheduleItems.map((item) => item.partnerId),
+    [scheduleItems],
+  );
 
   const syncUrl = useCallback(
     (spotId: string | null, date: string) => {
@@ -147,11 +197,7 @@ export function MapAppShell() {
       return;
     }
 
-    const locationCategory = isFishingSpot(selectedLocation)
-      ? "fishing"
-      : selectedLocation.category;
-
-    if (locationCategory !== category) {
+    if (resolvePlaceCategory(selectedLocation) !== category) {
       setSelectedLocationId(null);
     }
   };
@@ -162,13 +208,48 @@ export function MapAppShell() {
       return;
     }
     setSelectedLocationId(locationId);
-    setSelectedCategory(
-      isFishingSpot(detail) ? "fishing" : detail.category,
-    );
+    setSelectedCategory(resolvePlaceCategory(detail));
+    if (isFishingSpot(detail)) {
+      setRelatedFishingSpotId(detail.id);
+    }
     setPanelNotice(null);
     setSearchResults([]);
     setSearchNotice(null);
     setFocusRequestId((value) => value + 1);
+  };
+
+  const handleSelectLocation = (id: string) => {
+    const detail = getLocationDetailById(id);
+    setSelectedLocationId(id);
+    setPanelNotice(null);
+    if (detail && isFishingSpot(detail)) {
+      setRelatedFishingSpotId(detail.id);
+    }
+  };
+
+  const handleAddToSchedule = (partnerId: string) => {
+    const partner = getLocationDetailById(partnerId);
+    if (!partner || !isPartnerPlace(partner)) {
+      return;
+    }
+    setScheduleItems((prev) => {
+      if (prev.some((item) => item.partnerId === partnerId)) {
+        setPanelNotice(`${partner.name}은(는) 이미 일정에 추가되어 있습니다.`);
+        return prev;
+      }
+      setPanelNotice(`${partner.name}이(가) 일정에 추가되었습니다.`);
+      return [
+        ...prev,
+        {
+          id: `schedule-${partnerId}-${Date.now()}`,
+          partnerId: partner.id,
+          partnerName: partner.name,
+          partnerType: partner.type,
+          relatedFishingSpotId: relatedFishingSpotId ?? undefined,
+          addedAt: new Date().toISOString(),
+        },
+      ];
+    });
   };
 
   const handleSearchSubmit = () => {
@@ -251,10 +332,7 @@ export function MapAppShell() {
             <MapSection
               selectedCategory={selectedCategory}
               selectedLocationId={selectedLocationId}
-              onSelectLocation={(id) => {
-                setSelectedLocationId(id);
-                setPanelNotice(null);
-              }}
+              onSelectLocation={handleSelectLocation}
               onCategoryChange={handleCategoryChange}
               onNotice={setMapNotice}
               focusRequestId={focusRequestId}
@@ -269,17 +347,63 @@ export function MapAppShell() {
             ) : null}
           </div>
 
-          <aside className="flex w-full shrink-0 flex-col gap-3 lg:w-80 lg:overflow-y-auto xl:w-96">
-            <LocationDetailPanel
-              location={selectedLocation}
-              weather={weatherState.data}
-              isFavorite={Boolean(
-                selectedLocationId && favorites[selectedLocationId],
-              )}
-              onToggleFavorite={handleToggleFavorite}
-              onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
-              notice={panelNotice}
-            />
+          <aside className="flex w-full shrink-0 flex-col gap-3 pb-20 lg:w-80 lg:overflow-y-auto lg:pb-0 xl:w-96">
+            {selectedPartner ? (
+              <PartnerDetailPanel
+                partner={selectedPartner}
+                originLabel={
+                  relatedFishingSpot
+                    ? `선택한 낚시터(${relatedFishingSpot.name})`
+                    : null
+                }
+                originCoordinates={relatedFishingSpot?.coordinates ?? null}
+                distanceKm={partnerDistanceKm}
+                onAddToSchedule={() => handleAddToSchedule(selectedPartner.id)}
+                scheduleAdded={schedulePartnerIds.includes(selectedPartner.id)}
+                notice={panelNotice}
+              />
+            ) : (
+              <LocationDetailPanel
+                location={selectedFishing ?? selectedFacility}
+                weather={weatherState.data}
+                isFavorite={Boolean(
+                  selectedLocationId && favorites[selectedLocationId],
+                )}
+                onToggleFavorite={handleToggleFavorite}
+                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                notice={panelNotice}
+              />
+            )}
+
+            {selectedFishing || (relatedFishingSpot && selectedPartner) ? (
+              <NearbyPartnerSection
+                origin={
+                  (selectedFishing ?? relatedFishingSpot)!.coordinates
+                }
+                originName={(selectedFishing ?? relatedFishingSpot)!.name}
+                selectedPartnerId={selectedPartner?.id ?? null}
+                schedulePartnerIds={schedulePartnerIds}
+                onSelectPartner={selectAndFocusLocation}
+                onAddToSchedule={handleAddToSchedule}
+              />
+            ) : null}
+
+            {scheduleItems.length > 0 ? (
+              <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
+                <p className="font-semibold text-[var(--color-text-primary)]">
+                  임시 일정 ({scheduleItems.length})
+                </p>
+                <ul className="mt-1.5 space-y-1">
+                  {scheduleItems.map((item) => (
+                    <li key={item.id}>· {item.partnerName}</li>
+                  ))}
+                </ul>
+                <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
+                  새로고침 후 유지되지 않습니다. 정식 일정 기능은 다음 단계에서
+                  연결됩니다.
+                </p>
+              </div>
+            ) : null}
 
             {fishingSpotId ? (
               <>

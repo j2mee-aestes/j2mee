@@ -1,6 +1,6 @@
 /**
- * UI-verification mock markets, restaurants, trash bins around Gijang.
- * Coordinates are approximate mock values for map testing only.
+ * UI-verification mock trash bins and leftover facility stubs around Gijang.
+ * Markets and restaurants moved to src/data/partners/ (mock partner places).
  */
 import type { LocationDetail } from "@/types/fishing";
 

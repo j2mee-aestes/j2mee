@@ -14,3 +14,7 @@ export const MAX_ZOOM_LEVEL = 14;
 
 export const KAKAO_MAP_APP_KEY =
   process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY?.trim() ?? "";
+
+export function getKakaoSdkUrl(appKey: string): string {
+  return `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&autoload=false`;
+}

@@ -85,6 +85,12 @@ export function Header({
               </IconButton>
             </div>
             <Link
+              href="/activities"
+              className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium text-[var(--color-text-primary)] md:inline-flex"
+            >
+              기록
+            </Link>
+            <Link
               href="/schedule"
               className="hidden h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white sm:inline-flex"
             >
@@ -219,6 +225,18 @@ export function Header({
             <IconButton label={UI_TEXT.favorites}>
               <Heart className="h-4 w-4" />
             </IconButton>
+            <Link
+              href="/activities"
+              className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
+            >
+              활동 기록
+            </Link>
+            <Link
+              href="/schedule"
+              className="inline-flex h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white"
+            >
+              일정
+            </Link>
             <span className="self-center text-xs text-[var(--color-text-secondary)]">
               {UI_TEXT.serviceTagline}
             </span>

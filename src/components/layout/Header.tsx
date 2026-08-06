@@ -92,6 +92,12 @@ export function Header({
               {t("common.schedule")}
             </Link>
             <Link
+              href="/privacy"
+              className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium lg:inline-flex"
+            >
+              {t("common.privacy")}
+            </Link>
+            <Link
               href="/my"
               className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium md:inline-flex"
             >

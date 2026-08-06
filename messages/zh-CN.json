@@ -34,7 +34,8 @@
     "source": "来源",
     "updated": "更新",
     "selectedPoint": "所选地点",
-    "myPage": "我的页面"
+    "myPage": "我的页面",
+    "privacy": "隐私说明"
   },
   "search": {
     "placeholder": "按地区、地点或关键词搜索",
@@ -433,5 +434,8 @@
     "importSkipped": "已跳过导入。",
     "importFailed": "导入失败。",
     "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）"
+  },
+  "a11y": {
+    "skipToContent": "跳到正文"
   }
 }

@@ -34,7 +34,8 @@
     "source": "출처",
     "updated": "업데이트",
     "selectedPoint": "선택 지점",
-    "myPage": "마이페이지"
+    "myPage": "마이페이지",
+    "privacy": "개인정보 안내"
   },
   "search": {
     "placeholder": "지역, 장소, 키워드로 검색해보세요",
@@ -433,5 +434,8 @@
     "importSkipped": "가져오기를 건너뛰었습니다.",
     "importFailed": "가져오기에 실패했습니다.",
     "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})"
+  },
+  "a11y": {
+    "skipToContent": "본문으로 건너뛰기"
   }
 }

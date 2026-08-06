@@ -46,7 +46,7 @@
     "name": "기장시장",
     "address": "부산광역시 기장군 기장읍",
     "coordinates": { "latitude": 35.2441, "longitude": 129.222 },
-    "description": "기장 연안 수산물과 못난이 수산물 코너가 있는 전통시장입니다.",
+    "description": "기장 연안 수산물과 지역 수산물 코너가 있는 전통시장입니다.",
     "phone": "051-000-1002",
     "businessHours": [
       { "day": "monday", "isClosed": true },

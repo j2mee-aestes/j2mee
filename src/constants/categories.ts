@@ -15,7 +15,6 @@ export const CATEGORY_COLORS: Record<MapCategory, string> = {
   tide: "#06b6d4",
   market: "#ea580c",
   restaurant: "#7c3aed",
-  uglySeafood: "#db2777",
   trash: "#16a34a",
   plogging: "#0d9488",
 };
@@ -61,17 +60,10 @@ export const CATEGORIES: CategoryConfig[] = [
     showInFilterChips: true,
   },
   {
-    id: "uglySeafood",
-    label: "못난이 수산물",
-    shortLabel: "못난이",
-    description: "할인 판매 중인 수산물",
-    color: CATEGORY_COLORS.uglySeafood,
-  },
-  {
     id: "trash",
-    label: "쓰레기통",
-    shortLabel: "쓰레기통",
-    description: "공공 쓰레기통과 수거함",
+    label: "쓰레기통·수거함",
+    shortLabel: "수거함",
+    description: "쓰레기통·폐낚싯줄·폐어구 수거 장소",
     color: CATEGORY_COLORS.trash,
     showInFilterChips: true,
   },
@@ -94,8 +86,7 @@ export const CATEGORY_TYPE_LABELS: Record<MapCategory, string> = {
   tide: "물때 관측",
   market: "수산시장",
   restaurant: "손질·식당",
-  uglySeafood: "못난이 수산물",
-  trash: "쓰레기통",
+  trash: "쓰레기통·수거함",
   plogging: "플로깅 코스",
 };
 

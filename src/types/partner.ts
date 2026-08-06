@@ -106,15 +106,6 @@ export interface NearbyPartnerResult {
   estimatedDriveMinutes: number | null;
 }
 
-export interface ScheduleItem {
-  id: string;
-  partnerId: string;
-  partnerName: string;
-  partnerType: PartnerType;
-  relatedFishingSpotId?: string;
-  addedAt: string;
-}
-
 export interface PartnerInquiryDraft {
   visitDate: string;
   visitTime: string;

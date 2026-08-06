@@ -1,20 +1,38 @@
 /**
  * Aggregated mock map locations for Kakao marker rendering.
- * Fishing spots and partners come from repositories; trash/plogging remain facility mocks.
+ * Fishing, partners, waste points, and plogging come from repositories.
  */
 import type { MapLocation } from "@/types/map";
 import { getAllFishingSpots } from "@/lib/fishing/fishingSpotRepository";
-import { getAllPartners, getPartnerById, searchPartners } from "@/lib/partners/partnerRepository";
+import {
+  getAllPartners,
+  getPartnerById,
+  searchPartners,
+} from "@/lib/partners/partnerRepository";
 import { partnerPlaceToMapLocation } from "@/lib/map/partnerMapLocation";
 import {
-  mockTrashBins,
-  mockUglySeafood,
-} from "@/data/mockMarkets";
-import { mockPloggingLocations } from "@/data/mockPloggingRoutes";
-import type { FishingSpot, LocationDetail } from "@/types/fishing";
+  ploggingRouteToMapLocations,
+  wastePointToMapLocation,
+} from "@/lib/map/environmentMapLocation";
+import {
+  getAllPloggingRoutes,
+  getPloggingRouteById,
+  searchPloggingRoutes,
+} from "@/lib/environment/ploggingRouteRepository";
+import {
+  getAllWastePoints,
+  getWastePointById,
+  searchWastePoints,
+} from "@/lib/environment/wastePointRepository";
+import type { FishingSpot } from "@/types/fishing";
 import type { PartnerPlace } from "@/types/partner";
+import type { PloggingRoute, WastePoint } from "@/types/environment";
 
-export type SearchablePlace = LocationDetail | FishingSpot | PartnerPlace;
+export type SearchablePlace =
+  | FishingSpot
+  | PartnerPlace
+  | WastePoint
+  | PloggingRoute;
 
 function fishingSpotToMapLocation(spot: FishingSpot): MapLocation {
   return {
@@ -29,35 +47,16 @@ function fishingSpotToMapLocation(spot: FishingSpot): MapLocation {
   };
 }
 
-function toMapLocation(detail: LocationDetail): MapLocation {
-  return {
-    id: detail.id,
-    category: detail.category,
-    name: detail.name,
-    address: detail.address,
-    coordinates: detail.coordinates,
-    description: detail.description,
-    isVerified: detail.isVerified,
-  };
-}
-
-const facilityDetails: LocationDetail[] = [
-  ...mockUglySeafood,
-  ...mockTrashBins,
-  ...mockPloggingLocations,
-];
-
-export const allLocationDetails: LocationDetail[] = facilityDetails;
-
 export const mockMapLocations: MapLocation[] = [
   ...getAllFishingSpots().map(fishingSpotToMapLocation),
   ...getAllPartners().map(partnerPlaceToMapLocation),
-  ...facilityDetails.map(toMapLocation),
+  ...getAllWastePoints().map(wastePointToMapLocation),
+  ...getAllPloggingRoutes().flatMap(ploggingRouteToMapLocations),
 ];
 
 export function getLocationDetailById(
   id: string,
-): LocationDetail | FishingSpot | PartnerPlace | null {
+): SearchablePlace | null {
   const fishing = getAllFishingSpots().find((spot) => spot.id === id);
   if (fishing) {
     return fishing;
@@ -66,7 +65,16 @@ export function getLocationDetailById(
   if (partner) {
     return partner;
   }
-  return facilityDetails.find((item) => item.id === id) ?? null;
+  const waste = getWastePointById(id);
+  if (waste) {
+    return waste;
+  }
+  const routeId = id.endsWith("-end") ? id.replace(/-end$/, "") : id;
+  const route = getPloggingRouteById(routeId);
+  if (route) {
+    return route;
+  }
+  return null;
 }
 
 export function searchMockLocations(query: string): SearchablePlace[] {
@@ -80,14 +88,12 @@ export function searchMockLocations(query: string): SearchablePlace[] {
     return haystack.includes(normalized);
   });
 
-  const partnerMatches = searchPartners(query);
-
-  const facilityMatches = facilityDetails.filter((location) => {
-    const haystack = `${location.name} ${location.address}`.toLowerCase();
-    return haystack.includes(normalized);
-  });
-
-  return [...fishingMatches, ...partnerMatches, ...facilityMatches];
+  return [
+    ...fishingMatches,
+    ...searchPartners(query),
+    ...searchWastePoints(query),
+    ...searchPloggingRoutes(query),
+  ];
 }
 
 export function isFishingSpot(
@@ -99,16 +105,23 @@ export function isFishingSpot(
 export function isPartnerPlace(
   value: SearchablePlace | null,
 ): value is PartnerPlace {
-  return Boolean(value && "services" in value && "type" in value && "verificationStatus" in value);
+  return Boolean(value && "services" in value);
 }
 
-export function isFacilityLocation(
+export function isWastePoint(
   value: SearchablePlace | null,
-): value is LocationDetail {
+): value is WastePoint {
+  return Boolean(value && "status" in value && "type" in value && !("services" in value));
+}
+
+export function isPloggingRoute(
+  value: SearchablePlace | null,
+): value is PloggingRoute {
   return Boolean(
     value &&
-      "category" in value &&
-      !isFishingSpot(value) &&
-      !isPartnerPlace(value),
+      "startPoint" in value &&
+      "endPoint" in value &&
+      "difficulty" in value &&
+      Array.isArray((value as PloggingRoute).coordinates),
   );
 }

@@ -3,7 +3,6 @@ import {
   Fish,
   Footprints,
   LayoutGrid,
-  Leaf,
   ShoppingBasket,
   Trash2,
   UtensilsCrossed,
@@ -21,7 +20,6 @@ export function getCategoryIcon(
     tide: <Waves className={className} />,
     market: <ShoppingBasket className={className} />,
     restaurant: <UtensilsCrossed className={className} />,
-    uglySeafood: <Leaf className={className} />,
     trash: <Trash2 className={className} />,
     plogging: <Footprints className={className} />,
   };

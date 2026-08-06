@@ -191,7 +191,11 @@ export function Header({
                       {result.name}
                     </span>
                     <span className="text-xs text-[var(--color-text-secondary)]">
-                      {result.address}
+                      {"address" in result && result.address
+                        ? result.address
+                        : "description" in result && result.description
+                          ? result.description
+                          : "장소 정보"}
                     </span>
                   </button>
                 </li>

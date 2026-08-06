@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS } from "@/constants/categories";
+import { WASTE_MARKER_COLORS } from "@/constants/environmentData";
 import { PARTNER_MARKER_COLORS } from "@/constants/partners";
 import { FISHING_ALLOWED_COLORS } from "@/constants/safetyThresholds";
 import type { MapCategory, MapLocation } from "@/types/map";
@@ -8,9 +9,17 @@ const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   tide: "🌊",
   market: "🛒",
   restaurant: "🍽",
-  uglySeafood: "🐟",
   trash: "♻️",
   plogging: "👟",
+};
+
+const WASTE_SYMBOL: Record<string, string> = {
+  generalTrash: "🗑",
+  recycling: "♻️",
+  fishingLine: "🧵",
+  fishingGear: "⚓",
+  ploggingCollection: "📦",
+  other: "♻️",
 };
 
 function resolveMarkerColor(location: MapLocation): string {
@@ -20,12 +29,24 @@ function resolveMarkerColor(location: MapLocation): string {
   if (location.partnerType) {
     return PARTNER_MARKER_COLORS[location.partnerType];
   }
+  if (location.wastePointType) {
+    if (
+      location.wasteStatus === "removed" ||
+      location.wasteStatus === "temporarilyUnavailable"
+    ) {
+      return "#94a3b8";
+    }
+    return WASTE_MARKER_COLORS[location.wastePointType];
+  }
   return CATEGORY_COLORS[location.category];
 }
 
 function resolveMarkerSymbol(location: MapLocation): string {
   if (location.partnerType === "processingShop") {
     return "🔪";
+  }
+  if (location.wastePointType) {
+    return WASTE_SYMBOL[location.wastePointType] ?? CATEGORY_SYMBOL.trash;
   }
   return CATEGORY_SYMBOL[location.category];
 }
@@ -36,6 +57,9 @@ export function createMarkerContent(
   onSelect: (id: string) => void,
 ): HTMLElement {
   const color = resolveMarkerColor(location);
+  const unavailable =
+    location.wasteStatus === "removed" ||
+    location.wasteStatus === "temporarilyUnavailable";
   const wrapper = document.createElement("div");
   wrapper.className = "padopado-marker";
   wrapper.style.cssText = `
@@ -45,6 +69,7 @@ export function createMarkerContent(
     align-items: center;
     transform: translateY(-4px);
     cursor: pointer;
+    opacity: ${unavailable ? "0.55" : "1"};
   `;
 
   if (selected) {
@@ -74,7 +99,9 @@ export function createMarkerContent(
   const statusHint =
     location.category === "fishing" && location.fishingAllowedStatus
       ? ` (${location.fishingAllowedStatus})`
-      : "";
+      : location.wasteStatus
+        ? ` (${location.wasteStatus})`
+        : "";
   button.setAttribute("aria-label", `${location.name}${statusHint}`);
   button.setAttribute("aria-pressed", selected ? "true" : "false");
   button.style.cssText = `
@@ -96,6 +123,7 @@ export function createMarkerContent(
     line-height: 1;
     cursor: pointer;
     transition: transform 120ms ease;
+    ${unavailable ? "filter: grayscale(0.4);" : ""}
   `;
   button.textContent = resolveMarkerSymbol(location);
   button.addEventListener("mouseenter", () => {
@@ -137,6 +165,32 @@ export function createMarkerContent(
   ) {
     const badge = document.createElement("span");
     badge.textContent = "제한";
+    badge.style.cssText = `
+      margin-top: 4px;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      background: #ffedd5;
+      color: #c2410c;
+      font-size: 9px;
+      font-weight: 700;
+    `;
+    wrapper.appendChild(badge);
+  } else if (location.wasteStatus === "removed") {
+    const badge = document.createElement("span");
+    badge.textContent = "철거";
+    badge.style.cssText = `
+      margin-top: 4px;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 9px;
+      font-weight: 700;
+    `;
+    wrapper.appendChild(badge);
+  } else if (location.wasteStatus === "temporarilyUnavailable") {
+    const badge = document.createElement("span");
+    badge.textContent = "불가";
     badge.style.cssText = `
       margin-top: 4px;
       padding: 1px 5px;

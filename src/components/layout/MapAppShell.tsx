@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { NearbyWastePointSection } from "@/components/environment/NearbyWastePointSection";
+import { PloggingRouteDetail } from "@/components/environment/PloggingRouteDetail";
+import { PloggingRouteList } from "@/components/environment/PloggingRouteList";
+import { WastePointDetailPanel } from "@/components/environment/WastePointDetailPanel";
 import { DesktopSidebar } from "@/components/layout/DesktopSidebar";
 import { Header } from "@/components/layout/Header";
 import { MobileCategoryBar } from "@/components/layout/MobileCategoryBar";
@@ -17,20 +21,24 @@ import { UI_TEXT } from "@/constants/uiText";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSpots";
 import {
   getLocationDetailById,
-  isFacilityLocation,
   isFishingSpot,
   isPartnerPlace,
+  isPloggingRoute,
+  isWastePoint,
   searchMockLocations,
+  type SearchablePlace,
 } from "@/data/mockMapLocations";
 import {
   useTideData,
   useWeatherData,
 } from "@/hooks/useSpotEnvironmentData";
+import { getWastePointById } from "@/lib/environment/wastePointRepository";
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
 import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
-import type { SearchablePlace } from "@/data/mockMapLocations";
-import type { CategoryFilter } from "@/types/map";
-import type { ScheduleItem } from "@/types/partner";
+import type { CategoryFilter, Coordinates } from "@/types/map";
+import type { PloggingSession } from "@/types/environment";
+import type { ScheduleItem, ScheduleItemType } from "@/types/schedule";
+import type { PartnerType } from "@/types/partner";
 
 function todayKst(): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -68,8 +76,32 @@ function resolvePlaceCategory(place: SearchablePlace): CategoryFilter {
   if (isPartnerPlace(place)) {
     return partnerTypeToMapCategory(place.type);
   }
-  return place.category;
+  if (isWastePoint(place)) {
+    return "trash";
+  }
+  if (isPloggingRoute(place)) {
+    return "plogging";
+  }
+  return "all";
 }
+
+function partnerScheduleType(type: PartnerType): ScheduleItemType {
+  if (type === "market" || type === "marketStore") {
+    return "market";
+  }
+  if (type === "processingShop") {
+    return "processing";
+  }
+  return "restaurant";
+}
+
+const EMPTY_SESSION: PloggingSession = {
+  status: "notStarted",
+  routeId: null,
+  collectedWasteTypes: [],
+  bagCount: 1,
+  memo: "",
+};
 
 export function MapAppShell() {
   const router = useRouter();
@@ -94,7 +126,9 @@ export function MapAppShell() {
     string | null
   >(() => {
     const place = initialSpot ? getLocationDetailById(initialSpot) : null;
-    return place && isFishingSpot(place) ? place.id : DEFAULT_SELECTED_LOCATION_ID;
+    return place && isFishingSpot(place)
+      ? place.id
+      : DEFAULT_SELECTED_LOCATION_ID;
   });
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -106,8 +140,12 @@ export function MapAppShell() {
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [tideHighlighted, setTideHighlighted] = useState(false);
   const [focusRequestId, setFocusRequestId] = useState(0);
+  const [fitRouteRequestId, setFitRouteRequestId] = useState(0);
   const [chartExpanded, setChartExpanded] = useState(false);
   const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([]);
+  const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
+  const [ploggingSession, setPloggingSession] =
+    useState<PloggingSession>(EMPTY_SESSION);
 
   const selectedLocation = useMemo(
     () =>
@@ -123,7 +161,10 @@ export function MapAppShell() {
   const selectedFishing = isFishingSpot(selectedLocation)
     ? selectedLocation
     : null;
-  const selectedFacility = isFacilityLocation(selectedLocation)
+  const selectedWaste = isWastePoint(selectedLocation)
+    ? selectedLocation
+    : null;
+  const selectedRoute = isPloggingRoute(selectedLocation)
     ? selectedLocation
     : null;
 
@@ -137,19 +178,37 @@ export function MapAppShell() {
 
   const fishingSpotId = selectedFishing?.id ?? null;
 
-  const partnerDistanceKm =
-    selectedPartner && relatedFishingSpot
-      ? calculateDistanceKm(
-          relatedFishingSpot.coordinates,
-          selectedPartner.coordinates,
-        )
+  const distanceOrigin = relatedFishingSpot?.coordinates ?? userLocation;
+  const distanceOriginLabel = relatedFishingSpot
+    ? `선택한 낚시터(${relatedFishingSpot.name})`
+    : userLocation
+      ? "현재 위치"
       : null;
+
+  const partnerDistanceKm =
+    selectedPartner && distanceOrigin
+      ? calculateDistanceKm(distanceOrigin, selectedPartner.coordinates)
+      : null;
+
+  const wasteDistanceKm =
+    selectedWaste && distanceOrigin
+      ? calculateDistanceKm(distanceOrigin, selectedWaste.coordinates)
+      : null;
+
+  const connectedWastePoints = useMemo(() => {
+    if (!selectedRoute) {
+      return [];
+    }
+    return selectedRoute.connectedWastePointIds
+      .map((id) => getWastePointById(id))
+      .filter((point): point is NonNullable<typeof point> => point !== null);
+  }, [selectedRoute]);
 
   const tideState = useTideData(fishingSpotId, selectedDate);
   const weatherState = useWeatherData(fishingSpotId, selectedDate);
 
-  const schedulePartnerIds = useMemo(
-    () => scheduleItems.map((item) => item.partnerId),
+  const scheduleTargetIds = useMemo(
+    () => scheduleItems.map((item) => item.targetId),
     [scheduleItems],
   );
 
@@ -196,44 +255,55 @@ export function MapAppShell() {
     if (!selectedLocation || category === "all") {
       return;
     }
-
     if (resolvePlaceCategory(selectedLocation) !== category) {
       setSelectedLocationId(null);
     }
   };
 
   const selectAndFocusLocation = (locationId: string) => {
-    const detail = getLocationDetailById(locationId);
+    const normalizedId = locationId.endsWith("-end")
+      ? locationId.replace(/-end$/, "")
+      : locationId;
+    const detail = getLocationDetailById(normalizedId);
     if (!detail) {
       return;
     }
-    setSelectedLocationId(locationId);
+    setSelectedLocationId(normalizedId);
     setSelectedCategory(resolvePlaceCategory(detail));
     if (isFishingSpot(detail)) {
       setRelatedFishingSpotId(detail.id);
     }
+    if (isPloggingRoute(detail)) {
+      setFitRouteRequestId((value) => value + 1);
+    } else {
+      setFocusRequestId((value) => value + 1);
+    }
     setPanelNotice(null);
     setSearchResults([]);
     setSearchNotice(null);
-    setFocusRequestId((value) => value + 1);
   };
 
   const handleSelectLocation = (id: string) => {
-    const detail = getLocationDetailById(id);
-    setSelectedLocationId(id);
+    const normalizedId = id.endsWith("-end") ? id.replace(/-end$/, "") : id;
+    const detail = getLocationDetailById(normalizedId);
+    setSelectedLocationId(normalizedId);
     setPanelNotice(null);
     if (detail && isFishingSpot(detail)) {
       setRelatedFishingSpotId(detail.id);
     }
+    if (detail && isPloggingRoute(detail)) {
+      setSelectedCategory("plogging");
+      setFitRouteRequestId((value) => value + 1);
+    }
   };
 
-  const handleAddToSchedule = (partnerId: string) => {
+  const handleAddPartnerToSchedule = (partnerId: string) => {
     const partner = getLocationDetailById(partnerId);
     if (!partner || !isPartnerPlace(partner)) {
       return;
     }
     setScheduleItems((prev) => {
-      if (prev.some((item) => item.partnerId === partnerId)) {
+      if (prev.some((item) => item.targetId === partnerId)) {
         setPanelNotice(`${partner.name}은(는) 이미 일정에 추가되어 있습니다.`);
         return prev;
       }
@@ -242,9 +312,34 @@ export function MapAppShell() {
         ...prev,
         {
           id: `schedule-${partnerId}-${Date.now()}`,
-          partnerId: partner.id,
-          partnerName: partner.name,
-          partnerType: partner.type,
+          type: partnerScheduleType(partner.type),
+          targetId: partner.id,
+          name: partner.name,
+          relatedFishingSpotId: relatedFishingSpotId ?? undefined,
+          addedAt: new Date().toISOString(),
+        },
+      ];
+    });
+  };
+
+  const handleAddPloggingToSchedule = (routeId: string) => {
+    const route = getLocationDetailById(routeId);
+    if (!route || !isPloggingRoute(route)) {
+      return;
+    }
+    setScheduleItems((prev) => {
+      if (prev.some((item) => item.targetId === routeId)) {
+        setPanelNotice(`${route.name}은(는) 이미 일정에 추가되어 있습니다.`);
+        return prev;
+      }
+      setPanelNotice(`${route.name}이(가) 일정에 추가되었습니다.`);
+      return [
+        ...prev,
+        {
+          id: `schedule-${routeId}-${Date.now()}`,
+          type: "plogging",
+          targetId: route.id,
+          name: route.name,
           relatedFishingSpotId: relatedFishingSpotId ?? undefined,
           addedAt: new Date().toISOString(),
         },
@@ -293,6 +388,18 @@ export function MapAppShell() {
     }));
   };
 
+  const nearbyOrigin =
+    selectedFishing?.coordinates ??
+    relatedFishingSpot?.coordinates ??
+    userLocation;
+  const nearbyOriginName =
+    selectedFishing?.name ??
+    relatedFishingSpot?.name ??
+    (userLocation ? "현재 위치" : null);
+
+  const showPloggingList =
+    selectedCategory === "plogging" || selectedCategory === "all";
+
   return (
     <div className="flex min-h-screen flex-col bg-[var(--color-surface)]">
       <Header
@@ -332,10 +439,17 @@ export function MapAppShell() {
             <MapSection
               selectedCategory={selectedCategory}
               selectedLocationId={selectedLocationId}
+              selectedRouteId={selectedRoute?.id ?? null}
+              highlightedWastePointIds={
+                selectedRoute?.connectedWastePointIds ?? []
+              }
               onSelectLocation={handleSelectLocation}
+              onSelectRoute={(routeId) => selectAndFocusLocation(routeId)}
               onCategoryChange={handleCategoryChange}
               onNotice={setMapNotice}
+              onUserLocation={setUserLocation}
               focusRequestId={focusRequestId}
+              fitRouteRequestId={fitRouteRequestId}
             />
             {mapNotice ? (
               <p
@@ -345,26 +459,82 @@ export function MapAppShell() {
                 {mapNotice}
               </p>
             ) : null}
+            {ploggingSession.status === "inProgress" &&
+            ploggingSession.routeId ? (
+              <p
+                className="absolute bottom-4 left-1/2 z-40 w-[min(90%,360px)] -translate-x-1/2 rounded-[var(--radius-md)] border border-teal-200 bg-teal-50 px-3 py-2 text-center text-xs font-medium text-teal-900 shadow-md"
+                role="status"
+                aria-live="polite"
+              >
+                플로깅 진행 중 · 상세 패널에서 완료할 수 있습니다
+              </p>
+            ) : null}
           </div>
 
-          <aside className="flex w-full shrink-0 flex-col gap-3 pb-20 lg:w-80 lg:overflow-y-auto lg:pb-0 xl:w-96">
+          <aside className="flex w-full shrink-0 flex-col gap-3 pb-24 lg:w-80 lg:overflow-y-auto lg:pb-0 xl:w-96">
             {selectedPartner ? (
               <PartnerDetailPanel
                 partner={selectedPartner}
-                originLabel={
-                  relatedFishingSpot
-                    ? `선택한 낚시터(${relatedFishingSpot.name})`
-                    : null
-                }
-                originCoordinates={relatedFishingSpot?.coordinates ?? null}
+                originLabel={distanceOriginLabel}
+                originCoordinates={distanceOrigin}
                 distanceKm={partnerDistanceKm}
-                onAddToSchedule={() => handleAddToSchedule(selectedPartner.id)}
-                scheduleAdded={schedulePartnerIds.includes(selectedPartner.id)}
+                onAddToSchedule={() =>
+                  handleAddPartnerToSchedule(selectedPartner.id)
+                }
+                scheduleAdded={scheduleTargetIds.includes(selectedPartner.id)}
                 notice={panelNotice}
               />
-            ) : (
+            ) : null}
+
+            {selectedWaste ? (
+              <WastePointDetailPanel
+                wastePoint={selectedWaste}
+                originLabel={distanceOriginLabel}
+                distanceKm={wasteDistanceKm}
+                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                notice={panelNotice}
+              />
+            ) : null}
+
+            {selectedRoute ? (
+              <PloggingRouteDetail
+                route={selectedRoute}
+                connectedWastePoints={connectedWastePoints}
+                session={
+                  ploggingSession.routeId === selectedRoute.id
+                    ? ploggingSession
+                    : { ...EMPTY_SESSION, routeId: selectedRoute.id }
+                }
+                scheduleAdded={scheduleTargetIds.includes(selectedRoute.id)}
+                onAddToSchedule={() =>
+                  handleAddPloggingToSchedule(selectedRoute.id)
+                }
+                onSelectWastePoint={selectAndFocusLocation}
+                onStartSession={() =>
+                  setPloggingSession({
+                    ...EMPTY_SESSION,
+                    status: "inProgress",
+                    routeId: selectedRoute.id,
+                    startedAt: new Date().toISOString(),
+                  })
+                }
+                onCancelSession={() => setPloggingSession(EMPTY_SESSION)}
+                onCompleteSession={(payload) =>
+                  setPloggingSession((prev) => ({
+                    ...prev,
+                    status: "completed",
+                    completedAt: new Date().toISOString(),
+                    ...payload,
+                  }))
+                }
+                onResetSession={() => setPloggingSession(EMPTY_SESSION)}
+                notice={panelNotice}
+              />
+            ) : null}
+
+            {selectedFishing ? (
               <LocationDetailPanel
-                location={selectedFishing ?? selectedFacility}
+                location={selectedFishing}
                 weather={weatherState.data}
                 isFavorite={Boolean(
                   selectedLocationId && favorites[selectedLocationId],
@@ -373,18 +543,45 @@ export function MapAppShell() {
                 onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
                 notice={panelNotice}
               />
-            )}
+            ) : null}
+
+            {!selectedPartner &&
+            !selectedWaste &&
+            !selectedRoute &&
+            !selectedFishing ? (
+              <LocationDetailPanel
+                location={null}
+                isFavorite={false}
+                onToggleFavorite={handleToggleFavorite}
+                onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                notice={panelNotice}
+              />
+            ) : null}
+
+            {nearbyOrigin && nearbyOriginName ? (
+              <NearbyWastePointSection
+                origin={nearbyOrigin}
+                originName={nearbyOriginName}
+                selectedWastePointId={selectedWaste?.id ?? null}
+                onSelectWastePoint={selectAndFocusLocation}
+              />
+            ) : null}
 
             {selectedFishing || (relatedFishingSpot && selectedPartner) ? (
               <NearbyPartnerSection
-                origin={
-                  (selectedFishing ?? relatedFishingSpot)!.coordinates
-                }
+                origin={(selectedFishing ?? relatedFishingSpot)!.coordinates}
                 originName={(selectedFishing ?? relatedFishingSpot)!.name}
                 selectedPartnerId={selectedPartner?.id ?? null}
-                schedulePartnerIds={schedulePartnerIds}
+                schedulePartnerIds={scheduleTargetIds}
                 onSelectPartner={selectAndFocusLocation}
-                onAddToSchedule={handleAddToSchedule}
+                onAddToSchedule={handleAddPartnerToSchedule}
+              />
+            ) : null}
+
+            {showPloggingList && !selectedRoute ? (
+              <PloggingRouteList
+                selectedRouteId={null}
+                onSelectRoute={selectAndFocusLocation}
               />
             ) : null}
 
@@ -395,7 +592,9 @@ export function MapAppShell() {
                 </p>
                 <ul className="mt-1.5 space-y-1">
                   {scheduleItems.map((item) => (
-                    <li key={item.id}>· {item.partnerName}</li>
+                    <li key={item.id}>
+                      · [{item.type}] {item.name}
+                    </li>
                   ))}
                 </ul>
                 <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">

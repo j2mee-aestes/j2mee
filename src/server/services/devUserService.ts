@@ -22,12 +22,18 @@ export async function ensureDevUser() {
     return existing;
   }
   const passwordHash = await bcrypt.hash(password, 10);
+  const adminEmails = (process.env.INITIAL_ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+  const role = adminEmails.includes(email) ? "admin" : "user";
   return prisma.user.create({
     data: {
       email,
       name: "파도파도 Dev",
       passwordHash,
       preferredLocale: "ko",
+      role,
       preference: {
         create: { locale: "ko" },
       },

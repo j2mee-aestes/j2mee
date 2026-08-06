@@ -17,6 +17,7 @@ model User {
   image            String?
   passwordHash     String?
   preferredLocale  String    @default("ko")
+  role             String    @default("user")
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
@@ -26,6 +27,8 @@ model User {
   schedules        SavedSchedule[]
   activityRuns     ActivityRunRecord[]
   preference       UserPreference?
+  auditLogs        AuditLog[]
+  resolvedReports  PlaceReport[] @relation("ReportResolver")
 }
 
 model Account {
@@ -117,4 +120,72 @@ model UserPreference {
   updatedAt            DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ManagedPlace {
+  id                 String   @id @default(cuid())
+  entityType         String
+  sourceId           String
+  recordStatus       String   @default("active")
+  verificationStatus String   @default("unverified")
+  name               String
+  payload            String
+  lastVerifiedAt     String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@unique([entityType, sourceId])
+  @@index([entityType, recordStatus])
+}
+
+model PlaceReport {
+  id             String    @id @default(cuid())
+  entityType     String
+  sourceId       String
+  reportType     String
+  status         String    @default("submitted")
+  description    String
+  placeNameSnapshot String?
+  adminNote      String?
+  resolvedById   String?
+  resolvedAt     DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  resolvedBy User? @relation("ReportResolver", fields: [resolvedById], references: [id])
+
+  @@index([status, createdAt])
+  @@index([entityType, sourceId])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  adminUserId String
+  action      String
+  entityType  String
+  entityId    String?
+  beforeJson  String?
+  afterJson   String?
+  createdAt   DateTime @default(now())
+
+  admin User @relation(fields: [adminUserId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+  @@index([entityType, entityId])
+}
+
+model TranslationReview {
+  id           String   @id @default(cuid())
+  messageKey   String
+  locale       String
+  text         String
+  reviewStatus String   @default("machineTranslated")
+  isSafety     Boolean  @default(false)
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+
+  @@unique([messageKey, locale])
+  @@index([reviewStatus, isSafety])
 }

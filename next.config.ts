@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
 
+/**
+ * Phase 12 CSP initially omitted daumcdn connect/script hosts that Kakao Maps
+ * needs after the stub SDK loads — that made maps.load hang and surfaced as
+ * a false "check domain registration" error. Keep Kakao CDN hosts allowed.
+ */
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -14,13 +19,33 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://dapi.kakao.com https://t1.daumcdn.net",
+      [
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+        "https://dapi.kakao.com",
+        "https://t1.daumcdn.net",
+        "https://*.daumcdn.net",
+        "https://*.kakaocdn.net",
+      ].join(" "),
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' data: blob: https://*.kakaocdn.net https://*.daumcdn.net https://*.kakao.com https://map.kakao.com",
-      "font-src 'self' https://fonts.gstatic.com data:",
-      "connect-src 'self' https://dapi.kakao.com https://*.kakao.com https://*.daumcdn.net https://*.kakaocdn.net",
+      [
+        "img-src 'self' data: blob:",
+        "https://*.kakaocdn.net",
+        "https://*.daumcdn.net",
+        "https://*.kakao.com",
+        "https://map.kakao.com",
+      ].join(" "),
+      "font-src 'self' https://fonts.gstatic.com data: https://*.daumcdn.net",
+      [
+        "connect-src 'self'",
+        "https://dapi.kakao.com",
+        "https://*.kakao.com",
+        "https://*.daumcdn.net",
+        "https://t1.daumcdn.net",
+        "https://*.kakaocdn.net",
+      ].join(" "),
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
+      "frame-src 'self' https://*.kakao.com https://map.kakao.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",

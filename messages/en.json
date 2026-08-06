@@ -85,9 +85,10 @@
     "kakaoKeyMissingTitle": "Kakao Map API key is not configured.",
     "kakaoKeyMissingBody": "Add NEXT_PUBLIC_KAKAO_MAP_APP_KEY to .env.local.",
     "kakaoLoadFailedTitle": "Could not load the map.",
-    "kakaoLoadFailedBody": "Check Kakao developer console settings and domain registration, then try again.",
+    "kakaoLoadFailedBody": "Check network/CSP settings or register this site on your Kakao JavaScript key, then try again.",
     "kakaoRetry": "Try again",
     "mapLoading": "Loading map…",
+    "kakaoLoadFailedDetail": "Host: {host} · Reason: {reason}",
     "referenceLineNote": "Dashed lines are schedule-order references, not real road routes.",
     "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references."
   },

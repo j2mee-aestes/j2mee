@@ -85,9 +85,10 @@
     "kakaoKeyMissingTitle": "カカオマップ APIキーが設定されていません。",
     "kakaoKeyMissingBody": ".env.local に NEXT_PUBLIC_KAKAO_MAP_APP_KEY を設定してください。",
     "kakaoLoadFailedTitle": "地図を読み込めませんでした。",
-    "kakaoLoadFailedBody": "カカオ開発者コンソールとドメイン設定を確認して再試行してください。",
+    "kakaoLoadFailedBody": "ネットワーク/CSP、またはカカオ開発者コンソールの Web ドメイン登録を確認して再試行してください。",
     "kakaoRetry": "再試行",
     "mapLoading": "地図を読み込み中…",
+    "kakaoLoadFailedDetail": "現在のホスト: {host} · 原因: {reason}",
     "referenceLineNote": "破線はスケジュール順の参考線であり、実際の道路経路ではありません。",
     "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。"
   },

@@ -7,7 +7,7 @@ let loaderStatus: LoaderStatus = "idle";
 let lastError: string | null = null;
 let mapsFullyLoaded = false;
 
-const LOAD_TIMEOUT_MS = 12_000;
+const LOAD_TIMEOUT_MS = 15_000;
 
 function getScriptId(appKey: string): string {
   return `kakao-maps-sdk-${appKey.slice(0, 8)}`;

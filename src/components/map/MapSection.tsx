@@ -46,7 +46,7 @@ export function MapSection({
   fitRouteRequestId = 0,
 }: MapSectionProps) {
   const { t } = useTranslations();
-  const { status, retry } = useKakaoMaps();
+  const { status, retry, errorMessage } = useKakaoMaps();
   const mapRef = useRef<KakaoMapHandle>(null);
   const [locating, setLocating] = useState(false);
   const [inactiveIds, setInactiveIds] = useState<Set<string>>(new Set());
@@ -189,7 +189,11 @@ export function MapSection({
         ) : null}
         {status === "loading" ? <MapSkeleton /> : null}
         {status === "error" ? (
-          <MapFallback variant="error" onRetry={retry} />
+          <MapFallback
+            variant="error"
+            onRetry={retry}
+            errorMessage={errorMessage}
+          />
         ) : null}
         {status === "ready" ? (
           <>

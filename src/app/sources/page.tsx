@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { dataSources } from "@/data/sources/dataSources";
+import { useTranslations } from "@/context/LocaleContext";
 
 const CATEGORY_LABEL: Record<string, string> = {
   weather: "기상·해양",
@@ -9,20 +12,21 @@ const CATEGORY_LABEL: Record<string, string> = {
 };
 
 export default function SourcesPage() {
+  const { t } = useTranslations();
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-3xl px-4 py-10 sm:px-6">
       <Link
         href="/"
         className="text-sm font-semibold text-[var(--color-accent-strong)]"
       >
-        ← 홈으로
+        ← {t("sourcesPage.backHome")}
       </Link>
       <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight">
-        데이터 출처
+        {t("sourcesPage.title")}
       </h1>
       <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-        파도파도가 참고하는 공개 자료와 서비스입니다. 항목을 누르면 원문 사이트로
-        이동합니다.
+        {t("sourcesPage.body")}
       </p>
       <ul className="mt-8 space-y-3">
         {dataSources.map((source) => (

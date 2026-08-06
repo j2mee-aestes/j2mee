@@ -448,7 +448,9 @@
     "importSkip": "スキップ",
     "importSkipped": "取り込みをスキップしました。",
     "importFailed": "取り込みに失敗しました。",
-    "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）"
+    "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）",
+    "mileage": "マイレージ",
+    "mileageHint": "投稿が地図に反映されると付与されます。後日ポイント交換予定です。"
   },
   "a11y": {
     "skipToContent": "本文へスキップ"
@@ -535,7 +537,17 @@
     "submitted": "受け付けました。審査後に反映します。",
     "submitFailed": "送信に失敗しました。",
     "needAuth": "投稿にはログインが必要です。",
-    "back": "投稿メニューへ"
+    "back": "投稿メニューへ",
+    "boardTitle": "コミュニティ投稿ボード",
+    "boardEmpty": "まだ投稿がありません。最初の投稿をしてみましょう。",
+    "vote": "投票する",
+    "voteOk": "投票が反映されました。",
+    "voteFailed": "投票に失敗しました。",
+    "alreadyVoted": "すでに投票済みです。",
+    "votesLabel": "投票 {count}",
+    "binsReviewOnly": "ゴミ箱投稿は管理者確認後に反映されます。",
+    "attractionsBoard": "観光名所候補 · 投票",
+    "fishingBoard": "釣り場候補 · 投票"
   },
   "ploggingPopup": {
     "title": "コースプレビュー",

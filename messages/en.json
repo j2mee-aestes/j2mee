@@ -448,7 +448,9 @@
     "importSkip": "Skip",
     "importSkipped": "Import skipped.",
     "importFailed": "Import failed.",
-    "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})"
+    "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})",
+    "mileage": "Mileage",
+    "mileageHint": "Earned when your contribution is published. Redeemable for points later."
   },
   "a11y": {
     "skipToContent": "Skip to content"
@@ -535,7 +537,17 @@
     "submitted": "Report received. We’ll review it before publishing.",
     "submitFailed": "Could not submit the report.",
     "needAuth": "Please log in to contribute.",
-    "back": "Back to contribute menu"
+    "back": "Back to contribute menu",
+    "boardTitle": "Community submissions",
+    "boardEmpty": "No submissions yet. Be the first to contribute.",
+    "vote": "Vote",
+    "voteOk": "Your vote was counted.",
+    "voteFailed": "Could not cast the vote.",
+    "alreadyVoted": "You already voted for this submission.",
+    "votesLabel": "{count} votes",
+    "binsReviewOnly": "Bin reports are published after admin review.",
+    "attractionsBoard": "Attraction candidates · vote",
+    "fishingBoard": "Fishing spot candidates · vote"
   },
   "ploggingPopup": {
     "title": "Route preview",

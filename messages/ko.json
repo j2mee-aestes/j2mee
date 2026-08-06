@@ -448,7 +448,9 @@
     "importSkip": "건너뛰기",
     "importSkipped": "가져오기를 건너뛰었습니다.",
     "importFailed": "가져오기에 실패했습니다.",
-    "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})"
+    "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})",
+    "mileage": "마일리지",
+    "mileageHint": "위치 제보가 지도에 반영되면 적립됩니다. 추후 네이버 포인트 등으로 교환할 수 있도록 준비 중입니다."
   },
   "a11y": {
     "skipToContent": "본문으로 건너뛰기"
@@ -535,7 +537,17 @@
     "submitted": "제보가 접수되었습니다. 검토 후 반영됩니다.",
     "submitFailed": "제보 전송에 실패했습니다.",
     "needAuth": "제보하려면 로그인이 필요합니다.",
-    "back": "제보 메뉴로"
+    "back": "제보 메뉴로",
+    "boardTitle": "커뮤니티 제보 보드",
+    "boardEmpty": "아직 올라온 제보가 없습니다. 첫 제보를 남겨 주세요.",
+    "vote": "투표하기",
+    "voteOk": "투표가 반영되었습니다.",
+    "voteFailed": "투표에 실패했습니다.",
+    "alreadyVoted": "이미 투표한 제보입니다.",
+    "votesLabel": "투표 {count}",
+    "binsReviewOnly": "쓰레기통 제보는 관리자 검토 후 반영됩니다.",
+    "attractionsBoard": "관광명소 후보 · 투표",
+    "fishingBoard": "낚시터 후보 · 투표"
   },
   "ploggingPopup": {
     "title": "코스 미리보기",

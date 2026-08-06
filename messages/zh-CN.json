@@ -448,7 +448,9 @@
     "importSkip": "跳过",
     "importSkipped": "已跳过导入。",
     "importFailed": "导入失败。",
-    "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）"
+    "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）",
+    "mileage": "里程",
+    "mileageHint": "上报被发布后会发放。后续可兑换积分。"
   },
   "a11y": {
     "skipToContent": "跳到正文"
@@ -535,7 +537,17 @@
     "submitted": "已收到上报，审核后发布。",
     "submitFailed": "提交失败。",
     "needAuth": "上报需要登录。",
-    "back": "返回上报菜单"
+    "back": "返回上报菜单",
+    "boardTitle": "社区上报看板",
+    "boardEmpty": "还没有上报。来成为第一个贡献者吧。",
+    "vote": "投票",
+    "voteOk": "投票已记录。",
+    "voteFailed": "投票失败。",
+    "alreadyVoted": "你已经投过票了。",
+    "votesLabel": "{count} 票",
+    "binsReviewOnly": "垃圾桶上报需管理员审核后发布。",
+    "attractionsBoard": "景点候选 · 投票",
+    "fishingBoard": "钓点候选 · 投票"
   },
   "ploggingPopup": {
     "title": "路线预览",

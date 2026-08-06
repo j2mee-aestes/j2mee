@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/common/Card";
+import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { EmptyState } from "@/components/common/EmptyState";
 import { IconButton, TextButton } from "@/components/common/IconButton";
 import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
@@ -240,29 +241,12 @@ export function LocationDetailPanel({
           {t("fishing.nearbyHint")}
         </p>
 
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/80 p-3 text-xs text-[var(--color-text-secondary)]">
-          <p className="font-semibold text-[var(--color-text-primary)]">
-            {t("fishing.dataSource")}
-          </p>
-          <p className="mt-1">
-            {fishing.sourceName ?? t("common.unknown")}
-          </p>
-          {fishing.lastVerifiedAt ? (
-            <p className="mt-0.5">
-              {t("common.updated")}: {fishing.lastVerifiedAt}
-            </p>
-          ) : null}
-          {fishing.sourceUrl ? (
-            <a
-              href={fishing.sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
-            >
-              {t("fishing.viewSource")}
-            </a>
-          ) : null}
-        </div>
+        <DataSourceInfo
+          sourceName={fishing.sourceName}
+          sourceUrl={fishing.sourceUrl}
+          lastVerifiedAt={fishing.lastVerifiedAt}
+          isMock={fishing.verificationStatus === "unverified"}
+        />
 
         <div className="flex flex-col gap-2 sm:flex-row">
           {onAddToSchedule ? (

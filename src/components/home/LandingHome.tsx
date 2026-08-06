@@ -135,7 +135,7 @@ export function LandingHome() {
             </div>
 
             <nav
-              className="absolute bottom-16 left-1/2 z-10 hidden w-[min(92%,720px)] -translate-x-1/2 items-center gap-1 rounded-full bg-[rgba(10,18,28,0.88)] px-3 py-2 text-white shadow-[0_20px_50px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl md:flex"
+              className="absolute bottom-[4.75rem] left-1/2 z-10 hidden w-[min(92%,720px)] -translate-x-1/2 items-center gap-1 rounded-full bg-[rgba(10,18,28,0.88)] px-3 py-2 text-white shadow-[0_20px_50px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl md:flex"
               aria-label={t("home.nav.label")}
             >
               <span className="mr-1 grid h-8 w-8 place-items-center rounded-full bg-white/10">
@@ -146,6 +146,21 @@ export function LandingHome() {
                   key={item.href}
                   href={item.href}
                   className="rounded-full px-3 py-1.5 text-xs font-medium text-white/85 transition hover:bg-white/10 hover:text-white"
+                >
+                  {t(item.labelKey)}
+                </Link>
+              ))}
+            </nav>
+
+            <nav
+              className="absolute bottom-[4.75rem] left-1/2 z-10 flex w-[min(94%,420px)] -translate-x-1/2 gap-1.5 overflow-x-auto rounded-full bg-[rgba(10,18,28,0.88)] px-2 py-2 text-white shadow-[0_20px_50px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl [-ms-overflow-style:none] [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden"
+              aria-label={t("home.nav.label")}
+            >
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="shrink-0 rounded-full px-3 py-1.5 text-[11px] font-medium text-white/90 transition hover:bg-white/10"
                 >
                   {t(item.labelKey)}
                 </Link>

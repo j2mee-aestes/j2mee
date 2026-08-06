@@ -19,6 +19,7 @@ type Profile = {
   name: string | null;
   email: string | null;
   preferredLocale: string;
+  mileageBalance?: number;
 };
 
 type Favorite = {
@@ -156,10 +157,16 @@ export default function MyPage() {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
-            href="/"
+            href="/map"
             className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm"
           >
             {t("common.map")}
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm"
+          >
+            {t("common.home")}
           </Link>
           <TextButton
             variant="ghost"
@@ -187,6 +194,17 @@ export default function MyPage() {
         <p className="text-xs text-[var(--color-text-secondary)]">
           {profile?.email ?? session?.user?.email}
         </p>
+        <div className="mt-4 rounded-2xl bg-[var(--color-accent-soft)] px-3 py-3">
+          <p className="text-xs font-semibold text-[var(--color-accent-strong)]">
+            {t("auth.mileage")}
+          </p>
+          <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-[var(--color-ink)]">
+            {profile?.mileageBalance ?? 0}
+          </p>
+          <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+            {t("auth.mileageHint")}
+          </p>
+        </div>
         <label className="mt-3 block text-xs font-medium">
           {t("auth.preferredLocale")}
         </label>

@@ -84,11 +84,11 @@ export function LocationDetailPanel({
       <Card as="article" className="flex flex-col gap-4 p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ocean-600)]">
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
               {spotTypeLabel}
             </p>
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-[var(--color-ink)]">
                 {displayName}
               </h2>
               <LocationFeatureBadge
@@ -152,14 +152,14 @@ export function LocationDetailPanel({
         </div>
 
         <div
-          className="relative h-28 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)]"
+          className="relative h-28 overflow-hidden rounded-2xl border border-[var(--color-border)]"
           style={{
             backgroundImage:
               "linear-gradient(135deg, #bae6fd 0%, #7dd3fc 35%, #99f6e4 70%, #bbf7d0 100%)",
           }}
           aria-hidden
         >
-          <div className="absolute bottom-2 left-2 rounded-md bg-white/80 px-2 py-1 text-[10px] font-medium text-[var(--color-text-secondary)]">
+          <div className="absolute bottom-2 left-2 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-medium text-[var(--color-text-secondary)] backdrop-blur-sm">
             {t("fishing.imagePending")}
           </div>
         </div>
@@ -246,7 +246,7 @@ export function LocationDetailPanel({
           {t("fishing.nearbyHint")}
         </p>
 
-        <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 text-xs text-[var(--color-text-secondary)]">
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/80 p-3 text-xs text-[var(--color-text-secondary)]">
           <p className="font-semibold text-[var(--color-text-primary)]">
             {t("fishing.dataSource")}
           </p>

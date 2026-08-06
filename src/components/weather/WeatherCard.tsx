@@ -77,7 +77,7 @@ export function WeatherCard({
     <Card className="p-4">
       <div className="mb-3 flex items-start justify-between gap-2">
         <div>
-          <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
+          <h3 className="text-sm font-bold text-[var(--color-text-primary)] font-display tracking-tight">
             {t("weather.marineTitle")}
           </h3>
           <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
@@ -155,7 +155,7 @@ export function WeatherCard({
 
 function InfoItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2">
+    <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/70 px-2.5 py-2">
       <dt className="text-[10px] text-[var(--color-text-muted)]">{label}</dt>
       <dd className="mt-0.5 font-semibold text-[var(--color-text-primary)]">
         {value}

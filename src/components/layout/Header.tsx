@@ -28,6 +28,12 @@ interface HeaderProps {
   onSelectSearchResult: (locationId: string) => void;
 }
 
+const navLinkClass =
+  "inline-flex h-10 items-center rounded-full border border-[var(--color-border)] bg-white/70 px-3.5 text-sm font-semibold text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]";
+
+const navCtaClass =
+  "inline-flex h-10 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.65)] transition hover:-translate-y-0.5 hover:brightness-105";
+
 export function Header({
   mobileMenuOpen,
   onMobileMenuToggle,
@@ -41,8 +47,8 @@ export function Header({
   const { t } = useTranslations();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-5">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_oklab,white_72%,transparent)] shadow-[var(--shadow-soft)] backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-6">
         <div className="flex items-center gap-2 sm:gap-3">
           <IconButton
             label={mobileMenuOpen ? t("common.closeMenu") : t("common.openMenu")}
@@ -53,18 +59,18 @@ export function Header({
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </IconButton>
 
-          <div className="flex min-w-0 items-center gap-2.5">
+          <div className="group flex min-w-0 items-center gap-3">
             <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] text-white shadow-sm"
+              className="ui-glow-pulse flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(145deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.7)] transition duration-300 group-hover:scale-[1.03]"
               aria-hidden
             >
               <Waves className="h-5 w-5" />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-lg font-bold tracking-tight text-[var(--color-ocean-800)]">
+              <p className="font-display truncate text-[1.35rem] font-semibold leading-none tracking-[-0.04em] text-[var(--color-ink)] sm:text-[1.55rem]">
                 {t("common.serviceName")}
               </p>
-              <p className="hidden truncate text-xs text-[var(--color-text-secondary)] sm:block">
+              <p className="mt-1 hidden truncate text-[11px] font-medium text-[var(--color-text-secondary)] sm:block">
                 {t("common.serviceTagline")}
               </p>
             </div>
@@ -79,40 +85,25 @@ export function Header({
                 <Heart className="h-4 w-4" />
               </IconButton>
             </div>
-            <Link
-              href="/activities"
-              className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium text-[var(--color-text-primary)] md:inline-flex"
-            >
+            <Link href="/activities" className={`hidden md:inline-flex ${navLinkClass}`}>
               {t("common.activities")}
             </Link>
-            <Link
-              href="/schedule"
-              className="hidden h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white sm:inline-flex"
-            >
+            <Link href="/schedule" className={`hidden sm:inline-flex ${navCtaClass}`}>
               {t("common.schedule")}
             </Link>
-            <Link
-              href="/privacy"
-              className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium lg:inline-flex"
-            >
+            <Link href="/privacy" className={`hidden lg:inline-flex ${navLinkClass}`}>
               {t("common.privacy")}
             </Link>
-            <Link
-              href="/my"
-              className="hidden h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium md:inline-flex"
-            >
+            <Link href="/my" className={`hidden md:inline-flex ${navLinkClass}`}>
               {t("auth.myPage")}
             </Link>
-            <Link
-              href="/login"
-              className="hidden h-10 items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white md:inline-flex"
-            >
+            <Link href="/login" className={`hidden md:inline-flex ${navCtaClass}`}>
               <LogIn className="h-4 w-4" aria-hidden />
               {t("common.login")}
             </Link>
             <Link
               href="/login"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] text-white sm:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.65)] sm:hidden"
               aria-label={t("common.login")}
             >
               <LogIn className="h-4 w-4" />
@@ -129,9 +120,9 @@ export function Header({
           />
 
           <div className="flex flex-wrap items-center gap-2 xl:ml-auto">
-            <div className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2 text-xs sm:text-sm">
+            <div className="flex min-w-0 items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/75 px-3 py-2 text-xs shadow-[var(--shadow-soft)] sm:text-sm">
               <CloudSun
-                className="h-4 w-4 shrink-0 text-[var(--color-ocean-600)]"
+                className="h-4 w-4 shrink-0 text-[var(--color-accent)]"
                 aria-hidden
               />
               <span className="font-semibold text-[var(--color-text-primary)]">
@@ -149,7 +140,7 @@ export function Header({
 
         {searchNotice ? (
           <p
-            className="rounded-[var(--radius-md)] border border-[var(--color-ocean-200)] bg-[var(--color-ocean-50)] px-3 py-2 text-xs text-[var(--color-ocean-800)] sm:text-sm"
+            className="ui-rise rounded-2xl border border-[var(--color-ocean-200)] bg-[var(--color-ocean-50)]/90 px-3 py-2 text-xs text-[var(--color-ocean-800)] sm:text-sm"
             role="status"
           >
             {searchNotice}
@@ -158,7 +149,7 @@ export function Header({
 
         {searchResults.length > 0 ? (
           <div
-            className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-2 shadow-sm"
+            className="ui-rise glass-panel rounded-2xl p-2"
             role="listbox"
             aria-label={t("search.resultsLabel")}
           >
@@ -169,7 +160,7 @@ export function Header({
                     type="button"
                     role="option"
                     aria-selected={false}
-                    className="flex w-full flex-col gap-0.5 px-3 py-2.5 text-left hover:bg-[var(--color-surface-muted)]"
+                    className="flex w-full flex-col gap-0.5 rounded-xl px-3 py-2.5 text-left transition hover:bg-[var(--color-accent-soft)]"
                     onClick={() => onSelectSearchResult(result.id)}
                   >
                     <span className="text-sm font-semibold text-[var(--color-text-primary)]">
@@ -190,7 +181,7 @@ export function Header({
         ) : null}
 
         {mobileMenuOpen ? (
-          <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-3 lg:hidden">
+          <div className="ui-rise flex flex-col gap-3 border-t border-[var(--color-border)] pt-3 lg:hidden">
             <div className="flex flex-wrap gap-2">
               <IconButton label={t("common.notifications")}>
                 <Bell className="h-4 w-4" />
@@ -198,16 +189,10 @@ export function Header({
               <IconButton label={t("common.favorites")}>
                 <Heart className="h-4 w-4" />
               </IconButton>
-              <Link
-                href="/activities"
-                className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
-              >
+              <Link href="/activities" className={navLinkClass}>
                 {t("common.activities")}
               </Link>
-              <Link
-                href="/schedule"
-                className="inline-flex h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white"
-              >
+              <Link href="/schedule" className={navCtaClass}>
                 {t("common.schedule")}
               </Link>
             </div>

@@ -158,9 +158,9 @@ export function MapSection({
   return (
     <section
       aria-label={t("common.map")}
-      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-card)] sm:min-h-[440px] lg:min-h-0"
+      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-float)] ring-1 ring-white/60 sm:min-h-[440px] lg:min-h-0"
     >
-      <div className="pointer-events-none absolute inset-x-3 top-3 z-30 flex justify-center sm:inset-x-4 sm:justify-start">
+      <div className="pointer-events-none absolute inset-x-3 top-3 z-30 hidden justify-center sm:inset-x-4 sm:justify-start lg:flex">
         <div className="pointer-events-auto max-w-full">
           <MapFilterChips
             selectedCategory={selectedCategory}
@@ -170,7 +170,7 @@ export function MapSection({
       </div>
 
       {status === "ready" ? (
-        <div className="absolute right-3 top-3 z-30 sm:right-4 sm:top-14">
+        <div className="absolute right-3 top-3 z-30 sm:right-4 lg:top-14">
           <MapControls
             onZoomIn={() => mapRef.current?.zoomIn()}
             onZoomOut={() => mapRef.current?.zoomOut()}
@@ -209,7 +209,7 @@ export function MapSection({
             />
             {visibleLocations.length === 0 && selectedCategory !== "plogging" ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-6">
-                <p className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white/95 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-sm">
+                <p className="rounded-2xl border border-[var(--color-border)] bg-white/90 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-soft)] backdrop-blur-md">
                   {t("map.noPlaces")}
                 </p>
               </div>

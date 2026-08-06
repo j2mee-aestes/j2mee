@@ -25,11 +25,11 @@ export function DesktopSidebar({
     <aside
       className={`${
         mobileOpen ? "flex" : "hidden"
-      } w-full shrink-0 flex-col border-b border-[var(--color-border)] bg-white lg:flex lg:h-[calc(100vh-7.5rem)] lg:w-64 lg:border-b-0 lg:border-r xl:w-72`}
+      } w-full shrink-0 flex-col border-b border-[var(--color-border)] bg-[color-mix(in_oklab,white_55%,transparent)] backdrop-blur-xl lg:flex lg:h-[calc(100vh-7.5rem)] lg:w-64 lg:border-b-0 lg:border-r lg:bg-transparent xl:w-72`}
     >
       <nav
         aria-label={t("categories.all.label")}
-        className="flex flex-1 flex-col gap-2 overflow-y-auto p-3"
+        className="flex flex-1 flex-col gap-2 overflow-y-auto p-3 sm:p-4"
       >
         {CATEGORIES.map((category) => (
           <CategoryButton
@@ -44,12 +44,12 @@ export function DesktopSidebar({
         ))}
       </nav>
 
-      <div className="border-t border-[var(--color-border)] p-3">
-        <div className="rounded-[var(--radius-lg)] bg-[linear-gradient(145deg,#ecfdf5_0%,#e0f2fe_100%)] p-4">
-          <p className="text-sm font-bold text-[var(--color-ocean-800)]">
+      <div className="border-t border-[var(--color-border)] p-3 sm:p-4">
+        <div className="rounded-[var(--radius-xl)] border border-[var(--color-teal-200)] bg-[linear-gradient(160deg,#ecfdf5_0%,#e0f2fe_55%,#f0f9ff_100%)] p-4 shadow-[var(--shadow-soft)]">
+          <p className="font-display text-sm font-semibold tracking-tight text-[var(--color-ocean-800)]">
             {t("environment.ploggingPromoTitle")}
           </p>
-          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+          <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-secondary)]">
             {t("environment.ploggingPromoBody")}
           </p>
           <TextButton

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope, Outfit } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
 import {
   DEFAULT_LOCALE,
@@ -10,10 +10,16 @@ import {
 import { lookupMessage } from "@/i18n/messages";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
 
 const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
@@ -48,7 +54,10 @@ export default async function RootLayout({
   const htmlLang = locale === "zh-CN" ? "zh-CN" : locale;
 
   return (
-    <html lang={htmlLang} className={`${plusJakarta.variable} h-full antialiased`}>
+    <html
+      lang={htmlLang}
+      className={`${manrope.variable} ${outfit.variable} h-full antialiased`}
+    >
       <head>
         <link rel="preconnect" href="https://dapi.kakao.com" />
         <link rel="dns-prefetch" href="https://dapi.kakao.com" />

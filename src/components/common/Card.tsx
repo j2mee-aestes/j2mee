@@ -16,7 +16,7 @@ export function Card({
   return (
     <Tag
       id={id}
-      className={`rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white shadow-[var(--shadow-card)] ${className}`}
+      className={`glass-panel ui-rise rounded-[var(--radius-xl)] ${className}`}
     >
       {children}
     </Tag>

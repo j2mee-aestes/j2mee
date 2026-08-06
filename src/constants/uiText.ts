@@ -1,184 +1,48 @@
-import type { LanguageCode } from "./languages";
+/** Korean UI copy for 파도파도. Language buttons only store selection in phase 2. */
+export const UI_TEXT = {
+  serviceName: "파도파도",
+  serviceTagline: "바다와 사람을 잇는 착한 발걸음",
+  searchPlaceholder: "지역, 장소, 키워드로 검색해보세요",
+  searchButton: "검색",
+  searchHintPrefix: "검색어",
+  searchHintSuffix: "검색 기능은 다음 단계에서 연결됩니다.",
+  weather: "날씨",
+  tide: "물때",
+  notifications: "알림",
+  favorites: "즐겨찾기",
+  login: "로그인",
+  language: "언어",
+  openMenu: "메뉴 열기",
+  closeMenu: "메뉴 닫기",
+  mapComingSoon: "지도 API 연결 예정",
+  listView: "목록 보기",
+  zoomIn: "확대",
+  zoomOut: "축소",
+  currentLocation: "현재 위치",
+  scaleLabel: "500m",
+  selectPlace: "지도에서 장소를 선택해주세요.",
+  noPlaces: "현재 표시할 장소가 없습니다.",
+  addFavorite: "즐겨찾기 추가",
+  removeFavorite: "즐겨찾기 해제",
+  directions: "길찾기",
+  directionsNotice: "길찾기 기능은 지도 API 연결 단계에서 제공됩니다.",
+  targetFish: "주요 대상 어종",
+  nearbyMarket: "주변 수산시장",
+  distance: "이동 거리",
+  beginnerFriendly: "초보자 추천",
+  parkingAvailable: "주차 가능",
+  toiletAvailable: "화장실 있음",
+  safetyFacilities: "안전시설",
+  todayTide: "오늘의 물때",
+  highTide: "만조",
+  lowTide: "간조",
+  tideStatus: "상태",
+  ploggingPromoTitle: "깨끗한 바다를 위해",
+  ploggingPromoBody: "함께 플로깅해요!",
+  ploggingPromoCta: "코스 보러가기",
+  locationComingSoon: "현재 위치 기능은 지도 API 연결 단계에서 제공됩니다.",
+  listComingSoon: "목록 보기 기능은 다음 단계에서 제공됩니다.",
+  noticeDismiss: "닫기",
+} as const;
 
-export type UiTextKey =
-  | "serviceName"
-  | "searchPlaceholder"
-  | "weather"
-  | "tide"
-  | "favorites"
-  | "login"
-  | "language"
-  | "categoryAll"
-  | "categoryFishing"
-  | "categoryTide"
-  | "categoryMarket"
-  | "categoryUglySeafood"
-  | "categoryTrash"
-  | "categoryPlogging"
-  | "mapComingSoon"
-  | "selectedSpot"
-  | "location"
-  | "beginnerFriendly"
-  | "parkingAvailable"
-  | "toiletAvailable"
-  | "targetFish"
-  | "nearbyMarket"
-  | "todayTide"
-  | "highTide"
-  | "lowTide"
-  | "openMenu"
-  | "closeMenu"
-  | "tempFishingMarker"
-  | "tempMarketMarker"
-  | "tempTrashMarker"
-  | "tempPloggingPath"
-  | "noSpotSelected";
-
-type UiDictionary = Record<UiTextKey, string>;
-
-const dictionaries: Record<LanguageCode, UiDictionary> = {
-  KR: {
-    serviceName: "바다한끼 MAP",
-    searchPlaceholder: "장소 검색",
-    weather: "날씨",
-    tide: "물때",
-    favorites: "즐겨찾기",
-    login: "로그인",
-    language: "언어",
-    categoryAll: "전체",
-    categoryFishing: "낚시 장소",
-    categoryTide: "물때",
-    categoryMarket: "수산시장",
-    categoryUglySeafood: "못난이 수산물",
-    categoryTrash: "쓰레기통",
-    categoryPlogging: "플로깅 코스",
-    mapComingSoon: "지도 API 연결 예정",
-    selectedSpot: "선택한 낚시 장소",
-    location: "위치",
-    beginnerFriendly: "초보자 추천",
-    parkingAvailable: "주차 가능",
-    toiletAvailable: "화장실 있음",
-    targetFish: "주요 어종",
-    nearbyMarket: "주변 수산시장",
-    todayTide: "오늘의 만조·간조",
-    highTide: "만조",
-    lowTide: "간조",
-    openMenu: "메뉴 열기",
-    closeMenu: "메뉴 닫기",
-    tempFishingMarker: "임시 낚시 장소",
-    tempMarketMarker: "임시 수산시장",
-    tempTrashMarker: "임시 쓰레기통",
-    tempPloggingPath: "임시 플로깅 경로",
-    noSpotSelected: "낚시 장소를 선택해 주세요",
-  },
-  EN: {
-    serviceName: "Bada Hankki MAP",
-    searchPlaceholder: "Search places",
-    weather: "Weather",
-    tide: "Tide",
-    favorites: "Favorites",
-    login: "Log in",
-    language: "Language",
-    categoryAll: "All",
-    categoryFishing: "Fishing spots",
-    categoryTide: "Tide",
-    categoryMarket: "Fish market",
-    categoryUglySeafood: "Ugly seafood",
-    categoryTrash: "Trash bins",
-    categoryPlogging: "Plogging course",
-    mapComingSoon: "Map API coming soon",
-    selectedSpot: "Selected fishing spot",
-    location: "Location",
-    beginnerFriendly: "Beginner friendly",
-    parkingAvailable: "Parking available",
-    toiletAvailable: "Restroom available",
-    targetFish: "Target fish",
-    nearbyMarket: "Nearby market",
-    todayTide: "Today's high & low tide",
-    highTide: "High",
-    lowTide: "Low",
-    openMenu: "Open menu",
-    closeMenu: "Close menu",
-    tempFishingMarker: "Temp fishing spot",
-    tempMarketMarker: "Temp fish market",
-    tempTrashMarker: "Temp trash bin",
-    tempPloggingPath: "Temp plogging path",
-    noSpotSelected: "Select a fishing spot",
-  },
-  JP: {
-    serviceName: "バダハンキ MAP",
-    searchPlaceholder: "場所を検索",
-    weather: "天気",
-    tide: "潮汐",
-    favorites: "お気に入り",
-    login: "ログイン",
-    language: "言語",
-    categoryAll: "すべて",
-    categoryFishing: "釣り場",
-    categoryTide: "潮汐",
-    categoryMarket: "魚市場",
-    categoryUglySeafood: "規格外水産物",
-    categoryTrash: "ゴミ箱",
-    categoryPlogging: "プロギングコース",
-    mapComingSoon: "地図API接続予定",
-    selectedSpot: "選択した釣り場",
-    location: "位置",
-    beginnerFriendly: "初心者向け",
-    parkingAvailable: "駐車可",
-    toiletAvailable: "トイレあり",
-    targetFish: "主な魚種",
-    nearbyMarket: "周辺の魚市場",
-    todayTide: "本日の満潮・干潮",
-    highTide: "満潮",
-    lowTide: "干潮",
-    openMenu: "メニューを開く",
-    closeMenu: "メニューを閉じる",
-    tempFishingMarker: "仮釣り場マーカー",
-    tempMarketMarker: "仮魚市場マーカー",
-    tempTrashMarker: "仮ゴミ箱マーカー",
-    tempPloggingPath: "仮プロギング経路",
-    noSpotSelected: "釣り場を選択してください",
-  },
-  CN: {
-    serviceName: "바다한끼 MAP",
-    searchPlaceholder: "搜索地点",
-    weather: "天气",
-    tide: "潮汐",
-    favorites: "收藏",
-    login: "登录",
-    language: "语言",
-    categoryAll: "全部",
-    categoryFishing: "钓鱼地点",
-    categoryTide: "潮汐",
-    categoryMarket: "水产市场",
-    categoryUglySeafood: "瑕疵水产",
-    categoryTrash: "垃圾桶",
-    categoryPlogging: "净滩路线",
-    mapComingSoon: "地图 API 即将接入",
-    selectedSpot: "已选钓鱼地点",
-    location: "位置",
-    beginnerFriendly: "适合初学者",
-    parkingAvailable: "可停车",
-    toiletAvailable: "有卫生间",
-    targetFish: "主要鱼种",
-    nearbyMarket: "附近水产市场",
-    todayTide: "今日涨潮·落潮",
-    highTide: "涨潮",
-    lowTide: "落潮",
-    openMenu: "打开菜单",
-    closeMenu: "关闭菜单",
-    tempFishingMarker: "临时钓鱼点",
-    tempMarketMarker: "临时水产市场",
-    tempTrashMarker: "临时垃圾桶",
-    tempPloggingPath: "临时净滩路线",
-    noSpotSelected: "请选择钓鱼地点",
-  },
-};
-
-export function getUiText(language: LanguageCode): UiDictionary {
-  return dictionaries[language];
-}
-
-export function t(language: LanguageCode, key: UiTextKey): string {
-  return dictionaries[language][key];
-}
+export type UiTextKey = keyof typeof UI_TEXT;

@@ -1,53 +1,57 @@
-import type { FishingSpot, TideTime, WeatherSummary } from "@/types/fishing";
+import type { LocationDetail } from "@/types/fishing";
 
-export const mockFishingSpots: FishingSpot[] = [
+export const DEFAULT_SELECTED_LOCATION_ID = "loc-hakri";
+
+export const mockFishingSpots: LocationDetail[] = [
   {
-    id: "spot-hakri",
+    id: "loc-hakri",
+    category: "fishing",
     name: "학리 방파제",
-    address: "부산광역시 기장군",
+    address: "부산광역시 기장군 일광읍",
+    description:
+      "초보자와 가족 단위 이용객이 접근하기 쉬운 방파제 낚시 장소입니다.",
     coordinates: { latitude: 35.3184, longitude: 129.2631 },
     beginnerFriendly: true,
     parkingAvailable: true,
     toiletAvailable: true,
-    targetFish: ["감성돔", "볼락", "학꽁치", "고등어"],
-    nearbyMarket: "기장시장",
+    safetyFacilities: true,
+    targetFish: ["감성돔", "우럭", "전갱이", "볼락"],
+    nearbyMarket: "일광수산시장",
+    nearbyMarketDistanceKm: 3.1,
+    distanceLabel: "시장까지 3.1km",
   },
   {
-    id: "spot-songjung",
-    name: "송정해수욕장 방파제",
-    address: "부산광역시 해운대구",
-    coordinates: { latitude: 35.1786, longitude: 129.1994 },
+    id: "loc-daebyeon",
+    category: "fishing",
+    name: "대변항 방파제",
+    address: "부산광역시 기장군 기장읍 대변리",
+    description:
+      "항구와 인접해 접근성이 좋고, 저녁 물때에 볼락·학꽁치가 잘 잡히는 포인트입니다.",
+    coordinates: { latitude: 35.2235, longitude: 129.2278 },
     beginnerFriendly: true,
     parkingAvailable: true,
     toiletAvailable: true,
-    targetFish: ["숭어", "볼락", "전어"],
-    nearbyMarket: "자갈치시장",
+    safetyFacilities: true,
+    targetFish: ["볼락", "학꽁치", "고등어"],
+    nearbyMarket: "기장시장",
+    nearbyMarketDistanceKm: 2.4,
+    distanceLabel: "시장까지 2.4km",
   },
   {
-    id: "spot-dadaepo",
-    name: "다대포 방파제",
-    address: "부산광역시 사하구",
-    coordinates: { latitude: 35.0478, longitude: 128.9656 },
+    id: "loc-imrang",
+    category: "fishing",
+    name: "임랑해수욕장 인근",
+    address: "부산광역시 기장군 장안읍 임랑리",
+    description:
+      "해수욕장과 가까운 연안 포인트로 플로깅 코스와 함께 즐기기 좋습니다.",
+    coordinates: { latitude: 35.3189, longitude: 129.268 },
     beginnerFriendly: false,
     parkingAvailable: true,
-    toiletAvailable: false,
-    targetFish: ["광어", "우럭", "도다리"],
-    nearbyMarket: "다대포항 수산물시장",
+    toiletAvailable: true,
+    safetyFacilities: false,
+    targetFish: ["감성돔", "농어", "전어"],
+    nearbyMarket: "일광수산시장",
+    nearbyMarketDistanceKm: 5.2,
+    distanceLabel: "시장까지 5.2km",
   },
 ];
-
-export const mockTideTimes: TideTime[] = [
-  { type: "high", time: "05:42", height: 118 },
-  { type: "low", time: "11:58", height: 32 },
-  { type: "high", time: "18:15", height: 126 },
-  { type: "low", time: "00:40", height: 28 },
-];
-
-export const mockWeather: WeatherSummary = {
-  location: "기장",
-  temperature: 22,
-  condition: "맑음",
-  windSpeed: 3.2,
-};
-
-export const DEFAULT_SELECTED_SPOT_ID = "spot-hakri";

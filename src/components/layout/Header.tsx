@@ -4,15 +4,28 @@ import { SearchBar } from "@/components/common/SearchBar";
 import { IconButton, TextButton } from "@/components/common/IconButton";
 import type { LanguageCode } from "@/constants/languages";
 import { LANGUAGES } from "@/constants/languages";
-import { t } from "@/constants/uiText";
-import { mockTideTimes, mockWeather } from "@/data/mockFishingSpots";
-import { Heart, LogIn, Menu, Waves, X } from "lucide-react";
+import { UI_TEXT } from "@/constants/uiText";
+import { mockTideData, mockWeather } from "@/data/mockTideData";
+import {
+  Bell,
+  CloudSun,
+  Heart,
+  LogIn,
+  Menu,
+  Waves,
+  X,
+} from "lucide-react";
 
 interface HeaderProps {
   language: LanguageCode;
   onLanguageChange: (language: LanguageCode) => void;
   mobileMenuOpen: boolean;
   onMobileMenuToggle: () => void;
+  searchQuery: string;
+  onSearchQueryChange: (value: string) => void;
+  onSearchSubmit: () => void;
+  searchNotice: string | null;
+  onTideSummaryClick: () => void;
 }
 
 export function Header({
@@ -20,28 +33,18 @@ export function Header({
   onLanguageChange,
   mobileMenuOpen,
   onMobileMenuToggle,
+  searchQuery,
+  onSearchQueryChange,
+  onSearchSubmit,
+  searchNotice,
+  onTideSummaryClick,
 }: HeaderProps) {
-  const text = {
-    serviceName: t(language, "serviceName"),
-    searchPlaceholder: t(language, "searchPlaceholder"),
-    weather: t(language, "weather"),
-    tide: t(language, "tide"),
-    favorites: t(language, "favorites"),
-    login: t(language, "login"),
-    languageLabel: t(language, "language"),
-    openMenu: t(language, "openMenu"),
-    closeMenu: t(language, "closeMenu"),
-    highTide: t(language, "highTide"),
-  };
-
-  const nextTide = mockTideTimes[0];
-
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-6">
+      <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-3 py-3 sm:px-4 lg:px-5">
         <div className="flex items-center gap-2 sm:gap-3">
           <IconButton
-            label={mobileMenuOpen ? text.closeMenu : text.openMenu}
+            label={mobileMenuOpen ? UI_TEXT.closeMenu : UI_TEXT.openMenu}
             className="lg:hidden"
             onClick={onMobileMenuToggle}
             aria-expanded={mobileMenuOpen}
@@ -49,64 +52,90 @@ export function Header({
             {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </IconButton>
 
-          <div className="flex min-w-0 items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2.5">
             <div
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] text-white shadow-sm"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] text-white shadow-sm"
               aria-hidden
             >
               <Waves className="h-5 w-5" />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-base font-bold tracking-tight text-[var(--color-ocean-800)] sm:text-lg">
-                {text.serviceName}
+              <p className="truncate text-lg font-bold tracking-tight text-[var(--color-ocean-800)]">
+                {UI_TEXT.serviceName}
+              </p>
+              <p className="hidden truncate text-xs text-[var(--color-text-secondary)] sm:block">
+                {UI_TEXT.serviceTagline}
               </p>
             </div>
           </div>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <IconButton label={text.favorites} className="hidden sm:inline-flex">
-              <Heart className="h-4 w-4" />
-            </IconButton>
+            <div className="hidden items-center gap-1.5 md:flex">
+              <IconButton label={UI_TEXT.notifications}>
+                <Bell className="h-4 w-4" />
+              </IconButton>
+              <IconButton label={UI_TEXT.favorites}>
+                <Heart className="h-4 w-4" />
+              </IconButton>
+            </div>
             <TextButton variant="primary" className="hidden sm:inline-flex">
               <LogIn className="h-4 w-4" aria-hidden />
-              {text.login}
+              {UI_TEXT.login}
             </TextButton>
-            <TextButton variant="primary" className="sm:hidden" aria-label={text.login}>
+            <TextButton
+              variant="primary"
+              className="sm:hidden"
+              aria-label={UI_TEXT.login}
+            >
               <LogIn className="h-4 w-4" />
             </TextButton>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
+        <div className="flex flex-col gap-2 xl:flex-row xl:items-center">
           <SearchBar
-            placeholder={text.searchPlaceholder}
-            className="w-full lg:max-w-md"
+            value={searchQuery}
+            onChange={onSearchQueryChange}
+            onSubmit={onSearchSubmit}
+            className="w-full xl:max-w-xl"
           />
 
-          <div className="flex flex-wrap items-center gap-2 lg:ml-auto">
-            <div className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-1.5 text-xs sm:text-sm">
-              <span className="font-medium text-[var(--color-text-secondary)]">
-                {text.weather}
+          <div className="flex flex-wrap items-center gap-2 xl:ml-auto">
+            <div className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2 text-xs sm:text-sm">
+              <CloudSun
+                className="h-4 w-4 shrink-0 text-[var(--color-ocean-600)]"
+                aria-hidden
+              />
+              <span className="font-semibold text-[var(--color-text-primary)]">
+                {mockWeather.temperature}°C
               </span>
-              <span className="text-[var(--color-text-primary)]">
-                {mockWeather.location} {mockWeather.temperature}°C · {mockWeather.condition}
+              <span className="text-[var(--color-text-secondary)]">
+                {mockWeather.condition}
               </span>
             </div>
 
-            <div className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-1.5 text-xs sm:text-sm">
-              <span className="font-medium text-[var(--color-text-secondary)]">
-                {text.tide}
+            <button
+              type="button"
+              onClick={onTideSummaryClick}
+              className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2 text-xs transition-colors hover:border-[var(--color-ocean-200)] hover:bg-[var(--color-ocean-50)] sm:text-sm"
+              aria-label={`${UI_TEXT.tide} ${mockTideData.mul} ${mockTideData.status}`}
+            >
+              <Waves
+                className="h-4 w-4 shrink-0 text-[var(--color-teal-700)]"
+                aria-hidden
+              />
+              <span className="font-semibold text-[var(--color-text-primary)]">
+                {mockTideData.mul}
               </span>
-              <span className="text-[var(--color-text-primary)]">
-                {text.highTide} {nextTide.time}
-                {nextTide.height !== undefined ? ` (${nextTide.height}cm)` : ""}
+              <span className="text-[var(--color-text-secondary)]">
+                {mockTideData.status}
               </span>
-            </div>
+            </button>
 
             <div
               className="flex items-center gap-1 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-1"
               role="group"
-              aria-label={text.languageLabel}
+              aria-label={UI_TEXT.language}
             >
               {LANGUAGES.map((lang) => (
                 <button
@@ -115,7 +144,7 @@ export function Header({
                   aria-pressed={language === lang.code}
                   aria-label={lang.label}
                   onClick={() => onLanguageChange(lang.code)}
-                  className={`rounded-md px-2 py-1 text-xs font-semibold transition-colors ${
+                  className={`rounded-md px-2 py-1.5 text-xs font-semibold transition-colors ${
                     language === lang.code
                       ? "bg-[var(--color-ocean-600)] text-white"
                       : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-muted)]"
@@ -127,6 +156,29 @@ export function Header({
             </div>
           </div>
         </div>
+
+        {searchNotice ? (
+          <p
+            className="rounded-[var(--radius-md)] border border-[var(--color-ocean-200)] bg-[var(--color-ocean-50)] px-3 py-2 text-xs text-[var(--color-ocean-800)] sm:text-sm"
+            role="status"
+          >
+            {searchNotice}
+          </p>
+        ) : null}
+
+        {mobileMenuOpen ? (
+          <div className="flex flex-wrap gap-2 border-t border-[var(--color-border)] pt-3 lg:hidden">
+            <IconButton label={UI_TEXT.notifications}>
+              <Bell className="h-4 w-4" />
+            </IconButton>
+            <IconButton label={UI_TEXT.favorites}>
+              <Heart className="h-4 w-4" />
+            </IconButton>
+            <span className="self-center text-xs text-[var(--color-text-secondary)]">
+              {UI_TEXT.serviceTagline}
+            </span>
+          </div>
+        ) : null}
       </div>
     </header>
   );

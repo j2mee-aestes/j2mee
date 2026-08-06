@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { AppProviders } from "@/components/providers/AppProviders";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${plusJakarta.variable} h-full antialiased`}>
       <body className="min-h-full font-sans text-[var(--color-text-primary)]">
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

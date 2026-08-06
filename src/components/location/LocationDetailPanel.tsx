@@ -22,6 +22,8 @@ interface LocationDetailPanelProps {
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onDirections: () => void;
+  onAddToSchedule?: () => void;
+  scheduleAdded?: boolean;
   notice: string | null;
   className?: string;
 }
@@ -32,6 +34,8 @@ export function LocationDetailPanel({
   isFavorite,
   onToggleFavorite,
   onDirections,
+  onAddToSchedule,
+  scheduleAdded = false,
   notice,
   className = "",
 }: LocationDetailPanelProps) {
@@ -223,10 +227,22 @@ export function LocationDetailPanel({
           ) : null}
         </div>
 
-        <TextButton variant="primary" className="w-full" onClick={onDirections}>
-          <Navigation className="h-4 w-4" aria-hidden />
-          {UI_TEXT.directions}
-        </TextButton>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          {onAddToSchedule ? (
+            <TextButton
+              variant="secondary"
+              className="w-full"
+              disabled={scheduleAdded}
+              onClick={onAddToSchedule}
+            >
+              {scheduleAdded ? "일정에 추가됨" : "일정에 추가"}
+            </TextButton>
+          ) : null}
+          <TextButton variant="primary" className="w-full" onClick={onDirections}>
+            <Navigation className="h-4 w-4" aria-hidden />
+            {UI_TEXT.directions}
+          </TextButton>
+        </div>
 
         {notice ? (
           <p

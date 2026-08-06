@@ -78,7 +78,7 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
 
     useEffect(() => {
       const container = containerRef.current;
-      if (!container || !window.kakao?.maps) {
+      if (!container || !window.kakao?.maps?.Map) {
         return;
       }
 
@@ -93,9 +93,14 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
         level: DEFAULT_ZOOM_LEVEL,
       });
 
-      if (cancelled) {
-        return;
-      }
+      // Containers often need an extra relayout after first paint / flex layout
+      const relayoutSoon = () => {
+        if (!cancelled) {
+          map.relayout();
+        }
+      };
+      const raf = window.requestAnimationFrame(relayoutSoon);
+      const relayoutTimer = window.setTimeout(relayoutSoon, 120);
 
       mapRef.current = map;
       setMapInstance(map);
@@ -113,6 +118,8 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
 
       return () => {
         cancelled = true;
+        window.cancelAnimationFrame(raf);
+        window.clearTimeout(relayoutTimer);
         window.removeEventListener("resize", handleResize);
         observer.disconnect();
         userOverlayRef.current?.setMap(null);

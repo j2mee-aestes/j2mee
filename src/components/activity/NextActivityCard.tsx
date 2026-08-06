@@ -1,7 +1,7 @@
 "use client";
 
 import type { ActivityExecutionItem } from "@/types/activity";
-import { SCHEDULE_ITEM_TYPE_LABEL } from "@/constants/scheduleDefaults";
+import { SCHEDULE_TYPE_LABELS } from "@/constants/scheduleDefaults";
 import { TextButton } from "@/components/common/IconButton";
 import { formatDistanceKm } from "@/lib/geo/calculateDistance";
 
@@ -29,7 +29,7 @@ export function NextActivityCard({
   return (
     <section className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
       <p className="text-[11px] font-semibold uppercase tracking-wide text-[var(--color-text-secondary)]">
-        다음 활동 · {SCHEDULE_ITEM_TYPE_LABEL[item.type]}
+        다음 활동 · {SCHEDULE_TYPE_LABELS[item.type]}
       </p>
       <h3 className="mt-1 text-base font-bold text-[var(--color-text-primary)]">
         {item.title}

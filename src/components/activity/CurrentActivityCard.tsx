@@ -1,7 +1,7 @@
 "use client";
 
 import type { ActivityExecutionItem } from "@/types/activity";
-import { SCHEDULE_ITEM_TYPE_LABEL } from "@/constants/scheduleDefaults";
+import { SCHEDULE_TYPE_LABELS } from "@/constants/scheduleDefaults";
 import { TextButton } from "@/components/common/IconButton";
 import { AlertTriangle } from "lucide-react";
 
@@ -47,7 +47,7 @@ export function CurrentActivityCard({
     );
   }
 
-  const typeLabel = SCHEDULE_ITEM_TYPE_LABEL[item.type] ?? item.type;
+  const typeLabel = SCHEDULE_TYPE_LABELS[item.type] ?? item.type;
   const canStart = item.status === "notStarted" || item.status === "skipped";
   const canComplete = item.status === "inProgress";
   const canSkip = item.status === "notStarted" || item.status === "inProgress";

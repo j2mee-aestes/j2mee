@@ -1,6 +1,6 @@
 "use client";
 
-import { SCHEDULE_ITEM_TYPE_LABEL } from "@/constants/scheduleDefaults";
+import { SCHEDULE_TYPE_LABELS } from "@/constants/scheduleDefaults";
 import type { ActivityExecutionItem } from "@/types/activity";
 
 function formatClock(iso?: string): string | null {
@@ -70,7 +70,7 @@ export function CompletionTimeline({ items }: CompletionTimelineProps) {
               <p className="mt-0.5 text-sm font-semibold text-[var(--color-text-primary)]">
                 {item.title}{" "}
                 <span className="font-medium text-[var(--color-text-secondary)]">
-                  · {SCHEDULE_ITEM_TYPE_LABEL[item.type]} · {statusText}
+                  · {SCHEDULE_TYPE_LABELS[item.type]} · {statusText}
                 </span>
               </p>
               {memo ? (

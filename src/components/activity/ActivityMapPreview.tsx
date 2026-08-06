@@ -36,7 +36,10 @@ export function ActivityMapPreview({
   const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<KakaoMap | null>(null);
   const [fitAll, setFitAll] = useState(false);
-  const [completedOnly, setCompletedOnly] = useState(showCompletedOnly);
+  const [completedOnlyOverride, setCompletedOnlyOverride] = useState<
+    boolean | null
+  >(null);
+  const completedOnly = completedOnlyOverride ?? showCompletedOnly;
 
   useEffect(() => {
     if (status !== "ready" || !containerRef.current || !window.kakao?.maps) {
@@ -56,10 +59,6 @@ export function ActivityMapPreview({
       container.innerHTML = "";
     };
   }, [status]);
-
-  useEffect(() => {
-    setCompletedOnly(showCompletedOnly);
-  }, [showCompletedOnly]);
 
   return (
     <section
@@ -98,7 +97,9 @@ export function ActivityMapPreview({
               <TextButton
                 type="button"
                 className="h-8 bg-white/95 px-2 text-xs"
-                onClick={() => setCompletedOnly((prev) => !prev)}
+                onClick={() =>
+                  setCompletedOnlyOverride((prev) => !(prev ?? showCompletedOnly))
+                }
                 aria-pressed={completedOnly}
               >
                 {completedOnly ? "전체 장소" : "완료 장소만"}

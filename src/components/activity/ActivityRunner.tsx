@@ -24,7 +24,6 @@ import {
   finishActivityRun,
   getCurrentActivityItem,
   getNextActivityItem,
-  reopenActivityItem,
   skipActivityItem,
   startActivityItem,
   updateActivityItemResult,
@@ -85,7 +84,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
   const router = useRouter();
   const { run, loading, error, storageOk, persist } =
     useActivityRun(activityRunId);
-  const [focusItemId, setFocusItemId] = useState<string | null>(null);
+  const [userFocusItemId, setUserFocusItemId] = useState<string | null>(null);
   const [stopOpen, setStopOpen] = useState(false);
   const [finishOpen, setFinishOpen] = useState(false);
   const [resultMode, setResultMode] = useState<ResultMode>(null);
@@ -107,12 +106,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
     () => (run ? getNextActivityItem(run, current?.id) : null),
     [run, current?.id],
   );
-
-  useEffect(() => {
-    if (current?.id) {
-      setFocusItemId(current.id);
-    }
-  }, [current?.id]);
+  const focusItemId = userFocusItemId ?? current?.id ?? null;
 
   useEffect(() => {
     if (!current?.plannedStartTime) {
@@ -249,6 +243,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
         setNotice("주의: 활동 비권장 장소입니다. 현장 안내를 우선 확인하세요.");
       }
     }
+    setUserFocusItemId(null);
     await persist(startActivityItem(run, item.id));
   };
 
@@ -263,6 +258,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
     if (resultMode === "edit" || item.status === "completed") {
       await persist(updateActivityItemResult(run, item.id, result));
     } else {
+      setUserFocusItemId(null);
       await persist(completeActivityItem(run, item.id, result));
     }
     setResultMode(null);
@@ -271,6 +267,7 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
   };
 
   const handleSkip = async (item: ActivityExecutionItem) => {
+    setUserFocusItemId(null);
     await persist(skipActivityItem(run, item.id));
     setResultMode(null);
     setResultItemId(null);
@@ -409,20 +406,20 @@ export function ActivityRunner({ activityRunId }: ActivityRunnerProps) {
         item={next}
         distanceKm={nextDistance.distanceKm}
         travelMinutes={nextDistance.travelMinutes}
-        onShowOnMap={next ? () => setFocusItemId(next.id) : undefined}
+        onShowOnMap={next ? () => setUserFocusItemId(next.id) : undefined}
       />
 
       <ActivityMapPreview
         run={run}
         focusItemId={focusItemId}
         nextItemId={next?.id ?? null}
-        onSelectItem={setFocusItemId}
+        onSelectItem={setUserFocusItemId}
       />
 
       <ActivityItemList
         items={run.items}
         onSelectItem={(id) => {
-          setFocusItemId(id);
+          setUserFocusItemId(id);
           const item = run.items.find((entry) => entry.id === id);
           if (!item) {
             return;

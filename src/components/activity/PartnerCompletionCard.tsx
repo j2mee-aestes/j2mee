@@ -1,6 +1,6 @@
 "use client";
 
-import { SCHEDULE_ITEM_TYPE_LABEL } from "@/constants/scheduleDefaults";
+import { SCHEDULE_TYPE_LABELS } from "@/constants/scheduleDefaults";
 import type { PartnerCompletionSummary } from "@/types/activity";
 
 interface PartnerCompletionCardProps {
@@ -35,7 +35,7 @@ export function PartnerCompletionCard({
             <p className="font-semibold">
               {visit.title}{" "}
               <span className="font-medium text-[var(--color-text-secondary)]">
-                · {SCHEDULE_ITEM_TYPE_LABEL[visit.type]} ·{" "}
+                · {SCHEDULE_TYPE_LABELS[visit.type]} ·{" "}
                 {visit.status === "skipped" ? "건너뜀" : "완료"}
               </span>
             </p>

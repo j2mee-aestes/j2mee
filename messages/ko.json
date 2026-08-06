@@ -85,7 +85,7 @@
     "kakaoKeyMissingTitle": "카카오맵 API 키가 설정되지 않았습니다.",
     "kakaoKeyMissingBody": ".env.local에 NEXT_PUBLIC_KAKAO_MAP_APP_KEY를 등록해주세요.",
     "kakaoLoadFailedTitle": "지도를 불러오지 못했습니다.",
-    "kakaoLoadFailedBody": "네트워크·보안 설정(CSP) 또는 카카오 콘솔 Web 도메인 등록을 확인한 뒤 다시 시도해주세요.",
+    "kakaoLoadFailedBody": "개발 서버(localhost)에서는 CSP를 끈 뒤 카카오맵이 다시 로드됩니다. 그래도 실패하면 카카오 콘솔 Web 도메인에 localhost를 등록하세요.",
     "kakaoRetry": "다시 시도",
     "mapLoading": "지도를 불러오는 중…",
     "kakaoLoadFailedDetail": "현재 주소: {host} · 원인: {reason}",

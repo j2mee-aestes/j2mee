@@ -7,7 +7,7 @@ let loaderStatus: LoaderStatus = "idle";
 let lastError: string | null = null;
 let mapsFullyLoaded = false;
 
-const LOAD_TIMEOUT_MS = 15_000;
+const LOAD_TIMEOUT_MS = 20_000;
 
 function getScriptId(appKey: string): string {
   return `kakao-maps-sdk-${appKey.slice(0, 8)}`;
@@ -34,33 +34,53 @@ function runMapsLoad(onDone: () => void, onFail: (error: Error) => void): void {
     return;
   }
 
+  // Already fully initialized (e.g. autoload finished)
+  if (typeof window.kakao.maps.Map === "function") {
+    markReady();
+    onDone();
+    return;
+  }
+
   let settled = false;
-  const timeoutId = window.setTimeout(() => {
+  const finishOk = () => {
     if (settled) return;
     settled = true;
-    onFail(new Error("SDK_LOAD_TIMEOUT"));
+    window.clearTimeout(timeoutId);
+    window.clearInterval(pollId);
+    markReady();
+    onDone();
+  };
+  const finishErr = (error: Error) => {
+    if (settled) return;
+    settled = true;
+    window.clearTimeout(timeoutId);
+    window.clearInterval(pollId);
+    onFail(error);
+  };
+
+  const timeoutId = window.setTimeout(() => {
+    finishErr(new Error("SDK_LOAD_TIMEOUT"));
   }, LOAD_TIMEOUT_MS);
+
+  // Poll in case load callback is skipped but Map appears (or slow CDN)
+  const pollId = window.setInterval(() => {
+    if (typeof window.kakao?.maps?.Map === "function") {
+      finishOk();
+    }
+  }, 250);
 
   try {
     window.kakao.maps.load(() => {
-      if (settled) return;
-      settled = true;
-      window.clearTimeout(timeoutId);
-      markReady();
-      onDone();
+      finishOk();
     });
   } catch (error) {
-    window.clearTimeout(timeoutId);
-    if (settled) return;
-    settled = true;
-    onFail(error instanceof Error ? error : new Error("SDK_LOAD_FAILED"));
+    finishErr(error instanceof Error ? error : new Error("SDK_LOAD_FAILED"));
   }
 }
 
 /**
  * Loads the Kakao Maps JavaScript SDK once (client-only).
  * Uses autoload=false and resolves after kakao.maps.load.
- * Safe to call early (app bootstrap) and again from map views.
  */
 export function loadKakaoMapsSdk(appKey: string): Promise<void> {
   if (typeof window === "undefined") {
@@ -94,7 +114,6 @@ export function loadKakaoMapsSdk(appKey: string): Promise<void> {
 
     const finish = () => resolve();
 
-    // Script already in DOM — do NOT only wait for "load" (it may have already fired)
     const existing = document.getElementById(getScriptId(appKey));
     if (existing) {
       if (window.kakao?.maps) {
@@ -127,9 +146,9 @@ export function loadKakaoMapsSdk(appKey: string): Promise<void> {
     const script = document.createElement("script");
     script.id = getScriptId(appKey);
     script.async = true;
-    script.defer = true;
+    // Prefer https SDK entry; Kakao itself may still pull http CDN on http pages.
     script.src = getKakaoSdkUrl(appKey);
-    script.setAttribute("fetchpriority", "high");
+    script.charset = "UTF-8";
 
     script.onload = () => {
       if (!window.kakao?.maps) {

@@ -5,8 +5,6 @@ import {
   LayoutGrid,
   ShoppingBasket,
   Trash2,
-  UtensilsCrossed,
-  Waves,
 } from "lucide-react";
 import type { CategoryFilter, MapCategory } from "@/types/map";
 
@@ -17,9 +15,8 @@ export function getCategoryIcon(
   const icons: Record<CategoryFilter, ReactNode> = {
     all: <LayoutGrid className={className} />,
     fishing: <Fish className={className} />,
-    tide: <Waves className={className} />,
     market: <ShoppingBasket className={className} />,
-    restaurant: <UtensilsCrossed className={className} />,
+    restaurant: <ShoppingBasket className={className} />,
     trash: <Trash2 className={className} />,
     plogging: <Footprints className={className} />,
   };

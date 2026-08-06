@@ -25,7 +25,6 @@ export function normalizeFishingSpot(
     cautionText: raw.cautionText,
     fishingAllowedStatus: raw.fishingAllowedStatus ?? "unknown",
     restrictionDescription: raw.restrictionDescription,
-    nearestTideStationId: raw.nearestTideStationId,
     weatherGridId: raw.weatherGridId,
     verificationStatus: raw.verificationStatus ?? "unverified",
     lastVerifiedAt: raw.lastVerifiedAt,

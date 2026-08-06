@@ -29,15 +29,15 @@ export const SCHEDULE_DRAFT_STORAGE_KEY = "padopado-day-schedule-draft-v1";
 export const SCHEDULE_TYPE_LABELS: Record<ScheduleItemType, string> = {
   fishing: "낚시",
   market: "수산시장",
-  restaurant: "식당",
-  processingShop: "손질 장소",
+  restaurant: "식당·횟집",
+  processingShop: "손질 점포",
   plogging: "플로깅",
 };
 
 export const SCHEDULE_TYPE_COLORS: Record<ScheduleItemType, string> = {
   fishing: "#0284c7",
   market: "#ea580c",
-  restaurant: "#7c3aed",
-  processingShop: "#0d9488",
+  restaurant: "#c2410c",
+  processingShop: "#9a3412",
   plogging: "#16a34a",
 };

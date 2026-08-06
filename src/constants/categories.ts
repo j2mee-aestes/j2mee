@@ -12,9 +12,8 @@ export interface CategoryConfig {
 
 export const CATEGORY_COLORS: Record<MapCategory, string> = {
   fishing: "#0284c7",
-  tide: "#06b6d4",
   market: "#ea580c",
-  restaurant: "#7c3aed",
+  restaurant: "#ea580c",
   trash: "#16a34a",
   plogging: "#0d9488",
 };
@@ -37,26 +36,11 @@ export const CATEGORIES: CategoryConfig[] = [
     showInFilterChips: true,
   },
   {
-    id: "tide",
-    label: "물때",
-    shortLabel: "물때",
-    description: "만조·간조와 시간별 조위",
-    color: CATEGORY_COLORS.tide,
-  },
-  {
     id: "market",
     label: "수산시장",
     shortLabel: "수산시장",
-    description: "주변 수산시장 정보",
+    description: "수산시장·손질·식당을 한곳에서",
     color: CATEGORY_COLORS.market,
-    showInFilterChips: true,
-  },
-  {
-    id: "restaurant",
-    label: "손질·식당",
-    shortLabel: "음식점",
-    description: "잡은 수산물 손질·조리 장소",
-    color: CATEGORY_COLORS.restaurant,
     showInFilterChips: true,
   },
   {
@@ -83,9 +67,8 @@ export const FILTER_CHIP_CATEGORIES = CATEGORIES.filter(
 
 export const CATEGORY_TYPE_LABELS: Record<MapCategory, string> = {
   fishing: "낚시 장소",
-  tide: "물때 관측",
   market: "수산시장",
-  restaurant: "손질·식당",
+  restaurant: "수산시장·식당",
   trash: "쓰레기통·수거함",
   plogging: "플로깅 코스",
 };

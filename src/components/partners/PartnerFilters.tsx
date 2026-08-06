@@ -25,9 +25,9 @@ const SERVICE_OPTIONS: Array<{ id: PartnerServiceFilter; label: string }> = [
 ];
 
 const TYPE_OPTIONS: Array<{ id: PartnerType; label: string }> = [
-  { id: "market", label: "수산시장" },
-  { id: "restaurant", label: "식당" },
-  { id: "processingShop", label: "손질 전문점" },
+  { id: "market", label: "시장·직판" },
+  { id: "restaurant", label: "식당·횟집" },
+  { id: "processingShop", label: "손질 점포" },
 ];
 
 const EXTRA_OPTIONS: Array<{
@@ -78,9 +78,9 @@ export function PartnerFilters({
 
       <div>
         <p className="mb-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
-          장소 유형
+          수산시장 내 유형
         </p>
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="장소 유형 필터">
+        <div className="flex flex-wrap gap-1.5" role="group" aria-label="수산시장 내 유형 필터">
           {TYPE_OPTIONS.map((option) => {
             const active = typeFilters.includes(option.id);
             return (

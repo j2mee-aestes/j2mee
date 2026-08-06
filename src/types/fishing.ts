@@ -39,7 +39,6 @@ export interface FishingSpot {
   cautionText?: string[];
   fishingAllowedStatus: FishingAllowedStatus;
   restrictionDescription?: string;
-  nearestTideStationId?: string;
   weatherGridId?: string;
   verificationStatus: VerificationStatus;
   lastVerifiedAt?: string;
@@ -66,35 +65,6 @@ export interface LocationDetail {
   distanceLabel?: string;
   coordinates: Coordinates;
   isVerified?: boolean;
-}
-
-export interface TideStation {
-  id: string;
-  name: string;
-  coordinates: Coordinates;
-  sourceName: string;
-}
-
-export interface TideEvent {
-  type: "high" | "low";
-  time: string;
-  heightCm?: number;
-}
-
-export interface TideHourlyPoint {
-  time: string;
-  heightCm: number;
-}
-
-export interface DailyTideData {
-  stationId: string;
-  stationName: string;
-  date: string;
-  events: TideEvent[];
-  hourly: TideHourlyPoint[];
-  fetchedAt: string;
-  sourceName: string;
-  distanceKmFromSpot?: number;
 }
 
 export interface WeatherWarning {
@@ -136,13 +106,6 @@ export interface ActivityEvaluation {
   label: string;
   reasons: string[];
   evaluatedAt: string;
-}
-
-/** Legacy chart helper shape used by TideChart */
-export interface TideChartPoint {
-  time: string;
-  height: number;
-  kind?: "high" | "low" | "now";
 }
 
 export interface WeatherSummary {

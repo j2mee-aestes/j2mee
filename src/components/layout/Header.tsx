@@ -5,7 +5,7 @@ import { IconButton, TextButton } from "@/components/common/IconButton";
 import type { LanguageCode } from "@/constants/languages";
 import { LANGUAGES } from "@/constants/languages";
 import { UI_TEXT } from "@/constants/uiText";
-import { mockTideData, mockWeather } from "@/data/mockTideData";
+import { mockWeather } from "@/data/mockWeather";
 import type { SearchablePlace } from "@/data/mockMapLocations";
 import {
   Bell,
@@ -29,7 +29,6 @@ interface HeaderProps {
   searchNotice: string | null;
   searchResults: SearchablePlace[];
   onSelectSearchResult: (locationId: string) => void;
-  onTideSummaryClick: () => void;
 }
 
 export function Header({
@@ -43,7 +42,6 @@ export function Header({
   searchNotice,
   searchResults,
   onSelectSearchResult,
-  onTideSummaryClick,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-white/95 backdrop-blur">
@@ -131,24 +129,6 @@ export function Header({
                 {mockWeather.condition}
               </span>
             </div>
-
-            <button
-              type="button"
-              onClick={onTideSummaryClick}
-              className="flex min-w-0 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-2.5 py-2 text-xs transition-colors hover:border-[var(--color-ocean-200)] hover:bg-[var(--color-ocean-50)] sm:text-sm"
-              aria-label={`${UI_TEXT.tide} ${mockTideData.mul} ${mockTideData.status}`}
-            >
-              <Waves
-                className="h-4 w-4 shrink-0 text-[var(--color-teal-700)]"
-                aria-hidden
-              />
-              <span className="font-semibold text-[var(--color-text-primary)]">
-                {mockTideData.mul}
-              </span>
-              <span className="text-[var(--color-text-secondary)]">
-                {mockTideData.status}
-              </span>
-            </button>
 
             <div
               className="flex items-center gap-1 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-1"

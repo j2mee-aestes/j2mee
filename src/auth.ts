@@ -84,13 +84,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (token.sub) {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.sub },
-          select: { preferredLocale: true, name: true, email: true, image: true },
+          select: {
+            preferredLocale: true,
+            name: true,
+            email: true,
+            image: true,
+            role: true,
+          },
         });
         if (dbUser) {
           token.preferredLocale = dbUser.preferredLocale;
           token.name = dbUser.name;
           token.email = dbUser.email;
           token.picture = dbUser.image;
+          token.role = dbUser.role;
         }
       }
       return token;
@@ -102,6 +109,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           typeof token.preferredLocale === "string"
             ? token.preferredLocale
             : "ko";
+        session.user.role =
+          typeof token.role === "string" ? token.role : "user";
       }
       return session;
     },

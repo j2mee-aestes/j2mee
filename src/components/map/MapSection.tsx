@@ -49,37 +49,63 @@ export function MapSection({
   const { status, retry } = useKakaoMaps();
   const mapRef = useRef<KakaoMapHandle>(null);
   const [locating, setLocating] = useState(false);
+  const [inactiveIds, setInactiveIds] = useState<Set<string>>(new Set());
   const routes = useMemo(() => getAllPloggingRoutes(), []);
 
+  useEffect(() => {
+    queueMicrotask(() => {
+      void fetch("/api/catalog/inactive")
+        .then((response) => response.json())
+        .then(
+          (body: {
+            inactive?: Array<{ sourceId: string }>;
+          }) => {
+            const next = new Set(
+              (body.inactive ?? []).map((item) => item.sourceId),
+            );
+            setInactiveIds(next);
+          },
+        )
+        .catch(() => {
+          // keep static catalog visible if catalog API is unavailable
+        });
+    });
+  }, []);
+
+  const activeLocations = useMemo(
+    () => mockMapLocations.filter((location) => !inactiveIds.has(location.id)),
+    [inactiveIds],
+  );
+
   const visibleLocations = useMemo(() => {
-    const base = mockMapLocations.filter((location) =>
+    const base = activeLocations.filter((location) =>
       matchesCategory(selectedCategory, location.category),
     );
     if (highlightedWastePointIds.length === 0) {
       return base;
     }
     // Ensure connected waste points remain visible when a plogging route is selected
-    const extras = mockMapLocations.filter(
+    const extras = activeLocations.filter(
       (location) =>
         location.category === "trash" &&
         highlightedWastePointIds.includes(location.id) &&
         !base.some((item) => item.id === location.id),
     );
     return [...base, ...extras];
-  }, [selectedCategory, highlightedWastePointIds]);
+  }, [selectedCategory, highlightedWastePointIds, activeLocations]);
 
   useEffect(() => {
     if (!focusRequestId || status !== "ready") {
       return;
     }
-    const selected = mockMapLocations.find(
+    const selected = activeLocations.find(
       (location) => location.id === selectedLocationId,
     );
     if (!selected) {
       return;
     }
     mapRef.current?.panTo(selected.coordinates, 5);
-  }, [focusRequestId, selectedLocationId, status]);
+  }, [focusRequestId, selectedLocationId, status, activeLocations]);
 
   useEffect(() => {
     if (!fitRouteRequestId || status !== "ready" || !selectedRouteId) {

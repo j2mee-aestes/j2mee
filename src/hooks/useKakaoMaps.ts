@@ -78,16 +78,6 @@ export function useKakaoMaps(): UseKakaoMapsResult {
 
   const retry = useCallback(() => {
     resetKakaoMapsLoader();
-    document
-      .querySelectorAll('script[id^="kakao-maps-sdk-"]')
-      .forEach((node) => node.remove());
-    // Kakao leaves a global; clear so retry re-inits cleanly
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      delete (window as any).kakao;
-    } catch {
-      // ignore
-    }
     setErrorMessage(null);
     setLoadState("loading");
     setRetryCount((value) => value + 1);

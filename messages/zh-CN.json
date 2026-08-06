@@ -85,10 +85,11 @@
     "kakaoKeyMissingTitle": "未配置 Kakao 地图 API 密钥。",
     "kakaoKeyMissingBody": "请在 .env.local 中设置 NEXT_PUBLIC_KAKAO_MAP_APP_KEY。",
     "kakaoLoadFailedTitle": "无法加载地图。",
-    "kakaoLoadFailedBody": "开发环境已关闭 CSP 以便 Kakao CDN 在 localhost 加载。若仍失败，请在控制台注册 localhost。",
+    "kakaoLoadFailedBody": "请在 Kakao 开发者控制台 → 应用设置 → 平台 → Web 中添加站点域名 localhost 与 127.0.0.1（不要加端口），保存后刷新或重试。",
     "kakaoRetry": "重试",
     "mapLoading": "正在加载地图…",
     "kakaoLoadFailedDetail": "当前地址：{host} · 原因：{reason}",
+    "kakaoDomainHint": "示例：localhost 、 127.0.0.1 、 j2mee-aestes.github.io",
     "referenceLineNote": "虚线仅为行程顺序参考线，不是实际道路路线。",
     "activityMapNote": "不会跟踪实际移动路径。虚线仅为行程顺序参考线。"
   },

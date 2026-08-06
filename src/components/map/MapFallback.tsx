@@ -49,6 +49,11 @@ export function MapFallback({
             })}
           </p>
         ) : null}
+        {variant === "error" ? (
+          <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
+            {t("map.kakaoDomainHint")}
+          </p>
+        ) : null}
         {variant === "error" && onRetry ? (
           <TextButton variant="primary" className="mt-4" onClick={onRetry}>
             {t("map.kakaoRetry")}

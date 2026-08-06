@@ -85,10 +85,11 @@
     "kakaoKeyMissingTitle": "カカオマップ APIキーが設定されていません。",
     "kakaoKeyMissingBody": ".env.local に NEXT_PUBLIC_KAKAO_MAP_APP_KEY を設定してください。",
     "kakaoLoadFailedTitle": "地図を読み込めませんでした。",
-    "kakaoLoadFailedBody": "開発サーバーでは CSP を無効にして Kakao CDN を読み込みます。失敗する場合はコンソールに localhost を登録してください。",
+    "kakaoLoadFailedBody": "カカオ開発者コンソール → アプリ設定 → プラットフォーム → Web に localhost と 127.0.0.1 を（ポートなしで）追加して保存し、再読み込みまたは再試行してください。",
     "kakaoRetry": "再試行",
     "mapLoading": "地図を読み込み中…",
     "kakaoLoadFailedDetail": "現在のホスト: {host} · 原因: {reason}",
+    "kakaoDomainHint": "例: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "破線はスケジュール順の参考線であり、実際の道路経路ではありません。",
     "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。"
   },

@@ -8,7 +8,6 @@ import {
   type SupportedLocale,
 } from "@/i18n/config";
 import { lookupMessage } from "@/i18n/messages";
-import { KAKAO_MAP_APP_KEY, getKakaoSdkUrl } from "@/lib/map/constants";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -55,13 +54,6 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://dapi.kakao.com" />
         <link rel="preconnect" href="https://t1.daumcdn.net" crossOrigin="" />
         <link rel="dns-prefetch" href="https://t1.daumcdn.net" />
-        {KAKAO_MAP_APP_KEY ? (
-          <link
-            rel="preload"
-            as="script"
-            href={getKakaoSdkUrl(KAKAO_MAP_APP_KEY)}
-          />
-        ) : null}
       </head>
       <body className="min-h-full font-sans text-[var(--color-text-primary)]">
         <AppProviders>{children}</AppProviders>

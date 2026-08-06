@@ -85,10 +85,11 @@
     "kakaoKeyMissingTitle": "Kakao Map API key is not configured.",
     "kakaoKeyMissingBody": "Add NEXT_PUBLIC_KAKAO_MAP_APP_KEY to .env.local.",
     "kakaoLoadFailedTitle": "Could not load the map.",
-    "kakaoLoadFailedBody": "Dev server disables CSP so Kakao CDN can load over http://localhost. If it still fails, register localhost on your Kakao JavaScript key.",
+    "kakaoLoadFailedBody": "In Kakao Developers → your app → App settings → Platform → Web, add site domains localhost and 127.0.0.1 (no port), save, then refresh or retry.",
     "kakaoRetry": "Try again",
     "mapLoading": "Loading map…",
     "kakaoLoadFailedDetail": "Host: {host} · Reason: {reason}",
+    "kakaoDomainHint": "Examples: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "Dashed lines are schedule-order references, not real road routes.",
     "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references."
   },

@@ -72,12 +72,15 @@ const nextConfig: NextConfig = {
       }
     : {
         async headers() {
+          // Never send CSP on local/dev — Kakao follows http:// CDN URLs on localhost.
+          const disableCsp =
+            !isProd || process.env.DISABLE_CSP === "1";
           return [
             {
               source: "/:path*",
-              headers: isProd
-                ? [...securityHeadersBase, cspHeader]
-                : securityHeadersBase,
+              headers: disableCsp
+                ? securityHeadersBase
+                : [...securityHeadersBase, cspHeader],
             },
             {
               source: "/admin/:path*",

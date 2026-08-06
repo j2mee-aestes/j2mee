@@ -7,7 +7,7 @@ let loaderStatus: LoaderStatus = "idle";
 let lastError: string | null = null;
 let mapsFullyLoaded = false;
 
-const LOAD_TIMEOUT_MS = 20_000;
+const LOAD_TIMEOUT_MS = 18_000;
 
 function getScriptId(appKey: string): string {
   return `kakao-maps-sdk-${appKey.slice(0, 8)}`;
@@ -28,13 +28,38 @@ function markReady(): void {
   lastError = null;
 }
 
+/**
+ * Kakao stub can get stuck at readyState=1 if CDN scripts never finish
+ * (common when the Web domain is not registered). Wipe globals + injected
+ * scripts so the next attempt starts clean.
+ */
+export function purgeKakaoMapsRuntime(): void {
+  if (typeof document !== "undefined") {
+    document
+      .querySelectorAll(
+        'script[id^="kakao-maps-sdk-"], script[src*="dapi.kakao.com/v2/maps/sdk.js"], script[src*="t1.daumcdn.net/mapjsapi"], script[src*="ssl.daumcdn.net"]',
+      )
+      .forEach((node) => node.remove());
+  }
+  if (typeof window !== "undefined") {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const w = window as any;
+      delete w.kakao;
+      delete w.daum;
+    } catch {
+      // ignore
+    }
+  }
+  mapsFullyLoaded = false;
+}
+
 function runMapsLoad(onDone: () => void, onFail: (error: Error) => void): void {
   if (typeof window === "undefined" || !window.kakao?.maps) {
     onFail(new Error("SDK_LOAD_FAILED"));
     return;
   }
 
-  // Already fully initialized (e.g. autoload finished)
   if (typeof window.kakao.maps.Map === "function") {
     markReady();
     onDone();
@@ -55,6 +80,7 @@ function runMapsLoad(onDone: () => void, onFail: (error: Error) => void): void {
     settled = true;
     window.clearTimeout(timeoutId);
     window.clearInterval(pollId);
+    purgeKakaoMapsRuntime();
     onFail(error);
   };
 
@@ -62,12 +88,11 @@ function runMapsLoad(onDone: () => void, onFail: (error: Error) => void): void {
     finishErr(new Error("SDK_LOAD_TIMEOUT"));
   }, LOAD_TIMEOUT_MS);
 
-  // Poll in case load callback is skipped but Map appears (or slow CDN)
   const pollId = window.setInterval(() => {
     if (typeof window.kakao?.maps?.Map === "function") {
       finishOk();
     }
-  }, 250);
+  }, 200);
 
   try {
     window.kakao.maps.load(() => {
@@ -139,14 +164,18 @@ export function loadKakaoMapsSdk(appKey: string): Promise<void> {
     }
 
     if (window.kakao?.maps) {
-      runMapsLoad(finish, fail);
-      return;
+      // Stale stub from a timed-out attempt — wipe and reload fresh
+      if (typeof window.kakao.maps.Map !== "function") {
+        purgeKakaoMapsRuntime();
+      } else {
+        runMapsLoad(finish, fail);
+        return;
+      }
     }
 
     const script = document.createElement("script");
     script.id = getScriptId(appKey);
     script.async = true;
-    // Prefer https SDK entry; Kakao itself may still pull http CDN on http pages.
     script.src = getKakaoSdkUrl(appKey);
     script.charset = "UTF-8";
 
@@ -182,8 +211,8 @@ export function getKakaoLoaderError(): string | null {
 
 /** Allows retry after a failed load attempt. */
 export function resetKakaoMapsLoader(): void {
+  purgeKakaoMapsRuntime();
   loaderPromise = null;
   loaderStatus = "idle";
   lastError = null;
-  mapsFullyLoaded = false;
 }

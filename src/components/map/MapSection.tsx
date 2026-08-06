@@ -7,18 +7,22 @@ import { MapFallback, MapSkeleton } from "@/components/map/MapFallback";
 import { MapFilterChips } from "@/components/map/MapFilterChips";
 import { UI_TEXT } from "@/constants/uiText";
 import { mockMapLocations } from "@/data/mockMapLocations";
-import { mockPloggingRoutes } from "@/data/mockPloggingRoutes";
+import { getAllPloggingRoutes } from "@/lib/environment/ploggingRouteRepository";
 import { useKakaoMaps } from "@/hooks/useKakaoMaps";
 import type { CategoryFilter, Coordinates } from "@/types/map";
 
 interface MapSectionProps {
   selectedCategory: CategoryFilter;
   selectedLocationId: string | null;
+  selectedRouteId?: string | null;
+  highlightedWastePointIds?: string[];
   onSelectLocation: (locationId: string) => void;
+  onSelectRoute?: (routeId: string) => void;
   onCategoryChange: (category: CategoryFilter) => void;
   onNotice: (message: string) => void;
-  /** Increment to pan map to the currently selected location (e.g. after search). */
+  onUserLocation?: (coords: Coordinates) => void;
   focusRequestId?: number;
+  fitRouteRequestId?: number;
 }
 
 function matchesCategory(
@@ -31,22 +35,37 @@ function matchesCategory(
 export function MapSection({
   selectedCategory,
   selectedLocationId,
+  selectedRouteId = null,
+  highlightedWastePointIds = [],
   onSelectLocation,
+  onSelectRoute,
   onCategoryChange,
   onNotice,
+  onUserLocation,
   focusRequestId = 0,
+  fitRouteRequestId = 0,
 }: MapSectionProps) {
   const { status, retry } = useKakaoMaps();
   const mapRef = useRef<KakaoMapHandle>(null);
   const [locating, setLocating] = useState(false);
+  const routes = useMemo(() => getAllPloggingRoutes(), []);
 
-  const visibleLocations = useMemo(
-    () =>
-      mockMapLocations.filter((location) =>
-        matchesCategory(selectedCategory, location.category),
-      ),
-    [selectedCategory],
-  );
+  const visibleLocations = useMemo(() => {
+    const base = mockMapLocations.filter((location) =>
+      matchesCategory(selectedCategory, location.category),
+    );
+    if (highlightedWastePointIds.length === 0) {
+      return base;
+    }
+    // Ensure connected waste points remain visible when a plogging route is selected
+    const extras = mockMapLocations.filter(
+      (location) =>
+        location.category === "trash" &&
+        highlightedWastePointIds.includes(location.id) &&
+        !base.some((item) => item.id === location.id),
+    );
+    return [...base, ...extras];
+  }, [selectedCategory, highlightedWastePointIds]);
 
   useEffect(() => {
     if (!focusRequestId || status !== "ready") {
@@ -60,6 +79,17 @@ export function MapSection({
     }
     mapRef.current?.panTo(selected.coordinates, 5);
   }, [focusRequestId, selectedLocationId, status]);
+
+  useEffect(() => {
+    if (!fitRouteRequestId || status !== "ready" || !selectedRouteId) {
+      return;
+    }
+    const route = routes.find((item) => item.id === selectedRouteId);
+    if (!route) {
+      return;
+    }
+    mapRef.current?.fitRoute(route);
+  }, [fitRouteRequestId, selectedRouteId, status, routes]);
 
   const handleCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -75,6 +105,7 @@ export function MapSection({
           longitude: position.coords.longitude,
         };
         mapRef.current?.setUserLocation(coords);
+        onUserLocation?.(coords);
         setLocating(false);
       },
       (error) => {
@@ -138,12 +169,14 @@ export function MapSection({
             <KakaoMap
               ref={mapRef}
               locations={visibleLocations}
-              routes={mockPloggingRoutes}
+              routes={routes}
               selectedCategory={selectedCategory}
               selectedLocationId={selectedLocationId}
+              selectedRouteId={selectedRouteId}
               onSelectLocation={onSelectLocation}
+              onSelectRoute={onSelectRoute}
             />
-            {visibleLocations.length === 0 ? (
+            {visibleLocations.length === 0 && selectedCategory !== "plogging" ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-6">
                 <p className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white/95 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-sm">
                   {UI_TEXT.noPlaces}

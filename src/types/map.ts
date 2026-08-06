@@ -3,7 +3,6 @@ export type MapCategory =
   | "tide"
   | "market"
   | "restaurant"
-  | "uglySeafood"
   | "trash"
   | "plogging";
 
@@ -26,15 +25,10 @@ export interface MapLocation {
   fishingAllowedStatus?: import("./fishing").FishingAllowedStatus;
   /** Present when the pin represents a partner place (market/restaurant/processing). */
   partnerType?: import("./partner").PartnerType;
+  /** Present when the pin represents a waste collection point. */
+  wastePointType?: import("./environment").WastePointType;
+  wasteStatus?: import("./environment").WastePointStatus;
 }
 
-export interface PloggingRoute {
-  id: string;
-  name: string;
-  /** Ordered path coordinates (mock, for UI verification) */
-  coordinates: Coordinates[];
-  distanceKm: number;
-  estimatedMinutes: number;
-  startLabel: string;
-  endLabel: string;
-}
+/** @deprecated Import from `@/types/environment` instead. */
+export type { PloggingRoute } from "./environment";

@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { MapMarkerLayer } from "@/components/map/MapMarkerLayer";
-import { PloggingPolylineLayer } from "@/components/map/PloggingPolylineLayer";
+import { PloggingRouteLayer } from "@/components/map/PloggingRouteLayer";
 import {
   DEFAULT_CENTER,
   DEFAULT_ZOOM_LEVEL,
@@ -18,14 +18,9 @@ import {
   USER_LOCATION_ZOOM_LEVEL,
 } from "@/lib/map/constants";
 import { createUserLocationContent } from "@/lib/map/markerContent";
-import type {
-  CategoryFilter,
-  Coordinates,
-  MapLocation,
-  PloggingRoute,
-} from "@/types/map";
+import type { CategoryFilter, Coordinates, MapLocation } from "@/types/map";
+import type { PloggingRoute } from "@/types/environment";
 
-/** Captures global Kakao map instance type before component value shadows it. */
 type KakaoMapInstance = KakaoMap;
 
 export interface KakaoMapHandle {
@@ -33,6 +28,7 @@ export interface KakaoMapHandle {
   zoomOut: () => void;
   panTo: (coords: Coordinates, level?: number) => void;
   fitLocations: (locations: MapLocation[]) => void;
+  fitRoute: (route: PloggingRoute) => void;
   setUserLocation: (coords: Coordinates | null) => void;
   relayout: () => void;
 }
@@ -42,7 +38,9 @@ interface KakaoMapProps {
   routes: PloggingRoute[];
   selectedCategory: CategoryFilter;
   selectedLocationId: string | null;
+  selectedRouteId?: string | null;
   onSelectLocation: (locationId: string) => void;
+  onSelectRoute?: (routeId: string) => void;
   onReady?: () => void;
 }
 
@@ -53,7 +51,9 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
       routes,
       selectedCategory,
       selectedLocationId,
+      selectedRouteId = null,
       onSelectLocation,
+      onSelectRoute,
       onReady,
     },
     ref,
@@ -158,6 +158,9 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
       fitLocations: (targets) => {
         fitMapToLocations(mapRef.current, targets);
       },
+      fitRoute: (route) => {
+        fitMapToRoute(mapRef.current, route);
+      },
       setUserLocation: (coords) => {
         const map = mapRef.current;
         if (!map || !window.kakao?.maps) {
@@ -226,6 +229,17 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
       );
     }, [mapInstance, selectedLocationId, locations]);
 
+    useEffect(() => {
+      if (!mapInstance || !selectedRouteId) {
+        return;
+      }
+      const route = routes.find((item) => item.id === selectedRouteId);
+      if (!route) {
+        return;
+      }
+      fitMapToRoute(mapInstance, route);
+    }, [mapInstance, selectedRouteId, routes]);
+
     return (
       <div className="relative h-full min-h-[360px] w-full sm:min-h-[440px]">
         <div ref={containerRef} className="absolute inset-0 h-full w-full" />
@@ -235,10 +249,12 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
           selectedLocationId={selectedLocationId}
           onSelectLocation={onSelectLocation}
         />
-        <PloggingPolylineLayer
+        <PloggingRouteLayer
           map={mapInstance}
           routes={routes}
           selectedCategory={selectedCategory}
+          selectedRouteId={selectedRouteId}
+          onSelectRoute={onSelectRoute}
         />
       </div>
     );
@@ -286,4 +302,17 @@ function fitMapToLocations(
     );
   });
   map.setBounds(bounds, 64, 64, 64, 64);
+}
+
+function fitMapToRoute(map: KakaoMapInstance | null, route: PloggingRoute) {
+  if (!map || !window.kakao?.maps) {
+    return;
+  }
+  const bounds = new window.kakao.maps.LatLngBounds();
+  route.coordinates.forEach((point) => {
+    bounds.extend(
+      new window.kakao.maps.LatLng(point.latitude, point.longitude),
+    );
+  });
+  map.setBounds(bounds, 72, 72, 72, 72);
 }

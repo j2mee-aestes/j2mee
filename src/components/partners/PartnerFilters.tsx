@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "@/context/LocaleContext";
 import type { PartnerServiceFilter, PartnerType } from "@/types/partner";
 
 interface PartnerFiltersProps {
@@ -16,28 +17,21 @@ interface PartnerFiltersProps {
   onToggleExtra: (key: keyof PartnerFiltersProps["extraFilters"]) => void;
 }
 
-const SERVICE_OPTIONS: Array<{ id: PartnerServiceFilter; label: string }> = [
-  { id: "all", label: "전체" },
-  { id: "cleaning", label: "손질 가능" },
-  { id: "cooking", label: "조리 가능" },
-  { id: "outsideCatch", label: "외부 수산물 접수 가능" },
-  { id: "seafoodSales", label: "수산물 구매 가능" },
+const SERVICE_IDS: PartnerServiceFilter[] = [
+  "all",
+  "cleaning",
+  "cooking",
+  "outsideCatch",
+  "seafoodSales",
 ];
 
-const TYPE_OPTIONS: Array<{ id: PartnerType; label: string }> = [
-  { id: "market", label: "시장·직판" },
-  { id: "restaurant", label: "식당·횟집" },
-  { id: "processingShop", label: "손질 점포" },
-];
+const TYPE_IDS: PartnerType[] = ["market", "restaurant", "processingShop"];
 
-const EXTRA_OPTIONS: Array<{
-  key: keyof PartnerFiltersProps["extraFilters"];
-  label: string;
-}> = [
-  { key: "outsideCatch", label: "외부 수산물 접수 가능" },
-  { key: "cleaning", label: "손질 가능" },
-  { key: "cooking", label: "조리 가능" },
-  { key: "reservation", label: "예약 가능" },
+const EXTRA_KEYS: Array<keyof PartnerFiltersProps["extraFilters"]> = [
+  "outsideCatch",
+  "cleaning",
+  "cooking",
+  "reservation",
 ];
 
 export function PartnerFilters({
@@ -48,28 +42,34 @@ export function PartnerFilters({
   extraFilters,
   onToggleExtra,
 }: PartnerFiltersProps) {
+  const { t } = useTranslations();
+
   return (
     <div className="space-y-3">
       <div>
         <p className="mb-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
-          서비스
+          {t("partner.serviceFilter")}
         </p>
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="서비스 필터">
-          {SERVICE_OPTIONS.map((option) => {
-            const active = serviceFilter === option.id;
+        <div
+          className="flex flex-wrap gap-1.5"
+          role="group"
+          aria-label={t("partner.serviceFilter")}
+        >
+          {SERVICE_IDS.map((id) => {
+            const active = serviceFilter === id;
             return (
               <button
-                key={option.id}
+                key={id}
                 type="button"
                 aria-pressed={active}
-                onClick={() => onServiceFilterChange(option.id)}
+                onClick={() => onServiceFilterChange(id)}
                 className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
                   active
                     ? "bg-[var(--color-ocean-600)] text-white ring-[var(--color-ocean-600)]"
                     : "bg-white text-[var(--color-text-secondary)] ring-[var(--color-border)] hover:bg-[var(--color-surface-muted)]"
                 }`}
               >
-                {option.label}
+                {t(`partner.service.${id}`)}
               </button>
             );
           })}
@@ -78,24 +78,28 @@ export function PartnerFilters({
 
       <div>
         <p className="mb-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
-          수산시장 내 유형
+          {t("partner.typeFilter")}
         </p>
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="수산시장 내 유형 필터">
-          {TYPE_OPTIONS.map((option) => {
-            const active = typeFilters.includes(option.id);
+        <div
+          className="flex flex-wrap gap-1.5"
+          role="group"
+          aria-label={t("partner.typeFilter")}
+        >
+          {TYPE_IDS.map((id) => {
+            const active = typeFilters.includes(id);
             return (
               <button
-                key={option.id}
+                key={id}
                 type="button"
                 aria-pressed={active}
-                onClick={() => onToggleType(option.id)}
+                onClick={() => onToggleType(id)}
                 className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
                   active
                     ? "bg-teal-700 text-white ring-teal-700"
                     : "bg-white text-[var(--color-text-secondary)] ring-[var(--color-border)] hover:bg-[var(--color-surface-muted)]"
                 }`}
               >
-                {option.label}
+                {t(`partner.type.${id}`)}
               </button>
             );
           })}
@@ -104,24 +108,28 @@ export function PartnerFilters({
 
       <div>
         <p className="mb-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
-          추가 조건
+          {t("partner.extraFilter")}
         </p>
-        <div className="flex flex-wrap gap-1.5" role="group" aria-label="추가 조건 필터">
-          {EXTRA_OPTIONS.map((option) => {
-            const active = extraFilters[option.key];
+        <div
+          className="flex flex-wrap gap-1.5"
+          role="group"
+          aria-label={t("partner.extraFilter")}
+        >
+          {EXTRA_KEYS.map((key) => {
+            const active = extraFilters[key];
             return (
               <button
-                key={option.key}
+                key={key}
                 type="button"
                 aria-pressed={active}
-                onClick={() => onToggleExtra(option.key)}
+                onClick={() => onToggleExtra(key)}
                 className={`rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
                   active
                     ? "bg-violet-600 text-white ring-violet-600"
                     : "bg-white text-[var(--color-text-secondary)] ring-[var(--color-border)] hover:bg-[var(--color-surface-muted)]"
                 }`}
               >
-                {option.label}
+                {t(`partner.service.${key}`)}
               </button>
             );
           })}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "@/context/LocaleContext";
 import type { ActivityProgress } from "@/types/activity";
 
 interface ActivityProgressProps {
@@ -9,13 +10,19 @@ interface ActivityProgressProps {
   plannedDurationMinutes: number;
 }
 
-function formatDuration(totalMinutes: number): string {
+function formatDuration(
+  totalMinutes: number,
+  t: (key: string, values?: Record<string, string | number>) => string,
+): string {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   if (hours <= 0) {
-    return `${minutes}분`;
+    return t("schedule.durationMinutes", { minutes });
   }
-  return minutes === 0 ? `${hours}시간` : `${hours}시간 ${minutes}분`;
+  if (minutes === 0) {
+    return `${hours}${t("units.hours")}`;
+  }
+  return `${hours}${t("units.hours")} ${t("schedule.durationMinutes", { minutes })}`;
 }
 
 export function ActivityProgressBar({
@@ -24,9 +31,12 @@ export function ActivityProgressBar({
   date,
   plannedDurationMinutes,
 }: ActivityProgressProps) {
+  const { t } = useTranslations();
+  const duration = formatDuration(plannedDurationMinutes, t);
+
   return (
     <section
-      aria-label="활동 진행률"
+      aria-label={t("activity.progressAria")}
       className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4"
     >
       <div className="flex flex-wrap items-start justify-between gap-2">
@@ -35,11 +45,14 @@ export function ActivityProgressBar({
             {title}
           </h1>
           <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-            {date} · 예상 {formatDuration(plannedDurationMinutes)}
+            {date} · {t("activity.expectedDuration", { duration })}
           </p>
         </div>
-        <p className="text-sm font-semibold text-[var(--color-ocean-700)]" aria-live="polite">
-          진행률 {progress.percent}%
+        <p
+          className="text-sm font-semibold text-[var(--color-ocean-700)]"
+          aria-live="polite"
+        >
+          {t("activity.progress", { percent: progress.percent })}
         </p>
       </div>
       <div
@@ -48,7 +61,12 @@ export function ActivityProgressBar({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={progress.percent}
-        aria-label={`전체 일정 ${progress.total}개 중 ${progress.completed}개 완료, 진행률 ${progress.percent}%`}
+        aria-label={t("activity.progressDetail", {
+          total: progress.total,
+          completed: progress.completed,
+          skipped: progress.skipped,
+          remaining: progress.remaining,
+        })}
       >
         <div
           className="h-full rounded-full bg-[var(--color-ocean-600)] transition-all"
@@ -56,8 +74,12 @@ export function ActivityProgressBar({
         />
       </div>
       <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
-        전체 일정 {progress.total}개 중 {progress.completed}개 완료 · 건너뜀{" "}
-        {progress.skipped}개 · 남음 {progress.remaining}개
+        {t("activity.progressDetail", {
+          total: progress.total,
+          completed: progress.completed,
+          skipped: progress.skipped,
+          remaining: progress.remaining,
+        })}
       </p>
     </section>
   );

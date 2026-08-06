@@ -11,10 +11,12 @@ export function normalizeFishingSpot(
   return {
     id: raw.id,
     name: raw.name,
+    names: raw.names,
     address: raw.address,
     coordinates: raw.coordinates,
     spotType: raw.spotType ?? "other",
     description: raw.description,
+    descriptions: raw.descriptions,
     beginnerFriendly: raw.beginnerFriendly,
     parkingAvailable: raw.parkingAvailable,
     toiletAvailable: raw.toiletAvailable,

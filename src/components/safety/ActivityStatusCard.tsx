@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { Card } from "@/components/common/Card";
+import { useTranslations } from "@/context/LocaleContext";
 import type { ActivityEvaluation } from "@/types/fishing";
+import { useState } from "react";
 
 interface ActivityStatusCardProps {
   evaluation: ActivityEvaluation;
@@ -44,6 +45,7 @@ export function ActivityStatusCard({
   evaluation,
   className = "",
 }: ActivityStatusCardProps) {
+  const { t } = useTranslations();
   const [expanded, setExpanded] = useState(false);
   const style = STATUS_STYLES[evaluation.status];
   const visibleReasons = expanded
@@ -72,12 +74,13 @@ export function ActivityStatusCard({
           className="mt-2 text-xs font-semibold text-[var(--color-ocean-700)]"
           onClick={() => setExpanded((value) => !value)}
         >
-          {expanded ? "접기" : `나머지 ${hiddenCount}개 보기`}
+          {expanded
+            ? t("common.collapse")
+            : t("common.showMoreCount", { count: hiddenCount })}
         </button>
       ) : null}
       <p className="mt-3 text-[11px] leading-relaxed text-[var(--color-text-muted)]">
-        공개된 예보와 등록된 장소정보를 바탕으로 한 참고 정보입니다. 현장 통제와
-        기상특보를 우선 확인해주세요.
+        {t("safety.disclaimer")}
       </p>
     </Card>
   );

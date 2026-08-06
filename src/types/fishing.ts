@@ -25,10 +25,13 @@ export type FishingAllowedStatus =
 export interface FishingSpot {
   id: string;
   name: string;
+  /** Optional localized display names. Falls back to `name` (Korean). */
+  names?: import("@/i18n/types").LocalizedText;
   address: string;
   coordinates: Coordinates;
   spotType: FishingSpotType;
   description?: string;
+  descriptions?: import("@/i18n/types").LocalizedText;
   beginnerFriendly?: boolean;
   parkingAvailable?: boolean;
   toiletAvailable?: boolean;

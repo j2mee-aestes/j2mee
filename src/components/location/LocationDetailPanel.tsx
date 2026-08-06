@@ -5,12 +5,13 @@ import { EmptyState } from "@/components/common/EmptyState";
 import { IconButton, TextButton } from "@/components/common/IconButton";
 import { LocationFeatureBadge } from "@/components/location/LocationFeatureBadge";
 import { ActivityStatusCard } from "@/components/safety/ActivityStatusCard";
+import { useTranslations } from "@/context/LocaleContext";
 import {
-  FISHING_ALLOWED_LABELS,
-  FISHING_SPOT_TYPE_LABELS,
-  VERIFICATION_STATUS_LABELS,
-} from "@/constants/safetyThresholds";
-import { UI_TEXT } from "@/constants/uiText";
+  getFishDisplayName,
+  getFishingSpotDescription,
+  getFishingSpotDisplayName,
+} from "@/lib/i18n/placeDisplay";
+import { getFishingAllowedText } from "@/lib/i18n/safetyTexts";
 import { evaluateActivityStatus } from "@/lib/safety/evaluateActivityStatus";
 import type { FishingSpot, WeatherData } from "@/types/fishing";
 import { Heart, MapPin, Navigation } from "lucide-react";
@@ -39,20 +40,25 @@ export function LocationDetailPanel({
   notice,
   className = "",
 }: LocationDetailPanelProps) {
+  const { t, locale } = useTranslations();
   const evaluation = useMemo(() => {
     if (!location) {
       return null;
     }
-    return evaluateActivityStatus({
+    const base = evaluateActivityStatus({
       fishingAllowedStatus: location.fishingAllowedStatus,
       weather,
     });
-  }, [location, weather]);
+    return {
+      ...base,
+      label: t(`safety.status.${base.status}`),
+    };
+  }, [location, weather, t]);
 
   if (!location) {
     return (
       <EmptyState
-        title={UI_TEXT.selectPlace}
+        title={t("map.selectPlace")}
         icon={<MapPin className="h-6 w-6" />}
         className={className}
       />
@@ -60,6 +66,16 @@ export function LocationDetailPanel({
   }
 
   const fishing = location;
+  const displayName = getFishingSpotDisplayName(fishing, locale);
+  const displayDescription = getFishingSpotDescription(fishing, locale);
+  const allowedLabel = getFishingAllowedText(
+    locale,
+    fishing.fishingAllowedStatus,
+  );
+  const spotTypeLabel = t(`fishing.spotType.${fishing.spotType}`);
+  const verificationLabel = t(
+    `fishing.verification.${fishing.verificationStatus}`,
+  );
 
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
@@ -69,14 +85,14 @@ export function LocationDetailPanel({
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ocean-600)]">
-              {FISHING_SPOT_TYPE_LABELS[fishing.spotType]}
+              {spotTypeLabel}
             </p>
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
-                {location.name}
+                {displayName}
               </h2>
               <LocationFeatureBadge
-                label={VERIFICATION_STATUS_LABELS[fishing.verificationStatus]}
+                label={verificationLabel}
                 tone={
                   fishing.verificationStatus === "unverified" ? "gray" : "teal"
                 }
@@ -91,12 +107,16 @@ export function LocationDetailPanel({
             </p>
             {fishing.lastVerifiedAt ? (
               <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
-                마지막 확인일: {fishing.lastVerifiedAt}
+                {t("fishing.lastVerified", { date: fishing.lastVerifiedAt })}
               </p>
             ) : null}
           </div>
           <IconButton
-            label={isFavorite ? UI_TEXT.removeFavorite : UI_TEXT.addFavorite}
+            label={
+              isFavorite
+                ? t("fishing.removeFavorite")
+                : t("fishing.addFavorite")
+            }
             active={isFavorite}
             onClick={onToggleFavorite}
           >
@@ -118,7 +138,12 @@ export function LocationDetailPanel({
                   : "border-slate-200 bg-slate-50 text-slate-700"
           }`}
         >
-          {FISHING_ALLOWED_LABELS[fishing.fishingAllowedStatus]}
+          {allowedLabel.text}
+          {allowedLabel.reviewStatus === "machineTranslated" ? (
+            <p className="mt-1 text-[11px] font-normal opacity-80">
+              {t("safety.machineTranslatedNotice")}
+            </p>
+          ) : null}
           {fishing.restrictionDescription ? (
             <p className="mt-1 text-xs font-normal opacity-90">
               {fishing.restrictionDescription}
@@ -135,59 +160,74 @@ export function LocationDetailPanel({
           aria-hidden
         >
           <div className="absolute bottom-2 left-2 rounded-md bg-white/80 px-2 py-1 text-[10px] font-medium text-[var(--color-text-secondary)]">
-            이미지 준비 중
+            {t("fishing.imagePending")}
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {fishing.beginnerFriendly ? (
-            <LocationFeatureBadge label={UI_TEXT.beginnerFriendly} tone="blue" />
+            <LocationFeatureBadge
+              label={t("fishing.beginnerFriendly")}
+              tone="blue"
+            />
           ) : null}
           {fishing.parkingAvailable ? (
-            <LocationFeatureBadge label={UI_TEXT.parkingAvailable} tone="teal" />
+            <LocationFeatureBadge
+              label={t("fishing.parkingAvailable")}
+              tone="teal"
+            />
           ) : null}
           {fishing.toiletAvailable ? (
-            <LocationFeatureBadge label={UI_TEXT.toiletAvailable} tone="green" />
-          ) : null}
-          {fishing.lightingAvailable ? (
-            <LocationFeatureBadge label="조명" tone="orange" />
+            <LocationFeatureBadge
+              label={t("fishing.toiletAvailable")}
+              tone="green"
+            />
           ) : null}
           {fishing.safetyFenceAvailable ? (
-            <LocationFeatureBadge label={UI_TEXT.safetyFacilities} tone="orange" />
+            <LocationFeatureBadge
+              label={t("fishing.safetyFacilities")}
+              tone="orange"
+            />
           ) : null}
         </div>
 
-        {fishing.description ? (
+        {displayDescription !== t("common.infoUnavailable") ? (
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {fishing.description}
+            {displayDescription}
           </p>
         ) : null}
 
         {fishing.accessDescription ? (
           <p className="text-xs text-[var(--color-text-secondary)]">
-            접근: {fishing.accessDescription}
+            {t("fishing.access", { text: fishing.accessDescription })}
           </p>
         ) : null}
 
         <div>
           <h3 className="mb-2 text-sm font-semibold text-[var(--color-text-primary)]">
-            {UI_TEXT.targetFish}
+            {t("fishing.targetFish")}
           </h3>
           {fishing.targetFish && fishing.targetFish.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
               {fishing.targetFish.map((fish) => (
-                <LocationFeatureBadge key={fish} label={fish} tone="gray" />
+                <LocationFeatureBadge
+                  key={fish}
+                  label={getFishDisplayName(fish, locale)}
+                  tone="gray"
+                />
               ))}
             </div>
           ) : (
-            <p className="text-xs text-[var(--color-text-muted)]">정보 준비 중</p>
+            <p className="text-xs text-[var(--color-text-muted)]">
+              {t("common.infoUnavailable")}
+            </p>
           )}
         </div>
 
         {fishing.cautionText && fishing.cautionText.length > 0 ? (
           <div>
             <h3 className="mb-2 text-sm font-semibold text-[var(--color-text-primary)]">
-              주의사항
+              {t("fishing.cautions")}
             </h3>
             <ul className="space-y-1">
               {fishing.cautionText.map((item) => (
@@ -203,17 +243,20 @@ export function LocationDetailPanel({
         ) : null}
 
         <p className="text-xs text-[var(--color-text-muted)]">
-          주변 수산시장·식당과 쓰레기통·수거함은 아래 목록에서 확인할 수
-          있습니다.
+          {t("fishing.nearbyHint")}
         </p>
 
         <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 text-xs text-[var(--color-text-secondary)]">
           <p className="font-semibold text-[var(--color-text-primary)]">
-            데이터 출처
+            {t("fishing.dataSource")}
           </p>
-          <p className="mt-1">{fishing.sourceName ?? "미상"}</p>
+          <p className="mt-1">
+            {fishing.sourceName ?? t("common.unknown")}
+          </p>
           {fishing.lastVerifiedAt ? (
-            <p className="mt-0.5">업데이트: {fishing.lastVerifiedAt}</p>
+            <p className="mt-0.5">
+              {t("common.updated")}: {fishing.lastVerifiedAt}
+            </p>
           ) : null}
           {fishing.sourceUrl ? (
             <a
@@ -222,7 +265,7 @@ export function LocationDetailPanel({
               rel="noreferrer"
               className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
             >
-              원문 보기
+              {t("fishing.viewSource")}
             </a>
           ) : null}
         </div>
@@ -235,12 +278,14 @@ export function LocationDetailPanel({
               disabled={scheduleAdded}
               onClick={onAddToSchedule}
             >
-              {scheduleAdded ? "일정에 추가됨" : "일정에 추가"}
+              {scheduleAdded
+                ? t("fishing.addedToSchedule")
+                : t("fishing.addToSchedule")}
             </TextButton>
           ) : null}
           <TextButton variant="primary" className="w-full" onClick={onDirections}>
             <Navigation className="h-4 w-4" aria-hidden />
-            {UI_TEXT.directions}
+            {t("common.directions")}
           </TextButton>
         </div>
 

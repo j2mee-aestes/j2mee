@@ -2,6 +2,8 @@
 
 import { CATEGORIES } from "@/constants/categories";
 import { getCategoryIcon } from "@/constants/categoryIcons";
+import { useTranslations } from "@/context/LocaleContext";
+import { getCategoryLabel } from "@/lib/i18n/categoryLabels";
 import type { CategoryFilter } from "@/types/map";
 
 interface MobileCategoryBarProps {
@@ -13,12 +15,14 @@ export function MobileCategoryBar({
   selectedCategory,
   onCategoryChange,
 }: MobileCategoryBarProps) {
+  const { t, locale } = useTranslations();
+
   return (
     <div className="border-b border-[var(--color-border)] bg-white lg:hidden">
       <div
         className="flex gap-2 overflow-x-auto px-3 py-2.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="tablist"
-        aria-label="카테고리"
+        aria-label={t("categories.all.label")}
       >
         {CATEGORIES.map((category) => {
           const selected = selectedCategory === category.id;
@@ -36,13 +40,8 @@ export function MobileCategoryBar({
               }`}
               style={selected ? { backgroundColor: category.color } : undefined}
             >
-              <span
-                aria-hidden
-                style={{ color: selected ? "#fff" : category.color }}
-              >
-                {getCategoryIcon(category.id, "h-3.5 w-3.5")}
-              </span>
-              {category.label}
+              <span aria-hidden>{getCategoryIcon(category.id, "h-3.5 w-3.5")}</span>
+              {getCategoryLabel(locale, category.id, "shortLabel")}
             </button>
           );
         })}

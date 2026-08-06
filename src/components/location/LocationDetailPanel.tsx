@@ -44,9 +44,14 @@ export function LocationDetailPanel({
           <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ocean-600)]">
             {CATEGORY_TYPE_LABELS[location.category]}
           </p>
-          <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
-            {location.name}
-          </h2>
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
+              {location.name}
+            </h2>
+            {location.isVerified ? (
+              <LocationFeatureBadge label={UI_TEXT.verified} tone="teal" />
+            ) : null}
+          </div>
           <p className="mt-1 flex items-start gap-1.5 text-sm text-[var(--color-text-secondary)]">
             <MapPin
               className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-ocean-500)]"

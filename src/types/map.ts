@@ -14,27 +14,24 @@ export interface Coordinates {
   longitude: number;
 }
 
+/** Map pin used by KakaoMap. Coordinates are UI-verification mock values. */
 export interface MapLocation {
   id: string;
   category: MapCategory;
   name: string;
+  address: string;
   coordinates: Coordinates;
-  /** Percentage position on the placeholder map (0–100) */
-  position: {
-    x: number;
-    y: number;
-  };
   description?: string;
-  address?: string;
+  isVerified?: boolean;
 }
 
 export interface PloggingRoute {
   id: string;
   name: string;
+  /** Ordered path coordinates (mock, for UI verification) */
+  coordinates: Coordinates[];
   distanceKm: number;
-  durationLabel: string;
-  /** SVG path-like points as percentages on the placeholder map */
-  points: Array<{ x: number; y: number }>;
+  estimatedMinutes: number;
   startLabel: string;
   endLabel: string;
 }

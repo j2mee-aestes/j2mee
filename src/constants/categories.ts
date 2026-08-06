@@ -14,10 +14,10 @@ export const CATEGORY_COLORS: Record<MapCategory, string> = {
   fishing: "#0284c7",
   tide: "#06b6d4",
   market: "#ea580c",
-  restaurant: "#f59e0b",
-  uglySeafood: "#7c3aed",
-  trash: "#65a30d",
-  plogging: "#78866b",
+  restaurant: "#7c3aed",
+  uglySeafood: "#db2777",
+  trash: "#16a34a",
+  plogging: "#0d9488",
 };
 
 export const CATEGORIES: CategoryConfig[] = [

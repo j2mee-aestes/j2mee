@@ -15,6 +15,7 @@ export interface LocationDetail {
   nearbyMarketDistanceKm?: number;
   distanceLabel?: string;
   coordinates: Coordinates;
+  isVerified?: boolean;
 }
 
 export interface TideTime {

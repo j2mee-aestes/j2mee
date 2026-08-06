@@ -6,6 +6,7 @@ import type { LanguageCode } from "@/constants/languages";
 import { LANGUAGES } from "@/constants/languages";
 import { UI_TEXT } from "@/constants/uiText";
 import { mockTideData, mockWeather } from "@/data/mockTideData";
+import type { LocationDetail } from "@/types/fishing";
 import {
   Bell,
   CloudSun,
@@ -25,6 +26,8 @@ interface HeaderProps {
   onSearchQueryChange: (value: string) => void;
   onSearchSubmit: () => void;
   searchNotice: string | null;
+  searchResults: LocationDetail[];
+  onSelectSearchResult: (locationId: string) => void;
   onTideSummaryClick: () => void;
 }
 
@@ -37,6 +40,8 @@ export function Header({
   onSearchQueryChange,
   onSearchSubmit,
   searchNotice,
+  searchResults,
+  onSelectSearchResult,
   onTideSummaryClick,
 }: HeaderProps) {
   return (
@@ -164,6 +169,35 @@ export function Header({
           >
             {searchNotice}
           </p>
+        ) : null}
+
+        {searchResults.length > 0 ? (
+          <div
+            className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-2 shadow-sm"
+            role="listbox"
+            aria-label={UI_TEXT.searchResultsLabel}
+          >
+            <ul className="max-h-48 divide-y divide-[var(--color-border)] overflow-y-auto">
+              {searchResults.map((result) => (
+                <li key={result.id}>
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={false}
+                    className="flex w-full flex-col gap-0.5 px-3 py-2.5 text-left hover:bg-[var(--color-surface-muted)]"
+                    onClick={() => onSelectSearchResult(result.id)}
+                  >
+                    <span className="text-sm font-semibold text-[var(--color-text-primary)]">
+                      {result.name}
+                    </span>
+                    <span className="text-xs text-[var(--color-text-secondary)]">
+                      {result.address}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : null}
 
         {mobileMenuOpen ? (

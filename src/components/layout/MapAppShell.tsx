@@ -10,8 +10,12 @@ import { TideSummary } from "@/components/tide/TideSummary";
 import type { LanguageCode } from "@/constants/languages";
 import { UI_TEXT } from "@/constants/uiText";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/mockFishingSpots";
-import { getLocationDetailById } from "@/data/mockMapLocations";
+import {
+  getLocationDetailById,
+  searchMockLocations,
+} from "@/data/mockMapLocations";
 import { mockTideData } from "@/data/mockTideData";
+import type { LocationDetail } from "@/types/fishing";
 import type { CategoryFilter } from "@/types/map";
 
 export function MapAppShell() {
@@ -25,9 +29,11 @@ export function MapAppShell() {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState("");
   const [searchNotice, setSearchNotice] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<LocationDetail[]>([]);
   const [panelNotice, setPanelNotice] = useState<string | null>(null);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [tideHighlighted, setTideHighlighted] = useState(false);
+  const [focusRequestId, setFocusRequestId] = useState(0);
 
   const selectedLocation = useMemo(
     () =>
@@ -49,29 +55,57 @@ export function MapAppShell() {
     if (!mapNotice) {
       return;
     }
-    const timer = window.setTimeout(() => setMapNotice(null), 2800);
+    const timer = window.setTimeout(() => setMapNotice(null), 3200);
     return () => window.clearTimeout(timer);
   }, [mapNotice]);
 
   const handleCategoryChange = (category: CategoryFilter) => {
     setSelectedCategory(category);
-    if (category !== "all" && selectedLocation) {
-      if (selectedLocation.category !== category) {
-        setSelectedLocationId(null);
-      }
+    if (
+      category !== "all" &&
+      selectedLocation &&
+      selectedLocation.category !== category
+    ) {
+      setSelectedLocationId(null);
     }
+  };
+
+  const selectAndFocusLocation = (locationId: string) => {
+    const detail = getLocationDetailById(locationId);
+    if (!detail) {
+      return;
+    }
+    setSelectedLocationId(locationId);
+    setSelectedCategory("all");
+    setPanelNotice(null);
+    setSearchResults([]);
+    setSearchNotice(null);
+    setFocusRequestId((value) => value + 1);
   };
 
   const handleSearchSubmit = () => {
     const trimmed = searchQuery.trim();
     if (!trimmed) {
       setSearchNotice(null);
+      setSearchResults([]);
       return;
     }
-    console.info("[파도파도] search:", trimmed);
-    setSearchNotice(
-      `${UI_TEXT.searchHintPrefix} “${trimmed}” — ${UI_TEXT.searchHintSuffix}`,
-    );
+
+    const results = searchMockLocations(trimmed);
+    if (results.length === 0) {
+      setSearchResults([]);
+      setSearchNotice(UI_TEXT.searchNoResults);
+      return;
+    }
+
+    if (results.length === 1) {
+      selectAndFocusLocation(results[0].id);
+      setSearchNotice(`“${results[0].name}” 위치로 이동했습니다.`);
+      return;
+    }
+
+    setSearchNotice(null);
+    setSearchResults(results);
   };
 
   const handleTideSummaryClick = () => {
@@ -98,9 +132,17 @@ export function MapAppShell() {
         mobileMenuOpen={mobileMenuOpen}
         onMobileMenuToggle={() => setMobileMenuOpen((open) => !open)}
         searchQuery={searchQuery}
-        onSearchQueryChange={setSearchQuery}
+        onSearchQueryChange={(value) => {
+          setSearchQuery(value);
+          if (!value.trim()) {
+            setSearchResults([]);
+            setSearchNotice(null);
+          }
+        }}
         onSearchSubmit={handleSearchSubmit}
         searchNotice={searchNotice}
+        searchResults={searchResults}
+        onSelectSearchResult={selectAndFocusLocation}
         onTideSummaryClick={handleTideSummaryClick}
       />
 
@@ -127,6 +169,7 @@ export function MapAppShell() {
               }}
               onCategoryChange={handleCategoryChange}
               onNotice={setMapNotice}
+              focusRequestId={focusRequestId}
             />
             {mapNotice ? (
               <p

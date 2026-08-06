@@ -4,7 +4,21 @@
 
 ## 현재 단계
 
-**2단계: 첫 화면 UI 완성 및 기본 상호작용** — 실제 지도/공공데이터 API는 아직 연결하지 않습니다.
+**3단계: 카카오맵 연결** — 실제 지도 위에 mock 위치 데이터를 표시합니다. 낚시터·조석·날씨 공공 API는 아직 연결하지 않습니다.
+
+## 환경변수
+
+```bash
+cp .env.example .env.local
+```
+
+`.env.local`에 카카오맵 JavaScript 키를 등록합니다.
+
+```env
+NEXT_PUBLIC_KAKAO_MAP_APP_KEY=YOUR_KAKAO_JAVASCRIPT_KEY
+```
+
+키가 없으면 지도 영역에 설정 안내가 표시됩니다.
 
 ## 실행
 

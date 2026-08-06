@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "build:gh-pages": "node scripts/build-gh-pages.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:i18n": "node scripts/check-translations.mjs",

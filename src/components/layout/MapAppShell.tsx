@@ -432,7 +432,7 @@ export function MapAppShell() {
     selectedCategory === "plogging" || selectedCategory === "all";
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--color-surface)]">
+    <div className="flex min-h-screen flex-col">
       <Header
         mobileMenuOpen={mobileMenuOpen}
         onMobileMenuToggle={() => setMobileMenuOpen((open) => !open)}
@@ -462,7 +462,7 @@ export function MapAppShell() {
           mobileOpen={mobileMenuOpen}
         />
 
-        <main className="flex min-h-0 flex-1 flex-col gap-3 p-3 sm:p-4 lg:h-[calc(100vh-7.5rem)] lg:flex-row lg:gap-4 lg:overflow-hidden">
+        <main className="flex min-h-0 flex-1 flex-col gap-3 p-3 sm:p-4 lg:h-[calc(100vh-7.5rem)] lg:flex-row lg:gap-5 lg:overflow-hidden lg:px-5">
           <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
             <MapSection
               selectedCategory={selectedCategory}
@@ -481,7 +481,7 @@ export function MapAppShell() {
             />
             {mapNotice ? (
               <p
-                className="absolute bottom-16 left-1/2 z-40 w-[min(90%,360px)] -translate-x-1/2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-3 py-2 text-center text-xs text-[var(--color-text-secondary)] shadow-md"
+                className="absolute bottom-16 left-1/2 z-40 w-[min(90%,360px)] -translate-x-1/2 rounded-2xl border border-[var(--color-border)] bg-white/90 px-3 py-2 text-center text-xs text-[var(--color-text-secondary)] shadow-[var(--shadow-soft)] backdrop-blur-md"
                 role="status"
               >
                 {mapNotice}
@@ -490,7 +490,7 @@ export function MapAppShell() {
             {ploggingSession.status === "inProgress" &&
             ploggingSession.routeId ? (
               <p
-                className="absolute bottom-4 left-1/2 z-40 w-[min(90%,360px)] -translate-x-1/2 rounded-[var(--radius-md)] border border-teal-200 bg-teal-50 px-3 py-2 text-center text-xs font-medium text-teal-900 shadow-md"
+                className="absolute bottom-4 left-1/2 z-40 w-[min(90%,360px)] -translate-x-1/2 rounded-2xl border border-teal-200 bg-teal-50/95 px-3 py-2 text-center text-xs font-medium text-teal-900 shadow-[var(--shadow-soft)] backdrop-blur-md"
                 role="status"
                 aria-live="polite"
               >
@@ -618,11 +618,11 @@ export function MapAppShell() {
             ) : null}
 
             {scheduleApi.schedule.items.length > 0 ? (
-              <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
-                <p className="font-semibold text-[var(--color-text-primary)]">
+              <div className="glass-panel rounded-[var(--radius-xl)] p-4 text-xs text-[var(--color-text-secondary)]">
+                <p className="font-display text-sm font-semibold text-[var(--color-text-primary)]">
                   {t("common.schedule")} ({scheduleApi.schedule.items.length})
                 </p>
-                <ul className="mt-1.5 space-y-1">
+                <ul className="mt-2 space-y-1.5">
                   {[...scheduleApi.schedule.items]
                     .sort((a, b) => a.order - b.order)
                     .map((item) => (
@@ -634,13 +634,13 @@ export function MapAppShell() {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
                     href="/schedule"
-                    className="inline-flex h-8 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-xs font-medium text-white"
+                    className="inline-flex h-8 items-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-3.5 text-xs font-semibold text-white"
                   >
                     {t("schedule.editLink")}
                   </Link>
                   <Link
                     href="/schedules"
-                    className="inline-flex h-8 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-xs font-medium"
+                    className="inline-flex h-8 items-center rounded-full border border-[var(--color-border)] bg-white/70 px-3.5 text-xs font-semibold"
                   >
                     {t("schedule.savedList")}
                   </Link>
@@ -650,11 +650,11 @@ export function MapAppShell() {
                 </p>
               </div>
             ) : (
-              <div className="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
+              <div className="rounded-[var(--radius-xl)] border border-dashed border-[var(--color-border)] bg-white/60 p-4 text-xs text-[var(--color-text-secondary)] backdrop-blur-sm">
                 <p>{t("schedule.empty")}</p>
                 <Link
                   href="/schedule"
-                  className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
+                  className="mt-2 inline-flex font-semibold text-[var(--color-accent-strong)]"
                 >
                   {t("schedule.createLink")}
                 </Link>

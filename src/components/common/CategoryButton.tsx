@@ -26,17 +26,17 @@ export function CategoryButton({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`flex w-full items-start gap-3 rounded-[var(--radius-md)] border px-3 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
+      className={`flex w-full items-start gap-3 rounded-2xl border px-3.5 py-3.5 text-left transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
         selected
-          ? "border-transparent text-white shadow-sm"
-          : "border-[var(--color-border)] bg-white text-[var(--color-text-primary)] hover:border-slate-300 hover:bg-[var(--color-surface-muted)]"
+          ? "border-transparent text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.45)]"
+          : "border-[var(--color-border)] bg-white/75 text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]/60"
       } ${className}`}
       style={selected ? { backgroundColor: color } : undefined}
     >
       <span
-        className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+        className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
         style={{
-          backgroundColor: selected ? "rgba(255,255,255,0.2)" : `${color}1A`,
+          backgroundColor: selected ? "rgba(255,255,255,0.22)" : `${color}1A`,
           color: selected ? "#fff" : color,
         }}
         aria-hidden
@@ -44,7 +44,7 @@ export function CategoryButton({
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-sm font-semibold">{label}</span>
+        <span className="block text-sm font-semibold tracking-tight">{label}</span>
         {description ? (
           <span
             className={`mt-0.5 block text-xs leading-relaxed ${

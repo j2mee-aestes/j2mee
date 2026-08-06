@@ -16,6 +16,7 @@ import {
   Waves,
   X,
 } from "lucide-react";
+import Link from "next/link";
 
 interface HeaderProps {
   language: LanguageCode;
@@ -83,7 +84,13 @@ export function Header({
                 <Heart className="h-4 w-4" />
               </IconButton>
             </div>
-            <TextButton variant="primary" className="hidden sm:inline-flex">
+            <Link
+              href="/schedule"
+              className="hidden h-10 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-medium text-white sm:inline-flex"
+            >
+              일정
+            </Link>
+            <TextButton variant="primary" className="hidden md:inline-flex">
               <LogIn className="h-4 w-4" aria-hidden />
               {UI_TEXT.login}
             </TextButton>

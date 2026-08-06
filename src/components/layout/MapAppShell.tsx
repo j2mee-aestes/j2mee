@@ -32,13 +32,13 @@ import {
   useTideData,
   useWeatherData,
 } from "@/hooks/useSpotEnvironmentData";
+import { useScheduleContext } from "@/context/ScheduleContext";
 import { getWastePointById } from "@/lib/environment/wastePointRepository";
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
 import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
 import type { CategoryFilter, Coordinates } from "@/types/map";
 import type { PloggingSession } from "@/types/environment";
-import type { ScheduleItem, ScheduleItemType } from "@/types/schedule";
-import type { PartnerType } from "@/types/partner";
+import Link from "next/link";
 
 function todayKst(): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -83,16 +83,6 @@ function resolvePlaceCategory(place: SearchablePlace): CategoryFilter {
     return "plogging";
   }
   return "all";
-}
-
-function partnerScheduleType(type: PartnerType): ScheduleItemType {
-  if (type === "market" || type === "marketStore") {
-    return "market";
-  }
-  if (type === "processingShop") {
-    return "processing";
-  }
-  return "restaurant";
 }
 
 const EMPTY_SESSION: PloggingSession = {
@@ -142,10 +132,10 @@ export function MapAppShell() {
   const [focusRequestId, setFocusRequestId] = useState(0);
   const [fitRouteRequestId, setFitRouteRequestId] = useState(0);
   const [chartExpanded, setChartExpanded] = useState(false);
-  const [scheduleItems, setScheduleItems] = useState<ScheduleItem[]>([]);
   const [userLocation, setUserLocation] = useState<Coordinates | null>(null);
   const [ploggingSession, setPloggingSession] =
     useState<PloggingSession>(EMPTY_SESSION);
+  const scheduleApi = useScheduleContext();
 
   const selectedLocation = useMemo(
     () =>
@@ -206,11 +196,6 @@ export function MapAppShell() {
 
   const tideState = useTideData(fishingSpotId, selectedDate);
   const weatherState = useWeatherData(fishingSpotId, selectedDate);
-
-  const scheduleTargetIds = useMemo(
-    () => scheduleItems.map((item) => item.targetId),
-    [scheduleItems],
-  );
 
   const syncUrl = useCallback(
     (spotId: string | null, date: string) => {
@@ -302,24 +287,12 @@ export function MapAppShell() {
     if (!partner || !isPartnerPlace(partner)) {
       return;
     }
-    setScheduleItems((prev) => {
-      if (prev.some((item) => item.targetId === partnerId)) {
-        setPanelNotice(`${partner.name}은(는) 이미 일정에 추가되어 있습니다.`);
-        return prev;
-      }
-      setPanelNotice(`${partner.name}이(가) 일정에 추가되었습니다.`);
-      return [
-        ...prev,
-        {
-          id: `schedule-${partnerId}-${Date.now()}`,
-          type: partnerScheduleType(partner.type),
-          targetId: partner.id,
-          name: partner.name,
-          relatedFishingSpotId: relatedFishingSpotId ?? undefined,
-          addedAt: new Date().toISOString(),
-        },
-      ];
-    });
+    const result = scheduleApi.addPartner(partner);
+    setPanelNotice(
+      result.ok
+        ? result.message
+        : "이미 일정에 추가된 장소입니다.",
+    );
   };
 
   const handleAddPloggingToSchedule = (routeId: string) => {
@@ -327,24 +300,24 @@ export function MapAppShell() {
     if (!route || !isPloggingRoute(route)) {
       return;
     }
-    setScheduleItems((prev) => {
-      if (prev.some((item) => item.targetId === routeId)) {
-        setPanelNotice(`${route.name}은(는) 이미 일정에 추가되어 있습니다.`);
-        return prev;
-      }
-      setPanelNotice(`${route.name}이(가) 일정에 추가되었습니다.`);
-      return [
-        ...prev,
-        {
-          id: `schedule-${routeId}-${Date.now()}`,
-          type: "plogging",
-          targetId: route.id,
-          name: route.name,
-          relatedFishingSpotId: relatedFishingSpotId ?? undefined,
-          addedAt: new Date().toISOString(),
-        },
-      ];
-    });
+    const result = scheduleApi.addPlogging(route);
+    setPanelNotice(
+      result.ok
+        ? result.message
+        : "이미 일정에 추가된 장소입니다.",
+    );
+  };
+
+  const handleAddFishingToSchedule = () => {
+    if (!selectedFishing) {
+      return;
+    }
+    const result = scheduleApi.addFishing(selectedFishing);
+    setPanelNotice(
+      result.ok
+        ? result.message
+        : "이미 일정에 추가된 장소입니다.",
+    );
   };
 
   const handleSearchSubmit = () => {
@@ -481,7 +454,7 @@ export function MapAppShell() {
                 onAddToSchedule={() =>
                   handleAddPartnerToSchedule(selectedPartner.id)
                 }
-                scheduleAdded={scheduleTargetIds.includes(selectedPartner.id)}
+                scheduleAdded={scheduleApi.isSourceInSchedule(selectedPartner.id)}
                 notice={panelNotice}
               />
             ) : null}
@@ -505,7 +478,7 @@ export function MapAppShell() {
                     ? ploggingSession
                     : { ...EMPTY_SESSION, routeId: selectedRoute.id }
                 }
-                scheduleAdded={scheduleTargetIds.includes(selectedRoute.id)}
+                scheduleAdded={scheduleApi.isSourceInSchedule(selectedRoute.id)}
                 onAddToSchedule={() =>
                   handleAddPloggingToSchedule(selectedRoute.id)
                 }
@@ -541,6 +514,8 @@ export function MapAppShell() {
                 )}
                 onToggleFavorite={handleToggleFavorite}
                 onDirections={() => setPanelNotice(UI_TEXT.directionsNotice)}
+                onAddToSchedule={handleAddFishingToSchedule}
+                scheduleAdded={scheduleApi.isSourceInSchedule(selectedFishing.id)}
                 notice={panelNotice}
               />
             ) : null}
@@ -572,7 +547,9 @@ export function MapAppShell() {
                 origin={(selectedFishing ?? relatedFishingSpot)!.coordinates}
                 originName={(selectedFishing ?? relatedFishingSpot)!.name}
                 selectedPartnerId={selectedPartner?.id ?? null}
-                schedulePartnerIds={scheduleTargetIds}
+                schedulePartnerIds={scheduleApi.schedule.items.map(
+                  (item) => item.sourceId,
+                )}
                 onSelectPartner={selectAndFocusLocation}
                 onAddToSchedule={handleAddPartnerToSchedule}
               />
@@ -585,24 +562,50 @@ export function MapAppShell() {
               />
             ) : null}
 
-            {scheduleItems.length > 0 ? (
+            {scheduleApi.schedule.items.length > 0 ? (
               <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
                 <p className="font-semibold text-[var(--color-text-primary)]">
-                  임시 일정 ({scheduleItems.length})
+                  임시 일정 ({scheduleApi.schedule.items.length})
                 </p>
                 <ul className="mt-1.5 space-y-1">
-                  {scheduleItems.map((item) => (
-                    <li key={item.id}>
-                      · [{item.type}] {item.name}
-                    </li>
-                  ))}
+                  {[...scheduleApi.schedule.items]
+                    .sort((a, b) => a.order - b.order)
+                    .map((item) => (
+                      <li key={item.id}>
+                        · {item.order}. {item.title}
+                      </li>
+                    ))}
                 </ul>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link
+                    href="/schedule"
+                    className="inline-flex h-8 items-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-xs font-medium text-white"
+                  >
+                    일정 편집
+                  </Link>
+                  <Link
+                    href="/schedules"
+                    className="inline-flex h-8 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-xs font-medium"
+                  >
+                    저장 목록
+                  </Link>
+                </div>
                 <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
-                  새로고침 후 유지되지 않습니다. 정식 일정 기능은 다음 단계에서
+                  브라우저에 임시 저장되며, 정식 서버 저장은 다음 단계에서
                   연결됩니다.
                 </p>
               </div>
-            ) : null}
+            ) : (
+              <div className="rounded-[var(--radius-md)] border border-dashed border-[var(--color-border)] bg-white p-3 text-xs text-[var(--color-text-secondary)]">
+                <p>아직 일정에 추가된 장소가 없습니다.</p>
+                <Link
+                  href="/schedule"
+                  className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
+                >
+                  하루 일정 만들기 →
+                </Link>
+              </div>
+            )}
 
             {fishingSpotId ? (
               <>

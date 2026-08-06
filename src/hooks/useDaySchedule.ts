@@ -13,7 +13,7 @@ import {
   reindexOrders,
 } from "@/lib/schedule/createScheduleItem";
 import { calculateScheduleTimes } from "@/lib/schedule/calculateScheduleTimes";
-import { localScheduleRepository } from "@/lib/schedule/localScheduleRepository";
+import { hybridScheduleRepository } from "@/lib/schedule/hybridScheduleRepository";
 import {
   clearDraftSchedule,
   loadDraftSchedule,
@@ -303,7 +303,7 @@ export function useDaySchedule(): UseDayScheduleResult {
       status: schedule.status === "ready" ? "ready" : "draft",
       updatedAt: new Date().toISOString(),
     };
-    await localScheduleRepository.save(toSave);
+    await hybridScheduleRepository.save(toSave);
     setSchedule(toSave);
     const message =
       "일정이 이 브라우저에 저장되었습니다. 로그인 또는 서버 저장 기능이 연결되지 않아 다른 기기에서는 확인할 수 없습니다.";

@@ -33,7 +33,8 @@
     "unknown": "미상",
     "source": "출처",
     "updated": "업데이트",
-    "selectedPoint": "선택 지점"
+    "selectedPoint": "선택 지점",
+    "myPage": "마이페이지"
   },
   "search": {
     "placeholder": "지역, 장소, 키워드로 검색해보세요",
@@ -394,5 +395,43 @@
     "activitiesTitle": "활동 기록 | 파도파도",
     "activityTitle": "활동 진행 | 파도파도",
     "activityCompleteTitle": "활동 완료 | 파도파도"
+  },
+  "auth": {
+    "loginTitle": "로그인",
+    "loginSubtitle": "계정에 저장한 일정·즐겨찾기·활동 기록을 이어갈 수 있습니다.",
+    "email": "이메일",
+    "password": "비밀번호",
+    "loginFailed": "로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.",
+    "devHint": "로컬 개발용 계정: AUTH_DEV_EMAIL / AUTH_DEV_PASSWORD (.env.example 참고). Google·Kakao OAuth 키를 설정하면 해당 로그인도 사용할 수 있습니다.",
+    "privacyNote": "저장되는 정보: 프로필 기본값, 선호 언어, 즐겨찾기, 일정·활동 스냅샷. 위치는 지속적으로 추적되지 않으며, 문의 폼 연락처는 현재 서버에 저장하지 않습니다. 마이페이지에서 기록을 삭제할 수 있습니다.",
+    "myPage": "마이페이지",
+    "myPageTitle": "마이페이지",
+    "myPageSubtitle": "계정에 저장된 데이터를 확인하고 관리합니다.",
+    "logout": "로그아웃",
+    "profile": "프로필",
+    "preferredLocale": "선호 언어",
+    "localeSaved": "선호 언어를 저장했습니다.",
+    "saveFailed": "저장에 실패했습니다.",
+    "noFavorites": "저장된 즐겨찾기가 없습니다.",
+    "savedData": "저장된 일정·활동",
+    "scheduleCount": "일정 {count}개",
+    "activityCount": "활동 {count}개",
+    "exportJson": "JSON 내보내기",
+    "exportDone": "내보내기를 완료했습니다.",
+    "exportFailed": "내보내기에 실패했습니다.",
+    "deleteFavoriteConfirm": "이 즐겨찾기를 삭제할까요?",
+    "deleteFailed": "삭제에 실패했습니다.",
+    "clearSchedules": "일정 전체 삭제",
+    "clearActivities": "활동 전체 삭제",
+    "clearSchedulesConfirm": "서버에 저장된 일정을 모두 삭제할까요?",
+    "clearActivitiesConfirm": "서버에 저장된 활동 기록을 모두 삭제할까요?",
+    "importTitle": "브라우저 데이터 가져오기",
+    "importBody": "이 브라우저에 일정 {schedules}개, 활동 기록 {runs}개, 즐겨찾기 {favorites}개가 있습니다. 계정으로 가져오시겠어요?",
+    "importKeepLocal": "가져오기 (로컬 유지)",
+    "importAndClear": "가져오고 로컬 삭제",
+    "importSkip": "건너뛰기",
+    "importSkipped": "가져오기를 건너뛰었습니다.",
+    "importFailed": "가져오기에 실패했습니다.",
+    "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})"
   }
 }

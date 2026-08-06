@@ -4,7 +4,7 @@ import { ActivityHistoryList } from "@/components/activity/ActivityHistoryList";
 import { useTranslations } from "@/context/LocaleContext";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import { createScheduleFromActivityRun } from "@/lib/activity/createScheduleFromActivityRun";
-import { localActivityRunRepository } from "@/lib/activity/localActivityRunRepository";
+import { hybridActivityRunRepository } from "@/lib/activity/hybridActivityRunRepository";
 import { isLocalStorageAvailable } from "@/lib/activity/activityRunStorage";
 import type { ActivityRun } from "@/types/activity";
 import Link from "next/link";
@@ -20,7 +20,7 @@ export default function ActivitiesPage() {
   const [loading, setLoading] = useState(true);
 
   const refresh = useCallback(async () => {
-    const all = await localActivityRunRepository.getAll();
+    const all = await hybridActivityRunRepository.getAll();
     setRuns(all.filter((run) => run.status !== "cancelled"));
     setLoading(false);
   }, []);
@@ -73,7 +73,7 @@ export default function ActivitiesPage() {
         <ActivityHistoryList
           runs={runs}
           onDelete={(id) => {
-            void localActivityRunRepository.delete(id).then(() => refresh());
+            void hybridActivityRunRepository.delete(id).then(() => refresh());
           }}
           onCopySchedule={(run) => {
             scheduleApi.loadSchedule(createScheduleFromActivityRun(run));

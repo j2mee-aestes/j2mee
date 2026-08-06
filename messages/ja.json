@@ -33,7 +33,8 @@
     "unknown": "不明",
     "source": "出典",
     "updated": "更新",
-    "selectedPoint": "選択地点"
+    "selectedPoint": "選択地点",
+    "myPage": "マイページ"
   },
   "search": {
     "placeholder": "地域・場所・キーワードで検索",
@@ -394,5 +395,43 @@
     "activitiesTitle": "活動記録 | パドパド",
     "activityTitle": "活動進行 | パドパド",
     "activityCompleteTitle": "活動完了 | パドパド"
+  },
+  "auth": {
+    "loginTitle": "ログイン",
+    "loginSubtitle": "アカウントに保存した予定・お気に入り・活動記録を続けられます。",
+    "email": "メール",
+    "password": "パスワード",
+    "loginFailed": "ログインに失敗しました。メールとパスワードを確認してください。",
+    "devHint": "ローカル開発用アカウント: AUTH_DEV_EMAIL / AUTH_DEV_PASSWORD（.env.example参照）。Google・Kakao OAuthキーを設定すると利用できます。",
+    "privacyNote": "保存される情報: 基本プロフィール、希望言語、お気に入り、予定・活動スナップショット。位置は継続追跡されません。問い合わせフォームの連絡先は現在サーバーに保存しません。マイページで記録を削除できます。",
+    "myPage": "マイページ",
+    "myPageTitle": "マイページ",
+    "myPageSubtitle": "アカウントに保存されたデータを確認・管理します。",
+    "logout": "ログアウト",
+    "profile": "プロフィール",
+    "preferredLocale": "希望言語",
+    "localeSaved": "希望言語を保存しました。",
+    "saveFailed": "保存に失敗しました。",
+    "noFavorites": "お気に入りがありません。",
+    "savedData": "保存された予定・活動",
+    "scheduleCount": "予定 {count}件",
+    "activityCount": "活動 {count}件",
+    "exportJson": "JSONエクスポート",
+    "exportDone": "エクスポート完了。",
+    "exportFailed": "エクスポートに失敗しました。",
+    "deleteFavoriteConfirm": "このお気に入りを削除しますか？",
+    "deleteFailed": "削除に失敗しました。",
+    "clearSchedules": "予定をすべて削除",
+    "clearActivities": "活動をすべて削除",
+    "clearSchedulesConfirm": "サーバーに保存された予定をすべて削除しますか？",
+    "clearActivitiesConfirm": "サーバーに保存された活動記録をすべて削除しますか？",
+    "importTitle": "ブラウザデータの取り込み",
+    "importBody": "このブラウザに予定 {schedules}件、活動記録 {runs}件、お気に入り {favorites}件があります。アカウントに取り込みますか？",
+    "importKeepLocal": "取り込む（ローカル保持）",
+    "importAndClear": "取り込んでローカル削除",
+    "importSkip": "スキップ",
+    "importSkipped": "取り込みをスキップしました。",
+    "importFailed": "取り込みに失敗しました。",
+    "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）"
   }
 }

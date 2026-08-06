@@ -33,7 +33,8 @@
     "unknown": "Unknown",
     "source": "Source",
     "updated": "Updated",
-    "selectedPoint": "Selected point"
+    "selectedPoint": "Selected point",
+    "myPage": "My page"
   },
   "search": {
     "placeholder": "Search by area, place, or keyword",
@@ -394,5 +395,43 @@
     "activitiesTitle": "Activity history | PadoPado",
     "activityTitle": "Activity in progress | PadoPado",
     "activityCompleteTitle": "Activity complete | PadoPado"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "loginSubtitle": "Continue with schedules, favorites, and activity history saved to your account.",
+    "email": "Email",
+    "password": "Password",
+    "loginFailed": "Login failed. Check your email and password.",
+    "devHint": "Local dev account: AUTH_DEV_EMAIL / AUTH_DEV_PASSWORD (see .env.example). Configure Google/Kakao OAuth keys to enable those providers.",
+    "privacyNote": "We store basic profile fields, preferred language, favorites, and schedule/activity snapshots. Location is not continuously tracked. Inquiry-form contacts are not stored on the server. You can delete records from My page.",
+    "myPage": "My page",
+    "myPageTitle": "My page",
+    "myPageSubtitle": "Review and manage data saved to your account.",
+    "logout": "Log out",
+    "profile": "Profile",
+    "preferredLocale": "Preferred language",
+    "localeSaved": "Preferred language saved.",
+    "saveFailed": "Save failed.",
+    "noFavorites": "No favorites saved.",
+    "savedData": "Saved schedules & activities",
+    "scheduleCount": "{count} schedules",
+    "activityCount": "{count} activities",
+    "exportJson": "Export JSON",
+    "exportDone": "Export complete.",
+    "exportFailed": "Export failed.",
+    "deleteFavoriteConfirm": "Delete this favorite?",
+    "deleteFailed": "Delete failed.",
+    "clearSchedules": "Delete all schedules",
+    "clearActivities": "Delete all activities",
+    "clearSchedulesConfirm": "Delete all schedules saved on the server?",
+    "clearActivitiesConfirm": "Delete all activity records saved on the server?",
+    "importTitle": "Import browser data",
+    "importBody": "This browser has {schedules} schedules, {runs} activity records, and {favorites} favorites. Import them to your account?",
+    "importKeepLocal": "Import (keep local)",
+    "importAndClear": "Import and clear local",
+    "importSkip": "Skip",
+    "importSkipped": "Import skipped.",
+    "importFailed": "Import failed.",
+    "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})"
   }
 }

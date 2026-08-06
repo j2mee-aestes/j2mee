@@ -4,7 +4,7 @@ import { Card } from "@/components/common/Card";
 import { TextButton } from "@/components/common/IconButton";
 import { ScheduleEmptyState } from "@/components/schedule/ScheduleEmptyState";
 import { formatDistanceKm } from "@/lib/geo/calculateDistance";
-import { localScheduleRepository } from "@/lib/schedule/localScheduleRepository";
+import { hybridScheduleRepository } from "@/lib/schedule/hybridScheduleRepository";
 import type { DaySchedule } from "@/types/schedule";
 import { useCallback, useEffect, useState } from "react";
 
@@ -26,7 +26,7 @@ export function SavedScheduleList({ onOpen }: SavedScheduleListProps) {
   const [loaded, setLoaded] = useState(false);
 
   const reload = useCallback(async () => {
-    const list = await localScheduleRepository.getAll();
+    const list = await hybridScheduleRepository.getAll();
     setSchedules(list);
     setLoaded(true);
   }, []);
@@ -35,7 +35,7 @@ export function SavedScheduleList({ onOpen }: SavedScheduleListProps) {
     let cancelled = false;
     queueMicrotask(() => {
       void (async () => {
-        const list = await localScheduleRepository.getAll();
+        const list = await hybridScheduleRepository.getAll();
         if (cancelled) {
           return;
         }
@@ -55,7 +55,7 @@ export function SavedScheduleList({ onOpen }: SavedScheduleListProps) {
     if (!confirmed) {
       return;
     }
-    await localScheduleRepository.delete(schedule.id);
+    await hybridScheduleRepository.delete(schedule.id);
     await reload();
   };
 
@@ -68,7 +68,7 @@ export function SavedScheduleList({ onOpen }: SavedScheduleListProps) {
       updatedAt: new Date().toISOString(),
       status: "draft",
     };
-    await localScheduleRepository.save(copied);
+    await hybridScheduleRepository.save(copied);
     await reload();
   };
 

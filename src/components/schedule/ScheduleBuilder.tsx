@@ -1,5 +1,6 @@
 "use client";
 
+import { ActivityStartConfirmation } from "@/components/activity/ActivityStartConfirmation";
 import { TextButton } from "@/components/common/IconButton";
 import { RecommendedScheduleButton } from "@/components/schedule/RecommendedScheduleButton";
 import { ScheduleHeader } from "@/components/schedule/ScheduleHeader";
@@ -14,8 +15,14 @@ import {
   getLocationDetailById,
   isFishingSpot,
 } from "@/data/mockMapLocations";
+import { createActivityRunFromSchedule } from "@/lib/activity/createActivityRun";
+import { localActivityRunRepository } from "@/lib/activity/localActivityRunRepository";
+import { validateActivityStart } from "@/lib/activity/validateActivityStart";
+import { localScheduleRepository } from "@/lib/schedule/localScheduleRepository";
+import { persistDraftSchedule } from "@/lib/schedule/scheduleStorage";
 import type { FishingSpot } from "@/types/fishing";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 interface ScheduleBuilderProps {
@@ -25,9 +32,12 @@ interface ScheduleBuilderProps {
 export function ScheduleBuilder({
   seedFishingSpotId = null,
 }: ScheduleBuilderProps) {
+  const router = useRouter();
   const scheduleApi = useScheduleContext();
   const [focusItemId, setFocusItemId] = useState<string | null>(null);
   const [localNotice, setLocalNotice] = useState<string | null>(null);
+  const [startOpen, setStartOpen] = useState(false);
+  const [starting, setStarting] = useState(false);
 
   const fishingItem = useMemo(
     () =>
@@ -47,7 +57,47 @@ export function ScheduleBuilder({
     return null;
   }, [fishingItem, seedFishingSpotId]);
 
+  const startValidation = useMemo(
+    () => validateActivityStart(scheduleApi.schedule),
+    [scheduleApi.schedule],
+  );
+
   const notice = localNotice ?? scheduleApi.notice;
+
+  const handleOpenStart = () => {
+    scheduleApi.clearNotice();
+    if (scheduleApi.schedule.items.length === 0) {
+      setLocalNotice("활동을 시작하려면 장소를 한 개 이상 추가해주세요.");
+      return;
+    }
+    setStartOpen(true);
+  };
+
+  const handleConfirmStart = async () => {
+    if (!startValidation.canStart || starting) {
+      return;
+    }
+    setStarting(true);
+    try {
+      const readySchedule = {
+        ...scheduleApi.schedule,
+        status: "ready" as const,
+        updatedAt: new Date().toISOString(),
+      };
+      scheduleApi.loadSchedule(readySchedule);
+      persistDraftSchedule(readySchedule);
+      await localScheduleRepository.save(readySchedule);
+      const run = createActivityRunFromSchedule(readySchedule);
+      await localActivityRunRepository.save(run);
+      setStartOpen(false);
+      router.push(`/activity/${run.id}`);
+    } catch {
+      setLocalNotice(
+        "활동 기록을 저장하지 못했습니다. 브라우저 저장소 권한을 확인해주세요.",
+      );
+      setStarting(false);
+    }
+  };
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-3 py-4 sm:px-4 lg:px-6">
@@ -73,6 +123,12 @@ export function ScheduleBuilder({
             className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
           >
             저장된 일정
+          </Link>
+          <Link
+            href="/activities"
+            className="inline-flex h-10 items-center rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 text-sm font-medium"
+          >
+            활동 기록
           </Link>
         </div>
       </div>
@@ -146,7 +202,7 @@ export function ScheduleBuilder({
         />
       </section>
 
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-border)] bg-white/95 p-3 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-border)] bg-white/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row">
           <TextButton
             variant="secondary"
@@ -169,19 +225,24 @@ export function ScheduleBuilder({
           <TextButton
             variant="primary"
             className="w-full"
-            onClick={() => {
-              const result = scheduleApi.markReady();
-              if (!result.ok) {
-                setLocalNotice(
-                  "위험 경고가 있습니다. 경고를 확인한 뒤 다시 시도해주세요.",
-                );
-              }
-            }}
+            onClick={handleOpenStart}
           >
             이 일정으로 시작하기
           </TextButton>
         </div>
       </div>
+
+      <ActivityStartConfirmation
+        open={startOpen}
+        title={scheduleApi.schedule.title}
+        date={scheduleApi.schedule.date}
+        canStart={startValidation.canStart && !starting}
+        blocking={startValidation.blocking}
+        warnings={startValidation.warnings}
+        info={startValidation.info}
+        onConfirm={() => void handleConfirmStart()}
+        onCancel={() => setStartOpen(false)}
+      />
     </div>
   );
 }

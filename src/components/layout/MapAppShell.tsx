@@ -28,12 +28,29 @@ import {
 } from "@/data/mockMapLocations";
 import { useWeatherData } from "@/hooks/useSpotEnvironmentData";
 import { useScheduleContext } from "@/context/ScheduleContext";
+import { apiJson } from "@/lib/auth/clientApi";
 import { getWastePointById } from "@/lib/environment/wastePointRepository";
+import {
+  loadLocalFavorites,
+  persistLocalFavorites,
+  type LocalFavorite,
+} from "@/lib/favorites/localFavorites";
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
 import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
 import type { CategoryFilter, Coordinates } from "@/types/map";
 import type { PloggingSession } from "@/types/environment";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+
+function placeTypeForLocation(locationId: string): LocalFavorite["placeType"] {
+  const place = getLocationDetailById(locationId);
+  if (!place) return "fishing";
+  if (isFishingSpot(place)) return "fishing";
+  if (isPartnerPlace(place)) return place.type;
+  if (isWastePoint(place)) return "trash";
+  if (isPloggingRoute(place)) return "plogging";
+  return "fishing";
+}
 
 function todayKst(): string {
   return new Intl.DateTimeFormat("en-CA", {
@@ -117,6 +134,7 @@ export function MapAppShell() {
   });
   const [selectedDate] = useState(initialDate);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { status: authStatus } = useSession();
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
   const [searchQuery, setSearchQuery] = useState("");
   const [searchNotice, setSearchNotice] = useState<string | null>(null);
@@ -329,14 +347,76 @@ export function MapAppShell() {
     setSearchResults(results);
   };
 
+  useEffect(() => {
+    queueMicrotask(() => {
+      const local = loadLocalFavorites();
+      const map: Record<string, boolean> = {};
+      for (const item of local) {
+        map[item.sourceId] = true;
+      }
+      setFavorites(map);
+      if (authStatus !== "authenticated") {
+        return;
+      }
+      void apiJson<{
+        favorites: Array<{ sourceId: string; placeType: string }>;
+      }>("/api/favorites").then((result) => {
+        if (!result.ok) return;
+        const next: Record<string, boolean> = { ...map };
+        for (const item of result.data.favorites) {
+          next[item.sourceId] = true;
+        }
+        setFavorites(next);
+      });
+    });
+  }, [authStatus]);
+
   const handleToggleFavorite = () => {
     if (!selectedLocationId) {
       return;
     }
+    const placeType = placeTypeForLocation(selectedLocationId);
+    const nextActive = !favorites[selectedLocationId];
     setFavorites((prev) => ({
       ...prev,
-      [selectedLocationId]: !prev[selectedLocationId],
+      [selectedLocationId]: nextActive,
     }));
+
+    const local = loadLocalFavorites().filter(
+      (item) => item.sourceId !== selectedLocationId,
+    );
+    if (nextActive) {
+      local.push({ sourceId: selectedLocationId, placeType });
+    }
+    persistLocalFavorites(local);
+
+    if (authStatus === "authenticated") {
+      if (nextActive) {
+        void apiJson("/api/favorites", {
+          method: "POST",
+          body: JSON.stringify({ sourceId: selectedLocationId, placeType }),
+        }).then((result) => {
+          if (!result.ok) {
+            setFavorites((prev) => ({
+              ...prev,
+              [selectedLocationId]: false,
+            }));
+          }
+        });
+      } else {
+        void apiJson(
+          `/api/favorites?sourceId=${encodeURIComponent(selectedLocationId)}&placeType=${encodeURIComponent(placeType)}`,
+          { method: "DELETE" },
+        ).then((result) => {
+          if (!result.ok) {
+            setFavorites((prev) => ({
+              ...prev,
+              [selectedLocationId]: true,
+            }));
+          }
+        });
+      }
+    }
   };
 
   const nearbyOrigin =

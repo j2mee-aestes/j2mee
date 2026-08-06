@@ -33,7 +33,8 @@
     "unknown": "未知",
     "source": "来源",
     "updated": "更新",
-    "selectedPoint": "所选地点"
+    "selectedPoint": "所选地点",
+    "myPage": "我的页面"
   },
   "search": {
     "placeholder": "按地区、地点或关键词搜索",
@@ -394,5 +395,43 @@
     "activitiesTitle": "活动记录 | 波到波到",
     "activityTitle": "活动进行中 | 波到波到",
     "activityCompleteTitle": "活动完成 | 波到波到"
+  },
+  "auth": {
+    "loginTitle": "登录",
+    "loginSubtitle": "可继续使用保存在账户中的行程、收藏与活动记录。",
+    "email": "邮箱",
+    "password": "密码",
+    "loginFailed": "登录失败。请检查邮箱和密码。",
+    "devHint": "本地开发账号：AUTH_DEV_EMAIL / AUTH_DEV_PASSWORD（见 .env.example）。配置 Google/Kakao OAuth 密钥后可使用对应登录。",
+    "privacyNote": "存储内容：基本资料、偏好语言、收藏、行程与活动快照。不会持续追踪位置。咨询表单联系方式当前不存入服务器。可在“我的页面”删除记录。",
+    "myPage": "我的页面",
+    "myPageTitle": "我的页面",
+    "myPageSubtitle": "查看并管理保存在账户中的数据。",
+    "logout": "退出登录",
+    "profile": "资料",
+    "preferredLocale": "偏好语言",
+    "localeSaved": "已保存偏好语言。",
+    "saveFailed": "保存失败。",
+    "noFavorites": "暂无收藏。",
+    "savedData": "已保存的行程与活动",
+    "scheduleCount": "行程 {count} 个",
+    "activityCount": "活动 {count} 个",
+    "exportJson": "导出 JSON",
+    "exportDone": "导出完成。",
+    "exportFailed": "导出失败。",
+    "deleteFavoriteConfirm": "要删除此收藏吗？",
+    "deleteFailed": "删除失败。",
+    "clearSchedules": "删除全部行程",
+    "clearActivities": "删除全部活动",
+    "clearSchedulesConfirm": "要删除服务器上的全部行程吗？",
+    "clearActivitiesConfirm": "要删除服务器上的全部活动记录吗？",
+    "importTitle": "导入浏览器数据",
+    "importBody": "此浏览器有 {schedules} 个行程、{runs} 条活动记录、{favorites} 个收藏。要导入到账户吗？",
+    "importKeepLocal": "导入（保留本地）",
+    "importAndClear": "导入并清除本地",
+    "importSkip": "跳过",
+    "importSkipped": "已跳过导入。",
+    "importFailed": "导入失败。",
+    "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）"
   }
 }

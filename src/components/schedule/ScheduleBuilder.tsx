@@ -16,9 +16,9 @@ import {
   isFishingSpot,
 } from "@/data/mockMapLocations";
 import { createActivityRunFromSchedule } from "@/lib/activity/createActivityRun";
-import { localActivityRunRepository } from "@/lib/activity/localActivityRunRepository";
+import { hybridActivityRunRepository } from "@/lib/activity/hybridActivityRunRepository";
 import { validateActivityStart } from "@/lib/activity/validateActivityStart";
-import { localScheduleRepository } from "@/lib/schedule/localScheduleRepository";
+import { hybridScheduleRepository } from "@/lib/schedule/hybridScheduleRepository";
 import { persistDraftSchedule } from "@/lib/schedule/scheduleStorage";
 import type { FishingSpot } from "@/types/fishing";
 import Link from "next/link";
@@ -87,9 +87,9 @@ export function ScheduleBuilder({
       };
       scheduleApi.loadSchedule(readySchedule);
       persistDraftSchedule(readySchedule);
-      await localScheduleRepository.save(readySchedule);
+      await hybridScheduleRepository.save(readySchedule);
       const run = createActivityRunFromSchedule(readySchedule);
-      await localActivityRunRepository.save(run);
+      await hybridActivityRunRepository.save(run);
       setStartOpen(false);
       router.push(`/activity/${run.id}`);
     } catch {

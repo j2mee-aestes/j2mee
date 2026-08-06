@@ -1,6 +1,6 @@
 "use client";
 
-import { localActivityRunRepository } from "@/lib/activity/localActivityRunRepository";
+import { hybridActivityRunRepository } from "@/lib/activity/hybridActivityRunRepository";
 import { isLocalStorageAvailable } from "@/lib/activity/activityRunStorage";
 import type { ActivityRun } from "@/types/activity";
 import { useCallback, useEffect, useState } from "react";
@@ -18,7 +18,7 @@ export function useActivityRun(activityRunId: string) {
         return;
       }
       setStorageOk(isLocalStorageAvailable());
-      void localActivityRunRepository
+      void hybridActivityRunRepository
         .getById(activityRunId)
         .then((found) => {
           if (cancelled) {
@@ -53,7 +53,7 @@ export function useActivityRun(activityRunId: string) {
   const persist = useCallback(async (next: ActivityRun) => {
     setRun(next);
     try {
-      await localActivityRunRepository.save(next);
+      await hybridActivityRunRepository.save(next);
     } catch {
       setStorageOk(false);
     }

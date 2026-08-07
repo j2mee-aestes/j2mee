@@ -610,7 +610,8 @@
       "generic": "登录时出现问题，请重试。",
       "unauthorizedDomain": "此域名未在 Firebase 授权。请在 Authorized domains 添加 j2mee-aestes.github.io。",
       "operationNotAllowed": "Firebase 未启用 Google 登录。请在 Authentication → Sign-in method 开启 Google。",
-      "accountExists": "该邮箱已用其他登录方式注册。"
+      "accountExists": "该邮箱已用其他登录方式注册。",
+      "invalidApiKey": "Firebase API 密钥无效。请从控制台 SDK 配置重新复制 apiKey。"
     },
     "firebaseRedirecting": "正在完成 Google 登录，请稍候。"
   },

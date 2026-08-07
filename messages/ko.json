@@ -610,7 +610,8 @@
       "generic": "로그인 중 문제가 발생했습니다. 다시 시도해주세요.",
       "unauthorizedDomain": "이 도메인이 Firebase에 허용되지 않았습니다. 콘솔 Authorized domains에 j2mee-aestes.github.io 를 추가하세요.",
       "operationNotAllowed": "Firebase에서 Google 로그인이 꺼져 있습니다. Authentication → Sign-in method에서 Google을 사용 설정하세요.",
-      "accountExists": "같은 이메일이 다른 로그인 방식으로 이미 가입되어 있습니다."
+      "accountExists": "같은 이메일이 다른 로그인 방식으로 이미 가입되어 있습니다.",
+      "invalidApiKey": "Firebase API 키가 유효하지 않습니다. 콘솔 SDK 설정의 apiKey를 다시 복사해 .env / 배포에 넣어 주세요."
     },
     "firebaseRedirecting": "Google 로그인 처리 중… 잠시만 기다려 주세요."
   },

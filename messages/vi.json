@@ -610,7 +610,8 @@
       "generic": "Có lỗi khi đăng nhập. Thử lại.",
       "unauthorizedDomain": "Domain chưa được Firebase cho phép. Thêm j2mee-aestes.github.io vào Authorized domains.",
       "operationNotAllowed": "Google đăng nhập đang tắt trên Firebase. Bật Google trong Authentication → Sign-in method.",
-      "accountExists": "Email này đã tồn tại với phương thức đăng nhập khác."
+      "accountExists": "Email này đã tồn tại với phương thức đăng nhập khác.",
+      "invalidApiKey": "API key Firebase không hợp lệ. Hãy sao chép lại apiKey từ cấu hình SDK."
     },
     "firebaseRedirecting": "Đang hoàn tất đăng nhập Google… vui lòng chờ."
   },

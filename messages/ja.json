@@ -610,7 +610,8 @@
       "generic": "ログイン中に問題が発生しました。もう一度お試しください。",
       "unauthorizedDomain": "このドメインはFirebaseで許可されていません。Authorized domainsに j2mee-aestes.github.io を追加してください。",
       "operationNotAllowed": "FirebaseでGoogleログインが無効です。Authentication → Sign-in method でGoogleを有効にしてください。",
-      "accountExists": "同じメールが別のログイン方法で既に登録されています。"
+      "accountExists": "同じメールが別のログイン方法で既に登録されています。",
+      "invalidApiKey": "Firebase APIキーが無効です。コンソールSDK設定のapiKeyを再コピーしてください。"
     },
     "firebaseRedirecting": "Googleログイン処理中です。しばらくお待ちください。"
   },

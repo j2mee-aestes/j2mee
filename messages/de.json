@@ -610,7 +610,8 @@
       "generic": "Fehler bei der Anmeldung. Bitte erneut versuchen.",
       "unauthorizedDomain": "Diese Domain ist in Firebase nicht autorisiert. j2mee-aestes.github.io hinzufügen.",
       "operationNotAllowed": "Google-Anmeldung ist in Firebase deaktiviert. Unter Authentication → Sign-in method aktivieren.",
-      "accountExists": "Konto mit derselben E-Mail existiert bereits mit anderer Methode."
+      "accountExists": "Konto mit derselben E-Mail existiert bereits mit anderer Methode.",
+      "invalidApiKey": "Firebase-API-Schlüssel ungültig. apiKey erneut aus der Konsole kopieren."
     },
     "firebaseRedirecting": "Google-Anmeldung wird abgeschlossen… bitte warten."
   },

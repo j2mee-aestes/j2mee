@@ -189,8 +189,17 @@ export function firebaseAuthReady(): boolean {
 }
 
 export function mapFirebaseAuthError(codeOrMessage: string): string {
+  const lowered = codeOrMessage.toLowerCase();
+  if (
+    lowered.includes("api-key-not-valid") ||
+    lowered.includes("api key not valid") ||
+    lowered.includes("invalid-api-key")
+  ) {
+    return "auth.firebaseError.invalidApiKey";
+  }
   const normalized = codeOrMessage.includes("/")
-    ? (codeOrMessage.match(/auth\/[a-z0-9-]+/i)?.[0] ?? codeOrMessage)
+    ? (codeOrMessage.match(/auth\/[a-z0-9.-]+/i)?.[0]?.toLowerCase() ??
+      codeOrMessage)
     : codeOrMessage;
   switch (normalized) {
     case "auth/invalid-email":
@@ -212,6 +221,10 @@ export function mapFirebaseAuthError(codeOrMessage: string): string {
       return "auth.firebaseError.popupBlocked";
     case "auth/network-request-failed":
       return "auth.firebaseError.network";
+    case "auth/api-key-not-valid":
+    case "auth/api-key-not-valid.-please-pass-a-valid-api-key.":
+    case "auth/invalid-api-key":
+      return "auth.firebaseError.invalidApiKey";
     case "auth/unauthorized-domain":
       return "auth.firebaseError.unauthorizedDomain";
     case "auth/operation-not-allowed":

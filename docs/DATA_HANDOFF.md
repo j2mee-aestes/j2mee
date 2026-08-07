@@ -11,6 +11,7 @@
 - 파일: `public/data/waste-bins.geojson` 교체 또는 추가
 - 속성: `id`, `name`, `type`(`generalTrash|recycling|fishingLine|…`), `address`, `status`
 - 좌표계: WGS84 (위도/경도)
+- 현재: 큐레이션 + 부산 해안권 OSM(ODbL) 병합 — `docs/busan_coastal_osm_waste_bins.md`
 
 ### 2) 낚시터
 - 파일: `src/data/fishing-spots/fishingSpots.json`

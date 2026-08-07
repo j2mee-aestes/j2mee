@@ -53,13 +53,19 @@ export function getWasteBinsFromGeoJson(): WastePoint[] {
         type,
         address: props.address,
         coordinates: { latitude, longitude },
-        description: `GeoJSON 공개 참고 위치 — ${props.name}`,
+        description: props.id.startsWith("waste-osm-")
+          ? `OpenStreetMap 공개 위치(해안권) — ${props.name}`
+          : `GeoJSON 공개 참고 위치 — ${props.name}`,
         acceptedWasteTypes: acceptedTypesFor(type),
         usageNotes: ["현장 상태·수거 여부를 방문 전 확인해 주세요."],
         status,
         verificationStatus: "unverified",
-        sourceName: "waste-bins.geojson",
-        sourceUrl: "/data/waste-bins.geojson",
+        sourceName: props.id.startsWith("waste-osm-")
+          ? "OpenStreetMap (ODbL)"
+          : "waste-bins.geojson",
+        sourceUrl: props.id.startsWith("waste-osm-")
+          ? "https://www.openstreetmap.org/copyright"
+          : "/data/waste-bins.geojson",
       };
       return point;
     })

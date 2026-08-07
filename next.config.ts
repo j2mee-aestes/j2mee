@@ -50,7 +50,7 @@ const cspHeader = {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     `img-src 'self' data: blob: ${kakaoCspHosts}`,
     "font-src 'self' data: https://fonts.gstatic.com https://*.daumcdn.net http://*.daumcdn.net",
-    `connect-src 'self' ${kakaoCspHosts} https://api.open-meteo.com`,
+    `connect-src 'self' ${kakaoCspHosts} https://api.open-meteo.com https://apis.data.go.kr`,
     "worker-src 'self' blob:",
     "child-src 'self' blob:",
     `frame-src 'self' ${kakaoCspHosts}`,

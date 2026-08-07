@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { WeatherData } from "@/types/fishing";
+import { fetchLiveWeatherClient } from "@/lib/weather/clientWeather";
 
 interface AsyncState<T> {
   data: T | null;
@@ -45,33 +46,38 @@ export function useWeatherData(
       setError(null);
     });
 
-    const params = new URLSearchParams();
-    if (spotId) {
-      params.set("spotId", spotId);
-    }
-    if (lat !== undefined && lng !== undefined) {
-      params.set("lat", String(lat));
-      params.set("lng", String(lng));
-    }
-    if (date) {
-      params.set("date", date);
-    }
-
-    fetch(`/api/weather?${params.toString()}`, { signal: controller.signal })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(await readErrorMessage(response));
+    const run = async () => {
+      try {
+        if (spotId) {
+          const params = new URLSearchParams({ spotId });
+          if (date) params.set("date", date);
+          try {
+            const response = await fetch(`/api/weather?${params.toString()}`, {
+              signal: controller.signal,
+            });
+            if (response.ok) {
+              setData((await response.json()) as WeatherData);
+              setLoading(false);
+              return;
+            }
+          } catch {
+            // GitHub Pages has no API routes — fall through.
+          }
         }
-        return (await response.json()) as WeatherData;
-      })
-      .then((payload) => {
+
+        if (lat === undefined || lng === undefined) {
+          throw new Error("WEATHER_FETCH_FAILED");
+        }
+
+        const payload = await fetchLiveWeatherClient({
+          coordinates: { latitude: lat, longitude: lng },
+          detail: false,
+          signal: controller.signal,
+        });
         setData(payload);
         setLoading(false);
-      })
-      .catch((err: unknown) => {
-        if (controller.signal.aborted) {
-          return;
-        }
+      } catch (err: unknown) {
+        if (controller.signal.aborted) return;
         setData(null);
         setError(
           err instanceof Error
@@ -79,8 +85,10 @@ export function useWeatherData(
             : "데이터를 불러오는 중 문제가 발생했습니다.",
         );
         setLoading(false);
-      });
+      }
+    };
 
+    void run();
     return () => controller.abort();
   }, [spotId, date, tick, enabled, lat, lng]);
 

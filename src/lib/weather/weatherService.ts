@@ -1,4 +1,6 @@
 import { openMeteoWeatherProvider } from "@/lib/weather/openMeteoWeatherProvider";
+import { kmaWeatherProvider } from "@/lib/weather/kmaWeatherProvider";
+import { hasKmaApiKey } from "@/lib/weather/kmaClient";
 import { toCoordinatesKey } from "@/lib/weather/openMeteo";
 import { normalizeWeatherData } from "@/lib/weather/normalizeWeatherData";
 import type { WeatherProvider } from "@/lib/weather/weatherProvider";
@@ -9,8 +11,8 @@ const cache = new Map<string, { expiresAt: number; data: WeatherData }>();
 const CACHE_TTL_MS = 15 * 60 * 1000;
 const inFlight = new Map<string, Promise<WeatherData>>();
 
-function getWeatherProvider(): WeatherProvider {
-  return openMeteoWeatherProvider;
+function getPreferredProvider(): WeatherProvider {
+  return hasKmaApiKey() ? kmaWeatherProvider : openMeteoWeatherProvider;
 }
 
 function cacheKey(
@@ -62,8 +64,20 @@ export async function getWeather(
   }
 
   const request = (async () => {
-    const provider = getWeatherProvider();
-    const raw = await provider.getWeather(coordinates, date, { detail });
+    const preferred = getPreferredProvider();
+    let raw: WeatherData;
+    try {
+      raw = await preferred.getWeather(coordinates, date, { detail });
+    } catch {
+      // Prefer KMA; if key missing/failed, fall back to live Open-Meteo.
+      if (preferred !== openMeteoWeatherProvider) {
+        raw = await openMeteoWeatherProvider.getWeather(coordinates, date, {
+          detail,
+        });
+      } else {
+        throw new Error("WEATHER_FETCH_FAILED");
+      }
+    }
     const normalized = normalizeWeatherData(raw);
     cache.set(key, {
       data: normalized,

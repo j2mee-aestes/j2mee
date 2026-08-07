@@ -18,8 +18,8 @@
 
 | 항목 | 용도 | 환경 변수 |
 |---|---|---|
-| 기상청 단기/초단기 예보 API 키 | 실시간 날씨 | `KMA_API_KEY` (또는 `WEATHER_API_KEY`) |
-| 기상청 API Base URL | 엔드포인트 | `KMA_API_BASE_URL` (또는 `WEATHER_API_BASE_URL`) |
+| 기상청 단기/초단기 예보 API 키 | 헤더·낚시터 실시간 날씨 (초단기실황) | `KMA_API_KEY` (또는 `WEATHER_API_KEY`) |
+| 기상청 API Base URL | `VilageFcstInfoService_2.0` | `KMA_API_BASE_URL` (기본값 내장) |
 | 기상청 해양기상 API 키 | 실시간 파고 | `KMA_MARINE_API_KEY` (또는 `MARINE_WEATHER_API_KEY`) |
 | 해양기상 Base URL | 파도 엔드포인트 | `KMA_MARINE_API_BASE_URL` |
 

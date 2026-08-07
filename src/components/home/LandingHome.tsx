@@ -34,11 +34,6 @@ const NAV = [
     id: "contribute",
   },
   { href: "/sources", labelKey: "home.nav.data" as const, id: "data" },
-  {
-    href: "/map?category=attraction",
-    labelKey: "home.nav.tourism" as const,
-    id: "tourism",
-  },
   { href: "/my", labelKey: "auth.myPage" as const, id: "my" },
   { href: "/login", labelKey: "home.nav.login" as const, id: "login" },
 ];

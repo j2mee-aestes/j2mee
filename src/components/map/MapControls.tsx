@@ -2,22 +2,18 @@
 
 import { IconButton } from "@/components/common/IconButton";
 import { useTranslations } from "@/context/LocaleContext";
-import { Crosshair, LocateFixed, Minus, Plus } from "lucide-react";
+import { LocateFixed, Minus, Plus } from "lucide-react";
 
 interface MapControlsProps {
   onZoomIn: () => void;
   onZoomOut: () => void;
-  onCurrentLocation: () => void;
   onFitAllMarkers: () => void;
-  locating?: boolean;
 }
 
 export function MapControls({
   onZoomIn,
   onZoomOut,
-  onCurrentLocation,
   onFitAllMarkers,
-  locating = false,
 }: MapControlsProps) {
   const { t } = useTranslations();
 
@@ -46,14 +42,6 @@ export function MapControls({
           onClick={onZoomOut}
         >
           <Minus className="h-4 w-4" />
-        </IconButton>
-        <IconButton
-          label={t("map.currentLocation")}
-          className="h-10 w-10 border-0 bg-transparent shadow-none"
-          onClick={onCurrentLocation}
-          disabled={locating}
-        >
-          <Crosshair className={`h-4 w-4 ${locating ? "animate-pulse" : ""}`} />
         </IconButton>
       </div>
     </div>

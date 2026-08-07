@@ -5,6 +5,7 @@ import { KakaoMap, type KakaoMapHandle } from "@/components/map/KakaoMap";
 import { MapControls } from "@/components/map/MapControls";
 import { MapFallback, MapSkeleton } from "@/components/map/MapFallback";
 import { MapFilterChips } from "@/components/map/MapFilterChips";
+import { MyLocationButton } from "@/components/map/MyLocationButton";
 import { useTranslations } from "@/context/LocaleContext";
 import { mockMapLocations } from "@/data/mockMapLocations";
 import { getAllPloggingRoutes } from "@/lib/environment/ploggingRouteRepository";
@@ -119,6 +120,10 @@ export function MapSection({
   }, [fitRouteRequestId, selectedRouteId, status, routes]);
 
   const handleCurrentLocation = () => {
+    if (locating) {
+      return;
+    }
+
     if (!navigator.geolocation) {
       onNotice(t("map.locationUnsupported"));
       return;
@@ -170,17 +175,23 @@ export function MapSection({
       </div>
 
       {status === "ready" ? (
-        <div className="absolute right-3 top-3 z-30 sm:right-4 lg:top-14">
-          <MapControls
-            onZoomIn={() => mapRef.current?.zoomIn()}
-            onZoomOut={() => mapRef.current?.zoomOut()}
-            onCurrentLocation={handleCurrentLocation}
-            onFitAllMarkers={() =>
-              mapRef.current?.fitLocations(visibleLocations)
-            }
-            locating={locating}
-          />
-        </div>
+        <>
+          <div className="absolute right-3 top-3 z-30 sm:right-4 lg:top-14">
+            <MapControls
+              onZoomIn={() => mapRef.current?.zoomIn()}
+              onZoomOut={() => mapRef.current?.zoomOut()}
+              onFitAllMarkers={() =>
+                mapRef.current?.fitLocations(visibleLocations)
+              }
+            />
+          </div>
+          <div className="absolute bottom-4 right-3 z-30 sm:bottom-5 sm:right-4">
+            <MyLocationButton
+              onClick={handleCurrentLocation}
+              locating={locating}
+            />
+          </div>
+        </>
       ) : null}
 
       <div className="relative min-h-[360px] flex-1 sm:min-h-[440px] lg:min-h-0">

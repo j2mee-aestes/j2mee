@@ -219,14 +219,12 @@ export function createMarkerContent(
 
 export function createUserLocationContent(): HTMLElement {
   const wrapper = document.createElement("div");
-  wrapper.style.cssText = `
-    width: 18px;
-    height: 18px;
-    border-radius: 9999px;
-    border: 3px solid #fff;
-    background: #2563eb;
-    box-shadow: 0 0 0 6px rgba(37,99,235,0.25), 0 4px 10px rgba(15,23,42,0.2);
-  `;
+  wrapper.className = "map-user-location";
   wrapper.setAttribute("aria-label", "현재 위치");
+  wrapper.innerHTML = `
+    <span class="map-user-location__pulse" aria-hidden="true"></span>
+    <span class="map-user-location__ring" aria-hidden="true"></span>
+    <span class="map-user-location__dot" aria-hidden="true"></span>
+  `;
   return wrapper;
 }

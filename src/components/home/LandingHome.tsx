@@ -10,6 +10,7 @@ import {
 } from "react";
 import { useTranslations } from "@/context/LocaleContext";
 import { LanguageSelector } from "@/components/i18n/LanguageSelector";
+import { publicPath } from "@/lib/paths";
 import {
   AudioLines,
   Camera,
@@ -162,7 +163,7 @@ export function LandingHome() {
       {/* Full-bleed ocean plane */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url(/images/ocean-bg.jpg)" }}
+        style={{ backgroundImage: `url(${publicPath("/images/ocean-bg.jpg")})` }}
         aria-hidden
       />
       <div
@@ -201,7 +202,7 @@ export function LandingHome() {
               <video
                 ref={videoRef}
                 className="absolute inset-0 h-full w-full object-cover"
-                src="/videos/ocean-hero.mp4"
+                src={publicPath("/videos/ocean-hero.mp4")}
                 muted
                 loop
                 playsInline

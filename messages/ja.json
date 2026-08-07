@@ -462,7 +462,9 @@
       "contribute": "位置投稿",
       "sources": "データ出典",
       "privacy": "プライバシー",
-      "login": "ログイン"
+      "login": "ログイン",
+      "data": "データ",
+      "tourism": "観光"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -498,6 +500,10 @@
       "attractions": {
         "title": "観光・レジャー",
         "body": "名所とレジャースポットを表示。"
+      },
+      "market": {
+        "title": "水産市場",
+        "body": "主要な水産市場と新鮮な魚介・下処理情報を案内します。"
       }
     },
     "partners": {
@@ -508,6 +514,35 @@
     "footerCta": {
       "title": "地図から始めましょう",
       "body": "プライバシーと出典はメニューから確認できます。"
+    },
+    "slides": {
+      "brand": {
+        "sub": "釣り · 市場 · 回収箱 · プロギング · 観光 · レジャーを海の地図で"
+      },
+      "features": {
+        "title": "海をもっと簡単に探索",
+        "body": "釣りポイント、水産市場、回収箱、プロギングコースを一つの地図で。"
+      },
+      "services": {
+        "line1": "釣りポイント",
+        "line2": "水産市場",
+        "line3": "廃釣り糸回収箱",
+        "line4": "プロギングコース",
+        "line5": "潮汐情報",
+        "tag": "行き先も探し物も、一度に",
+        "statFishing": "東海岸・南海岸",
+        "statMarket": "主要市場",
+        "statBins": "沿岸拠点",
+        "statPlogging": "海岸散歩道"
+      },
+      "insights": {
+        "title": "海のための動きを、もっと明確に",
+        "body": "データで確認する変化と成果",
+        "chart": "月別投稿・参加推移",
+        "regions": "地域別活動",
+        "timeline": "主な活動タイムライン",
+        "cta": "データインサイトを見る"
+      }
     }
   },
   "sourcesPage": {

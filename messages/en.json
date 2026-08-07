@@ -462,7 +462,9 @@
       "contribute": "Contribute",
       "sources": "Data sources",
       "privacy": "Privacy",
-      "login": "Log in"
+      "login": "Log in",
+      "data": "Data",
+      "tourism": "Sights"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -498,6 +500,10 @@
       "attractions": {
         "title": "Sights & leisure",
         "body": "Explore starred attractions and leisure pins."
+      },
+      "market": {
+        "title": "Seafood markets",
+        "body": "Find major markets and fresh seafood or cleaning spots."
       }
     },
     "partners": {
@@ -508,6 +514,35 @@
     "footerCta": {
       "title": "Start on the map",
       "body": "Privacy and data sources are always available in the menu."
+    },
+    "slides": {
+      "brand": {
+        "sub": "Fishing · markets · bins · plogging · sights · leisure on one sea map"
+      },
+      "features": {
+        "title": "Explore our sea more easily",
+        "body": "See fishing points, seafood markets, collection bins, and plogging routes on one map."
+      },
+      "services": {
+        "line1": "Fishing points",
+        "line2": "Seafood markets",
+        "line3": "Fishing-line bins",
+        "line4": "Plogging routes",
+        "line5": "Tide info",
+        "tag": "Where to go and what to find — all at once",
+        "statFishing": "East & South coasts",
+        "statMarket": "Major markets",
+        "statBins": "Coastal hubs",
+        "statPlogging": "Seaside paths"
+      },
+      "insights": {
+        "title": "Movement for the sea, made clearer",
+        "body": "Our changes and impact, confirmed by data",
+        "chart": "Monthly reports & participation",
+        "regions": "Activity by region",
+        "timeline": "Key activity timeline",
+        "cta": "View data insights"
+      }
     }
   },
   "sourcesPage": {

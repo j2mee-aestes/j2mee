@@ -462,7 +462,9 @@
       "contribute": "地点上报",
       "sources": "数据来源",
       "privacy": "隐私",
-      "login": "登录"
+      "login": "登录",
+      "data": "数据",
+      "tourism": "观光"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -498,6 +500,10 @@
       "attractions": {
         "title": "景点与休闲",
         "body": "星标景点与休闲点位。"
+      },
+      "market": {
+        "title": "水产市场",
+        "body": "提供主要水产市场与新鲜海产、处理点信息。"
       }
     },
     "partners": {
@@ -508,6 +514,35 @@
     "footerCta": {
       "title": "从地图开始",
       "body": "隐私与数据来源可随时在菜单中查看。"
+    },
+    "slides": {
+      "brand": {
+        "sub": "在一张海图上查看钓点 · 市场 · 回收箱 · 拾荒路线 · 观光 · 休闲"
+      },
+      "features": {
+        "title": "更轻松地探索我们的海",
+        "body": "在一张地图上查看钓点、水产市场、回收箱与拾荒路线。"
+      },
+      "services": {
+        "line1": "钓点",
+        "line2": "水产市场",
+        "line3": "废鱼线回收箱",
+        "line4": "拾荒路线",
+        "line5": "潮汐信息",
+        "tag": "去哪里、找什么，一次搞定",
+        "statFishing": "东海岸·南海岸",
+        "statMarket": "主要市场",
+        "statBins": "沿岸据点",
+        "statPlogging": "海岸步道"
+      },
+      "insights": {
+        "title": "为大海的行动，更清晰可见",
+        "body": "用数据确认我们的变化与成果",
+        "chart": "月度上报与参与趋势",
+        "regions": "地区活动",
+        "timeline": "主要活动时间线",
+        "cta": "查看数据洞察"
+      }
     }
   },
   "sourcesPage": {

@@ -169,36 +169,33 @@ export function LandingHome() {
 
   return (
     <div className="relative min-h-screen overflow-hidden text-[#0b2447]">
-      {/* Cool open-sky ocean backdrop */}
+      {/* Cool open-sky ocean backdrop — turquoise + airy sky */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden>
         <div
-          className="landing-sky absolute inset-[-6%] bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${publicPath("/images/ocean-sky.jpg")})`,
-          }}
-        />
-        <div
-          className="landing-sky-slow absolute inset-0 opacity-[0.42] mix-blend-soft-light"
+          className="landing-sky absolute inset-[-8%] bg-cover bg-center"
           style={{
             backgroundImage: `url(${publicPath("/images/ocean-bg.jpg")})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
           }}
         />
         <div
-          className="absolute inset-0 opacity-30"
+          className="landing-sky-slow absolute inset-[-4%] opacity-[0.55] mix-blend-screen"
+          style={{
+            backgroundImage: `url(${publicPath("/images/ocean-sky.jpg")})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-35 mix-blend-soft-light"
           style={{
             backgroundImage: `url(${publicPath("/images/ocean-horizon.jpg")})`,
             backgroundSize: "cover",
-            backgroundPosition: "center 35%",
-            maskImage:
-              "linear-gradient(180deg, transparent 0%, black 35%, black 70%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(180deg, transparent 0%, black 35%, black 70%, transparent 100%)",
+            backgroundPosition: "center 40%",
           }}
         />
-        <div className="absolute inset-0 bg-[radial-gradient(95%_75%_at_50%_-8%,rgba(255,255,255,0.62),transparent_58%),linear-gradient(180deg,rgba(186,230,253,0.42)_0%,rgba(224,242,254,0.18)_38%,rgba(8,47,73,0.22)_100%)]" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-sky-100/55 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_-10%,rgba(224,242,254,0.72),transparent_55%),linear-gradient(180deg,rgba(125,211,252,0.38)_0%,rgba(186,230,253,0.16)_42%,rgba(8,47,73,0.26)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-sky-200/45 via-cyan-50/20 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-cyan-950/25 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
@@ -245,13 +242,13 @@ export function LandingHome() {
               />
 
               {/* Optical center of the video stage */}
-              <div className="absolute inset-0 z-10 flex items-center justify-center px-4 pb-[7.5rem] pt-4 sm:px-8 sm:pb-[8.25rem]">
+              <div className="absolute inset-0 z-10 flex items-center justify-center px-4 pb-[6.75rem] pt-2 sm:px-8 sm:pb-[7.25rem]">
                 <div
                   key={`${slideId}-${slideKey}`}
                   className="landing-slide w-full max-w-5xl"
                 >
                   {slideId === "brand" ? (
-                    <div className="mx-auto flex max-w-2xl -translate-y-1 flex-col items-center text-center text-white sm:-translate-y-2">
+                    <div className="mx-auto flex max-w-2xl flex-col items-center text-center text-white">
                       <p className="landing-slide-item font-brand text-[clamp(3.1rem,9.2vw,5.8rem)] leading-[0.94] drop-shadow-[0_12px_28px_rgba(8,28,48,0.35)]">
                         {t("common.serviceName")}
                       </p>
@@ -493,11 +490,11 @@ export function LandingHome() {
               </div>
             </div>
 
-            {/* Bottom chrome: nav above, AirSide scrubber on the edge */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 pb-3 pt-16 sm:pb-4">
-              <div className="pointer-events-auto mx-auto flex w-full max-w-[720px] flex-col items-center gap-3 px-4 sm:gap-3.5 sm:px-6">
+            {/* Bottom chrome: centered nav, full-bleed AirSide scrubber */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 pb-3.5 pt-16 sm:pb-4">
+              <div className="flex w-full flex-col items-center gap-3 sm:gap-3.5">
                 <nav
-                  className="flex w-full items-center gap-1 overflow-x-auto rounded-full bg-[rgba(11,36,71,0.92)] px-2 py-2 text-white shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] backdrop-blur-xl [-ms-overflow-style:none] [scrollbar-width:none] sm:px-3 [&::-webkit-scrollbar]:hidden"
+                  className="pointer-events-auto flex w-[min(94%,700px)] items-center gap-1 overflow-x-auto rounded-full bg-[rgba(11,36,71,0.92)] px-2 py-2 text-white shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] backdrop-blur-xl [-ms-overflow-style:none] [scrollbar-width:none] sm:px-3 [&::-webkit-scrollbar]:hidden"
                   aria-label={t("home.nav.label")}
                 >
                   <span className="mr-1 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10">
@@ -525,7 +522,7 @@ export function LandingHome() {
                   })}
                 </nav>
 
-                <div className="flex w-full items-center gap-3.5 px-0.5">
+                <div className="pointer-events-auto flex w-full items-center gap-3 px-5 sm:gap-3.5 sm:px-7">
                   <button
                     type="button"
                     onClick={togglePlay}
@@ -542,14 +539,14 @@ export function LandingHome() {
                   </button>
 
                   <div className="relative h-9 flex-1">
-                    <div className="absolute inset-x-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-white/40" />
+                    <div className="absolute inset-x-0 top-1/2 h-[2.5px] -translate-y-1/2 rounded-full bg-white/38" />
                     <div
-                      className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-[#f472b6] transition-[width] duration-75 ease-linear"
+                      className="absolute left-0 top-1/2 h-[2.5px] -translate-y-1/2 rounded-full bg-[#f472b6]"
                       style={{ width: `${slideProgress}%` }}
                     />
                   </div>
 
-                  <span className="grid h-9 w-9 shrink-0 place-items-center text-white/90">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center text-white/92">
                     <AudioLines className="h-4 w-4" aria-hidden />
                   </span>
                 </div>

@@ -266,21 +266,39 @@ export function MapAppShell() {
 
   const loadWeatherDetail = useCallback(
     async (refresh = false) => {
-      if (!fishingSpotId) return;
+      if (!fishingSpotId && !selectedFishing?.coordinates) return;
       setWeatherDetailLoading(true);
       setWeatherDetailError(null);
       try {
-        const params = new URLSearchParams({
-          spotId: fishingSpotId,
-          detail: "1",
-        });
-        if (selectedDate) params.set("date", selectedDate);
-        if (refresh) params.set("refresh", "1");
-        const response = await fetch(`/api/weather?${params.toString()}`);
-        if (!response.ok) {
-          throw new Error("WEATHER_FETCH_FAILED");
+        if (fishingSpotId) {
+          const params = new URLSearchParams({
+            spotId: fishingSpotId,
+            detail: "1",
+          });
+          if (selectedDate) params.set("date", selectedDate);
+          if (refresh) params.set("refresh", "1");
+          try {
+            const response = await fetch(`/api/weather?${params.toString()}`);
+            if (response.ok) {
+              setWeatherDetail((await response.json()) as WeatherData);
+              return;
+            }
+          } catch {
+            // fall through for static hosts
+          }
         }
-        const payload = (await response.json()) as WeatherData;
+
+        const coords = selectedFishing?.coordinates;
+        if (!coords) throw new Error("WEATHER_FETCH_FAILED");
+        const { fetchLiveWeatherClient } = await import(
+          "@/lib/weather/clientWeather"
+        );
+        const payload = await fetchLiveWeatherClient({
+          coordinates: coords,
+          locationName: selectedFishing?.name,
+          detail: true,
+          refresh,
+        });
         setWeatherDetail(payload);
       } catch {
         setWeatherDetailError("WEATHER_FETCH_FAILED");
@@ -288,7 +306,7 @@ export function MapAppShell() {
         setWeatherDetailLoading(false);
       }
     },
-    [fishingSpotId, selectedDate],
+    [fishingSpotId, selectedDate, selectedFishing],
   );
 
   const openWeatherDetail = useCallback(() => {

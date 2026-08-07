@@ -3,12 +3,11 @@
 import { SearchBar } from "@/components/common/SearchBar";
 import { IconButton } from "@/components/common/IconButton";
 import { LanguageSelector } from "@/components/i18n/LanguageSelector";
+import { HeaderWeatherChip } from "@/components/weather/HeaderWeatherChip";
 import { useTranslations } from "@/context/LocaleContext";
-import { mockWeather } from "@/data/mockWeather";
 import type { SearchablePlace } from "@/data/mockMapLocations";
 import {
   Bell,
-  CloudSun,
   Heart,
   LogIn,
   Menu,
@@ -130,19 +129,7 @@ export function Header({
           />
 
           <div className="flex flex-wrap items-center gap-2 xl:ml-auto">
-            <div className="flex min-w-0 items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/75 px-3 py-2 text-xs shadow-[var(--shadow-soft)] sm:text-sm">
-              <CloudSun
-                className="h-4 w-4 shrink-0 text-[var(--color-accent)]"
-                aria-hidden
-              />
-              <span className="font-semibold text-[var(--color-text-primary)]">
-                {mockWeather.temperature}
-                {t("units.celsius")}
-              </span>
-              <span className="text-[var(--color-text-secondary)]">
-                {mockWeather.condition}
-              </span>
-            </div>
+            <HeaderWeatherChip />
 
             <LanguageSelector compact className="hidden sm:flex" />
           </div>

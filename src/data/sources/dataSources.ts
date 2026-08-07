@@ -14,7 +14,7 @@ export const dataSources: DataSourceEntry[] = [
     id: "kma-weather",
     label: "기상청 날씨·해양 기상",
     description:
-      "기온·풍속·파고 등 활동 안전 판단에 참고하는 공개 기상 정보입니다.",
+      "기온·풍속·습도·강수 등. 헤더 날씨 칩 클릭 시 초단기실황(키가 있으면) 또는 실시간 대체 소스를 표시합니다.",
     url: "https://www.kma.go.kr/",
     category: "weather",
   },

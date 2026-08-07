@@ -135,9 +135,18 @@ export function useWaveData(
   const reload = useCallback(() => setTick((value) => value + 1), []);
   const lat = coordinates?.latitude;
   const lng = coordinates?.longitude;
+  const enabled = Boolean(spotId || (lat !== undefined && lng !== undefined));
 
   useEffect(() => {
-    if (!spotId) return;
+    if (!enabled) {
+      queueMicrotask(() => {
+        setData(null);
+        setLoading(false);
+        setError(null);
+      });
+      return;
+    }
+
     const controller = new AbortController();
     queueMicrotask(() => {
       setLoading(true);
@@ -147,14 +156,16 @@ export function useWaveData(
     const run = async () => {
       try {
         try {
-          const response = await fetch(
-            `/api/wave?spotId=${encodeURIComponent(spotId)}`,
-            { signal: controller.signal },
-          );
-          if (response.ok) {
-            setData(await response.json());
-            setLoading(false);
-            return;
+          if (spotId) {
+            const response = await fetch(
+              `/api/wave?spotId=${encodeURIComponent(spotId)}`,
+              { signal: controller.signal },
+            );
+            if (response.ok) {
+              setData(await response.json());
+              setLoading(false);
+              return;
+            }
           }
         } catch {
           // Static hosting (GitHub Pages) has no API route — fall through.
@@ -170,7 +181,7 @@ export function useWaveData(
         setError(
           err instanceof Error
             ? err.message
-            : "데이터를 불러오는 중 문제가 발생했습니다.",
+            : "WAVE_FETCH_FAILED",
         );
         setLoading(false);
       }
@@ -178,12 +189,12 @@ export function useWaveData(
 
     void run();
     return () => controller.abort();
-  }, [spotId, tick, lat, lng]);
+  }, [spotId, tick, lat, lng, enabled]);
 
   return {
-    data: spotId ? data : null,
-    loading: spotId ? loading : false,
-    error: spotId ? error : null,
+    data: enabled ? data : null,
+    loading: enabled ? loading : false,
+    error: enabled ? error : null,
     reload,
   };
 }

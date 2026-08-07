@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "Host: {host} · Reason: {reason}",
     "kakaoDomainHint": "Examples: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "Dashed lines are schedule-order references, not real road routes.",
-    "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references."
+    "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references.",
+    "selectedFishingOrigin": "Selected fishing spot ({name})",
+    "userLocationLabel": "Current location"
   },
   "fishing": {
     "targetFish": "Target species",
@@ -218,6 +220,19 @@
       "community": "Community",
       "unverified": "Unverified",
       "user": "User report"
+    },
+    "reason": {
+      "fishingProhibited": "Fishing is prohibited at this place.",
+      "fishingRestricted": "Access or fishing is partly restricted here.",
+      "fishingUnknown": "Fishing availability cannot be confirmed.",
+      "weatherMissing": "Weather/marine data is missing, so status is incomplete.",
+      "weatherAlert": "Weather alert: {title}",
+      "windStrong": "Strong wind ({value} m/s).",
+      "windCaution": "Wind is a bit strong ({value} m/s).",
+      "waveHigh": "High waves ({value} m).",
+      "waveCaution": "Watch the wave height ({value} m).",
+      "precipHigh": "High chance of rain ({value}%).",
+      "noAlerts": "No special caution signals based on currently published information."
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "Community",
       "unverified": "Unverified",
       "user": "User report"
-    }
+    },
+    "ploggingInProgress": "Plogging in progress · finish in the detail panel"
   },
   "schedule": {
     "title": "Create a day schedule",
@@ -569,7 +585,8 @@
     "importFailed": "Import failed.",
     "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})",
     "mileage": "Mileage",
-    "mileageHint": "Earned when your contribution is published. Redeemable for points later."
+    "mileageHint": "Earned when your contribution is published. Redeemable for points later.",
+    "staticLoginHint": "This GitHub Pages build has no server login. Use guest My Page for local favorites, notifications, and language."
   },
   "a11y": {
     "skipToContent": "Skip to content"

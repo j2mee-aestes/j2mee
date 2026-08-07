@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "当前地址：{host} · 原因：{reason}",
     "kakaoDomainHint": "示例：localhost 、 127.0.0.1 、 j2mee-aestes.github.io",
     "referenceLineNote": "虚线仅为行程顺序参考线，不是实际道路路线。",
-    "activityMapNote": "不会跟踪实际移动路径。虚线仅为行程顺序参考线。"
+    "activityMapNote": "不会跟踪实际移动路径。虚线仅为行程顺序参考线。",
+    "selectedFishingOrigin": "已选钓点（{name}）",
+    "userLocationLabel": "当前位置"
   },
   "fishing": {
     "targetFish": "主要目标鱼种",
@@ -218,6 +220,19 @@
       "community": "社区",
       "unverified": "未验证",
       "user": "用户反馈"
+    },
+    "reason": {
+      "fishingProhibited": "这个地方禁止钓鱼。",
+      "fishingRestricted": "这里的出入或捕鱼受到部分限制。",
+      "fishingUnknown": "无法确认是否可以钓鱼。",
+      "weatherMissing": "天气/海洋数据丢失，因此状态不完整。",
+      "weatherAlert": "天气警报：{title}",
+      "windStrong": "强风 ({value} m/s)。",
+      "windCaution": "风有点强 ({value} m/s)。",
+      "waveHigh": "高浪（{value} 米）。",
+      "waveCaution": "观察波高（{value} 米）。",
+      "precipHigh": "下雨的可能性很高 ({value}%)。",
+      "noAlerts": "根据当前发布的信息，没有特别警告信号。"
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "社区",
       "unverified": "未验证",
       "user": "用户反馈"
-    }
+    },
+    "ploggingInProgress": "净滩进行中 · 可在详情面板完成"
   },
   "schedule": {
     "title": "创建一日行程",
@@ -569,7 +585,8 @@
     "importFailed": "导入失败。",
     "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）",
     "mileage": "里程",
-    "mileageHint": "上报被发布后会发放。后续可兑换积分。"
+    "mileageHint": "上报被发布后会发放。后续可兑换积分。",
+    "staticLoginHint": "此 GitHub Pages 版本无服务器登录。请在访客“我的页面”管理本地收藏、通知与语言。"
   },
   "a11y": {
     "skipToContent": "跳到正文"

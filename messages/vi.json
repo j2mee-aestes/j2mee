@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "Máy chủ: {host} · Lý do: {reason}",
     "kakaoDomainHint": "Ví dụ: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "Các đường đứt nét là tham chiếu theo thứ tự lịch trình, không phải các tuyến đường thực tế.",
-    "activityMapNote": "Đường đi du lịch thực tế không được theo dõi. Các đường đứt nét là tài liệu tham khảo về thứ tự lịch trình."
+    "activityMapNote": "Đường đi du lịch thực tế không được theo dõi. Các đường đứt nét là tài liệu tham khảo về thứ tự lịch trình.",
+    "selectedFishingOrigin": "Điểm câu đã chọn ({name})",
+    "userLocationLabel": "Vị trí hiện tại"
   },
   "fishing": {
     "targetFish": "Loài mục tiêu",
@@ -218,6 +220,19 @@
       "community": "Cộng đồng",
       "unverified": "Chưa được xác minh",
       "user": "Người dùng báo cáo"
+    },
+    "reason": {
+      "fishingProhibited": "Câu cá bị cấm ở nơi này.",
+      "fishingRestricted": "Việc truy cập hoặc câu cá bị hạn chế một phần ở đây.",
+      "fishingUnknown": "Khả năng câu cá không thể được xác nhận.",
+      "weatherMissing": "Dữ liệu thời tiết/hàng hải bị thiếu nên trạng thái không đầy đủ.",
+      "weatherAlert": "Cảnh báo thời tiết: {title}",
+      "windStrong": "Gió mạnh ({value} m/s).",
+      "windCaution": "Gió hơi mạnh ({value} m/s).",
+      "waveHigh": "Sóng cao ({value} m).",
+      "waveCaution": "Xem chiều cao sóng ({value} m).",
+      "precipHigh": "Khả năng có mưa cao ({value}%).",
+      "noAlerts": "Không có tín hiệu thận trọng đặc biệt dựa trên thông tin hiện được công bố."
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "Cộng đồng",
       "unverified": "Chưa được xác minh",
       "user": "Người dùng báo cáo"
-    }
+    },
+    "ploggingInProgress": "Đang plogging · hoàn tất ở bảng chi tiết"
   },
   "schedule": {
     "title": "Tạo lịch trình trong ngày",
@@ -569,7 +585,8 @@
     "importFailed": "Nhập không thành công.",
     "importDone": "Đã nhập: lịch trình {lịch trình}, hoạt động {chạy}, yêu thích {yêu thích} (bỏ qua {bỏ qua})",
     "mileage": "Số dặm",
-    "mileageHint": "Kiếm được khi đóng góp của bạn được xuất bản. Có thể đổi lấy điểm sau này."
+    "mileageHint": "Kiếm được khi đóng góp của bạn được xuất bản. Có thể đổi lấy điểm sau này.",
+    "staticLoginHint": "Bản GitHub Pages không có đăng nhập máy chủ. Dùng trang Của tôi (khách) để quản lý yêu thích, thông báo và ngôn ngữ cục bộ."
   },
   "a11y": {
     "skipToContent": "Chuyển đến nội dung"

@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "Host: {host} · Grund: {reason}",
     "kakaoDomainHint": "Beispiele: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "Gestrichelte Linien sind Referenzen zur Fahrplanreihenfolge, keine echten Straßenrouten.",
-    "activityMapNote": "Tatsächliche Reisewege werden nicht erfasst. Gestrichelte Linien sind Referenzen zur Zeitplanreihenfolge."
+    "activityMapNote": "Tatsächliche Reisewege werden nicht erfasst. Gestrichelte Linien sind Referenzen zur Zeitplanreihenfolge.",
+    "selectedFishingOrigin": "Ausgewählter Angelplatz ({name})",
+    "userLocationLabel": "Aktueller Standort"
   },
   "fishing": {
     "targetFish": "Zielarten",
@@ -218,6 +220,19 @@
       "community": "Community",
       "unverified": "Nicht bestätigt",
       "user": "Nutzermeldung"
+    },
+    "reason": {
+      "fishingProhibited": "An diesem Ort ist das Angeln verboten.",
+      "fishingRestricted": "Der Zugang bzw. das Angeln ist hier teilweise eingeschränkt.",
+      "fishingUnknown": "Die Verfügbarkeit von Angelmöglichkeiten kann nicht bestätigt werden.",
+      "weatherMissing": "Es fehlen Wetter-/Meeresdaten, daher ist der Status unvollständig.",
+      "weatherAlert": "Wetterwarnung: {title}",
+      "windStrong": "Starker Wind ({value} m/s).",
+      "windCaution": "Der Wind ist etwas stark ({value} m/s).",
+      "waveHigh": "Hohe Wellen ({value} m).",
+      "waveCaution": "Beobachten Sie die Wellenhöhe ({value} m).",
+      "precipHigh": "Hohe Regenwahrscheinlichkeit ({value} %).",
+      "noAlerts": "Auf Grundlage der derzeit veröffentlichten Informationen liegen keine besonderen Warnsignale vor."
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "Community",
       "unverified": "Nicht bestätigt",
       "user": "Nutzermeldung"
-    }
+    },
+    "ploggingInProgress": "Plogging läuft · im Detailpanel abschließen"
   },
   "schedule": {
     "title": "Erstellen Sie einen Tagesplan",
@@ -569,7 +585,8 @@
     "mileage": "Kilometerstand",
     "mileageHint": "Verdient, wenn Ihr Beitrag veröffentlicht wird. Später gegen Punkte einlösbar.",
     "guestMyPageSubtitle": "Verwalte lokale Favoriten, Benachrichtigungen und Sprache ohne Anmeldung.",
-    "guestProfileHint": "Melde dich an, um Zeitpläne, Aktivitäten und Favoriten mit deinem Konto zu synchronisieren."
+    "guestProfileHint": "Melde dich an, um Zeitpläne, Aktivitäten und Favoriten mit deinem Konto zu synchronisieren.",
+    "staticLoginHint": "Dieser GitHub-Pages-Build hat kein Server-Login. Nutzen Sie die Gast-Meine-Seite für lokale Favoriten, Benachrichtigungen und Sprache."
   },
   "a11y": {
     "skipToContent": "Zum Inhalt springen"

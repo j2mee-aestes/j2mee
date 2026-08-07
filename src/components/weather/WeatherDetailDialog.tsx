@@ -7,6 +7,7 @@ import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { WeatherData } from "@/types/fishing";
 import { RefreshCw, X } from "lucide-react";
 import { useEffect, useId, useRef } from "react";
+import { createPortal } from "react-dom";
 
 interface WeatherDetailDialogProps {
   open: boolean;
@@ -71,12 +72,14 @@ export function WeatherDetailDialog({
 
   const windLabel =
     weather?.windDirection && weather.windSpeedMs !== undefined
-      ? `${weather.windDirection}풍 ${Number(weather.windSpeedMs).toFixed(1)} ${t("units.metersPerSecond")}`
+      ? `${weather.windDirection} ${Number(weather.windSpeedMs).toFixed(1)} ${t("units.metersPerSecond")}`
       : display(weather?.windDirection);
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/40 p-4 sm:p-6"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm"
       role="presentation"
       onClick={onClose}
     >
@@ -84,7 +87,7 @@ export function WeatherDetailDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="glass-panel my-auto max-h-[min(88dvh,40rem)] w-full max-w-md overflow-y-auto rounded-[1.5rem] p-4 shadow-[var(--shadow-float)] sm:p-5"
+        className="ui-rise glass-panel max-h-[min(85dvh,40rem)] w-full max-w-md overflow-y-auto rounded-[1.75rem] p-5 shadow-[var(--shadow-float)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
@@ -246,7 +249,8 @@ export function WeatherDetailDialog({
           </p>
         ) : null}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

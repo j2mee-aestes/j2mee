@@ -2,6 +2,8 @@
 
 import { Card } from "@/components/common/Card";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
+import { parseActivityReason } from "@/lib/safety/evaluateActivityStatus";
 import type { ActivityEvaluation } from "@/types/fishing";
 import { useState } from "react";
 
@@ -45,7 +47,7 @@ export function ActivityStatusCard({
   evaluation,
   className = "",
 }: ActivityStatusCardProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
   const [expanded, setExpanded] = useState(false);
   const style = STATUS_STYLES[evaluation.status];
   const visibleReasons = expanded
@@ -57,16 +59,31 @@ export function ActivityStatusCard({
     <Card
       className={`border ${style.border} ${style.bg} p-4 shadow-none ${className}`}
     >
-      <p className={`text-sm font-bold ${style.text}`}>{evaluation.label}</p>
+      <p className={`text-sm font-bold ${style.text}`}>
+        {t(`safety.status.${evaluation.status}`)}
+      </p>
       <ul className="mt-2 space-y-1">
-        {visibleReasons.map((reason) => (
-          <li
-            key={reason}
-            className="text-xs leading-relaxed text-[var(--color-text-secondary)]"
-          >
-            · {reason}
-          </li>
-        ))}
+        {visibleReasons.map((raw) => {
+          const reason = parseActivityReason(raw);
+          const values = reason.values
+            ? Object.fromEntries(
+                Object.entries(reason.values).map(([key, value]) => [
+                  key,
+                  typeof value === "string"
+                    ? localizePlaceText(value, locale)
+                    : value,
+                ]),
+              )
+            : undefined;
+          return (
+            <li
+              key={raw}
+              className="text-xs leading-relaxed text-[var(--color-text-secondary)]"
+            >
+              · {t(reason.key, values)}
+            </li>
+          );
+        })}
       </ul>
       {hiddenCount > 0 || expanded ? (
         <button

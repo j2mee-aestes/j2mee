@@ -18,12 +18,10 @@ const root = process.cwd();
 const stashRoot = join(root, ".gh-pages-stash");
 const appDir = join(root, "src/app");
 
-const parkPaths = [
+  const parkPaths = [
   "api",
   "admin",
   "activity",
-  "my",
-  "login",
   "robots.ts",
   "sitemap.ts",
 ];

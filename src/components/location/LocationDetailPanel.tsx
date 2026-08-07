@@ -149,7 +149,7 @@ export function LocationDetailPanel({
           ) : null}
           {fishing.restrictionDescription ? (
             <p className="mt-1 text-xs font-normal opacity-90">
-              {fishing.restrictionDescription}
+              {localizePlaceText(fishing.restrictionDescription, locale)}
             </p>
           ) : null}
         </div>
@@ -195,7 +195,9 @@ export function LocationDetailPanel({
 
         {fishing.accessDescription ? (
           <p className="text-xs text-[var(--color-text-secondary)]">
-            {t("fishing.access", { text: fishing.accessDescription })}
+            {t("fishing.access", {
+              text: localizePlaceText(fishing.accessDescription, locale),
+            })}
           </p>
         ) : null}
 
@@ -231,7 +233,7 @@ export function LocationDetailPanel({
                   key={item}
                   className="text-xs leading-relaxed text-[var(--color-text-secondary)]"
                 >
-                  · {item}
+                  · {localizePlaceText(item, locale)}
                 </li>
               ))}
             </ul>

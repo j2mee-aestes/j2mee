@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
+
 function LoginForm() {
   const { t } = useTranslations();
   const router = useRouter();
@@ -19,6 +21,10 @@ function LoginForm() {
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (isStaticExport) {
+      router.push(callbackUrl);
+      return;
+    }
     setPending(true);
     setError(null);
     const result = await signIn("credentials", {
@@ -35,6 +41,38 @@ function LoginForm() {
     router.push(callbackUrl);
     router.refresh();
   };
+
+  if (isStaticExport) {
+    return (
+      <div className="mx-auto flex w-full max-w-md flex-col gap-4 px-3 py-10">
+        <div>
+          <h1 className="text-2xl font-bold text-[var(--color-text-primary)]">
+            {t("auth.loginTitle")}
+          </h1>
+          <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+            {t("auth.staticLoginHint")}
+          </p>
+        </div>
+        <div className="space-y-3 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            {t("auth.guestProfileHint")}
+          </p>
+          <Link
+            href={callbackUrl}
+            className="inline-flex h-10 w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent-strong)] text-sm font-semibold text-white"
+          >
+            {t("auth.myPage")}
+          </Link>
+        </div>
+        <Link
+          href="/map"
+          className="text-sm font-medium text-[var(--color-ocean-700)]"
+        >
+          {t("activity.backToMap")}
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-4 px-3 py-10">

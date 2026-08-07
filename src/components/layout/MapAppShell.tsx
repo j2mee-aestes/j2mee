@@ -38,6 +38,11 @@ import { getAllCoastalEvents } from "@/lib/events/eventRepository";
 import { EventDetailPanel } from "@/components/events/EventDetailPanel";
 import { EventList } from "@/components/events/EventList";
 import { useWaveData, useWeatherData } from "@/hooks/useSpotEnvironmentData";
+import {
+  DEFAULT_HEADER_WEATHER_COORDS,
+  DEFAULT_HEADER_WEATHER_NAME,
+} from "@/lib/weather/clientWeather";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import { apiJson } from "@/lib/auth/clientApi";
 import { getWastePointById } from "@/lib/environment/wastePointRepository";
@@ -131,7 +136,7 @@ const EMPTY_SESSION: PloggingSession = {
 };
 
 export function MapAppShell() {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -223,13 +228,78 @@ export function MapAppShell() {
     return place && isFishingSpot(place) ? place : null;
   }, [relatedFishingSpotId]);
 
-  const fishingSpotId = selectedFishing?.id ?? null;
+  const weatherTarget = useMemo(() => {
+    if (selectedFishing) {
+      return {
+        id: selectedFishing.id,
+        coordinates: selectedFishing.coordinates,
+        name: selectedFishing.name,
+      };
+    }
+    if (selectedPartner) {
+      return {
+        id: selectedPartner.id,
+        coordinates: selectedPartner.coordinates,
+        name: selectedPartner.name,
+      };
+    }
+    if (selectedWaste) {
+      return {
+        id: selectedWaste.id,
+        coordinates: selectedWaste.coordinates,
+        name: selectedWaste.name,
+      };
+    }
+    if (selectedAttraction) {
+      return {
+        id: selectedAttraction.id,
+        coordinates: selectedAttraction.coordinates,
+        name: selectedAttraction.name,
+      };
+    }
+    if (selectedLeisure) {
+      return {
+        id: selectedLeisure.id,
+        coordinates: selectedLeisure.coordinates,
+        name: selectedLeisure.name,
+      };
+    }
+    if (selectedEvent) {
+      return {
+        id: selectedEvent.id,
+        coordinates: selectedEvent.coordinates,
+        name: selectedEvent.name,
+      };
+    }
+    if (selectedRoute) {
+      return {
+        id: selectedRoute.id,
+        coordinates: selectedRoute.startPoint,
+        name: selectedRoute.name,
+      };
+    }
+    return {
+      id: null,
+      coordinates: DEFAULT_HEADER_WEATHER_COORDS,
+      name: DEFAULT_HEADER_WEATHER_NAME,
+    };
+  }, [
+    selectedFishing,
+    selectedPartner,
+    selectedWaste,
+    selectedAttraction,
+    selectedLeisure,
+    selectedEvent,
+    selectedRoute,
+  ]);
 
   const distanceOrigin = relatedFishingSpot?.coordinates ?? userLocation;
   const distanceOriginLabel = relatedFishingSpot
-    ? `선택한 낚시터(${relatedFishingSpot.name})`
+    ? t("map.selectedFishingOrigin", {
+        name: localizePlaceText(relatedFishingSpot.name, locale),
+      })
     : userLocation
-      ? "현재 위치"
+      ? t("map.userLocationLabel")
       : null;
 
   const partnerDistanceKm =
@@ -252,13 +322,13 @@ export function MapAppShell() {
   }, [selectedRoute]);
 
   const weatherState = useWeatherData(
-    fishingSpotId,
+    weatherTarget.id,
     selectedDate,
-    selectedFishing?.coordinates ?? null,
+    weatherTarget.coordinates,
   );
   const waveState = useWaveData(
-    fishingSpotId,
-    selectedFishing?.coordinates ?? null,
+    weatherTarget.id,
+    weatherTarget.coordinates,
   );
   const [weatherDetailOpen, setWeatherDetailOpen] = useState(false);
   const [weatherDetail, setWeatherDetail] = useState<WeatherData | null>(null);
@@ -269,13 +339,14 @@ export function MapAppShell() {
 
   const loadWeatherDetail = useCallback(
     async (refresh = false) => {
-      if (!fishingSpotId && !selectedFishing?.coordinates) return;
+      const coords = weatherTarget.coordinates;
+      if (!coords) return;
       setWeatherDetailLoading(true);
       setWeatherDetailError(null);
       try {
-        if (fishingSpotId) {
+        if (weatherTarget.id) {
           const params = new URLSearchParams({
-            spotId: fishingSpotId,
+            spotId: weatherTarget.id,
             detail: "1",
           });
           if (selectedDate) params.set("date", selectedDate);
@@ -291,14 +362,12 @@ export function MapAppShell() {
           }
         }
 
-        const coords = selectedFishing?.coordinates;
-        if (!coords) throw new Error("WEATHER_FETCH_FAILED");
         const { fetchLiveWeatherClient } = await import(
           "@/lib/weather/clientWeather"
         );
         const payload = await fetchLiveWeatherClient({
           coordinates: coords,
-          locationName: selectedFishing?.name,
+          locationName: localizePlaceText(weatherTarget.name, locale),
           detail: true,
           refresh,
         });
@@ -309,7 +378,7 @@ export function MapAppShell() {
         setWeatherDetailLoading(false);
       }
     },
-    [fishingSpotId, selectedDate, selectedFishing],
+    [weatherTarget, selectedDate, locale],
   );
 
   const openWeatherDetail = useCallback(() => {
@@ -625,7 +694,7 @@ export function MapAppShell() {
                 role="status"
                 aria-live="polite"
               >
-                플로깅 진행 중 · 상세 패널에서 완료할 수 있습니다
+                {t("environment.ploggingInProgress")}
               </p>
             ) : null}
           </div>
@@ -819,23 +888,21 @@ export function MapAppShell() {
               </div>
             )}
 
-            {fishingSpotId ? (
-              <>
-                <WeatherCard
-                  weather={weatherState.data}
-                  loading={weatherState.loading}
-                  error={weatherState.error}
-                  onRetry={weatherState.reload}
-                  onOpenDetail={openWeatherDetail}
-                />
-                <WaveCard
-                  wave={waveState.data}
-                  loading={waveState.loading}
-                  error={waveState.error}
-                  onRetry={waveState.reload}
-                />
-              </>
-            ) : null}
+            <>
+              <WeatherCard
+                weather={weatherState.data}
+                loading={weatherState.loading}
+                error={weatherState.error}
+                onRetry={weatherState.reload}
+                onOpenDetail={openWeatherDetail}
+              />
+              <WaveCard
+                wave={waveState.data}
+                loading={waveState.loading}
+                error={waveState.error}
+                onRetry={waveState.reload}
+              />
+            </>
           </aside>
         </main>
       </div>

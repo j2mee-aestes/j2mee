@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "現在のホスト: {host} · 原因: {reason}",
     "kakaoDomainHint": "例: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "破線はスケジュール順の参考線であり、実際の道路経路ではありません。",
-    "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。"
+    "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。",
+    "selectedFishingOrigin": "選択中の釣り場（{name}）",
+    "userLocationLabel": "現在地"
   },
   "fishing": {
     "targetFish": "主な対象魚",
@@ -218,6 +220,19 @@
       "community": "コミュニティ",
       "unverified": "未検証",
       "user": "ユーザー報告"
+    },
+    "reason": {
+      "fishingProhibited": "この場所では釣りは禁止されています。",
+      "fishingRestricted": "ここでは立ち入りや釣りが一部制限されています。",
+      "fishingUnknown": "釣れるかどうかは確認できません。",
+      "weatherMissing": "気象・海洋データが欠落しているため、ステータスが不完全です。",
+      "weatherAlert": "気象警報: {title}",
+      "windStrong": "強風 ({value} m/s)。",
+      "windCaution": "風が少し強いです ({value} m/s)。",
+      "waveHigh": "高波 ({value} m)。",
+      "waveCaution": "波の高さ ({value} m) に注目してください。",
+      "precipHigh": "降水確率が高い ({value}%)。",
+      "noAlerts": "現在公開されている情報に基づく特別な注意信号はありません。"
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "コミュニティ",
       "unverified": "未検証",
       "user": "ユーザー報告"
-    }
+    },
+    "ploggingInProgress": "プロギング進行中 · 詳細パネルで完了できます"
   },
   "schedule": {
     "title": "一日の予定を作る",
@@ -569,7 +585,8 @@
     "importFailed": "取り込みに失敗しました。",
     "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）",
     "mileage": "マイレージ",
-    "mileageHint": "投稿が地図に反映されると付与されます。後日ポイント交換予定です。"
+    "mileageHint": "投稿が地図に反映されると付与されます。後日ポイント交換予定です。",
+    "staticLoginHint": "GitHub Pages版ではサーバーログインはありません。ゲストのマイページでローカルのお気に入り・通知・言語を管理できます。"
   },
   "a11y": {
     "skipToContent": "本文へスキップ"

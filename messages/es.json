@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "Anfitrión: {anfitrión} · Motivo: {razón}",
     "kakaoDomainHint": "Ejemplos: localhost, 127.0.0.1, j2mee-aestes.github.io",
     "referenceLineNote": "Las líneas discontinuas son referencias de orden de programación, no rutas de carretera reales.",
-    "activityMapNote": "No se realizan seguimientos de las rutas de viaje reales. Las líneas discontinuas son referencias de orden de programación."
+    "activityMapNote": "No se realizan seguimientos de las rutas de viaje reales. Las líneas discontinuas son referencias de orden de programación.",
+    "selectedFishingOrigin": "Punto de pesca seleccionado ({name})",
+    "userLocationLabel": "Ubicación actual"
   },
   "fishing": {
     "targetFish": "Especies objetivo",
@@ -218,6 +220,19 @@
       "community": "Comunidad",
       "unverified": "Inconfirmado",
       "user": "Informe de usuario"
+    },
+    "reason": {
+      "fishingProhibited": "Está prohibida la pesca en este lugar.",
+      "fishingRestricted": "Aquí el acceso o la pesca están parcialmente restringidos.",
+      "fishingUnknown": "No se puede confirmar la disponibilidad de pesca.",
+      "weatherMissing": "Faltan datos meteorológicos/marinos, por lo que el estado está incompleto.",
+      "weatherAlert": "Alerta meteorológica: {título}",
+      "windStrong": "Viento fuerte ({valor} m/s).",
+      "windCaution": "El viento es un poco fuerte ({valor} m/s).",
+      "waveHigh": "Oleaje alto ({valor} m).",
+      "waveCaution": "Observe la altura de la ola ({valor} m).",
+      "precipHigh": "Alta probabilidad de lluvia ({valor}%).",
+      "noAlerts": "No hay señales de precaución especiales basadas en la información publicada actualmente."
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "Comunidad",
       "unverified": "Inconfirmado",
       "user": "Informe de usuario"
-    }
+    },
+    "ploggingInProgress": "Plogging en curso · complete en el panel"
   },
   "schedule": {
     "title": "Crear un horario diurno",
@@ -569,7 +585,8 @@
     "mileage": "Kilometraje",
     "mileageHint": "Se obtiene cuando se publica tu contribución. Canjeable por puntos más adelante.",
     "guestMyPageSubtitle": "Gestiona favoritos, notificaciones e idioma locales sin iniciar sesión.",
-    "guestProfileHint": "Inicia sesión para sincronizar horarios, actividades y favoritos con tu cuenta."
+    "guestProfileHint": "Inicia sesión para sincronizar horarios, actividades y favoritos con tu cuenta.",
+    "staticLoginHint": "Esta versión de GitHub Pages no tiene inicio de sesión en servidor. Use Mi página (invitado) para favoritos, notificaciones e idioma locales."
   },
   "a11y": {
     "skipToContent": "Saltar al contenido"

@@ -122,7 +122,9 @@
     "kakaoLoadFailedDetail": "현재 주소: {host} · 원인: {reason}",
     "kakaoDomainHint": "등록 예시: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "점선은 일정 순서 참고 연결선이며 실제 도로 경로가 아닙니다.",
-    "activityMapNote": "실제 이동 경로를 추적하지 않습니다. 점선은 일정 순서 참고선입니다."
+    "activityMapNote": "실제 이동 경로를 추적하지 않습니다. 점선은 일정 순서 참고선입니다.",
+    "selectedFishingOrigin": "선택한 낚시터({name})",
+    "userLocationLabel": "현재 위치"
   },
   "fishing": {
     "targetFish": "주요 대상 어종",
@@ -218,6 +220,19 @@
       "community": "커뮤니티",
       "unverified": "미검증",
       "user": "사용자 제보"
+    },
+    "reason": {
+      "fishingProhibited": "이 장소는 낚시가 금지되어 있습니다.",
+      "fishingRestricted": "이 장소는 일부 출입 또는 낚시 제한이 있습니다.",
+      "fishingUnknown": "낚시 가능 여부를 확인할 수 없습니다.",
+      "weatherMissing": "날씨·해양 정보가 없어 상태를 완전히 판단할 수 없습니다.",
+      "weatherAlert": "기상특보: {title}",
+      "windStrong": "풍속이 강합니다 ({value}m/s).",
+      "windCaution": "풍속이 다소 강합니다 ({value}m/s).",
+      "waveHigh": "파고가 높습니다 ({value}m).",
+      "waveCaution": "파고에 주의가 필요합니다 ({value}m).",
+      "precipHigh": "강수 확률이 높습니다 ({value}%).",
+      "noAlerts": "현재 공개된 정보 기준으로 특별한 주의 신호가 없습니다."
     }
   },
   "partner": {
@@ -381,7 +396,8 @@
       "community": "커뮤니티",
       "unverified": "미검증",
       "user": "사용자 제보"
-    }
+    },
+    "ploggingInProgress": "플로깅 진행 중 · 상세 패널에서 완료할 수 있습니다"
   },
   "schedule": {
     "title": "하루 일정 만들기",
@@ -569,7 +585,8 @@
     "importFailed": "가져오기에 실패했습니다.",
     "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})",
     "mileage": "마일리지",
-    "mileageHint": "위치 제보가 지도에 반영되면 적립됩니다. 추후 네이버 포인트 등으로 교환할 수 있도록 준비 중입니다."
+    "mileageHint": "위치 제보가 지도에 반영되면 적립됩니다. 추후 네이버 포인트 등으로 교환할 수 있도록 준비 중입니다.",
+    "staticLoginHint": "GitHub Pages 배포본에서는 서버 로그인이 없습니다. 게스트 마이페이지에서 로컬 즐겨찾기·알림·언어를 관리하세요."
   },
   "a11y": {
     "skipToContent": "본문으로 건너뛰기"

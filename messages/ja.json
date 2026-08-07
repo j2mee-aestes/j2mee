@@ -177,7 +177,8 @@
     "openDetail": "リアルタイム天気の詳細を開く",
     "refresh": "天気を更新",
     "updatedAt": "天気更新 {time}",
-    "staleDetail": "最新データでない可能性があります。最終更新: {time}"
+    "staleDetail": "最新データでない可能性があります。最終更新: {time}",
+    "defaultLocation": "機張"
   },
   "safety": {
     "status": {
@@ -443,6 +444,8 @@
     "myPage": "マイページ",
     "myPageTitle": "マイページ",
     "myPageSubtitle": "アカウントに保存されたデータを確認・管理します。",
+    "guestMyPageSubtitle": "ログインなしでローカルのお気に入り・通知・言語を管理できます。",
+    "guestProfileHint": "ログインすると予定・活動・お気に入りをアカウントに同期できます。",
     "logout": "ログアウト",
     "profile": "プロフィール",
     "preferredLocale": "希望言語",
@@ -692,5 +695,15 @@
     "period": "周期",
     "unavailable": "波情報を取得できません。",
     "source": "気象庁海洋気象"
+  },
+  "notifications": {
+    "empty": "新しい通知はありません。",
+    "markAllRead": "すべて既読",
+    "seedTideTitle": "本日の潮位・波情報",
+    "seedTideBody": "機張沿岸の天気と波高を確認しましょう。",
+    "seedPloggingTitle": "プロギングコースのおすすめ",
+    "seedPloggingBody": "任浪・日光の海岸コースを地図で開いてみましょう。",
+    "seedFavoriteTitle": "お気に入りを続ける",
+    "seedFavoriteBody": "マイページやハートパネルから保存した場所を開けます。"
   }
 }

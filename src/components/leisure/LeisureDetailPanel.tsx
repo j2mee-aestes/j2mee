@@ -4,6 +4,7 @@ import { Card } from "@/components/common/Card";
 import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
 import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { LeisurePlace } from "@/types/leisure";
 
 const ACTIVITY_LABEL: Record<LeisurePlace["activityType"], string> = {
@@ -24,7 +25,9 @@ export function LeisureDetailPanel({
   place,
   className = "",
 }: LeisureDetailPanelProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
+  const displayName = localizePlaceText(place.name, locale);
+  const displayAddress = localizePlaceText(place.address, locale);
 
   return (
     <Card as="article" className={`flex flex-col gap-4 p-4 ${className}`}>
@@ -33,16 +36,16 @@ export function LeisureDetailPanel({
           {t("leisure.title")}
         </p>
         <h2 className="font-display text-xl font-semibold tracking-tight">
-          {place.name}
+          {displayName}
         </h2>
         <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-          {place.address}
+          {displayAddress}
         </p>
       </div>
 
       <PlaceImageGallery
         images={place.imageUrls}
-        alt={place.name}
+        alt={displayName}
         pendingLabel={t("fishing.imagePending")}
       />
 

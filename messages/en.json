@@ -177,7 +177,8 @@
     "openDetail": "Open live weather details",
     "refresh": "Refresh weather",
     "updatedAt": "Updated {time}",
-    "staleDetail": "This may not be the latest data. Last update: {time}"
+    "staleDetail": "This may not be the latest data. Last update: {time}",
+    "defaultLocation": "Gijang"
   },
   "safety": {
     "status": {
@@ -443,6 +444,8 @@
     "myPage": "My page",
     "myPageTitle": "My page",
     "myPageSubtitle": "Review and manage data saved to your account.",
+    "guestMyPageSubtitle": "Manage local favorites, notifications, and language without signing in.",
+    "guestProfileHint": "Sign in to sync schedules, activities, and favorites to your account.",
     "logout": "Log out",
     "profile": "Profile",
     "preferredLocale": "Preferred language",
@@ -692,5 +695,15 @@
     "period": "Period",
     "unavailable": "Wave data unavailable.",
     "source": "KMA marine weather"
+  },
+  "notifications": {
+    "empty": "No new notifications.",
+    "markAllRead": "Mark all read",
+    "seedTideTitle": "Today’s tide & wave tip",
+    "seedTideBody": "Check live weather and waves for the Gijang coast.",
+    "seedPloggingTitle": "Plogging route suggestion",
+    "seedPloggingBody": "Open Imrang and Ilgwang coastal plogging routes on the map.",
+    "seedFavoriteTitle": "Continue with favorites",
+    "seedFavoriteBody": "Open saved places from My page or the heart panel."
   }
 }

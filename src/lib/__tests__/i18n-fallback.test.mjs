@@ -17,7 +17,7 @@ function flatten(obj, prefix = "", out = {}) {
 
 test("non-ko locales have all ko keys", () => {
   const ko = flatten(JSON.parse(readFileSync(join(root, "messages/ko.json"), "utf8")));
-  for (const locale of ["en", "ja", "zh-CN"]) {
+  for (const locale of ["en", "ja", "zh-CN", "vi", "es", "de", "fr"]) {
     const flat = flatten(
       JSON.parse(readFileSync(join(root, `messages/${locale}.json`), "utf8")),
     );

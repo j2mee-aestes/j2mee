@@ -13,6 +13,7 @@ import {
   getFishingSpotDescription,
   getFishingSpotDisplayName,
 } from "@/lib/i18n/placeDisplay";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { getFishingAllowedText } from "@/lib/i18n/safetyTexts";
 import { evaluateActivityStatus } from "@/lib/safety/evaluateActivityStatus";
 import type { FishingSpot, WeatherData } from "@/types/fishing";
@@ -105,7 +106,7 @@ export function LocationDetailPanel({
                 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-ocean-500)]"
                 aria-hidden
               />
-              <span>{location.address}</span>
+              <span>{localizePlaceText(location.address, locale)}</span>
             </p>
             {fishing.lastVerifiedAt ? (
               <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">

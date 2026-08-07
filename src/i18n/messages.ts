@@ -1,8 +1,12 @@
 import type { SupportedLocale } from "@/i18n/config";
 import type { MessageTree } from "@/i18n/types";
+import de from "../../messages/de.json";
 import en from "../../messages/en.json";
+import es from "../../messages/es.json";
+import fr from "../../messages/fr.json";
 import ja from "../../messages/ja.json";
 import ko from "../../messages/ko.json";
+import vi from "../../messages/vi.json";
 import zhCN from "../../messages/zh-CN.json";
 
 export const MESSAGES: Record<SupportedLocale, MessageTree> = {
@@ -10,6 +14,10 @@ export const MESSAGES: Record<SupportedLocale, MessageTree> = {
   en: en as MessageTree,
   ja: ja as MessageTree,
   "zh-CN": zhCN as MessageTree,
+  vi: vi as MessageTree,
+  es: es as MessageTree,
+  de: de as MessageTree,
+  fr: fr as MessageTree,
 };
 
 export function flattenMessages(

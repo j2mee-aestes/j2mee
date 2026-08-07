@@ -2,6 +2,8 @@
 
 import { TextButton } from "@/components/common/IconButton";
 import { useTranslations } from "@/context/LocaleContext";
+import { LOCALE_INTL_TAGS } from "@/i18n/config";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { WeatherData } from "@/types/fishing";
 import { RefreshCw, X } from "lucide-react";
 import { useEffect, useId, useRef } from "react";
@@ -15,14 +17,17 @@ interface WeatherDetailDialogProps {
   onRefresh: () => void;
 }
 
-function formatClock(isoOrLocal: string | undefined): string {
+function formatClock(
+  isoOrLocal: string | undefined,
+  localeTag: string,
+): string {
   if (!isoOrLocal) return "";
   const date = new Date(isoOrLocal);
   if (Number.isNaN(date.getTime())) {
     const match = isoOrLocal.match(/T(\d{2}:\d{2})/);
     return match?.[1] ?? isoOrLocal;
   }
-  return date.toLocaleTimeString("ko-KR", {
+  return date.toLocaleTimeString(localeTag, {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
@@ -37,7 +42,8 @@ export function WeatherDetailDialog({
   onClose,
   onRefresh,
 }: WeatherDetailDialogProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
+  const localeTag = LOCALE_INTL_TAGS[locale];
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -70,7 +76,7 @@ export function WeatherDetailDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-end justify-center bg-black/35 p-3 sm:items-center"
+      className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/40 p-4 sm:p-6"
       role="presentation"
       onClick={onClose}
     >
@@ -78,7 +84,7 @@ export function WeatherDetailDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="glass-panel max-h-[88vh] w-full max-w-md overflow-y-auto rounded-[1.5rem] p-4 shadow-[var(--shadow-float)] sm:p-5"
+        className="glass-panel my-auto max-h-[min(88dvh,40rem)] w-full max-w-md overflow-y-auto rounded-[1.5rem] p-4 shadow-[var(--shadow-float)] sm:p-5"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
@@ -90,7 +96,9 @@ export function WeatherDetailDialog({
               {t("weather.detailTitle")}
             </h2>
             <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-              {weather?.locationName ?? t("common.selectedPoint")}
+              {weather?.locationName
+                ? localizePlaceText(weather.locationName, locale)
+                : t("common.selectedPoint")}
             </p>
           </div>
           <div className="flex items-center gap-1.5">
@@ -200,7 +208,7 @@ export function WeatherDetailDialog({
                       className="min-w-[4.5rem] shrink-0 rounded-2xl border border-[var(--color-border)] bg-white/80 px-2.5 py-2 text-center"
                     >
                       <p className="text-[10px] text-[var(--color-text-muted)]">
-                        {formatClock(item.time)}
+                        {formatClock(item.time, localeTag)}
                       </p>
                       <p className="mt-1 text-sm" aria-hidden>
                         {item.conditionIcon ?? "☁️"}
@@ -222,7 +230,10 @@ export function WeatherDetailDialog({
 
             <p className="mt-4 text-[11px] text-[var(--color-text-muted)]">
               {t("weather.updatedAt", {
-                time: formatClock(weather.forecastTime || weather.fetchedAt),
+                time: formatClock(
+                  weather.forecastTime || weather.fetchedAt,
+                  localeTag,
+                ),
               })}{" "}
               · {weather.sourceName}
             </p>

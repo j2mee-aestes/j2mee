@@ -177,7 +177,8 @@
     "openDetail": "실시간 날씨 상세 보기",
     "refresh": "날씨 새로고침",
     "updatedAt": "날씨 업데이트 {time}",
-    "staleDetail": "현재 정보는 최신 데이터가 아닐 수 있습니다. 마지막 업데이트: {time}"
+    "staleDetail": "현재 정보는 최신 데이터가 아닐 수 있습니다. 마지막 업데이트: {time}",
+    "defaultLocation": "기장"
   },
   "safety": {
     "status": {
@@ -443,6 +444,8 @@
     "myPage": "마이페이지",
     "myPageTitle": "마이페이지",
     "myPageSubtitle": "계정에 저장된 데이터를 확인하고 관리합니다.",
+    "guestMyPageSubtitle": "로그인 없이도 로컬 즐겨찾기·알림·언어를 관리할 수 있습니다.",
+    "guestProfileHint": "로그인하면 일정·활동·즐겨찾기를 계정에 동기화할 수 있습니다.",
     "logout": "로그아웃",
     "profile": "프로필",
     "preferredLocale": "선호 언어",
@@ -692,5 +695,15 @@
     "period": "주기",
     "unavailable": "파도 정보를 불러올 수 없습니다.",
     "source": "기상청 해양기상"
+  },
+  "notifications": {
+    "empty": "새 알림이 없습니다.",
+    "markAllRead": "모두 읽음",
+    "seedTideTitle": "오늘의 조위·파고 안내",
+    "seedTideBody": "기장 연안 실시간 날씨와 파고를 확인하세요.",
+    "seedPloggingTitle": "플로깅 코스 추천",
+    "seedPloggingBody": "임랑·일광 해안 플로깅 코스를 지도에서 열어보세요.",
+    "seedFavoriteTitle": "즐겨찾기 이어서 보기",
+    "seedFavoriteBody": "저장한 장소를 마이페이지와 하트 패널에서 바로 열 수 있습니다."
   }
 }

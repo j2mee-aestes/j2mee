@@ -6,6 +6,7 @@ import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
 import { TextButton } from "@/components/common/IconButton";
 import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { AttractionPlace } from "@/types/attraction";
 
 type AttractionDetailPanelProps = {
@@ -17,8 +18,13 @@ export function AttractionDetailPanel({
   attraction,
   className = "",
 }: AttractionDetailPanelProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
   const [show3d, setShow3d] = useState(false);
+  const displayName = localizePlaceText(attraction.name, locale);
+  const displayAddress = localizePlaceText(attraction.address, locale);
+  const displayDescription = attraction.description
+    ? localizePlaceText(attraction.description, locale)
+    : null;
 
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
@@ -28,21 +34,21 @@ export function AttractionDetailPanel({
             {t("attraction.title")}
           </p>
           <h2 className="font-display text-xl font-semibold tracking-tight">
-            {attraction.name}
+            {displayName}
           </h2>
           <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-            {attraction.address}
+            {displayAddress}
           </p>
-          {attraction.description ? (
+          {displayDescription ? (
             <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-              {attraction.description}
+              {displayDescription}
             </p>
           ) : null}
         </div>
 
         <PlaceImageGallery
           images={attraction.imageUrls}
-          alt={attraction.name}
+          alt={displayName}
           pendingLabel={t("fishing.imagePending")}
         />
 

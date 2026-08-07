@@ -30,6 +30,10 @@ export function getLocalizedText(options: {
     "en",
     "ja",
     "zh-CN",
+    "vi",
+    "es",
+    "de",
+    "fr",
   ];
   for (const code of order) {
     const text = value[code]?.trim();
@@ -55,7 +59,18 @@ export function getLocalizedTextList(options: {
   if (Array.isArray(value)) {
     return value;
   }
-  const order: SupportedLocale[] = [locale, fallbackLocale, "ko", "en", "ja", "zh-CN"];
+  const order: SupportedLocale[] = [
+    locale,
+    fallbackLocale,
+    "ko",
+    "en",
+    "ja",
+    "zh-CN",
+    "vi",
+    "es",
+    "de",
+    "fr",
+  ];
   for (const code of order) {
     const list = value[code];
     if (list && list.length > 0) {

@@ -3,17 +3,13 @@
 import { SearchBar } from "@/components/common/SearchBar";
 import { IconButton } from "@/components/common/IconButton";
 import { LanguageSelector } from "@/components/i18n/LanguageSelector";
+import { HeaderQuickPanels } from "@/components/layout/HeaderQuickPanels";
 import { HeaderWeatherChip } from "@/components/weather/HeaderWeatherChip";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { publicPath } from "@/lib/paths";
 import type { SearchablePlace } from "@/data/mockMapLocations";
-import {
-  Bell,
-  Heart,
-  LogIn,
-  Menu,
-  X,
-} from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,7 +26,7 @@ interface HeaderProps {
 }
 
 const navLinkClass =
-  "inline-flex h-10 items-center rounded-full border border-[var(--color-border)] bg-white/70 px-3.5 text-sm font-semibold text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]";
+  "inline-flex h-10 items-center rounded-full border border-[var(--color-border)] bg-white/70 px-3.5 text-sm font-semibold text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:border-sky-300 hover:bg-sky-100 hover:text-sky-900";
 
 const navCtaClass =
   "inline-flex h-10 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.65)] transition hover:-translate-y-0.5 hover:brightness-105";
@@ -46,7 +42,7 @@ export function Header({
   onSelectSearchResult,
   externalKakaoQuery = null,
 }: HeaderProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_oklab,white_72%,transparent)] shadow-[var(--shadow-soft)] backdrop-blur-2xl">
@@ -62,14 +58,16 @@ export function Header({
           </IconButton>
 
           <Link href="/" className="group flex min-w-0 items-center gap-3">
-            <Image
-              src={publicPath("/images/padopado-logo.png")}
-              alt={t("common.serviceName")}
-              width={44}
-              height={44}
-              className="h-11 w-11 shrink-0 rounded-2xl object-cover shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition duration-300 group-hover:scale-[1.03]"
-              priority
-            />
+            <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl bg-[#0b2447] shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition duration-300 group-hover:scale-[1.03]">
+              <Image
+                src={publicPath("/images/padopado-logo.png")}
+                alt={t("common.serviceName")}
+                width={44}
+                height={44}
+                className="h-full w-full scale-110 object-cover object-center"
+                priority
+              />
+            </span>
             <div className="min-w-0">
               <p className="font-display truncate text-[1.35rem] font-semibold leading-none tracking-[-0.04em] text-[var(--color-ink)] sm:text-[1.55rem]">
                 {t("common.serviceName")}
@@ -82,12 +80,7 @@ export function Header({
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
             <div className="hidden items-center gap-1.5 md:flex">
-              <IconButton label={t("common.notifications")}>
-                <Bell className="h-4 w-4" />
-              </IconButton>
-              <IconButton label={t("common.favorites")}>
-                <Heart className="h-4 w-4" />
-              </IconButton>
+              <HeaderQuickPanels />
             </div>
             <Link href="/activities" className={`hidden md:inline-flex ${navLinkClass}`}>
               {t("common.activities")}
@@ -178,13 +171,13 @@ export function Header({
                     onClick={() => onSelectSearchResult(result.id)}
                   >
                     <span className="text-sm font-semibold text-[var(--color-text-primary)]">
-                      {result.name}
+                      {localizePlaceText(result.name, locale)}
                     </span>
                     <span className="text-xs text-[var(--color-text-secondary)]">
                       {"address" in result && result.address
-                        ? result.address
+                        ? localizePlaceText(result.address, locale)
                         : "description" in result && result.description
-                          ? result.description
+                          ? localizePlaceText(result.description, locale)
                           : t("common.infoUnavailable")}
                     </span>
                   </button>
@@ -196,13 +189,11 @@ export function Header({
 
         {mobileMenuOpen ? (
           <div className="ui-rise flex flex-col gap-3 border-t border-[var(--color-border)] pt-3 lg:hidden">
-            <div className="flex flex-wrap gap-2">
-              <IconButton label={t("common.notifications")}>
-                <Bell className="h-4 w-4" />
-              </IconButton>
-              <IconButton label={t("common.favorites")}>
-                <Heart className="h-4 w-4" />
-              </IconButton>
+            <div className="flex flex-wrap items-center gap-2">
+              <HeaderQuickPanels />
+              <Link href="/my" className={navLinkClass}>
+                {t("auth.myPage")}
+              </Link>
               <Link href="/activities" className={navLinkClass}>
                 {t("common.activities")}
               </Link>

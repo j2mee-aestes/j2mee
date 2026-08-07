@@ -177,7 +177,8 @@
     "openDetail": "打开实时天气详情",
     "refresh": "刷新天气",
     "updatedAt": "天气更新 {time}",
-    "staleDetail": "信息可能不是最新。最后更新：{time}"
+    "staleDetail": "信息可能不是最新。最后更新：{time}",
+    "defaultLocation": "机张"
   },
   "safety": {
     "status": {
@@ -443,6 +444,8 @@
     "myPage": "我的页面",
     "myPageTitle": "我的页面",
     "myPageSubtitle": "查看并管理保存在账户中的数据。",
+    "guestMyPageSubtitle": "无需登录也可管理本地收藏、通知与语言。",
+    "guestProfileHint": "登录后可将行程、活动与收藏同步到账户。",
     "logout": "退出登录",
     "profile": "资料",
     "preferredLocale": "偏好语言",
@@ -692,5 +695,15 @@
     "period": "周期",
     "unavailable": "无法获取海浪信息。",
     "source": "气象厅海洋气象"
+  },
+  "notifications": {
+    "empty": "暂无新通知。",
+    "markAllRead": "全部已读",
+    "seedTideTitle": "今日潮汐与海浪提示",
+    "seedTideBody": "查看机张沿岸实时天气与浪高。",
+    "seedPloggingTitle": "净滩路线推荐",
+    "seedPloggingBody": "在地图上打开任浪、日光海岸净滩路线。",
+    "seedFavoriteTitle": "继续查看收藏",
+    "seedFavoriteBody": "可在我的页面或爱心面板打开已保存地点。"
   }
 }

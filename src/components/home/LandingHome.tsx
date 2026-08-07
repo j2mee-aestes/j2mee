@@ -28,7 +28,6 @@ import {
 } from "lucide-react";
 
 const NAV = [
-  { href: "/map", labelKey: "home.nav.map" as const, id: "map" },
   {
     href: "/contribute",
     labelKey: "home.nav.contribute" as const,
@@ -40,6 +39,7 @@ const NAV = [
     labelKey: "home.nav.tourism" as const,
     id: "tourism",
   },
+  { href: "/my", labelKey: "auth.myPage" as const, id: "my" },
   { href: "/login", labelKey: "home.nav.login" as const, id: "login" },
 ];
 
@@ -47,7 +47,7 @@ const SLIDE_DURATION_MS = 6400;
 
 const SLIDES = [
   { id: "brand", dark: true },
-  { id: "features", dark: false },
+  { id: "features", dark: true },
   { id: "services", dark: true },
   { id: "insights", dark: false },
   { id: "dataviz", dark: true },
@@ -68,59 +68,6 @@ const RIDGE_BACK = [
 const MONTHLY_BARS = [
   34, 47, 96, 63, 78, 55, 61, 69, 38, 83, 58, 72,
 ];
-
-function FeatureCard({
-  href,
-  icon,
-  title,
-  body,
-  image,
-  tone,
-  delay,
-}: {
-  href: string;
-  icon: ReactNode;
-  title: string;
-  body: string;
-  image: string;
-  tone: string;
-  delay: number;
-}) {
-  return (
-    <Link
-      href={href}
-      className="landing-slide-item group flex min-h-0 flex-col overflow-hidden rounded-[1.15rem] border border-[#e2ecf4] bg-white shadow-[0_14px_34px_-24px_rgba(11,36,71,0.45)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-24px_rgba(11,36,71,0.5)]"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div className="flex flex-1 flex-col p-3.5 sm:p-4">
-        <span className="grid h-9 w-9 place-items-center rounded-full border border-[#0b2447]/25 text-[#0b2447]">
-          {icon}
-        </span>
-        <p className="mt-2.5 text-[0.95rem] font-bold tracking-tight text-[#0b2447]">
-          {title}
-        </p>
-        <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-[#64798e]">
-          {body}
-        </p>
-      </div>
-      <div className="relative h-24 overflow-hidden sm:h-28" aria-hidden>
-        <Image
-          src={image}
-          alt=""
-          fill
-          sizes="280px"
-          className="object-cover transition duration-500 group-hover:scale-105"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(160deg, ${tone}30, transparent 45%, ${tone}22)`,
-          }}
-        />
-      </div>
-    </Link>
-  );
-}
 
 function GlassStat({
   icon,
@@ -270,14 +217,16 @@ export function LandingHome() {
         {/* ── Top chrome ─────────────────────────────────────── */}
         <header className="mb-3 flex items-center justify-between gap-3 sm:mb-4">
           <Link href="/" className="flex min-w-0 items-center gap-2.5">
-            <Image
-              src={publicPath("/images/padopado-logo.png")}
-              alt={t("common.serviceName")}
-              width={42}
-              height={42}
-              className="h-[42px] w-[42px] shrink-0 rounded-full object-cover shadow-[0_10px_24px_-12px_rgba(11,36,71,0.55)]"
-              priority
-            />
+            <span className="relative h-[42px] w-[42px] shrink-0 overflow-hidden rounded-full bg-[#0b2447] shadow-[0_10px_24px_-12px_rgba(11,36,71,0.55)]">
+              <Image
+                src={publicPath("/images/padopado-logo.png")}
+                alt={t("common.serviceName")}
+                width={42}
+                height={42}
+                className="h-full w-full scale-110 object-cover object-center"
+                priority
+              />
+            </span>
             <span className="font-brand text-[1.45rem] tracking-tight text-[#0b2447] sm:text-[1.7rem]">
               {t("common.serviceName")}
             </span>
@@ -316,7 +265,15 @@ export function LandingHome() {
               </div>
             ) : null}
 
-            {slideId === "features" || slideId === "insights" ? (
+            {slideId === "features" ? (
+              <div className="absolute inset-0" aria-hidden>
+                <div className="absolute inset-0 bg-[linear-gradient(155deg,#03102b_0%,#081d43_48%,#0b2a5c_100%)]" />
+                <div className="landing-dots absolute inset-0 text-sky-300/20" />
+                <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,transparent_30%,rgba(2,10,26,0.55)_100%)]" />
+              </div>
+            ) : null}
+
+            {slideId === "insights" ? (
               <div
                 className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#f6fafd_58%,#eef5fa_100%)]"
                 aria-hidden
@@ -398,57 +355,68 @@ export function LandingHome() {
                   </div>
                 ) : null}
 
-                {/* 2 ── Light feature cards */}
+                {/* 2 ── Explore (matches dark typographic slides) */}
                 {slideId === "features" ? (
-                  <div className="grid h-full items-center gap-7 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
-                    <div className="text-center lg:text-left">
-                      <h1 className="landing-slide-item font-brand text-[clamp(2.1rem,4.6vw,3.5rem)] leading-[1.22] text-[#0b2447]">
-                        {t("home.slides.features.title")}
-                      </h1>
-                      <p
-                        className="landing-slide-item mx-auto mt-4 max-w-md text-sm leading-[1.9] text-[#5b738a] lg:mx-0 sm:text-[0.95rem]"
-                        style={{ animationDelay: "110ms" }}
+                  <div className="relative flex h-full flex-col items-center justify-center text-center text-white">
+                    <p
+                      className="landing-slide-item font-brand text-[clamp(2.2rem,5vw,3.6rem)] leading-[1.2] drop-shadow-[0_10px_30px_rgba(0,10,30,0.6)]"
+                    >
+                      {t("home.slides.features.title")}
+                    </p>
+                    <p
+                      className="landing-slide-item mx-auto mt-5 max-w-xl text-sm leading-[1.9] text-white/78 sm:text-[0.98rem]"
+                      style={{ animationDelay: "110ms" }}
+                    >
+                      {t("home.slides.features.body")}
+                    </p>
+                    <ul
+                      className="landing-slide-item mt-8 flex flex-wrap items-center justify-center gap-2.5"
+                      style={{ animationDelay: "200ms" }}
+                    >
+                      {[
+                        {
+                          href: "/map?category=fishing",
+                          label: t("categories.fishing.shortLabel"),
+                          icon: <Fish className="h-3.5 w-3.5" />,
+                        },
+                        {
+                          href: "/map?category=market",
+                          label: t("categories.market.shortLabel"),
+                          icon: <ShoppingBasket className="h-3.5 w-3.5" />,
+                        },
+                        {
+                          href: "/map?category=trash",
+                          label: t("categories.trash.shortLabel"),
+                          icon: <Trash2 className="h-3.5 w-3.5" />,
+                        },
+                        {
+                          href: "/map?category=plogging",
+                          label: t("categories.plogging.shortLabel"),
+                          icon: <Footprints className="h-3.5 w-3.5" />,
+                        },
+                      ].map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="inline-flex items-center gap-1.5 rounded-full border border-white/35 bg-white/10 px-3.5 py-2 text-xs font-semibold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-sky-300/25 hover:border-sky-200/60"
+                          >
+                            {item.icon}
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <div
+                      className="landing-slide-item mt-7"
+                      style={{ animationDelay: "280ms" }}
+                    >
+                      <Link
+                        href="/map"
+                        className="inline-flex h-12 items-center gap-2 rounded-full bg-white px-5 text-sm font-bold text-[#0b2447] shadow-[0_16px_38px_-16px_rgba(0,0,0,0.55)] transition hover:-translate-y-0.5"
                       >
-                        {t("home.slides.features.body")}
-                      </p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                      <FeatureCard
-                        href="/map?category=fishing"
-                        icon={<Fish className="h-4 w-4" />}
-                        title={t("categories.fishing.shortLabel")}
-                        body={t("home.features.fishing.body")}
-                        image={publicPath("/images/ocean-horizon.jpg")}
-                        tone="#0e7490"
-                        delay={140}
-                      />
-                      <FeatureCard
-                        href="/map?category=market"
-                        icon={<ShoppingBasket className="h-4 w-4" />}
-                        title={t("categories.market.shortLabel")}
-                        body={t("home.features.market.body")}
-                        image={publicPath("/images/ocean-bg.jpg")}
-                        tone="#b45309"
-                        delay={210}
-                      />
-                      <FeatureCard
-                        href="/map?category=trash"
-                        icon={<Trash2 className="h-4 w-4" />}
-                        title={t("categories.trash.shortLabel")}
-                        body={t("home.features.bins.body")}
-                        image={publicPath("/images/ocean-sky.jpg")}
-                        tone="#166534"
-                        delay={280}
-                      />
-                      <FeatureCard
-                        href="/map?category=plogging"
-                        icon={<Footprints className="h-4 w-4" />}
-                        title={t("categories.plogging.shortLabel")}
-                        body={t("home.features.plogging.body")}
-                        image={publicPath("/images/ocean-horizon.jpg")}
-                        tone="#0f766e"
-                        delay={350}
-                      />
+                        <MapIcon className="h-4 w-4" aria-hidden />
+                        {t("home.cta.exploreMap")}
+                      </Link>
                     </div>
                   </div>
                 ) : null}
@@ -882,13 +850,13 @@ export function LandingHome() {
                     <Link
                       href={item.href}
                       onClick={() => setActiveNav(item.id)}
-                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-medium transition ${
+                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-medium transition duration-200 ${
                         active
-                          ? "border border-white/45 bg-white/[0.08] text-white"
-                          : "border border-transparent text-white/80 hover:bg-white/10"
+                          ? "border border-sky-300/55 bg-sky-400/20 text-sky-50"
+                          : "border border-transparent text-white/80 hover:border-sky-300/40 hover:bg-sky-400/25 hover:text-sky-50"
                       }`}
                     >
-                      {item.id === "login" ? (
+                      {item.id === "login" || item.id === "my" ? (
                         <UserRound className="h-3.5 w-3.5" aria-hidden />
                       ) : null}
                       {t(item.labelKey)}

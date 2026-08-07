@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 
 export function HeaderWeatherChip() {
   const { t } = useTranslations();
+  const locationLabel = t("weather.defaultLocation");
   const [summary, setSummary] = useState<WeatherData | null>(null);
   const [detail, setDetail] = useState<WeatherData | null>(null);
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export function HeaderWeatherChip() {
     try {
       const weather = await fetchLiveWeatherClient({
         coordinates: DEFAULT_HEADER_WEATHER_COORDS,
-        locationName: DEFAULT_HEADER_WEATHER_NAME,
+        locationName: locationLabel || DEFAULT_HEADER_WEATHER_NAME,
         detail: false,
         signal,
       });
@@ -36,7 +37,7 @@ export function HeaderWeatherChip() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [locationLabel]);
 
   const loadDetail = useCallback(async (refresh = false) => {
     setDetailLoading(true);
@@ -44,7 +45,7 @@ export function HeaderWeatherChip() {
     try {
       const weather = await fetchLiveWeatherClient({
         coordinates: DEFAULT_HEADER_WEATHER_COORDS,
-        locationName: DEFAULT_HEADER_WEATHER_NAME,
+        locationName: locationLabel || DEFAULT_HEADER_WEATHER_NAME,
         detail: true,
         refresh,
       });
@@ -55,7 +56,7 @@ export function HeaderWeatherChip() {
     } finally {
       setDetailLoading(false);
     }
-  }, []);
+  }, [locationLabel]);
 
   useEffect(() => {
     const controller = new AbortController();

@@ -29,7 +29,7 @@ export function CategoryButton({
       className={`flex w-full items-start gap-3 rounded-2xl border px-3.5 py-3.5 text-left transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] ${
         selected
           ? "border-transparent text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.45)]"
-          : "border-[var(--color-border)] bg-white/75 text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]/60"
+          : "border-[var(--color-border)] bg-white/75 text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:border-sky-300 hover:bg-sky-100 hover:text-sky-950"
       } ${className}`}
       style={selected ? { backgroundColor: color } : undefined}
     >

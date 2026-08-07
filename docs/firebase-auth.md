@@ -25,10 +25,13 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project
 NEXT_PUBLIC_FIREBASE_APP_ID=1:...:web:...
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com   # optional
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...                  # optional
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-...                     # optional (Analytics)
 ```
 
 키가 모두 있으면 `/login`에 **Google / 이메일·회원가입** UI가 나타납니다.
 없으면 기존 Auth.js(로컬) 또는 게스트 안내로 동작합니다.
+
+> GitHub Pages 정적 번들에는 빌드 시점의 `NEXT_PUBLIC_FIREBASE_*` 값이 포함됩니다.
 
 ## 3. 현재 동작 범위
 

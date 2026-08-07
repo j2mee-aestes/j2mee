@@ -12,6 +12,7 @@ export type FirebaseClientConfig = {
   storageBucket?: string;
   messagingSenderId?: string;
   appId: string;
+  measurementId?: string;
 };
 
 export function getFirebaseClientConfig(): FirebaseClientConfig | null {
@@ -32,6 +33,7 @@ export function getFirebaseClientConfig(): FirebaseClientConfig | null {
     messagingSenderId:
       process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID?.trim(),
     appId,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID?.trim(),
   };
 }
 

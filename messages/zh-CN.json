@@ -562,7 +562,34 @@
         "chart": "月度上报与参与趋势",
         "regions": "地区活动",
         "timeline": "主要活动时间线",
-        "cta": "查看数据洞察"
+        "cta": "查看数据洞察",
+        "legendReports": "上报数",
+        "legendParticipants": "参与人数",
+        "statFishingLabel": "已登记钓点",
+        "statFishingSub": "全国主要钓点",
+        "statMarketSub": "全国市场信息",
+        "statBinsLabel": "回收箱·钓线箱",
+        "statBinsSub": "沿海回收设施",
+        "statReportsLabel": "用户上报",
+        "statReportsSub": "市民共同上报",
+        "timeline1": "釜山海云台设置钓线回收箱",
+        "timeline2": "丽水突山大桥附近清洁活动",
+        "timeline3": "永宗岛海岸垃圾上报激增",
+        "timeline4": "浦项九龙浦市场信息更新"
+      },
+      "dataviz": {
+        "title": "海洋数据一目了然",
+        "body": "直观探索钓点、潮汐、回收箱与观光信息",
+        "cta": "查看数据洞察",
+        "updated": "最近更新",
+        "tideChip": "10:20 满潮 356cm",
+        "live": "实时",
+        "labelFishing": "钓点",
+        "labelTide": "潮汐信息",
+        "labelBins": "回收现况",
+        "labelTour": "观光名所",
+        "chipFishing": "垂钓指数 · 最佳",
+        "chipTour": "游客量上升"
       }
     }
   },

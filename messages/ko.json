@@ -562,7 +562,34 @@
         "chart": "월별 제보 및 참여 추이",
         "regions": "지역별 제보 활동",
         "timeline": "주요 활동 타임라인",
-        "cta": "데이터 인사이트 보기"
+        "cta": "데이터 인사이트 보기",
+        "legendReports": "제보 건수",
+        "legendParticipants": "참여자 수",
+        "statFishingLabel": "등록 낚시 포인트",
+        "statFishingSub": "전국 주요 낚시 포인트",
+        "statMarketSub": "전국 수산시장 정보",
+        "statBinsLabel": "수거함·폐낚싯줄함",
+        "statBinsSub": "해안가 수거 인프라",
+        "statReportsLabel": "사용자 제보",
+        "statReportsSub": "시민이 함께한 제보",
+        "timeline1": "부산 해운대구 폐낚싯줄 수거함 설치",
+        "timeline2": "여수 돌산대교 인근 정화 활동",
+        "timeline3": "인천 영종도 해안 쓰레기 제보 급증",
+        "timeline4": "포항 구룡포 수산시장 정보 업데이트"
+      },
+      "dataviz": {
+        "title": "바다 데이터 한눈에",
+        "body": "낚시 포인트·조석·수거함·관광 정보를 직관적으로 탐색",
+        "cta": "데이터 인사이트 보기",
+        "updated": "최근 업데이트",
+        "tideChip": "10:20 만조 356cm",
+        "live": "실시간",
+        "labelFishing": "낚시 포인트",
+        "labelTide": "조석 정보",
+        "labelBins": "수거함 현황",
+        "labelTour": "관광 명소",
+        "chipFishing": "낚시 지수 · 최고",
+        "chipTour": "관광 객수 증가"
       }
     }
   },

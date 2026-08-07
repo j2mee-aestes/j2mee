@@ -562,7 +562,34 @@
         "chart": "Monthly reports & participation",
         "regions": "Activity by region",
         "timeline": "Key activity timeline",
-        "cta": "View data insights"
+        "cta": "View data insights",
+        "legendReports": "Reports",
+        "legendParticipants": "Participants",
+        "statFishingLabel": "Registered fishing points",
+        "statFishingSub": "Major points nationwide",
+        "statMarketSub": "Nationwide market info",
+        "statBinsLabel": "Bins & line collectors",
+        "statBinsSub": "Coastal collection infra",
+        "statReportsLabel": "User reports",
+        "statReportsSub": "Reports by citizens",
+        "timeline1": "New line collector in Haeundae, Busan",
+        "timeline2": "Cleanup near Dolsan Bridge, Yeosu",
+        "timeline3": "Coastal waste reports surge in Yeongjongdo",
+        "timeline4": "Guryongpo market info updated, Pohang"
+      },
+      "dataviz": {
+        "title": "Sea data at a glance",
+        "body": "Explore fishing points, tide, bins, and tourism intuitively",
+        "cta": "View data insights",
+        "updated": "Last updated",
+        "tideChip": "10:20 high tide 356cm",
+        "live": "Live",
+        "labelFishing": "Fishing points",
+        "labelTide": "Tide info",
+        "labelBins": "Bin status",
+        "labelTour": "Attractions",
+        "chipFishing": "Fishing index · Best",
+        "chipTour": "Visitors rising"
       }
     }
   },

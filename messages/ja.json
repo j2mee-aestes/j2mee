@@ -562,7 +562,34 @@
         "chart": "月別投稿・参加推移",
         "regions": "地域別活動",
         "timeline": "主な活動タイムライン",
-        "cta": "データインサイトを見る"
+        "cta": "データインサイトを見る",
+        "legendReports": "投稿数",
+        "legendParticipants": "参加者数",
+        "statFishingLabel": "登録釣りポイント",
+        "statFishingSub": "全国の主要ポイント",
+        "statMarketSub": "全国の市場情報",
+        "statBinsLabel": "回収ボックス",
+        "statBinsSub": "沿岸回収インフラ",
+        "statReportsLabel": "ユーザー投稿",
+        "statReportsSub": "市民による投稿",
+        "timeline1": "釜山海雲台に釣り糸回収箱を設置",
+        "timeline2": "麗水・突山大橋付近の清掃活動",
+        "timeline3": "永宗島で海岸ごみ報告が急増",
+        "timeline4": "浦項・九龍浦市場情報を更新"
+      },
+      "dataviz": {
+        "title": "海のデータをひと目で",
+        "body": "釣り・潮汐・回収・観光情報を直感的に探索",
+        "cta": "データインサイトを見る",
+        "updated": "最終更新",
+        "tideChip": "10:20 満潮 356cm",
+        "live": "リアルタイム",
+        "labelFishing": "釣りポイント",
+        "labelTide": "潮汐情報",
+        "labelBins": "回収状況",
+        "labelTour": "観光名所",
+        "chipFishing": "釣り指数 · 最高",
+        "chipTour": "観光客数 増加"
       }
     }
   },

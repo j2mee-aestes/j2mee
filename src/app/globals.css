@@ -167,6 +167,33 @@ body {
   animation: landing-sky-drift-alt 40s ease-in-out infinite;
 }
 
+/* Subtle dot grid used on dark data slides */
+.landing-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Dotted vertical column — builds the pointillist ridge chart */
+.landing-dotcol {
+  background-image: radial-gradient(circle, currentColor 1.3px, transparent 1.9px);
+  background-size: 7px 7px;
+  background-position: 0 100%;
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--tilt, 0deg));
+  }
+}
+
+.landing-float {
+  animation: landing-float 6.5s ease-in-out infinite;
+}
+
 button,
 input {
   font: inherit;

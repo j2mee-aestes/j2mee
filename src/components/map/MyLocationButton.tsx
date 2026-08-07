@@ -24,7 +24,7 @@ export function MyLocationButton({
       title={
         locating ? t("map.locating") : t("map.currentLocation")
       }
-      className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/80 bg-white text-[var(--color-accent-strong)] shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-soft)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)] disabled:cursor-wait disabled:opacity-80 sm:h-11 sm:w-11"
+      className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-sky-200/40 bg-gradient-to-br from-sky-400 to-blue-700 text-white shadow-[0_14px_32px_-12px_rgba(3,18,40,0.7)] transition hover:-translate-y-0.5 hover:from-sky-300 hover:to-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 disabled:cursor-wait disabled:opacity-80 sm:h-11 sm:w-11"
     >
       {locating ? (
         <LoaderCircle className="h-5 w-5 animate-spin" aria-hidden />

@@ -163,7 +163,7 @@ export function MapSection({
   return (
     <section
       aria-label={t("common.map")}
-      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-float)] ring-1 ring-white/60 sm:min-h-[440px] lg:min-h-0"
+      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border border-sky-200/25 bg-[#071f3d] shadow-[0_24px_60px_-28px_rgba(3,18,40,0.65)] ring-1 ring-sky-300/20 sm:min-h-[440px] lg:min-h-0"
     >
       <div className="pointer-events-none absolute inset-x-3 top-3 z-30 hidden justify-center sm:inset-x-4 sm:justify-start lg:flex">
         <div className="pointer-events-auto max-w-full">
@@ -220,7 +220,7 @@ export function MapSection({
             />
             {visibleLocations.length === 0 && selectedCategory !== "plogging" ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-6">
-                <p className="rounded-2xl border border-[var(--color-border)] bg-white/90 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-soft)] backdrop-blur-md">
+                <p className="rounded-2xl border border-sky-200/30 bg-[rgba(8,28,58,0.88)] px-4 py-3 text-sm font-medium text-sky-50 shadow-[0_12px_28px_-14px_rgba(3,18,40,0.75)] backdrop-blur-md">
                   {t("map.noPlaces")}
                 </p>
               </div>

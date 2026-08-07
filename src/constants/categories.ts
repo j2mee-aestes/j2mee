@@ -11,14 +11,14 @@ export interface CategoryConfig {
 }
 
 export const CATEGORY_COLORS: Record<MapCategory, string> = {
-  fishing: "#0284c7",
-  market: "#ea580c",
-  restaurant: "#ea580c",
-  trash: "#16a34a",
-  plogging: "#0d9488",
-  attraction: "#ca8a04",
-  leisure: "#0f766e",
-  event: "#db2777",
+  fishing: "#0ea5e9",
+  market: "#f59e0b",
+  restaurant: "#fb923c",
+  trash: "#34d399",
+  plogging: "#2dd4bf",
+  attraction: "#fbbf24",
+  leisure: "#38bdf8",
+  event: "#a78bfa",
 };
 
 export const CATEGORIES: CategoryConfig[] = [

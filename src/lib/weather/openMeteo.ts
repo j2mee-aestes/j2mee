@@ -9,7 +9,18 @@ export interface OpenMeteoCurrent {
   weather_code: number;
   wind_speed_10m: number;
   wind_direction_10m: number;
+  wind_gusts_10m?: number;
+  cloud_cover?: number;
+  surface_pressure?: number;
   is_day: 0 | 1;
+}
+
+export interface OpenMeteoHourly {
+  time: string[];
+  temperature_2m: number[];
+  precipitation_probability?: number[];
+  weather_code?: number[];
+  wind_speed_10m?: number[];
 }
 
 export interface OpenMeteoForecastResponse {
@@ -17,11 +28,21 @@ export interface OpenMeteoForecastResponse {
   longitude: number;
   timezone?: string;
   current: OpenMeteoCurrent;
+  hourly?: OpenMeteoHourly;
 }
 
 export interface WeatherCondition {
   label: string;
   icon: string;
+}
+
+export interface HourlyWeatherItem {
+  time: string;
+  temperatureC: number;
+  precipitationProbability?: number;
+  condition?: string;
+  conditionIcon?: string;
+  windSpeedMs?: number;
 }
 
 export interface CurrentWeather {
@@ -35,10 +56,14 @@ export interface CurrentWeather {
   windSpeedMs: number;
   windDirectionDeg: number;
   windDirection: string;
+  windGustMs?: number;
+  cloudCoverPercent?: number;
+  pressureHpa?: number;
   isDay: boolean;
   time: string;
   fetchedAt: string;
   sourceName: string;
+  hourly?: HourlyWeatherItem[];
 }
 
 const OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast";
@@ -109,13 +134,66 @@ function assertValidCoordinates(latitude: number, longitude: number): void {
   }
 }
 
+function mapCurrent(current: OpenMeteoCurrent): CurrentWeather {
+  const isDay = current.is_day === 1;
+  const condition = getWeatherCondition(current.weather_code, isDay);
+  return {
+    temperatureC: current.temperature_2m,
+    feelsLikeC: current.apparent_temperature,
+    humidityPercent: current.relative_humidity_2m,
+    precipitationMm: current.precipitation,
+    weatherCode: current.weather_code,
+    condition: condition.label,
+    conditionIcon: condition.icon,
+    windSpeedMs: current.wind_speed_10m,
+    windDirectionDeg: current.wind_direction_10m,
+    windDirection: getWindDirection(current.wind_direction_10m),
+    windGustMs: current.wind_gusts_10m,
+    cloudCoverPercent: current.cloud_cover,
+    pressureHpa: current.surface_pressure,
+    isDay,
+    time: current.time,
+    fetchedAt: new Date().toISOString(),
+    sourceName: "Open-Meteo",
+  };
+}
+
+function mapHourly(
+  hourly: OpenMeteoHourly | undefined,
+  isDay: boolean,
+  limit = 6,
+): HourlyWeatherItem[] {
+  if (!hourly?.time?.length) return [];
+  const now = Date.now();
+  const items: HourlyWeatherItem[] = [];
+  for (let i = 0; i < hourly.time.length; i += 1) {
+    const time = hourly.time[i];
+    const ts = new Date(time).getTime();
+    if (Number.isNaN(ts) || ts < now - 30 * 60 * 1000) continue;
+    const code = hourly.weather_code?.[i];
+    const condition =
+      code === undefined ? undefined : getWeatherCondition(code, isDay);
+    items.push({
+      time,
+      temperatureC: hourly.temperature_2m[i],
+      precipitationProbability: hourly.precipitation_probability?.[i],
+      condition: condition?.label,
+      conditionIcon: condition?.icon,
+      windSpeedMs: hourly.wind_speed_10m?.[i],
+    });
+    if (items.length >= limit) break;
+  }
+  return items;
+}
+
 export async function getCurrentWeather(
   latitude: number,
   longitude: number,
-  init?: RequestInit,
+  init?: RequestInit & { detail?: boolean },
 ): Promise<CurrentWeather> {
   assertValidCoordinates(latitude, longitude);
 
+  const detail = Boolean(init?.detail);
   const url = new URL(OPEN_METEO_URL);
   url.searchParams.set("latitude", String(latitude));
   url.searchParams.set("longitude", String(longitude));
@@ -129,17 +207,28 @@ export async function getCurrentWeather(
       "weather_code",
       "wind_speed_10m",
       "wind_direction_10m",
+      "wind_gusts_10m",
+      "cloud_cover",
+      "surface_pressure",
       "is_day",
     ].join(","),
   );
+  if (detail) {
+    url.searchParams.set(
+      "hourly",
+      "temperature_2m,precipitation_probability,weather_code,wind_speed_10m",
+    );
+    url.searchParams.set("forecast_hours", "12");
+  }
   url.searchParams.set("wind_speed_unit", "ms");
   url.searchParams.set("timezone", "auto");
 
+  const { detail: _detail, ...fetchInit } = init ?? {};
   const response = await fetch(url.toString(), {
-    ...init,
+    ...fetchInit,
     headers: {
       Accept: "application/json",
-      ...(init?.headers ?? {}),
+      ...(fetchInit.headers ?? {}),
     },
   });
 
@@ -148,30 +237,15 @@ export async function getCurrentWeather(
   }
 
   const payload = (await response.json()) as OpenMeteoForecastResponse;
-  const current = payload.current;
-  if (!current) {
+  if (!payload.current) {
     throw new Error("WEATHER_FETCH_FAILED");
   }
 
-  const isDay = current.is_day === 1;
-  const condition = getWeatherCondition(current.weather_code, isDay);
-
-  return {
-    temperatureC: current.temperature_2m,
-    feelsLikeC: current.apparent_temperature,
-    humidityPercent: current.relative_humidity_2m,
-    precipitationMm: current.precipitation,
-    weatherCode: current.weather_code,
-    condition: condition.label,
-    conditionIcon: condition.icon,
-    windSpeedMs: current.wind_speed_10m,
-    windDirectionDeg: current.wind_direction_10m,
-    windDirection: getWindDirection(current.wind_direction_10m),
-    isDay,
-    time: current.time,
-    fetchedAt: new Date().toISOString(),
-    sourceName: "Open-Meteo",
-  };
+  const mapped = mapCurrent(payload.current);
+  if (detail) {
+    mapped.hourly = mapHourly(payload.hourly, mapped.isDay);
+  }
+  return mapped;
 }
 
 export function toCoordinatesKey(coordinates: Coordinates): string {

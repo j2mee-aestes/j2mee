@@ -22,17 +22,26 @@ function toWeatherData(
     precipitationMm: current.precipitationMm,
     windSpeedMs: current.windSpeedMs,
     windDirection: current.windDirection,
+    windGustMs: current.windGustMs,
+    cloudCoverPercent: current.cloudCoverPercent,
+    pressureHpa: current.pressureHpa,
     isDay: current.isDay,
+    hourly: current.hourly,
     fetchedAt: current.fetchedAt,
     sourceName: current.sourceName,
   };
 }
 
 export const openMeteoWeatherProvider: WeatherProvider = {
-  async getWeather(coordinates: Coordinates): Promise<WeatherData> {
+  async getWeather(
+    coordinates: Coordinates,
+    _date?: string,
+    options?: { detail?: boolean },
+  ): Promise<WeatherData> {
     const current = await getCurrentWeather(
       coordinates.latitude,
       coordinates.longitude,
+      { detail: options?.detail },
     );
     return toWeatherData(current);
   },

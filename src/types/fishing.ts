@@ -96,7 +96,17 @@ export interface WeatherData {
   windGustMs?: number;
   waveHeightM?: number;
   visibilityKm?: number;
+  cloudCoverPercent?: number;
+  pressureHpa?: number;
   isDay?: boolean;
+  hourly?: Array<{
+    time: string;
+    temperatureC: number;
+    precipitationProbability?: number;
+    condition?: string;
+    conditionIcon?: string;
+    windSpeedMs?: number;
+  }>;
   warnings?: WeatherWarning[];
   fetchedAt: string;
   sourceName: string;

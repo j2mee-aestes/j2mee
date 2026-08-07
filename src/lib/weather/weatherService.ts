@@ -13,8 +13,12 @@ function getWeatherProvider(): WeatherProvider {
   return openMeteoWeatherProvider;
 }
 
-function cacheKey(coordinates: Coordinates, date?: string): string {
-  return `${toCoordinatesKey(coordinates)}:${date ?? "now"}`;
+function cacheKey(
+  coordinates: Coordinates,
+  date?: string,
+  detail = false,
+): string {
+  return `${toCoordinatesKey(coordinates)}:${date ?? "now"}:${detail ? "detail" : "basic"}`;
 }
 
 export async function getCurrentWeather(
@@ -24,24 +28,42 @@ export async function getCurrentWeather(
   return getWeather({ latitude, longitude });
 }
 
+export function invalidateWeatherCache(coordinates?: Coordinates): void {
+  if (!coordinates) {
+    cache.clear();
+    return;
+  }
+  const prefix = toCoordinatesKey(coordinates);
+  for (const key of cache.keys()) {
+    if (key.startsWith(prefix)) {
+      cache.delete(key);
+    }
+  }
+}
+
 export async function getWeather(
   coordinates: Coordinates,
   date?: string,
+  options?: { detail?: boolean; bypassCache?: boolean },
 ): Promise<WeatherData> {
-  const key = cacheKey(coordinates, date);
-  const cached = cache.get(key);
-  if (cached && cached.expiresAt > Date.now()) {
-    return cached.data;
+  const detail = Boolean(options?.detail);
+  const key = cacheKey(coordinates, date, detail);
+
+  if (!options?.bypassCache) {
+    const cached = cache.get(key);
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.data;
+    }
   }
 
   const pending = inFlight.get(key);
-  if (pending) {
+  if (pending && !options?.bypassCache) {
     return pending;
   }
 
   const request = (async () => {
     const provider = getWeatherProvider();
-    const raw = await provider.getWeather(coordinates, date);
+    const raw = await provider.getWeather(coordinates, date, { detail });
     const normalized = normalizeWeatherData(raw);
     cache.set(key, {
       data: normalized,

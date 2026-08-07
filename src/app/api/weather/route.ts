@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { getFishingSpotById } from "@/lib/fishing/fishingSpotRepository";
-import { getWeather } from "@/lib/weather/weatherService";
+import {
+  getWeather,
+  invalidateWeatherCache,
+} from "@/lib/weather/weatherService";
 
 export async function GET(request: Request) {
   try {
@@ -9,6 +12,8 @@ export async function GET(request: Request) {
     const lat = searchParams.get("lat");
     const lng = searchParams.get("lng");
     const date = searchParams.get("date") ?? undefined;
+    const detail = searchParams.get("detail") === "1";
+    const refresh = searchParams.get("refresh") === "1";
 
     let latitude: number | undefined;
     let longitude: number | undefined;
@@ -42,7 +47,15 @@ export async function GET(request: Request) {
       );
     }
 
-    const weather = await getWeather({ latitude, longitude }, date);
+    const coordinates = { latitude, longitude };
+    if (refresh) {
+      invalidateWeatherCache(coordinates);
+    }
+
+    const weather = await getWeather(coordinates, date, {
+      detail,
+      bypassCache: refresh,
+    });
     if (locationName) {
       weather.locationName = locationName;
     }

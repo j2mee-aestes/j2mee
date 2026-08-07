@@ -18,6 +18,7 @@ import { NearbyPartnerSection } from "@/components/partners/NearbyPartnerSection
 import { PartnerDetailPanel } from "@/components/partners/PartnerDetailPanel";
 import { WaveCard } from "@/components/weather/WaveCard";
 import { WeatherCard } from "@/components/weather/WeatherCard";
+import { WeatherDetailDialog } from "@/components/weather/WeatherDetailDialog";
 import { SAFETY_THRESHOLDS } from "@/constants/safetyThresholds";
 import { useTranslations } from "@/context/LocaleContext";
 import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSpots";
@@ -43,6 +44,7 @@ import {
 } from "@/lib/favorites/localFavorites";
 import { calculateDistanceKm } from "@/lib/geo/calculateDistance";
 import { partnerTypeToMapCategory } from "@/lib/map/partnerMapLocation";
+import type { WeatherData } from "@/types/fishing";
 import type { CategoryFilter, Coordinates } from "@/types/map";
 import type { PloggingRoute, PloggingSession } from "@/types/environment";
 import { useSession } from "next-auth/react";
@@ -241,6 +243,45 @@ export function MapAppShell() {
     selectedFishing?.coordinates ?? null,
   );
   const waveState = useWaveData(fishingSpotId);
+  const [weatherDetailOpen, setWeatherDetailOpen] = useState(false);
+  const [weatherDetail, setWeatherDetail] = useState<WeatherData | null>(null);
+  const [weatherDetailLoading, setWeatherDetailLoading] = useState(false);
+  const [weatherDetailError, setWeatherDetailError] = useState<string | null>(
+    null,
+  );
+
+  const loadWeatherDetail = useCallback(
+    async (refresh = false) => {
+      if (!fishingSpotId) return;
+      setWeatherDetailLoading(true);
+      setWeatherDetailError(null);
+      try {
+        const params = new URLSearchParams({
+          spotId: fishingSpotId,
+          detail: "1",
+        });
+        if (selectedDate) params.set("date", selectedDate);
+        if (refresh) params.set("refresh", "1");
+        const response = await fetch(`/api/weather?${params.toString()}`);
+        if (!response.ok) {
+          throw new Error("WEATHER_FETCH_FAILED");
+        }
+        const payload = (await response.json()) as WeatherData;
+        setWeatherDetail(payload);
+      } catch {
+        setWeatherDetailError("WEATHER_FETCH_FAILED");
+      } finally {
+        setWeatherDetailLoading(false);
+      }
+    },
+    [fishingSpotId, selectedDate],
+  );
+
+  const openWeatherDetail = useCallback(() => {
+    setWeatherDetail(weatherState.data);
+    setWeatherDetailOpen(true);
+    void loadWeatherDetail(false);
+  }, [loadWeatherDetail, weatherState.data]);
 
   const syncUrl = useCallback(
     (spotId: string | null, date: string) => {
@@ -733,6 +774,7 @@ export function MapAppShell() {
                   loading={weatherState.loading}
                   error={weatherState.error}
                   onRetry={weatherState.reload}
+                  onOpenDetail={openWeatherDetail}
                 />
                 <WaveCard
                   wave={waveState.data}
@@ -745,6 +787,17 @@ export function MapAppShell() {
           </aside>
         </main>
       </div>
+
+      <WeatherDetailDialog
+        open={weatherDetailOpen}
+        weather={weatherDetail}
+        loading={weatherDetailLoading}
+        error={weatherDetailError}
+        onClose={() => setWeatherDetailOpen(false)}
+        onRefresh={() => {
+          void loadWeatherDetail(true);
+        }}
+      />
 
       {ploggingPreview ? (
         <PloggingCoursePopup

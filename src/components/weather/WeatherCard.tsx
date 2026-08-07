@@ -5,12 +5,14 @@ import { TextButton } from "@/components/common/IconButton";
 import { SkeletonCard } from "@/components/common/SkeletonCard";
 import { useTranslations } from "@/context/LocaleContext";
 import type { WeatherData } from "@/types/fishing";
+import { ChevronRight } from "lucide-react";
 
 interface WeatherCardProps {
   weather: WeatherData | null;
   loading: boolean;
   error: string | null;
   onRetry: () => void;
+  onOpenDetail?: () => void;
 }
 
 function formatClock(isoOrLocal: string | undefined): string {
@@ -32,6 +34,7 @@ export function WeatherCard({
   loading,
   error,
   onRetry,
+  onOpenDetail,
 }: WeatherCardProps) {
   const { t } = useTranslations();
 
@@ -102,8 +105,8 @@ export function WeatherCard({
       ? `${weather.windDirection}풍 ${Number(weather.windSpeedMs).toFixed(1)} ${t("units.metersPerSecond")}`
       : displayValue(weather.windDirection);
 
-  return (
-    <Card className="p-4">
+  const body = (
+    <>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-base font-semibold text-[var(--color-text-primary)]">
@@ -114,9 +117,17 @@ export function WeatherCard({
             {displayValue(weather.temperatureC, t("units.celsius"))}
           </p>
         </div>
-        <p className="text-[11px] text-[var(--color-text-muted)]">
-          {weather.locationName ?? t("common.selectedPoint")}
-        </p>
+        <div className="flex flex-col items-end gap-1">
+          <p className="text-[11px] text-[var(--color-text-muted)]">
+            {weather.locationName ?? t("common.selectedPoint")}
+          </p>
+          {onOpenDetail ? (
+            <span className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-[var(--color-accent-strong)]">
+              {t("weather.detailHint")}
+              <ChevronRight className="h-3.5 w-3.5" aria-hidden />
+            </span>
+          ) : null}
+        </div>
       </div>
 
       <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
@@ -140,8 +151,23 @@ export function WeatherCard({
           time: formatClock(weather.forecastTime || weather.fetchedAt),
         })}
       </p>
-    </Card>
+    </>
   );
+
+  if (onOpenDetail) {
+    return (
+      <button
+        type="button"
+        onClick={onOpenDetail}
+        aria-label={t("weather.openDetail")}
+        className="w-full rounded-[var(--radius-xl)] text-left transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
+      >
+        <Card className="p-4">{body}</Card>
+      </button>
+    );
+  }
+
+  return <Card className="p-4">{body}</Card>;
 }
 
 function InfoItem({ label, value }: { label: string; value: string }) {

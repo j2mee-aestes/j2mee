@@ -59,8 +59,8 @@ export function PloggingRouteLayer({
         map,
         path,
         strokeWeight: selected ? 7 : emphasized ? 6 : 4,
-        strokeColor: selected ? "#67e8f9" : CATEGORY_COLORS.plogging,
-        strokeOpacity: selected ? 1 : emphasized ? 0.92 : 0.5,
+        strokeColor: selected ? "#0f766e" : CATEGORY_COLORS.plogging,
+        strokeOpacity: selected ? 1 : emphasized ? 0.9 : 0.45,
         strokeStyle: selected || emphasized ? "solid" : "shortdash",
         zIndex: selected ? 6 : emphasized ? 4 : 2,
       });
@@ -104,15 +104,14 @@ export function PloggingRouteLayer({
         badge.type = "button";
         badge.setAttribute("aria-label", `${route.name} 코스 선택`);
         badge.style.cssText = `
-          padding: 4px 10px;
+          padding: 4px 8px;
           border-radius: 9999px;
-          border: 1px solid rgba(125, 211, 252, 0.45);
-          background: rgba(8, 28, 58, 0.88);
-          color: #e0f2fe;
+          border: 1px solid #e2e8f0;
+          background: rgba(255,255,255,0.95);
+          color: #0f172a;
           font-size: 11px;
           font-weight: 700;
-          box-shadow: 0 10px 22px rgba(3, 18, 40, 0.35);
-          backdrop-filter: blur(10px);
+          box-shadow: 0 2px 8px rgba(15,23,42,0.12);
           white-space: nowrap;
           cursor: pointer;
         `;
@@ -153,15 +152,13 @@ function createEndpointBadge(label: string, selected: boolean): HTMLElement {
   const badge = document.createElement("div");
   badge.textContent = label;
   badge.style.cssText = `
-    padding: 2px 8px;
-    border-radius: 9999px;
-    border: 1px solid ${selected ? "rgba(103,232,249,0.7)" : "rgba(125,211,252,0.4)"};
-    background: ${selected ? "rgba(8,145,178,0.95)" : "rgba(8,28,58,0.88)"};
-    color: ${selected ? "#ecfeff" : "#bae6fd"};
+    padding: 2px 6px;
+    border-radius: 6px;
+    border: 1px solid ${selected ? "#0f766e" : "#99f6e4"};
+    background: ${selected ? "#0f766e" : "#fff"};
+    color: ${selected ? "#fff" : "#0f766e"};
     font-size: 10px;
     font-weight: 700;
-    box-shadow: 0 8px 18px rgba(3,18,40,0.35);
-    backdrop-filter: blur(8px);
   `;
   return badge;
 }

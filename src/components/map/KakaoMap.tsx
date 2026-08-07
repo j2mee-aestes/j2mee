@@ -93,13 +93,6 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
         level: DEFAULT_ZOOM_LEVEL,
       });
 
-      // Keep only the geometry/road network — we restyle tiles via CSS into an ocean skin.
-      try {
-        map.setMapTypeId(window.kakao.maps.MapTypeId.ROADMAP);
-      } catch {
-        // older SDK stubs may not expose MapTypeId
-      }
-
       // Containers often need an extra relayout after first paint / flex layout
       const relayoutSoon = () => {
         if (!cancelled) {
@@ -263,15 +256,8 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
     }, [mapInstance, selectedRouteId, routes]);
 
     return (
-      <div className="padopado-ocean-map relative h-full min-h-[360px] w-full overflow-hidden sm:min-h-[440px]">
-        {/*
-          Kakao supplies roads/coast geometry; we restyle its tile <img>s into an
-          ocean skin via CSS so custom overlays/markers stay crisp on top.
-        */}
-        <div
-          ref={containerRef}
-          className="padopado-ocean-map__engine absolute inset-0 h-full w-full"
-        />
+      <div className="relative h-full min-h-[360px] w-full sm:min-h-[440px]">
+        <div ref={containerRef} className="absolute inset-0 h-full w-full" />
         <MapMarkerLayer
           map={mapInstance}
           locations={locations}

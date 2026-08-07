@@ -1,9 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { createRequire } from "node:module";
 
-// mapFirebaseAuthError is TS — exercise via compiled path isn't available.
-// Keep a tiny pure duplicate of the code-map for regression in CI without tsx.
+// Keep a tiny pure map for CI without loading the Firebase SDK.
 function mapFirebaseAuthError(codeOrMessage) {
   const normalized = codeOrMessage.includes("/")
     ? (codeOrMessage.match(/auth\/[a-z0-9-]+/i)?.[0] ?? codeOrMessage)

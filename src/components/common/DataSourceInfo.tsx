@@ -1,7 +1,13 @@
+"use client";
+
+import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
+
 interface DataSourceInfoProps {
   sourceName?: string;
   lastVerifiedAt?: string;
   sourceUrl?: string;
+  /** Unverified entries show a stronger field-check reminder. */
   isMock?: boolean;
   className?: string;
 }
@@ -13,31 +19,42 @@ export function DataSourceInfo({
   isMock = true,
   className = "",
 }: DataSourceInfoProps) {
+  const { t, locale } = useTranslations();
+  const localizedSource = sourceName
+    ? localizePlaceText(sourceName, locale)
+    : null;
+
   return (
     <div
-      className={`rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 text-xs text-[var(--color-text-secondary)] ${className}`}
+      className={`rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/80 p-3 text-xs text-[var(--color-text-secondary)] ${className}`}
     >
-      <p className="font-semibold text-[var(--color-text-primary)]">데이터 출처</p>
-      <p className="mt-1">{sourceName ?? "미상"}</p>
-      {isMock ? (
-        <p className="mt-1 font-medium text-amber-800">
-          현재는 UI 검증용 mock 데이터입니다.
-        </p>
-      ) : (
-        <p className="mt-1">검증된 점포 정보입니다.</p>
-      )}
-      {lastVerifiedAt ? (
-        <p className="mt-0.5">마지막 확인일: {lastVerifiedAt}</p>
-      ) : null}
+      <p className="font-semibold text-[var(--color-text-primary)]">
+        {t("common.dataSource")}
+      </p>
       {sourceUrl ? (
         <a
           href={sourceUrl}
           target="_blank"
           rel="noreferrer"
-          className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
+          className="mt-1 inline-flex font-semibold text-[var(--color-accent-strong)] underline-offset-2 hover:underline"
         >
-          원문 보기
+          {localizedSource ?? t("common.viewSource")} →
         </a>
+      ) : (
+        <p className="mt-1">{localizedSource ?? t("common.publicReference")}</p>
+      )}
+      {isMock ? (
+        <p className="mt-1">{t("common.fieldCheckNotice")}</p>
+      ) : (
+        <p className="mt-1">{t("common.verifiedInfo")}</p>
+      )}
+      <p className="mt-0.5 text-[10px] text-[var(--color-text-muted)]">
+        {t("common.photoStagingNote")}
+      </p>
+      {lastVerifiedAt ? (
+        <p className="mt-0.5">
+          {t("common.lastVerifiedDate", { date: lastVerifiedAt })}
+        </p>
       ) : null}
     </div>
   );

@@ -16,6 +16,9 @@ export const CATEGORY_COLORS: Record<MapCategory, string> = {
   restaurant: "#ea580c",
   trash: "#16a34a",
   plogging: "#0d9488",
+  attraction: "#ca8a04",
+  leisure: "#0f766e",
+  event: "#db2777",
 };
 
 export const CATEGORIES: CategoryConfig[] = [
@@ -59,6 +62,30 @@ export const CATEGORIES: CategoryConfig[] = [
     color: CATEGORY_COLORS.plogging,
     showInFilterChips: true,
   },
+  {
+    id: "attraction",
+    label: "관광 명소",
+    shortLabel: "관광",
+    description: "해안 명소와 산책 포인트",
+    color: CATEGORY_COLORS.attraction,
+    showInFilterChips: true,
+  },
+  {
+    id: "leisure",
+    label: "해양 레저",
+    shortLabel: "레저",
+    description: "서핑·요트·카약·자전거 등 해안 레저",
+    color: CATEGORY_COLORS.leisure,
+    showInFilterChips: true,
+  },
+  {
+    id: "event",
+    label: "해안 행사",
+    shortLabel: "행사",
+    description: "부산 해안 대규모 행사·축제 일정",
+    color: CATEGORY_COLORS.event,
+    showInFilterChips: true,
+  },
 ];
 
 export const FILTER_CHIP_CATEGORIES = CATEGORIES.filter(
@@ -71,6 +98,9 @@ export const CATEGORY_TYPE_LABELS: Record<MapCategory, string> = {
   restaurant: "수산시장·식당",
   trash: "쓰레기통·수거함",
   plogging: "플로깅 코스",
+  attraction: "관광 명소",
+  leisure: "해양 레저",
+  event: "해안 행사",
 };
 
 export function getCategoryConfig(id: CategoryFilter): CategoryConfig {

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { z } from "zod";
 
-const localeSchema = z.enum(["ko", "en", "ja", "zh-CN"]);
+const localeSchema = z.enum(["ko", "en", "ja", "zh-CN", "vi", "es", "de", "fr"]);
 const schedulePayloadSchema = z
   .object({
     id: z.string().min(1).max(120),

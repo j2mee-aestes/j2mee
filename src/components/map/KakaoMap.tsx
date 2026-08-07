@@ -78,7 +78,7 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
 
     useEffect(() => {
       const container = containerRef.current;
-      if (!container || !window.kakao?.maps) {
+      if (!container || !window.kakao?.maps?.Map) {
         return;
       }
 
@@ -93,9 +93,14 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
         level: DEFAULT_ZOOM_LEVEL,
       });
 
-      if (cancelled) {
-        return;
-      }
+      // Containers often need an extra relayout after first paint / flex layout
+      const relayoutSoon = () => {
+        if (!cancelled) {
+          map.relayout();
+        }
+      };
+      const raf = window.requestAnimationFrame(relayoutSoon);
+      const relayoutTimer = window.setTimeout(relayoutSoon, 120);
 
       mapRef.current = map;
       setMapInstance(map);
@@ -113,6 +118,8 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
 
       return () => {
         cancelled = true;
+        window.cancelAnimationFrame(raf);
+        window.clearTimeout(relayoutTimer);
         window.removeEventListener("resize", handleResize);
         observer.disconnect();
         userOverlayRef.current?.setMap(null);
@@ -167,10 +174,9 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
           return;
         }
 
-        userOverlayRef.current?.setMap(null);
-        userOverlayRef.current = null;
-
         if (!coords) {
+          userOverlayRef.current?.setMap(null);
+          userOverlayRef.current = null;
           return;
         }
 
@@ -178,16 +184,25 @@ export const KakaoMap = forwardRef<KakaoMapHandle, KakaoMapProps>(
           coords.latitude,
           coords.longitude,
         );
-        const overlay = new window.kakao.maps.CustomOverlay({
-          map,
-          position: latlng,
-          content: createUserLocationContent(),
-          xAnchor: 0.5,
-          yAnchor: 0.5,
-          zIndex: 20,
-        });
-        userOverlayRef.current = overlay;
-        map.setLevel(USER_LOCATION_ZOOM_LEVEL, { animate: true });
+
+        if (userOverlayRef.current) {
+          userOverlayRef.current.setPosition(latlng);
+        } else {
+          const overlay = new window.kakao.maps.CustomOverlay({
+            map,
+            position: latlng,
+            content: createUserLocationContent(),
+            xAnchor: 0.5,
+            yAnchor: 0.5,
+            zIndex: 20,
+          });
+          userOverlayRef.current = overlay;
+        }
+
+        // Kakao level: higher number = more zoomed out. Only zoom in when needed.
+        if (map.getLevel() > USER_LOCATION_ZOOM_LEVEL) {
+          map.setLevel(USER_LOCATION_ZOOM_LEVEL, { animate: true });
+        }
         map.panTo(latlng);
       },
       relayout: () => {

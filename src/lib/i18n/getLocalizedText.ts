@@ -5,12 +5,41 @@ import {
 import { lookupMessage } from "@/i18n/messages";
 import type { LocalizedText } from "@/i18n/types";
 
+function localeFallbackChain(
+  locale: SupportedLocale,
+  fallbackLocale: SupportedLocale,
+): SupportedLocale[] {
+  const preferred: SupportedLocale[] =
+    locale === "ko"
+      ? [locale, fallbackLocale, "ko", "en"]
+      : [locale, fallbackLocale, "en", "ko"];
+  const rest: SupportedLocale[] = [
+    "ja",
+    "zh-CN",
+    "vi",
+    "es",
+    "de",
+    "fr",
+  ];
+  const seen = new Set<SupportedLocale>();
+  const order: SupportedLocale[] = [];
+  for (const code of [...preferred, ...rest]) {
+    if (seen.has(code)) continue;
+    seen.add(code);
+    order.push(code);
+  }
+  return order;
+}
+
 export function getLocalizedText(options: {
   value?: LocalizedText | string | null;
   locale: SupportedLocale;
   fallbackLocale?: SupportedLocale;
 }): string {
-  const { value, locale, fallbackLocale = DEFAULT_LOCALE } = options;
+  const { value, locale } = options;
+  // Prefer English over Korean when the active locale has no translation.
+  const fallbackLocale =
+    options.fallbackLocale ?? (locale === "ko" ? DEFAULT_LOCALE : "en");
   const unavailable =
     lookupMessage(locale, "common.infoUnavailable") ??
     lookupMessage(fallbackLocale, "common.infoUnavailable") ??
@@ -23,14 +52,7 @@ export function getLocalizedText(options: {
     return value.trim() ? value : unavailable;
   }
 
-  const order: SupportedLocale[] = [
-    locale,
-    fallbackLocale,
-    "ko",
-    "en",
-    "ja",
-    "zh-CN",
-  ];
+  const order = localeFallbackChain(locale, fallbackLocale);
   for (const code of order) {
     const text = value[code]?.trim();
     if (text) {
@@ -48,14 +70,16 @@ export function getLocalizedTextList(options: {
   locale: SupportedLocale;
   fallbackLocale?: SupportedLocale;
 }): string[] {
-  const { value, locale, fallbackLocale = DEFAULT_LOCALE } = options;
+  const { value, locale } = options;
   if (!value) {
     return [];
   }
   if (Array.isArray(value)) {
     return value;
   }
-  const order: SupportedLocale[] = [locale, fallbackLocale, "ko", "en", "ja", "zh-CN"];
+  const resolvedFallback =
+    options.fallbackLocale ?? (locale === "ko" ? DEFAULT_LOCALE : "en");
+  const order = localeFallbackChain(locale, resolvedFallback);
   for (const code of order) {
     const list = value[code];
     if (list && list.length > 0) {

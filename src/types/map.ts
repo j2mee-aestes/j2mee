@@ -3,7 +3,10 @@ export type MapCategory =
   | "market"
   | "restaurant"
   | "trash"
-  | "plogging";
+  | "plogging"
+  | "attraction"
+  | "leisure"
+  | "event";
 
 export type CategoryFilter = "all" | MapCategory;
 

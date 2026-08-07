@@ -1,6 +1,6 @@
 {
   "common": {
-    "serviceName": "波到波到",
+    "serviceName": "PadoPado",
     "serviceTagline": "连接大海与人的善意脚步",
     "loading": "加载中…",
     "retry": "重试",
@@ -35,14 +35,29 @@
     "updated": "更新",
     "selectedPoint": "所选地点",
     "myPage": "我的页面",
-    "privacy": "隐私说明"
+    "privacy": "隐私说明",
+    "home": "首页",
+    "dataSource": "数据来源",
+    "viewSource": "查看源码",
+    "publicReference": "公开参考",
+    "fieldCheckNotice": "此信息是根据公共来源编制的。请在参观前确认现场开放时间和访问方式。",
+    "verifiedInfo": "已核实信息。",
+    "photoStagingNote": "有些照片是传达现场气氛的摆设图像。",
+    "lastVerifiedDate": "上次验证：{日期}",
+    "straightDistanceHint": "显示的距离是坐标的直线估计值。",
+    "fromOriginDistance": "距{原点}的{距离}",
+    "imagePending": "图片即将推出",
+    "approxMinutes": "大约 {count} 分钟",
+    "distanceLabel": "距离"
   },
   "search": {
     "placeholder": "按地区、地点或关键词搜索",
     "button": "搜索",
-    "noResults": "没有搜索结果。",
+    "noResults": "没有结果。",
     "resultsLabel": "搜索结果",
-    "movedTo": "已移动到“{name}”。"
+    "movedTo": "已移动到“{name}”。",
+    "openInKakao": "在 Kakao Map 搜索“{query}”",
+    "externalHint": "没有匹配的 PadoPado 地点 — 可继续在 Kakao Map 搜索。"
   },
   "categories": {
     "all": {
@@ -69,27 +84,47 @@
       "label": "净滩路线",
       "shortLabel": "净滩",
       "description": "海岸清洁步行路线"
+    },
+    "attraction": {
+      "label": "景点",
+      "shortLabel": "景点",
+      "description": "海岸名胜与散步点"
+    },
+    "leisure": {
+      "label": "海洋休闲",
+      "shortLabel": "休闲",
+      "description": "冲浪、游艇、皮划艇、海滨骑行等"
+    },
+    "event": {
+      "label": "沿岸活动",
+      "shortLabel": "活动",
+      "description": "已官方确认的釜山沿岸大型活动"
     }
   },
   "map": {
     "fitAllMarkers": "显示全部标记",
     "zoomIn": "放大",
     "zoomOut": "缩小",
-    "currentLocation": "当前位置",
+    "currentLocation": "查找我的位置",
+    "locating": "正在定位…",
     "selectPlace": "请在地图上选择地点。",
     "noPlaces": "当前分类没有可显示的地点。",
-    "locationPermissionNeeded": "需要位置权限。",
-    "locationUnavailable": "无法获取当前位置。",
-    "locationUnsupported": "此浏览器不支持定位。",
-    "locationTimeout": "定位超时。",
+    "locationPermissionNeeded": "未允许位置权限。请在浏览器设置中允许位置访问。",
+    "locationUnavailable": "无法确认当前位置。",
+    "locationUnsupported": "此浏览器无法使用当前位置功能。",
+    "locationTimeout": "定位超时，请重试。",
     "kakaoKeyMissingTitle": "未配置 Kakao 地图 API 密钥。",
     "kakaoKeyMissingBody": "请在 .env.local 中设置 NEXT_PUBLIC_KAKAO_MAP_APP_KEY。",
     "kakaoLoadFailedTitle": "无法加载地图。",
-    "kakaoLoadFailedBody": "请检查 Kakao 开发者控制台设置与域名注册后重试。",
+    "kakaoLoadFailedBody": "请在 Kakao 开发者控制台 → 应用设置 → 平台 → Web 中添加站点域名 localhost 与 127.0.0.1（不要加端口），保存后刷新或重试。",
     "kakaoRetry": "重试",
     "mapLoading": "正在加载地图…",
+    "kakaoLoadFailedDetail": "当前地址：{host} · 原因：{reason}",
+    "kakaoDomainHint": "示例：localhost 、 127.0.0.1 、 j2mee-aestes.github.io",
     "referenceLineNote": "虚线仅为行程顺序参考线，不是实际道路路线。",
-    "activityMapNote": "不会跟踪实际移动路径。虚线仅为行程顺序参考线。"
+    "activityMapNote": "不会跟踪实际移动路径。虚线仅为行程顺序参考线。",
+    "selectedFishingOrigin": "已选钓点（{name}）",
+    "userLocationLabel": "当前位置"
   },
   "fishing": {
     "targetFish": "主要目标鱼种",
@@ -130,19 +165,34 @@
     }
   },
   "weather": {
-    "title": "天气·风·浪高",
+    "title": "天气",
     "temperature": "气温",
     "wind": "风",
     "wave": "浪高",
     "staleNotice": "数据可能已过期。请优先遵循现场指引。",
     "marineTitle": "天气·海洋信息",
     "unavailable": "当前无法提供天气信息。",
-    "feelsLike": "体感",
+    "loading": "正在加载天气…",
+    "loadFailed": "无法加载天气信息。",
+    "feelsLike": "体感温度",
+    "humidity": "湿度",
     "precipProb": "降水概率",
     "precipAmount": "降水量",
     "windDirection": "风向",
+    "windSummary": "风",
     "windGust": "阵风",
-    "staleDetail": "信息可能不是最新。最后更新：{time}"
+    "cloudCover": "云量",
+    "pressure": "气压",
+    "day": "白天",
+    "night": "夜间",
+    "nextHours": "未来几小时",
+    "detailTitle": "实时天气详情",
+    "detailHint": "详情",
+    "openDetail": "打开实时天气详情",
+    "refresh": "刷新天气",
+    "updatedAt": "天气更新 {time}",
+    "staleDetail": "信息可能不是最新。最后更新：{time}",
+    "defaultLocation": "机张"
   },
   "safety": {
     "status": {
@@ -162,7 +212,28 @@
     "machineTranslatedNotice": "此安全提示可能是未经审校的翻译。请同时查看韩文原文与现场公告。",
     "prohibitedStart": "禁止出入或禁止钓鱼的地点无法开始。请跳过或从行程中移除。",
     "restrictedStart": "注意：该地点不建议活动。请优先确认现场指引。",
-    "disclaimer": "基于公开预报与登记地点信息的参考内容。请优先遵守现场管制与气象预警。"
+    "disclaimer": "基于公开预报与登记地点信息的参考内容。请优先遵守现场管制与气象预警。",
+    "verification": {
+      "official": "官方的",
+      "partner": "伙伴",
+      "admin": "管理员已审核",
+      "community": "社区",
+      "unverified": "未验证",
+      "user": "用户反馈"
+    },
+    "reason": {
+      "fishingProhibited": "这个地方禁止钓鱼。",
+      "fishingRestricted": "这里的出入或捕鱼受到部分限制。",
+      "fishingUnknown": "无法确认是否可以钓鱼。",
+      "weatherMissing": "天气/海洋数据丢失，因此状态不完整。",
+      "weatherAlert": "天气警报：{title}",
+      "windStrong": "强风 ({value} m/s)。",
+      "windCaution": "风有点强 ({value} m/s)。",
+      "waveHigh": "高浪（{value} 米）。",
+      "waveCaution": "观察波高（{value} 米）。",
+      "precipHigh": "下雨的可能性很高 ({value}%)。",
+      "noAlerts": "根据当前发布的信息，没有特别警告信号。"
+    }
   },
   "partner": {
     "nearbyTitle": "附近水产市场",
@@ -214,12 +285,44 @@
     "inquiryRecommended": "建议提前咨询",
     "verifiedPrefix": "验证：{status}",
     "driveEstimate": "预计驾车 {minutes} 分钟（直线距离参考）",
-    "drivePending": "出行时间信息准备中",
+    "drivePending": "出行时间请通过 Kakao 地图路线查询确认",
     "verification": {
       "official": "官方验证",
       "partner": "合作方",
       "admin": "管理员确认",
-      "unverified": "未验证"
+      "unverified": "未验证",
+      "user": "用户反馈",
+      "community": "社区"
+    },
+    "selectPrompt": "选择一个市场或餐厅。",
+    "selectHint": "选择一个标记或附近的地点以查看详细信息。",
+    "verificationStatus": "验证：{状态}",
+    "noDetailYet": "详细的使用信息尚未注册。",
+    "businessInfo": "营业时间",
+    "todayHours": "今天：{小时}",
+    "currentStatus": "状态：{状态}",
+    "closedDays": "休息日：{天}",
+    "noBusinessHours": "营业时间不可用。",
+    "checkBeforeVisit": "请在访问前直接确认。",
+    "servicesTitle": "服务",
+    "usageGuide": "使用指南",
+    "usageGuideBody": "根据捕捞状况和储存情况，可能会被拒绝接收。参观前请先联系商店并遵循现场指导。",
+    "inquiryCta": "发送询问",
+    "businessStatus": {
+      "open": "打开",
+      "closingSoon": "即将结束",
+      "closed": "关闭",
+      "unknown": "需要检查"
+    },
+    "closedToday": "休息（{天}）",
+    "weekday": {
+      "monday": "周一",
+      "tuesday": "星期二",
+      "wednesday": "周三",
+      "thursday": "星期四",
+      "friday": "周五",
+      "saturday": "星期六",
+      "sunday": "太阳"
     }
   },
   "environment": {
@@ -234,9 +337,10 @@
     "emptyPlogging": "没有可显示的净滩路线。",
     "distanceApprox": "约 {distance}",
     "difficulty": {
-      "easy": "简单",
-      "moderate": "中等",
-      "hard": "困难"
+      "easy": "简单的",
+      "moderate": "缓和",
+      "hard": "难的",
+      "normal": "缓和"
     },
     "wasteType": {
       "trashBin": "垃圾桶",
@@ -249,7 +353,51 @@
     "reportIssue": "报告位置",
     "nearbyWasteTitle": "附近垃圾桶·回收箱",
     "emptyWasteFiltered": "没有符合条件的回收点。",
-    "emptyWasteNearby": "附近没有登记的回收点。"
+    "emptyWasteNearby": "附近没有登记的回收点。",
+    "selectWaste": "选择一个收集点。",
+    "verificationLabel": "已验证：{状态}",
+    "statusUnknownTitle": "无法确认当前的可用性。",
+    "statusUnknownBody": "请在参观前检查现场情况。",
+    "staleWasteTitle": "这个地方已经很久没有实地考察过了。",
+    "staleWasteBody": "位置或操作状态可能已更改。",
+    "acceptedTypes": "可接受的废物类型",
+    "noAcceptedTypes": "未登记可接受的废物类型。",
+    "hoursTitle": "时间",
+    "hoursMissing": "营业时间不可用。请在访问前检查。",
+    "usageNotes": "使用说明",
+    "reportLocationError": "报告位置错误",
+    "ploggingCourse": "伐木路线",
+    "estimatedTime": "预计时间",
+    "recommendedTime": "建议时间：{时间}",
+    "staleRoute": "这条路线已经很久没有实地考察过了。条件可能有所不同。",
+    "connectedDisposal": "连接的处置点",
+    "noConnectedDisposal": "没有连接的处置点。",
+    "nearbyDisposalHint": "还要检查起点附近的处置点。",
+    "facilities": "设施",
+    "cautions": "注意事项",
+    "wastePointType": {
+      "generalTrash": "一般垃圾",
+      "recycling": "回收",
+      "fishingLine": "鱼线箱",
+      "fishingGear": "渔具箱",
+      "ploggingCollection": "Plogging 下降",
+      "other": "其他收藏"
+    },
+    "wastePointStatus": {
+      "available": "可用的",
+      "temporarilyUnavailable": "暂时不可用",
+      "removed": "已删除",
+      "unknown": "需要检查"
+    },
+    "verification": {
+      "official": "官方的",
+      "partner": "伙伴",
+      "admin": "管理员已审核",
+      "community": "社区",
+      "unverified": "未验证",
+      "user": "用户反馈"
+    },
+    "ploggingInProgress": "净滩进行中 · 可在详情面板完成"
   },
   "schedule": {
     "title": "创建一日行程",
@@ -408,6 +556,8 @@
     "myPage": "我的页面",
     "myPageTitle": "我的页面",
     "myPageSubtitle": "查看并管理保存在账户中的数据。",
+    "guestMyPageSubtitle": "无需登录也可管理本地收藏、通知与语言。",
+    "guestProfileHint": "登录后可将行程、活动与收藏同步到账户。",
     "logout": "退出登录",
     "profile": "资料",
     "preferredLocale": "偏好语言",
@@ -433,9 +583,248 @@
     "importSkip": "跳过",
     "importSkipped": "已跳过导入。",
     "importFailed": "导入失败。",
-    "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）"
+    "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）",
+    "mileage": "里程",
+    "mileageHint": "上报被发布后会发放。后续可兑换积分。",
+    "staticLoginHint": "此 GitHub Pages 版本无服务器登录。请在访客“我的页面”管理本地收藏、通知与语言。"
   },
   "a11y": {
     "skipToContent": "跳到正文"
+  },
+  "home": {
+    "nav": {
+      "label": "主菜单",
+      "map": "地图",
+      "contribute": "地点上报",
+      "sources": "数据来源",
+      "privacy": "隐私",
+      "login": "登录",
+      "data": "数据",
+      "tourism": "观光",
+      "events": "活动"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "钓鱼、水产市场、垃圾桶、拾荒健走、景点与休闲 — 连接人与海的善意脚步",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "打开地图",
+      "exploreMap": "查看地图",
+      "contribute": "上报地点",
+      "getStarted": "开始"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "更安全、更友善地享受海岸",
+      "body": "PadoPado 在一张地图上提供钓点、市场、垃圾桶、拾荒路线、景点与休闲信息，并结合气象/海浪与用户上报。"
+    },
+    "features": {
+      "cta": "查看",
+      "fishing": {
+        "title": "钓点",
+        "body": "查看限制、安全与目标鱼种。"
+      },
+      "plogging": {
+        "title": "拾荒路线",
+        "body": "弹窗预览步行时间与人行横道。"
+      },
+      "bins": {
+        "title": "垃圾桶地图",
+        "body": "支持 GeoJSON 与照片上报。"
+      },
+      "attractions": {
+        "title": "景点与休闲",
+        "body": "星标景点与休闲点位。"
+      },
+      "market": {
+        "title": "水产市场",
+        "body": "提供主要水产市场与新鲜海产、处理点信息。"
+      }
+    },
+    "partners": {
+      "lead": "参考的数据与服务",
+      "names": "气象厅 · Kakao Map · 国立海洋调查院 · 社区",
+      "link": "查看数据来源"
+    },
+    "footerCta": {
+      "title": "从地图开始",
+      "body": "隐私与数据来源可随时在菜单中查看。"
+    },
+    "slides": {
+      "brand": {
+        "sub": "在一张海图上查看钓点 · 市场 · 回收箱 · 拾荒路线 · 观光 · 休闲"
+      },
+      "features": {
+        "title": "更轻松地探索我们的海",
+        "body": "在一张地图上查看钓点、水产市场、回收箱与拾荒路线。"
+      },
+      "services": {
+        "line1": "钓点",
+        "line2": "水产市场",
+        "line3": "废鱼线回收箱",
+        "line4": "拾荒路线",
+        "line5": "潮汐信息",
+        "tag": "去哪里、找什么，一次搞定",
+        "statFishing": "东海岸·南海岸",
+        "statMarket": "主要市场",
+        "statBins": "沿岸据点",
+        "statPlogging": "海岸步道"
+      },
+      "insights": {
+        "title": "为大海的行动，更清晰可见",
+        "body": "用数据确认我们的变化与成果",
+        "chart": "月度上报与参与趋势",
+        "regions": "地区活动",
+        "timeline": "主要活动时间线",
+        "cta": "查看数据洞察",
+        "legendReports": "上报数",
+        "legendParticipants": "参与人数",
+        "statFishingLabel": "已登记钓点",
+        "statFishingSub": "全国主要钓点",
+        "statMarketSub": "全国市场信息",
+        "statBinsLabel": "回收箱·钓线箱",
+        "statBinsSub": "沿海回收设施",
+        "statReportsLabel": "用户上报",
+        "statReportsSub": "市民共同上报",
+        "timeline1": "釜山海云台设置钓线回收箱",
+        "timeline2": "丽水突山大桥附近清洁活动",
+        "timeline3": "永宗岛海岸垃圾上报激增",
+        "timeline4": "浦项九龙浦市场信息更新"
+      },
+      "dataviz": {
+        "title": "海洋数据一目了然",
+        "body": "直观探索钓点、潮汐、回收箱与观光信息",
+        "cta": "查看数据洞察",
+        "updated": "最近更新",
+        "tideChip": "10:20 满潮 356cm",
+        "live": "实时",
+        "labelFishing": "钓点",
+        "labelTide": "潮汐信息",
+        "labelBins": "回收现况",
+        "labelTour": "观光名所",
+        "chipFishing": "垂钓指数 · 最佳",
+        "chipTour": "游客量上升"
+      }
+    }
+  },
+  "sourcesPage": {
+    "title": "数据来源",
+    "body": "PadoPado 参考的公开资料。点击即可打开原文站点。",
+    "backHome": "返回首页"
+  },
+  "contribute": {
+    "title": "地点上报",
+    "body": "上报垃圾桶、景点与钓点。审核后反映到地图。景点与钓点目标社区投票 500 票后考虑正式收录。",
+    "bins": "上报垃圾桶",
+    "binsBody": "用照片与位置告知回收点。",
+    "attractions": "上报景点",
+    "attractionsBody": "提名景点并收集投票。",
+    "fishing": "上报钓点",
+    "fishingBody": "提名钓点并收集社区投票。",
+    "mileageNote": "审核通过后可获得里程（后续可兑换积分）。",
+    "voteThreshold": "正式收录目标：{count} 票",
+    "formName": "地点名称",
+    "formAddress": "地址/位置说明",
+    "formLat": "纬度",
+    "formLng": "经度",
+    "formPhoto": "现场照片",
+    "formNote": "备注",
+    "useMyLocation": "使用当前位置",
+    "submit": "提交",
+    "submitted": "已收到上报，审核后发布。",
+    "submitFailed": "提交失败。",
+    "needAuth": "上报需要登录。",
+    "back": "返回上报菜单",
+    "boardTitle": "社区上报看板",
+    "boardEmpty": "还没有上报。来成为第一个贡献者吧。",
+    "vote": "投票",
+    "voteOk": "投票已记录。",
+    "voteFailed": "投票失败。",
+    "alreadyVoted": "你已经投过票了。",
+    "votesLabel": "{count} 票",
+    "binsReviewOnly": "垃圾桶上报需管理员审核后发布。",
+    "attractionsBoard": "景点候选 · 投票",
+    "fishingBoard": "钓点候选 · 投票"
+  },
+  "ploggingPopup": {
+    "title": "路线预览",
+    "walkingTime": "预计步行时间",
+    "minutes": "{count} 分钟",
+    "distance": "距离",
+    "crosswalks": "人行横道",
+    "crosswalkCount": "{count} 处",
+    "crossings": "通行提示",
+    "surface": "路面",
+    "openDetail": "查看详情",
+    "close": "关闭"
+  },
+  "attraction": {
+    "title": "景点",
+    "view3d": "3D 查看",
+    "close3d": "关闭 3D",
+    "highlights": "亮点",
+    "votes": "社区投票 {count}"
+  },
+  "leisure": {
+    "title": "休闲运动",
+    "activity": "活动类型",
+    "season": "季节说明",
+    "activityType": {
+      "surfing": "冲浪",
+      "yacht": "游艇",
+      "diving": "潜水",
+      "kayak": "皮艇",
+      "bike": "自行车",
+      "other": "其他"
+    }
+  },
+  "events": {
+    "listTitle": "釜山沿岸大型活动",
+    "listHint": "以 2026-08-07 为准已官方确认的日程。",
+    "empty": "暂无可显示活动。",
+    "sourceNote": "来源：釜山市/组委会/官网交叉核对 (2026-08-07)",
+    "sourceName": "官方活动信息",
+    "relation": {
+      "direct": "沿岸直接型",
+      "adjacent": "沿岸邻近型"
+    },
+    "crowdRisk": "人流风险",
+    "wasteRisk": "垃圾风险",
+    "trafficImpact": "交通影响",
+    "scale": "规模",
+    "scaleLevel": {
+      "very_large": "超大型",
+      "large": "大型",
+      "medium": "中型"
+    },
+    "risk": {
+      "very_high": "非常高",
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "coastalImpact": "沿岸影响",
+    "host": "主办",
+    "organizer": "承办",
+    "contact": "咨询"
+  },
+  "wave": {
+    "title": "实时海浪",
+    "height": "浪高",
+    "period": "周期",
+    "unavailable": "无法获取海浪信息。",
+    "source": "气象厅海洋气象"
+  },
+  "notifications": {
+    "empty": "暂无新通知。",
+    "markAllRead": "全部已读",
+    "seedTideTitle": "今日潮汐与海浪提示",
+    "seedTideBody": "查看机张沿岸实时天气与浪高。",
+    "seedPloggingTitle": "净滩路线推荐",
+    "seedPloggingBody": "在地图上打开任浪、日光海岸净滩路线。",
+    "seedFavoriteTitle": "继续查看收藏",
+    "seedFavoriteBody": "可在我的页面或爱心面板打开已保存地点。"
   }
 }

@@ -73,6 +73,7 @@ export interface PartnerPlace {
   description?: string;
   phone?: string;
   imageUrl?: string;
+  imageUrls?: string[];
   businessHours?: BusinessHours[];
   closedDays?: string[];
   services: PartnerServices;

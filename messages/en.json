@@ -35,14 +35,29 @@
     "updated": "Updated",
     "selectedPoint": "Selected point",
     "myPage": "My page",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "home": "Home",
+    "dataSource": "Data source",
+    "viewSource": "View source",
+    "publicReference": "Public reference",
+    "fieldCheckNotice": "This information is compiled from public sources. Please confirm hours and access on site before visiting.",
+    "verifiedInfo": "Verified information.",
+    "photoStagingNote": "Some photos are staged images that convey the atmosphere of the site.",
+    "lastVerifiedDate": "Last verified: {date}",
+    "straightDistanceHint": "Distances shown are straight-line estimates from coordinates.",
+    "fromOriginDistance": "{distance} from {origin}",
+    "imagePending": "Image coming soon",
+    "approxMinutes": "About {count} min",
+    "distanceLabel": "Distance"
   },
   "search": {
     "placeholder": "Search by area, place, or keyword",
     "button": "Search",
-    "noResults": "No search results.",
+    "noResults": "No results found.",
     "resultsLabel": "Search results",
-    "movedTo": "Moved to “{name}”."
+    "movedTo": "Moved to “{name}”.",
+    "openInKakao": "Search “{query}” on Kakao Map",
+    "externalHint": "No PadoPado places matched — continue on Kakao Map."
   },
   "categories": {
     "all": {
@@ -69,27 +84,47 @@
       "label": "Plogging routes",
       "shortLabel": "Plogging",
       "description": "Coastal cleanup walking routes"
+    },
+    "attraction": {
+      "label": "Attractions",
+      "shortLabel": "Sights",
+      "description": "Coastal landmarks and scenic spots"
+    },
+    "leisure": {
+      "label": "Marine leisure",
+      "shortLabel": "Leisure",
+      "description": "Surfing, yacht, kayak, coastal bike and more"
+    },
+    "event": {
+      "label": "Coastal events",
+      "shortLabel": "Events",
+      "description": "Confirmed large coastal events in Busan"
     }
   },
   "map": {
     "fitAllMarkers": "Show all markers",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
-    "currentLocation": "Current location",
+    "currentLocation": "Find my location",
+    "locating": "Finding your location…",
     "selectPlace": "Select a place on the map.",
     "noPlaces": "No places to show in this category.",
-    "locationPermissionNeeded": "Location permission is required.",
-    "locationUnavailable": "Unable to get your location.",
-    "locationUnsupported": "This browser does not support geolocation.",
-    "locationTimeout": "Location request timed out.",
+    "locationPermissionNeeded": "Location permission is not allowed. Please enable location access in your browser settings.",
+    "locationUnavailable": "Unable to confirm your current location.",
+    "locationUnsupported": "This browser cannot use the current location feature.",
+    "locationTimeout": "Location request timed out. Please try again.",
     "kakaoKeyMissingTitle": "Kakao Map API key is not configured.",
     "kakaoKeyMissingBody": "Add NEXT_PUBLIC_KAKAO_MAP_APP_KEY to .env.local.",
     "kakaoLoadFailedTitle": "Could not load the map.",
-    "kakaoLoadFailedBody": "Check Kakao developer console settings and domain registration, then try again.",
+    "kakaoLoadFailedBody": "In Kakao Developers → your app → App settings → Platform → Web, add site domains localhost and 127.0.0.1 (no port), save, then refresh or retry.",
     "kakaoRetry": "Try again",
     "mapLoading": "Loading map…",
+    "kakaoLoadFailedDetail": "Host: {host} · Reason: {reason}",
+    "kakaoDomainHint": "Examples: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "Dashed lines are schedule-order references, not real road routes.",
-    "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references."
+    "activityMapNote": "Actual travel paths are not tracked. Dashed lines are schedule-order references.",
+    "selectedFishingOrigin": "Selected fishing spot ({name})",
+    "userLocationLabel": "Current location"
   },
   "fishing": {
     "targetFish": "Target species",
@@ -130,19 +165,34 @@
     }
   },
   "weather": {
-    "title": "Weather, wind & waves",
+    "title": "Weather",
     "temperature": "Temperature",
     "wind": "Wind",
     "wave": "Wave height",
     "staleNotice": "This data may be outdated. Follow on-site guidance first.",
     "marineTitle": "Weather & marine info",
     "unavailable": "Weather information is unavailable right now.",
+    "loading": "Loading weather…",
+    "loadFailed": "Could not load weather information.",
     "feelsLike": "Feels like",
+    "humidity": "Humidity",
     "precipProb": "Precip. chance",
     "precipAmount": "Precipitation",
     "windDirection": "Wind dir.",
+    "windSummary": "Wind",
     "windGust": "Gust",
-    "staleDetail": "This may not be the latest data. Last update: {time}"
+    "cloudCover": "Cloud cover",
+    "pressure": "Pressure",
+    "day": "Day",
+    "night": "Night",
+    "nextHours": "Next hours",
+    "detailTitle": "Live weather details",
+    "detailHint": "Details",
+    "openDetail": "Open live weather details",
+    "refresh": "Refresh weather",
+    "updatedAt": "Updated {time}",
+    "staleDetail": "This may not be the latest data. Last update: {time}",
+    "defaultLocation": "Gijang"
   },
   "safety": {
     "status": {
@@ -162,7 +212,28 @@
     "machineTranslatedNotice": "This safety text may be an unverified translation. Check the Korean original and on-site notices.",
     "prohibitedStart": "Prohibited spots cannot be started. Skip or remove them from the schedule.",
     "restrictedStart": "Caution: this spot is not recommended. Check on-site guidance first.",
-    "disclaimer": "Reference information based on public forecasts and registered place data. Always prioritize on-site controls and weather alerts."
+    "disclaimer": "Reference information based on public forecasts and registered place data. Always prioritize on-site controls and weather alerts.",
+    "verification": {
+      "official": "Official",
+      "partner": "Partner",
+      "admin": "Admin reviewed",
+      "community": "Community",
+      "unverified": "Unverified",
+      "user": "User report"
+    },
+    "reason": {
+      "fishingProhibited": "Fishing is prohibited at this place.",
+      "fishingRestricted": "Access or fishing is partly restricted here.",
+      "fishingUnknown": "Fishing availability cannot be confirmed.",
+      "weatherMissing": "Weather/marine data is missing, so status is incomplete.",
+      "weatherAlert": "Weather alert: {title}",
+      "windStrong": "Strong wind ({value} m/s).",
+      "windCaution": "Wind is a bit strong ({value} m/s).",
+      "waveHigh": "High waves ({value} m).",
+      "waveCaution": "Watch the wave height ({value} m).",
+      "precipHigh": "High chance of rain ({value}%).",
+      "noAlerts": "No special caution signals based on currently published information."
+    }
   },
   "partner": {
     "nearbyTitle": "Nearby seafood markets",
@@ -214,12 +285,44 @@
     "inquiryRecommended": "Advance inquiry recommended",
     "verifiedPrefix": "Verified: {status}",
     "driveEstimate": "Est. drive {minutes} min (straight-line reference)",
-    "drivePending": "Travel time coming soon",
+    "drivePending": "Check travel time via Kakao Map directions",
     "verification": {
       "official": "Official",
       "partner": "Partner",
       "admin": "Admin verified",
-      "unverified": "Unverified"
+      "unverified": "Unverified",
+      "user": "User report",
+      "community": "Community"
+    },
+    "selectPrompt": "Select a market or restaurant.",
+    "selectHint": "Choose a marker or nearby place to see details.",
+    "verificationStatus": "Verification: {status}",
+    "noDetailYet": "Detailed usage information has not been registered yet.",
+    "businessInfo": "Business hours",
+    "todayHours": "Today: {hours}",
+    "currentStatus": "Status: {status}",
+    "closedDays": "Closed: {days}",
+    "noBusinessHours": "Business hours are unavailable.",
+    "checkBeforeVisit": "Please confirm directly before visiting.",
+    "servicesTitle": "Services",
+    "usageGuide": "Usage guide",
+    "usageGuideBody": "Acceptance may be refused depending on catch condition and storage. Contact the shop before visiting and follow on-site guidance.",
+    "inquiryCta": "Send inquiry",
+    "businessStatus": {
+      "open": "Open",
+      "closingSoon": "Closing soon",
+      "closed": "Closed",
+      "unknown": "Check needed"
+    },
+    "closedToday": "Closed ({day})",
+    "weekday": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
     }
   },
   "environment": {
@@ -236,7 +339,8 @@
     "difficulty": {
       "easy": "Easy",
       "moderate": "Moderate",
-      "hard": "Hard"
+      "hard": "Hard",
+      "normal": "Moderate"
     },
     "wasteType": {
       "trashBin": "Trash bin",
@@ -249,7 +353,51 @@
     "reportIssue": "Report location",
     "nearbyWasteTitle": "Nearby bins & collection points",
     "emptyWasteFiltered": "No collection points match the filters.",
-    "emptyWasteNearby": "No registered collection points nearby."
+    "emptyWasteNearby": "No registered collection points nearby.",
+    "selectWaste": "Select a collection point.",
+    "verificationLabel": "Verified: {status}",
+    "statusUnknownTitle": "Current availability cannot be confirmed.",
+    "statusUnknownBody": "Please check on-site conditions before visiting.",
+    "staleWasteTitle": "This place has not been field-checked for a long time.",
+    "staleWasteBody": "Location or operating status may have changed.",
+    "acceptedTypes": "Accepted waste types",
+    "noAcceptedTypes": "No accepted waste types are registered.",
+    "hoursTitle": "Hours",
+    "hoursMissing": "Hours are unavailable. Please check before visiting.",
+    "usageNotes": "Usage notes",
+    "reportLocationError": "Report location error",
+    "ploggingCourse": "Plogging route",
+    "estimatedTime": "Estimated time",
+    "recommendedTime": "Recommended time: {time}",
+    "staleRoute": "This route has not been field-checked for a long time. Conditions may differ.",
+    "connectedDisposal": "Connected disposal points",
+    "noConnectedDisposal": "No connected disposal points.",
+    "nearbyDisposalHint": "Also check disposal points near the start.",
+    "facilities": "Facilities",
+    "cautions": "Cautions",
+    "wastePointType": {
+      "generalTrash": "General trash",
+      "recycling": "Recycling",
+      "fishingLine": "Fishing line bin",
+      "fishingGear": "Fishing gear bin",
+      "ploggingCollection": "Plogging drop-off",
+      "other": "Other collection"
+    },
+    "wastePointStatus": {
+      "available": "Available",
+      "temporarilyUnavailable": "Temporarily unavailable",
+      "removed": "Removed",
+      "unknown": "Check needed"
+    },
+    "verification": {
+      "official": "Official",
+      "partner": "Partner",
+      "admin": "Admin reviewed",
+      "community": "Community",
+      "unverified": "Unverified",
+      "user": "User report"
+    },
+    "ploggingInProgress": "Plogging in progress · finish in the detail panel"
   },
   "schedule": {
     "title": "Create a day schedule",
@@ -408,6 +556,8 @@
     "myPage": "My page",
     "myPageTitle": "My page",
     "myPageSubtitle": "Review and manage data saved to your account.",
+    "guestMyPageSubtitle": "Manage local favorites, notifications, and language without signing in.",
+    "guestProfileHint": "Sign in to sync schedules, activities, and favorites to your account.",
     "logout": "Log out",
     "profile": "Profile",
     "preferredLocale": "Preferred language",
@@ -433,9 +583,248 @@
     "importSkip": "Skip",
     "importSkipped": "Import skipped.",
     "importFailed": "Import failed.",
-    "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})"
+    "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})",
+    "mileage": "Mileage",
+    "mileageHint": "Earned when your contribution is published. Redeemable for points later.",
+    "staticLoginHint": "This GitHub Pages build has no server login. Use guest My Page for local favorites, notifications, and language."
   },
   "a11y": {
     "skipToContent": "Skip to content"
+  },
+  "home": {
+    "nav": {
+      "label": "Main menu",
+      "map": "Map",
+      "contribute": "Contribute",
+      "sources": "Data sources",
+      "privacy": "Privacy",
+      "login": "Log in",
+      "data": "Data",
+      "tourism": "Sights",
+      "events": "Events"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "Fishing, markets, bins, plogging, sights, and leisure — kind steps connecting people and the sea",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "Open map",
+      "exploreMap": "Explore the map",
+      "contribute": "Contribute a place",
+      "getStarted": "Get started"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "Safer, kinder ways to enjoy the coast",
+      "body": "PadoPado brings fishing spots, seafood markets, bins, plogging routes, attractions, and leisure onto one map — with weather/wave context and community tips."
+    },
+    "features": {
+      "cta": "View",
+      "fishing": {
+        "title": "Fishing spots",
+        "body": "Check restrictions, safety, and target species."
+      },
+      "plogging": {
+        "title": "Plogging routes",
+        "body": "Preview walking time and crossings in a popup."
+      },
+      "bins": {
+        "title": "Bin map",
+        "body": "GeoJSON bins plus photo reports."
+      },
+      "attractions": {
+        "title": "Sights & leisure",
+        "body": "Explore starred attractions and leisure pins."
+      },
+      "market": {
+        "title": "Seafood markets",
+        "body": "Find major markets and fresh seafood or cleaning spots."
+      }
+    },
+    "partners": {
+      "lead": "Data & services we reference",
+      "names": "KMA · Kakao Map · KHOA · PadoPado community",
+      "link": "See data sources"
+    },
+    "footerCta": {
+      "title": "Start on the map",
+      "body": "Privacy and data sources are always available in the menu."
+    },
+    "slides": {
+      "brand": {
+        "sub": "Fishing · markets · bins · plogging · sights · leisure on one sea map"
+      },
+      "features": {
+        "title": "Explore our sea more easily",
+        "body": "See fishing points, seafood markets, collection bins, and plogging routes on one map."
+      },
+      "services": {
+        "line1": "Fishing points",
+        "line2": "Seafood markets",
+        "line3": "Fishing-line bins",
+        "line4": "Plogging routes",
+        "line5": "Tide info",
+        "tag": "Where to go and what to find — all at once",
+        "statFishing": "East & South coasts",
+        "statMarket": "Major markets",
+        "statBins": "Coastal hubs",
+        "statPlogging": "Seaside paths"
+      },
+      "insights": {
+        "title": "Movement for the sea, made clearer",
+        "body": "Our changes and impact, confirmed by data",
+        "chart": "Monthly reports & participation",
+        "regions": "Activity by region",
+        "timeline": "Key activity timeline",
+        "cta": "View data insights",
+        "legendReports": "Reports",
+        "legendParticipants": "Participants",
+        "statFishingLabel": "Registered fishing points",
+        "statFishingSub": "Major points nationwide",
+        "statMarketSub": "Nationwide market info",
+        "statBinsLabel": "Bins & line collectors",
+        "statBinsSub": "Coastal collection infra",
+        "statReportsLabel": "User reports",
+        "statReportsSub": "Reports by citizens",
+        "timeline1": "New line collector in Haeundae, Busan",
+        "timeline2": "Cleanup near Dolsan Bridge, Yeosu",
+        "timeline3": "Coastal waste reports surge in Yeongjongdo",
+        "timeline4": "Guryongpo market info updated, Pohang"
+      },
+      "dataviz": {
+        "title": "Sea data at a glance",
+        "body": "Explore fishing points, tide, bins, and tourism intuitively",
+        "cta": "View data insights",
+        "updated": "Last updated",
+        "tideChip": "10:20 high tide 356cm",
+        "live": "Live",
+        "labelFishing": "Fishing points",
+        "labelTide": "Tide info",
+        "labelBins": "Bin status",
+        "labelTour": "Attractions",
+        "chipFishing": "Fishing index · Best",
+        "chipTour": "Visitors rising"
+      }
+    }
+  },
+  "sourcesPage": {
+    "title": "Data sources",
+    "body": "Public sources PadoPado references. Tap an item to open the original site.",
+    "backHome": "Back home"
+  },
+  "contribute": {
+    "title": "Contribute places",
+    "body": "Report bins, attractions, and fishing spots. After review they appear on the map. Attractions and fishing spots target 500 community votes for official listing.",
+    "bins": "Report a bin",
+    "binsBody": "Send a photo and location for collection points.",
+    "attractions": "Report an attraction",
+    "attractionsBody": "Nominate a sight and collect votes.",
+    "fishing": "Report a fishing spot",
+    "fishingBody": "Nominate a fishing point for community votes.",
+    "mileageNote": "Approved reports earn mileage (later redeemable for points).",
+    "voteThreshold": "Official listing target: {count} votes",
+    "formName": "Place name",
+    "formAddress": "Address / location note",
+    "formLat": "Latitude",
+    "formLng": "Longitude",
+    "formPhoto": "On-site photo",
+    "formNote": "Notes",
+    "useMyLocation": "Use my location",
+    "submit": "Submit report",
+    "submitted": "Report received. We’ll review it before publishing.",
+    "submitFailed": "Could not submit the report.",
+    "needAuth": "Please log in to contribute.",
+    "back": "Back to contribute menu",
+    "boardTitle": "Community submissions",
+    "boardEmpty": "No submissions yet. Be the first to contribute.",
+    "vote": "Vote",
+    "voteOk": "Your vote was counted.",
+    "voteFailed": "Could not cast the vote.",
+    "alreadyVoted": "You already voted for this submission.",
+    "votesLabel": "{count} votes",
+    "binsReviewOnly": "Bin reports are published after admin review.",
+    "attractionsBoard": "Attraction candidates · vote",
+    "fishingBoard": "Fishing spot candidates · vote"
+  },
+  "ploggingPopup": {
+    "title": "Route preview",
+    "walkingTime": "Estimated walking time",
+    "minutes": "{count} min",
+    "distance": "Distance",
+    "crosswalks": "Crosswalks on route",
+    "crosswalkCount": "{count}",
+    "crossings": "Crossing notes",
+    "surface": "Surface & walkability",
+    "openDetail": "Open details",
+    "close": "Close"
+  },
+  "attraction": {
+    "title": "Attraction",
+    "view3d": "View in 3D",
+    "close3d": "Close 3D",
+    "highlights": "Highlights",
+    "votes": "Community votes {count}"
+  },
+  "leisure": {
+    "title": "Leisure & sports",
+    "activity": "Activity",
+    "season": "Season notes",
+    "activityType": {
+      "surfing": "Surfing",
+      "yacht": "Yacht",
+      "diving": "Diving",
+      "kayak": "Kayak",
+      "bike": "Bike",
+      "other": "Other"
+    }
+  },
+  "events": {
+    "listTitle": "Busan coastal large events",
+    "listHint": "Officially confirmed schedules as of 2026-08-07.",
+    "empty": "No events to show.",
+    "sourceNote": "Sources: Busan City / festival organizers / official sites (2026-08-07)",
+    "sourceName": "Official event info",
+    "relation": {
+      "direct": "Direct coastal",
+      "adjacent": "Coastal-adjacent"
+    },
+    "crowdRisk": "Crowd risk",
+    "wasteRisk": "Waste risk",
+    "trafficImpact": "Traffic impact",
+    "scale": "Scale",
+    "scaleLevel": {
+      "very_large": "Very large",
+      "large": "Large",
+      "medium": "Medium"
+    },
+    "risk": {
+      "very_high": "Very high",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "coastalImpact": "Coastal impact",
+    "host": "Host",
+    "organizer": "Organizer",
+    "contact": "Contact"
+  },
+  "wave": {
+    "title": "Live waves",
+    "height": "Wave height",
+    "period": "Period",
+    "unavailable": "Wave data unavailable.",
+    "source": "KMA marine weather"
+  },
+  "notifications": {
+    "empty": "No new notifications.",
+    "markAllRead": "Mark all read",
+    "seedTideTitle": "Today’s tide & wave tip",
+    "seedTideBody": "Check live weather and waves for the Gijang coast.",
+    "seedPloggingTitle": "Plogging route suggestion",
+    "seedPloggingBody": "Open Imrang and Ilgwang coastal plogging routes on the map.",
+    "seedFavoriteTitle": "Continue with favorites",
+    "seedFavoriteBody": "Open saved places from My page or the heart panel."
   }
 }

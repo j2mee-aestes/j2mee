@@ -1,4 +1,5 @@
 import { mockWastePoints } from "@/data/environment/mockWastePoints";
+import { loadWasteBinsGeoJson } from "@/lib/environment/loadWasteBinsGeoJson";
 import {
   isValidWastePoint,
   normalizeWastePoint,
@@ -7,17 +8,26 @@ import type { WastePoint, WastePointRepository } from "@/types/environment";
 
 let cached: WastePoint[] | null = null;
 
+function normalizeValidPoints(points: WastePoint[]): WastePoint[] {
+  return points
+    .filter((point) => {
+      const valid = isValidWastePoint(point);
+      if (!valid && process.env.NODE_ENV !== "production") {
+        console.warn(`[waste] skipped invalid waste point: ${point.id}`);
+      }
+      return valid;
+    })
+    .map(normalizeWastePoint);
+}
+
 export function getAllWastePoints(): WastePoint[] {
   if (!cached) {
-    cached = mockWastePoints
-      .filter((point) => {
-        const valid = isValidWastePoint(point);
-        if (!valid && process.env.NODE_ENV !== "production") {
-          console.warn(`[waste] skipped invalid waste point: ${point.id}`);
-        }
-        return valid;
-      })
-      .map(normalizeWastePoint);
+    const fromMock = normalizeValidPoints(mockWastePoints);
+    const existingIds = new Set(fromMock.map((point) => point.id));
+    const fromGeo = normalizeValidPoints(loadWasteBinsGeoJson()).filter(
+      (point) => !existingIds.has(point.id),
+    );
+    cached = [...fromMock, ...fromGeo];
   }
   return cached;
 }

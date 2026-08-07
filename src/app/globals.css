@@ -1,17 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --color-ocean-50: #f0f9ff;
-  --color-ocean-100: #e0f2fe;
-  --color-ocean-200: #bae6fd;
-  --color-ocean-400: #38bdf8;
-  --color-ocean-500: #0ea5e9;
-  --color-ocean-600: #0284c7;
-  --color-ocean-700: #0369a1;
-  --color-ocean-800: #075985;
+  /* Premium navy-blue system matching the landing reference frames */
+  --color-ink: #0b2447;
+  --color-mist: #eef4fb;
+  --color-foam: #f7fafd;
+  --color-sky: #93c5fd;
+  --color-accent: #1d4ed8;
+  --color-accent-strong: #0b2447;
+  --color-accent-soft: #e3ecfb;
 
-  --color-teal-50: #f0fdfa;
-  --color-teal-200: #99f6e4;
+  --color-ocean-50: #f4f8fd;
+  --color-ocean-100: #e7effa;
+  --color-ocean-200: #ccdff5;
+  --color-ocean-400: #60a5fa;
+  --color-ocean-500: #3b82f6;
+  --color-ocean-600: #1d4ed8;
+  --color-ocean-700: #1e40af;
+  --color-ocean-800: #0b2447;
+
+  --color-teal-50: #eefaf6;
+  --color-teal-200: #b6ead9;
   --color-teal-700: #0f766e;
 
   --color-green-50: #f0fdf4;
@@ -21,22 +30,22 @@
   --color-orange-50: #fff7ed;
   --color-orange-600: #ea580c;
 
-  --color-purple-50: #f5f3ff;
-  --color-purple-600: #7c3aed;
+  --color-surface: #f4f8fc;
+  --color-surface-muted: #e9f0f8;
+  --color-map-bg: #d3e4f5;
+  --color-map-land: #e7f1ea;
+  --color-border: #dbe6f1;
+  --color-text-primary: #0b2447;
+  --color-text-secondary: #4a637e;
+  --color-text-muted: #8ba0b6;
 
-  --color-surface: #f8fafc;
-  --color-surface-muted: #f1f5f9;
-  --color-map-bg: #dbeafe;
-  --color-map-land: #ecfdf5;
-  --color-border: #e2e8f0;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94a3b8;
-
-  --radius-md: 0.625rem;
-  --radius-lg: 0.875rem;
-  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04),
-    0 4px 12px rgba(15, 23, 42, 0.05);
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 1.75rem;
+  --shadow-soft: 0 10px 40px rgba(11, 31, 51, 0.06);
+  --shadow-card: 0 2px 4px rgba(11, 31, 51, 0.03),
+    0 12px 32px rgba(11, 31, 51, 0.06);
+  --shadow-float: 0 8px 28px rgba(11, 31, 51, 0.08);
 
   --background: var(--color-surface);
   --foreground: var(--color-text-primary);
@@ -45,7 +54,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-plus-jakarta);
+  --font-sans: var(--font-plex);
+  --font-display: var(--font-myeongjo);
 }
 
 * {
@@ -58,9 +68,146 @@ body {
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(120% 80% at 0% -10%, rgba(147, 197, 253, 0.32), transparent 55%),
+    radial-gradient(90% 60% at 100% 0%, rgba(29, 78, 216, 0.1), transparent 50%),
+    linear-gradient(180deg, #eef4fb 0%, var(--color-surface) 42%, #eff4f8 100%);
   color: var(--foreground);
-  font-family: var(--font-plus-jakarta), "Noto Sans KR", sans-serif;
+  font-family: var(--font-plex), "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-myeongjo), "Apple SD Gothic Neo", serif;
+}
+
+.font-brand {
+  font-family: var(--font-myeongjo), "Apple SD Gothic Neo", serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+@keyframes landing-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.975);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes landing-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-bar-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0.35);
+    transform-origin: bottom;
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes landing-sky-drift {
+  0% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate3d(-1.4%, 0.7%, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes landing-sky-drift-alt {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(1.1%, -0.5%, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+}
+
+.landing-slide {
+  animation: landing-slide-in 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-slide-item {
+  animation: landing-item-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-bar {
+  animation: landing-bar-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-sky {
+  animation: landing-sky-drift 32s ease-in-out infinite;
+}
+
+.landing-sky-slow {
+  animation: landing-sky-drift-alt 40s ease-in-out infinite;
+}
+
+/* Subtle dot grid used on dark data slides */
+.landing-dots {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Dotted vertical column — builds the pointillist ridge chart */
+.landing-dotcol {
+  background-image: radial-gradient(circle, currentColor 1.3px, transparent 1.9px);
+  background-size: 7px 7px;
+  background-position: 0 100%;
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--tilt, 0deg));
+  }
+}
+
+.landing-float {
+  animation: landing-float 6.5s ease-in-out infinite;
+}
+
+@keyframes landing-kenburns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.09) translate3d(-1.2%, 1%, 0);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.landing-kenburns {
+  animation: landing-kenburns 26s ease-in-out infinite;
 }
 
 button,
@@ -78,16 +225,105 @@ input {
   left: 0.75rem;
   top: -100px;
   z-index: 100;
-  border-radius: var(--radius-md);
-  background: var(--color-ocean-700);
+  border-radius: 9999px;
+  background: var(--color-ink);
   color: white;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.9rem;
   font-size: 0.875rem;
   font-weight: 600;
 }
 
 .skip-link:focus {
   top: 0.75rem;
+}
+
+/* Soft entrance used by panels / chrome */
+@keyframes airside-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes airside-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(11, 155, 184, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(11, 155, 184, 0);
+  }
+}
+
+.ui-rise {
+  animation: airside-rise 0.55s ease-out both;
+}
+
+.ui-glow-pulse {
+  animation: airside-glow 2.8s ease-in-out infinite;
+}
+
+.glass-panel {
+  background: color-mix(in oklab, white 82%, transparent);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in oklab, white 70%, var(--color-border));
+  box-shadow: var(--shadow-float);
+}
+
+/* Current-location marker (CustomOverlay) — distinct from place pins */
+.map-user-location {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+}
+
+.map-user-location__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(37, 99, 235, 0.22);
+  animation: map-user-pulse 2.2s ease-out infinite;
+}
+
+.map-user-location__ring {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 3px solid #fff;
+  background: #2563eb;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.28);
+}
+
+.map-user-location__dot {
+  position: relative;
+  z-index: 1;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #fff;
+}
+
+@keyframes map-user-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

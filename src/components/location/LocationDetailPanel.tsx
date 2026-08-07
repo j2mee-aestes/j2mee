@@ -1,8 +1,10 @@
 "use client";
 
 import { Card } from "@/components/common/Card";
+import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { EmptyState } from "@/components/common/EmptyState";
 import { IconButton, TextButton } from "@/components/common/IconButton";
+import { PlaceImageGallery } from "@/components/common/PlaceImageGallery";
 import { LocationFeatureBadge } from "@/components/location/LocationFeatureBadge";
 import { ActivityStatusCard } from "@/components/safety/ActivityStatusCard";
 import { useTranslations } from "@/context/LocaleContext";
@@ -11,6 +13,7 @@ import {
   getFishingSpotDescription,
   getFishingSpotDisplayName,
 } from "@/lib/i18n/placeDisplay";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { getFishingAllowedText } from "@/lib/i18n/safetyTexts";
 import { evaluateActivityStatus } from "@/lib/safety/evaluateActivityStatus";
 import type { FishingSpot, WeatherData } from "@/types/fishing";
@@ -84,11 +87,11 @@ export function LocationDetailPanel({
       <Card as="article" className="flex flex-col gap-4 p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ocean-600)]">
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
               {spotTypeLabel}
             </p>
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
+              <h2 className="font-display text-xl font-semibold tracking-tight text-[var(--color-ink)]">
                 {displayName}
               </h2>
               <LocationFeatureBadge
@@ -103,7 +106,7 @@ export function LocationDetailPanel({
                 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-ocean-500)]"
                 aria-hidden
               />
-              <span>{location.address}</span>
+              <span>{localizePlaceText(location.address, locale)}</span>
             </p>
             {fishing.lastVerifiedAt ? (
               <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
@@ -146,23 +149,16 @@ export function LocationDetailPanel({
           ) : null}
           {fishing.restrictionDescription ? (
             <p className="mt-1 text-xs font-normal opacity-90">
-              {fishing.restrictionDescription}
+              {localizePlaceText(fishing.restrictionDescription, locale)}
             </p>
           ) : null}
         </div>
 
-        <div
-          className="relative h-28 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border)]"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, #bae6fd 0%, #7dd3fc 35%, #99f6e4 70%, #bbf7d0 100%)",
-          }}
-          aria-hidden
-        >
-          <div className="absolute bottom-2 left-2 rounded-md bg-white/80 px-2 py-1 text-[10px] font-medium text-[var(--color-text-secondary)]">
-            {t("fishing.imagePending")}
-          </div>
-        </div>
+        <PlaceImageGallery
+          images={fishing.imageUrls}
+          alt={displayName}
+          pendingLabel={t("fishing.imagePending")}
+        />
 
         <div className="flex flex-wrap gap-2">
           {fishing.beginnerFriendly ? (
@@ -199,7 +195,9 @@ export function LocationDetailPanel({
 
         {fishing.accessDescription ? (
           <p className="text-xs text-[var(--color-text-secondary)]">
-            {t("fishing.access", { text: fishing.accessDescription })}
+            {t("fishing.access", {
+              text: localizePlaceText(fishing.accessDescription, locale),
+            })}
           </p>
         ) : null}
 
@@ -235,7 +233,7 @@ export function LocationDetailPanel({
                   key={item}
                   className="text-xs leading-relaxed text-[var(--color-text-secondary)]"
                 >
-                  · {item}
+                  · {localizePlaceText(item, locale)}
                 </li>
               ))}
             </ul>
@@ -246,29 +244,12 @@ export function LocationDetailPanel({
           {t("fishing.nearbyHint")}
         </p>
 
-        <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3 text-xs text-[var(--color-text-secondary)]">
-          <p className="font-semibold text-[var(--color-text-primary)]">
-            {t("fishing.dataSource")}
-          </p>
-          <p className="mt-1">
-            {fishing.sourceName ?? t("common.unknown")}
-          </p>
-          {fishing.lastVerifiedAt ? (
-            <p className="mt-0.5">
-              {t("common.updated")}: {fishing.lastVerifiedAt}
-            </p>
-          ) : null}
-          {fishing.sourceUrl ? (
-            <a
-              href={fishing.sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 inline-flex font-semibold text-[var(--color-ocean-700)]"
-            >
-              {t("fishing.viewSource")}
-            </a>
-          ) : null}
-        </div>
+        <DataSourceInfo
+          sourceName={fishing.sourceName}
+          sourceUrl={fishing.sourceUrl}
+          lastVerifiedAt={fishing.lastVerifiedAt}
+          isMock={fishing.verificationStatus === "unverified"}
+        />
 
         <div className="flex flex-col gap-2 sm:flex-row">
           {onAddToSchedule ? (

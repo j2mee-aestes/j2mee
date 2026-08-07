@@ -18,6 +18,7 @@ model User {
   passwordHash     String?
   preferredLocale  String    @default("ko")
   role             String    @default("user")
+  mileageBalance   Int       @default(0)
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 
@@ -29,6 +30,9 @@ model User {
   preference       UserPreference?
   auditLogs        AuditLog[]
   resolvedReports  PlaceReport[] @relation("ReportResolver")
+  contributions    PlaceContribution[]
+  contributionVotes ContributionVote[]
+  mileageLedgers   MileageLedger[]
 }
 
 model Account {
@@ -188,4 +192,56 @@ model TranslationReview {
 
   @@unique([messageKey, locale])
   @@index([reviewStatus, isSafety])
+}
+
+/// User-submitted place candidates (bins, attractions, fishing spots)
+model PlaceContribution {
+  id          String   @id @default(cuid())
+  kind        String
+  name        String
+  address     String
+  latitude    Float
+  longitude   Float
+  note        String?
+  photoName   String?
+  status      String   @default("submitted")
+  voteCount   Int      @default(0)
+  userId      String?
+  adminNote   String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  votes ContributionVote[]
+
+  @@index([kind, status])
+  @@index([status, voteCount])
+}
+
+model ContributionVote {
+  id             String   @id @default(cuid())
+  contributionId String
+  userId         String
+  createdAt      DateTime @default(now())
+
+  contribution PlaceContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([contributionId, userId])
+  @@index([userId])
+}
+
+model MileageLedger {
+  id        String   @id @default(cuid())
+  userId    String
+  delta     Int
+  reason    String
+  refType   String?
+  refId     String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }

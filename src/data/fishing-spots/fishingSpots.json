@@ -44,7 +44,11 @@
       "en": "A popular breakwater near Ilgwang Beach, easy for beginners and families.",
       "ja": "日光海水浴場エリアの代表的な防波堤ポイントで、初心者や家族連れにもアクセスしやすいです。",
       "zh-CN": "日光海水浴场一带代表性的防波堤钓点，适合新手和家庭。"
-    }
+    },
+    "imageUrls": [
+      "/images/places/spot-breakwater-1.jpg"
+    ],
+    "sourceUrl": "https://map.kakao.com/?q=%ED%95%99%EB%A6%AC%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EC%9D%BC%EA%B4%91%EC%9D%8D%20%ED%95%99%EB%A6%AC"
   },
   {
     "id": "loc-ilgwang-tetrapod",
@@ -78,7 +82,11 @@
     "lastVerifiedAt": "2026-08-04",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 3.8
+    "nearbyMarketDistanceKm": 3.8,
+    "imageUrls": [
+      "/images/places/spot-breakwater-2.jpg"
+    ],
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9D%BC%EA%B4%91%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5%20%ED%85%8C%ED%8A%B8%EB%9D%BC%ED%8F%AC%ED%8A%B8%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EC%9D%BC%EA%B4%91%EC%9D%8D%20%EC%9D%B4%EC%B2%9C%EB%A6%AC"
   },
   {
     "id": "loc-idong",
@@ -111,7 +119,11 @@
     "lastVerifiedAt": "2026-08-03",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 4.2
+    "nearbyMarketDistanceKm": 4.2,
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9D%B4%EB%8F%99%ED%95%AD%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EC%9D%BC%EA%B4%91%EC%9D%8D%20%EC%9D%B4%EC%B2%9C%EB%A6%AC",
+    "imageUrls": [
+      "/images/places/spot-breakwater-2.jpg"
+    ]
   },
   {
     "id": "loc-daebyeon",
@@ -151,7 +163,11 @@
       "en": "Daebyeon Port Breakwater",
       "ja": "大辺港防波堤",
       "zh-CN": "大边港防波堤"
-    }
+    },
+    "imageUrls": [
+      "/images/places/spot-breakwater-1.jpg"
+    ],
+    "sourceUrl": "https://map.kakao.com/?q=%EB%8C%80%EB%B3%80%ED%95%AD%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EA%B8%B0%EC%9E%A5%EC%9D%8D%20%EB%8C%80%EB%B3%80%EB%A6%AC"
   },
   {
     "id": "loc-jukseong",
@@ -184,7 +200,11 @@
     "lastVerifiedAt": "2026-07-28",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 3.2
+    "nearbyMarketDistanceKm": 3.2,
+    "imageUrls": [
+      "/images/places/spot-rocks-1.jpg"
+    ],
+    "sourceUrl": "https://map.kakao.com/?q=%EC%A3%BD%EC%84%B1%20%EA%B0%AF%EB%B0%94%EC%9C%84%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EA%B8%B0%EC%9E%A5%EC%9D%8D%20%EC%A3%BD%EC%84%B1%EB%A6%AC"
   },
   {
     "id": "loc-imrang",
@@ -223,7 +243,11 @@
       "en": "Imrang Breakwater",
       "ja": "任浪防波堤",
       "zh-CN": "任浪防波堤"
-    }
+    },
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9E%84%EB%9E%91%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EC%9E%A5%EC%95%88%EC%9D%8D%20%EC%9E%84%EB%9E%91%EB%A6%AC",
+    "imageUrls": [
+      "/images/places/spot-breakwater-2.jpg"
+    ]
   },
   {
     "id": "loc-sinpyeong",
@@ -256,7 +280,11 @@
     "lastVerifiedAt": "2026-07-30",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "기장시장",
-    "nearbyMarketDistanceKm": 8.2
+    "nearbyMarketDistanceKm": 8.2,
+    "sourceUrl": "https://map.kakao.com/?q=%EC%8B%A0%ED%8F%89%EC%86%8C%EA%B3%B5%EC%9B%90%20%EC%9D%B8%EA%B7%BC%20%ED%8F%AC%EC%9D%B8%ED%8A%B8%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%EA%B8%B0%EC%9E%A5%EA%B5%B0%20%EC%9E%A5%EC%95%88%EC%9D%8D%20%EC%9E%84%EB%9E%91%EB%A6%AC%20%EC%9D%BC%EB%8C%80",
+    "imageUrls": [
+      "/images/places/spot-rocks-1.jpg"
+    ]
   },
   {
     "id": "loc-cheongsapo",
@@ -295,7 +323,11 @@
       "en": "Cheongsapo Breakwater",
       "ja": "青沙浦防波堤",
       "zh-CN": "青沙浦防波堤"
-    }
+    },
+    "sourceUrl": "https://map.kakao.com/?q=%EC%B2%AD%EC%82%AC%ED%8F%AC%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%ED%95%B4%EC%9A%B4%EB%8C%80%EA%B5%AC%20%EC%A4%91%EB%8F%99%20%EC%B2%AD%EC%82%AC%ED%8F%AC",
+    "imageUrls": [
+      "/images/places/spot-breakwater-1.jpg"
+    ]
   },
   {
     "id": "loc-songjeong",
@@ -328,7 +360,11 @@
     "lastVerifiedAt": "2026-08-01",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "해운대시장",
-    "nearbyMarketDistanceKm": 3.6
+    "nearbyMarketDistanceKm": 3.6,
+    "sourceUrl": "https://map.kakao.com/?q=%EC%86%A1%EC%A0%95%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%ED%95%B4%EC%9A%B4%EB%8C%80%EA%B5%AC%20%EC%86%A1%EC%A0%95%EB%8F%99",
+    "imageUrls": [
+      "/images/places/spot-breakwater-2.jpg"
+    ]
   },
   {
     "id": "loc-unchon",
@@ -362,6 +398,10 @@
     "lastVerifiedAt": "2026-07-25",
     "sourceName": "공개 낚시 포인트 자료 참고",
     "nearbyMarket": "해운대시장",
-    "nearbyMarketDistanceKm": 1.2
+    "nearbyMarketDistanceKm": 1.2,
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9A%B4%EC%B4%8C%C2%B7%EC%9A%B0%EB%8F%99%20%ED%95%B4%EC%95%88%20%EB%B0%A9%ED%8C%8C%EC%A0%9C%20%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C%20%ED%95%B4%EC%9A%B4%EB%8C%80%EA%B5%AC%20%EC%9A%B0%EB%8F%99",
+    "imageUrls": [
+      "/images/places/spot-rocks-1.jpg"
+    ]
   }
 ]

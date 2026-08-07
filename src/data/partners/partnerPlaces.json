@@ -4,19 +4,51 @@
     "type": "market",
     "name": "기장시장",
     "address": "부산광역시 기장군 기장읍 차성동로67번길 일대",
-    "coordinates": { "latitude": 35.2435334, "longitude": 129.2152334 },
-    "description": "기장읍 중심 전통시장으로 연안 수산물과 횟집·손질 점포가 함께 모여 있습니다.",
+    "coordinates": {
+      "latitude": 35.2435334,
+      "longitude": 129.2152334
+    },
+    "description": "기장읍 중심 전통시장으로 연안 수산물과 횟집·손질 점포가 함께 모여 있습니다. 카카오맵 공개 정보 기준 참고 — 영업시간은 현장 확인",
     "phone": "051-721-0148",
     "businessHours": [
-      { "day": "monday", "isClosed": true },
-      { "day": "tuesday", "openTime": "07:30", "closeTime": "19:30" },
-      { "day": "wednesday", "openTime": "07:30", "closeTime": "19:30" },
-      { "day": "thursday", "openTime": "07:30", "closeTime": "19:30" },
-      { "day": "friday", "openTime": "07:30", "closeTime": "19:30" },
-      { "day": "saturday", "openTime": "07:30", "closeTime": "20:00" },
-      { "day": "sunday", "openTime": "07:30", "closeTime": "20:00" }
+      {
+        "day": "monday",
+        "isClosed": true
+      },
+      {
+        "day": "tuesday",
+        "openTime": "07:30",
+        "closeTime": "19:30"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "07:30",
+        "closeTime": "19:30"
+      },
+      {
+        "day": "thursday",
+        "openTime": "07:30",
+        "closeTime": "19:30"
+      },
+      {
+        "day": "friday",
+        "openTime": "07:30",
+        "closeTime": "19:30"
+      },
+      {
+        "day": "saturday",
+        "openTime": "07:30",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "sunday",
+        "openTime": "07:30",
+        "closeTime": "20:00"
+      }
     ],
-    "closedDays": ["월요일"],
+    "closedDays": [
+      "월요일"
+    ],
     "services": {
       "seafoodSales": true,
       "catchCleaning": true,
@@ -28,7 +60,12 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedCookingMethods": ["cleaningOnly", "sashimi", "grill", "soup"],
+      "acceptedCookingMethods": [
+        "cleaningOnly",
+        "sashimi",
+        "grill",
+        "soup"
+      ],
       "finalInspectionRequired": true,
       "additionalNotes": [
         "점포마다 외부 수산물 접수 여부가 다릅니다. 방문 전 문의하세요."
@@ -36,23 +73,59 @@
     },
     "verificationStatus": "admin",
     "lastVerifiedAt": "2026-08-05",
-    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EA%B8%B0%EC%9E%A5%EC%8B%9C%EC%9E%A5",
+    "imageUrls": [
+      "/images/places/place-fishmarket-1.jpg",
+      "/images/places/place-fishmarket-2.jpg"
+    ]
   },
   {
     "id": "partner-haeundae-market",
     "type": "market",
     "name": "해운대시장",
     "address": "부산광역시 해운대구 중동1로 일대",
-    "coordinates": { "latitude": 35.162326, "longitude": 129.1632084 },
-    "description": "해운대 해안과 가까운 전통시장으로 수산물·횟집·손질 점포를 한곳에서 찾을 수 있습니다.",
+    "coordinates": {
+      "latitude": 35.162326,
+      "longitude": 129.1632084
+    },
+    "description": "해운대 해안과 가까운 전통시장으로 수산물·횟집·손질 점포를 한곳에서 찾을 수 있습니다. 카카오맵 공개 정보 기준 참고 — 영업시간은 현장 확인",
     "businessHours": [
-      { "day": "monday", "openTime": "08:00", "closeTime": "20:00" },
-      { "day": "tuesday", "openTime": "08:00", "closeTime": "20:00" },
-      { "day": "wednesday", "openTime": "08:00", "closeTime": "20:00" },
-      { "day": "thursday", "openTime": "08:00", "closeTime": "20:00" },
-      { "day": "friday", "openTime": "08:00", "closeTime": "20:00" },
-      { "day": "saturday", "openTime": "08:00", "closeTime": "21:00" },
-      { "day": "sunday", "openTime": "08:00", "closeTime": "21:00" }
+      {
+        "day": "monday",
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "08:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "saturday",
+        "openTime": "08:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "sunday",
+        "openTime": "08:00",
+        "closeTime": "21:00"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -65,33 +138,82 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedSpecies": ["감성돔", "우럭", "고등어", "전어"],
-      "acceptedCookingMethods": ["cleaningOnly", "sashimi", "grill", "soup"],
+      "acceptedSpecies": [
+        "감성돔",
+        "우럭",
+        "고등어",
+        "전어"
+      ],
+      "acceptedCookingMethods": [
+        "cleaningOnly",
+        "sashimi",
+        "grill",
+        "soup"
+      ],
       "refrigerationRequired": true,
       "reservationRequired": false,
       "pricingDescription": "점포·무게·조리 방식에 따라 상이",
-      "additionalNotes": ["사전 문의 권장", "현장 상태 확인 후 접수"],
+      "additionalNotes": [
+        "사전 문의 권장",
+        "현장 상태 확인 후 접수"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "partner",
     "lastVerifiedAt": "2026-08-04",
-    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%ED%95%B4%EC%9A%B4%EB%8C%80%EC%8B%9C%EC%9E%A5",
+    "imageUrls": [
+      "/images/places/place-fishmarket-2.jpg",
+      "/images/places/place-fishmarket-1.jpg"
+    ]
   },
   {
     "id": "partner-jagalchi-market",
     "type": "market",
     "name": "자갈치시장",
     "address": "부산광역시 중구 자갈치해안로 52 일대",
-    "coordinates": { "latitude": 35.095744, "longitude": 129.0251226 },
+    "coordinates": {
+      "latitude": 35.095744,
+      "longitude": 129.0251226
+    },
     "description": "부산 대표 수산시장으로 해안가에 위치하며 회·건어물·조리 점포가 밀집해 있습니다.",
     "businessHours": [
-      { "day": "monday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "tuesday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "wednesday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "thursday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "friday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "saturday", "openTime": "05:00", "closeTime": "22:00" },
-      { "day": "sunday", "openTime": "05:00", "closeTime": "22:00" }
+      {
+        "day": "monday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "saturday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      },
+      {
+        "day": "sunday",
+        "openTime": "05:00",
+        "closeTime": "22:00"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -105,27 +227,65 @@
     "catchPolicy": {
       "acceptanceStatus": "notAccepted",
       "finalInspectionRequired": true,
-      "additionalNotes": ["외부 낚시 수산물 접수는 점포별로 다르며 대부분 판매 수산물 위주입니다."]
+      "additionalNotes": [
+        "외부 낚시 수산물 접수는 점포별로 다르며 대부분 판매 수산물 위주입니다."
+      ]
     },
     "verificationStatus": "admin",
     "lastVerifiedAt": "2026-08-03",
-    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9E%90%EA%B0%88%EC%B9%98%EC%8B%9C%EC%9E%A5",
+    "imageUrls": [
+      "/images/places/place-jagalchi.jpg",
+      "/images/places/place-fishmarket-1.jpg"
+    ]
   },
   {
     "id": "partner-daebyeon-seafood",
     "type": "market",
     "name": "대변항 수산물 직판·횟집촌",
     "address": "부산광역시 기장군 기장읍 기장해안로 대변항 일대",
-    "coordinates": { "latitude": 35.2238, "longitude": 129.2268 },
+    "coordinates": {
+      "latitude": 35.2238,
+      "longitude": 129.2268
+    },
     "description": "대변항 해안 직판장과 횟집이 모여 있는 구간으로 멸치회·자연산회를 판매합니다.",
     "businessHours": [
-      { "day": "monday", "openTime": "09:00", "closeTime": "21:00" },
-      { "day": "tuesday", "openTime": "09:00", "closeTime": "21:00" },
-      { "day": "wednesday", "openTime": "09:00", "closeTime": "21:00" },
-      { "day": "thursday", "openTime": "09:00", "closeTime": "21:00" },
-      { "day": "friday", "openTime": "09:00", "closeTime": "21:30" },
-      { "day": "saturday", "openTime": "09:00", "closeTime": "21:30" },
-      { "day": "sunday", "openTime": "09:00", "closeTime": "21:00" }
+      {
+        "day": "monday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "09:00",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "saturday",
+        "openTime": "09:00",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "sunday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -138,34 +298,83 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedSpecies": ["감성돔", "우럭", "볼락", "고등어"],
-      "acceptedCookingMethods": ["cleaningOnly", "sashimi", "grill", "soup"],
+      "acceptedSpecies": [
+        "감성돔",
+        "우럭",
+        "볼락",
+        "고등어"
+      ],
+      "acceptedCookingMethods": [
+        "cleaningOnly",
+        "sashimi",
+        "grill",
+        "soup"
+      ],
       "refrigerationRequired": true,
       "reservationRequired": true,
       "pricingDescription": "점포·무게에 따라 현장 안내",
-      "additionalNotes": ["방문 전 점포에 직접 문의", "현장 검수 후 접수"],
+      "additionalNotes": [
+        "방문 전 점포에 직접 문의",
+        "현장 검수 후 접수"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "partner",
     "lastVerifiedAt": "2026-08-05",
-    "sourceName": "공개 지도·해안 상권 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 지도·해안 상권 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EB%8C%80%EB%B3%80%ED%95%AD%20%EC%88%98%EC%82%B0%EB%AC%BC%20%EC%A7%81%ED%8C%90%C2%B7%ED%9A%9F%EC%A7%91%EC%B4%8C",
+    "imageUrls": [
+      "/images/places/place-fishmarket-2.jpg",
+      "/images/places/spot-breakwater-1.jpg"
+    ]
   },
   {
     "id": "partner-namhang-hoe",
     "type": "restaurant",
     "name": "남항횟집",
     "address": "부산광역시 기장군 기장읍 기장해안로 572",
-    "coordinates": { "latitude": 35.2229, "longitude": 129.2262 },
+    "coordinates": {
+      "latitude": 35.2229,
+      "longitude": 129.2262
+    },
     "description": "대변항 해안로에 있는 횟집으로 자연산회·멸치회를 판매합니다. 수산시장 카테고리에서 함께 안내합니다.",
     "phone": "051-721-2302",
     "businessHours": [
-      { "day": "monday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "tuesday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "wednesday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "thursday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "friday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "saturday", "openTime": "09:30", "closeTime": "21:30" },
-      { "day": "sunday", "openTime": "09:30", "closeTime": "21:30" }
+      {
+        "day": "monday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "thursday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "friday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "saturday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "sunday",
+        "openTime": "09:30",
+        "closeTime": "21:30"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -178,33 +387,76 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedCookingMethods": ["sashimi", "grill", "soup", "cleaningOnly"],
+      "acceptedCookingMethods": [
+        "sashimi",
+        "grill",
+        "soup",
+        "cleaningOnly"
+      ],
       "refrigerationRequired": true,
       "reservationRequired": true,
       "pricingDescription": "메뉴·무게에 따라 상이",
-      "additionalNotes": ["전화 예약 문의 권장", "예약 확정이 아닌 이용 문의로 안내"],
+      "additionalNotes": [
+        "전화 예약 문의 권장",
+        "예약 확정이 아닌 이용 문의로 안내"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "partner",
     "lastVerifiedAt": "2026-08-05",
-    "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EB%82%A8%ED%95%AD%ED%9A%9F%EC%A7%91",
+    "imageUrls": [
+      "/images/places/place-hoe-restaurant.jpg"
+    ]
   },
   {
     "id": "partner-pado-hoe",
     "type": "restaurant",
     "name": "파도횟집",
     "address": "부산광역시 기장군 기장읍 기장해안로 601",
-    "coordinates": { "latitude": 35.2236, "longitude": 129.2275 },
+    "coordinates": {
+      "latitude": 35.2236,
+      "longitude": 129.2275
+    },
     "description": "대변항 인근 횟집으로 멸치회·모듬회·탕 요리를 제공합니다.",
     "phone": "051-721-3762",
     "businessHours": [
-      { "day": "monday", "openTime": "10:00", "closeTime": "21:00" },
-      { "day": "tuesday", "openTime": "10:00", "closeTime": "21:00" },
-      { "day": "wednesday", "openTime": "10:00", "closeTime": "21:00" },
-      { "day": "thursday", "openTime": "10:00", "closeTime": "21:00" },
-      { "day": "friday", "openTime": "10:00", "closeTime": "21:30" },
-      { "day": "saturday", "openTime": "10:00", "closeTime": "21:30" },
-      { "day": "sunday", "openTime": "10:00", "closeTime": "21:00" }
+      {
+        "day": "monday",
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "10:00",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "saturday",
+        "openTime": "10:00",
+        "closeTime": "21:30"
+      },
+      {
+        "day": "sunday",
+        "openTime": "10:00",
+        "closeTime": "21:00"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -217,34 +469,80 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedSpecies": ["감성돔", "우럭", "광어"],
-      "acceptedCookingMethods": ["sashimi", "grill", "soup"],
+      "acceptedSpecies": [
+        "감성돔",
+        "우럭",
+        "광어"
+      ],
+      "acceptedCookingMethods": [
+        "sashimi",
+        "grill",
+        "soup"
+      ],
       "refrigerationRequired": true,
       "reservationRequired": true,
-      "additionalNotes": ["방문 전 점포에 직접 문의"],
+      "additionalNotes": [
+        "방문 전 점포에 직접 문의"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "partner",
     "lastVerifiedAt": "2026-08-04",
-    "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%ED%8C%8C%EB%8F%84%ED%9A%9F%EC%A7%91",
+    "imageUrls": [
+      "/images/places/place-hoe-restaurant.jpg"
+    ]
   },
   {
     "id": "partner-daebyeon-processing",
     "type": "processingShop",
     "name": "대변항 손질 지원 점포",
     "address": "부산광역시 기장군 기장읍 대변항 일대",
-    "coordinates": { "latitude": 35.2242, "longitude": 129.2258 },
-    "description": "대변항 수산시장·횟집촌 내 손질 서비스를 제공하는 점포군입니다. 지도에서는 수산시장으로 함께 표시됩니다.",
+    "coordinates": {
+      "latitude": 35.2242,
+      "longitude": 129.2258
+    },
+    "description": "대변항 수산시장·횟집촌 내 손질 서비스를 제공하는 점포군입니다. 지도에서는 수산시장으로 함께 표시됩니다. 카카오맵 공개 정보 기준 참고 — 영업시간은 현장 확인",
     "businessHours": [
-      { "day": "monday", "openTime": "09:00", "closeTime": "18:00" },
-      { "day": "tuesday", "openTime": "09:00", "closeTime": "18:00" },
-      { "day": "wednesday", "openTime": "09:00", "closeTime": "18:00" },
-      { "day": "thursday", "openTime": "09:00", "closeTime": "18:00" },
-      { "day": "friday", "openTime": "09:00", "closeTime": "18:00" },
-      { "day": "saturday", "openTime": "09:00", "closeTime": "17:00" },
-      { "day": "sunday", "isClosed": true }
+      {
+        "day": "monday",
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "09:00",
+        "closeTime": "18:00"
+      },
+      {
+        "day": "saturday",
+        "openTime": "09:00",
+        "closeTime": "17:00"
+      },
+      {
+        "day": "sunday",
+        "isClosed": true
+      }
     ],
-    "closedDays": ["일요일"],
+    "closedDays": [
+      "일요일"
+    ],
     "services": {
       "seafoodSales": false,
       "catchCleaning": true,
@@ -256,33 +554,79 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "accepted",
-      "acceptedSpecies": ["감성돔", "우럭", "볼락", "학꽁치", "고등어"],
-      "acceptedCookingMethods": ["cleaningOnly"],
+      "acceptedSpecies": [
+        "감성돔",
+        "우럭",
+        "볼락",
+        "학꽁치",
+        "고등어"
+      ],
+      "acceptedCookingMethods": [
+        "cleaningOnly"
+      ],
       "refrigerationRequired": true,
       "reservationRequired": false,
       "pricingDescription": "kg당 손질비 현장 안내",
-      "additionalNotes": ["외부 수산물 접수 가능", "냉장 보관 필수"],
+      "additionalNotes": [
+        "외부 수산물 접수 가능",
+        "냉장 보관 필수"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "admin",
     "lastVerifiedAt": "2026-08-05",
-    "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EB%8C%80%EB%B3%80%ED%95%AD%20%EC%86%90%EC%A7%88%20%EC%A7%80%EC%9B%90%20%EC%A0%90%ED%8F%AC",
+    "imageUrls": [
+      "/images/places/place-processing.jpg"
+    ]
   },
   {
     "id": "partner-ilgwang-coastal",
     "type": "market",
     "name": "일광 해안 수산물 판매장",
     "address": "부산광역시 기장군 일광읍 일광해수욕장 인근",
-    "coordinates": { "latitude": 35.2588, "longitude": 129.2285 },
+    "coordinates": {
+      "latitude": 35.2588,
+      "longitude": 129.2285
+    },
     "description": "일광 해안 산책로와 가까운 수산물·회 판매 구역입니다.",
     "businessHours": [
-      { "day": "monday", "openTime": "09:00", "closeTime": "20:00" },
-      { "day": "tuesday", "openTime": "09:00", "closeTime": "20:00" },
-      { "day": "wednesday", "openTime": "09:00", "closeTime": "20:00" },
-      { "day": "thursday", "openTime": "09:00", "closeTime": "20:00" },
-      { "day": "friday", "openTime": "09:00", "closeTime": "20:00" },
-      { "day": "saturday", "openTime": "09:00", "closeTime": "21:00" },
-      { "day": "sunday", "openTime": "09:00", "closeTime": "21:00" }
+      {
+        "day": "monday",
+        "openTime": "09:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "tuesday",
+        "openTime": "09:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "wednesday",
+        "openTime": "09:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "thursday",
+        "openTime": "09:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "friday",
+        "openTime": "09:00",
+        "closeTime": "20:00"
+      },
+      {
+        "day": "saturday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      },
+      {
+        "day": "sunday",
+        "openTime": "09:00",
+        "closeTime": "21:00"
+      }
     ],
     "services": {
       "seafoodSales": true,
@@ -295,14 +639,26 @@
     },
     "catchPolicy": {
       "acceptanceStatus": "conditional",
-      "acceptedSpecies": ["감성돔", "우럭", "고등어"],
-      "acceptedCookingMethods": ["cleaningOnly"],
+      "acceptedSpecies": [
+        "감성돔",
+        "우럭",
+        "고등어"
+      ],
+      "acceptedCookingMethods": [
+        "cleaningOnly"
+      ],
       "refrigerationRequired": true,
-      "additionalNotes": ["사전 문의 권장"],
+      "additionalNotes": [
+        "사전 문의 권장"
+      ],
       "finalInspectionRequired": true
     },
     "verificationStatus": "partner",
     "lastVerifiedAt": "2026-08-02",
-    "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)"
+    "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)",
+    "sourceUrl": "https://map.kakao.com/?q=%EC%9D%BC%EA%B4%91%20%ED%95%B4%EC%95%88%20%EC%88%98%EC%82%B0%EB%AC%BC%20%ED%8C%90%EB%A7%A4%EC%9E%A5",
+    "imageUrls": [
+      "/images/places/place-fishmarket-2.jpg"
+    ]
   }
 ]

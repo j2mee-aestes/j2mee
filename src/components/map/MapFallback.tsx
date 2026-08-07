@@ -1,15 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { TextButton } from "@/components/common/IconButton";
 import { useTranslations } from "@/context/LocaleContext";
 
 interface MapFallbackProps {
   variant: "missing-key" | "error";
   onRetry?: () => void;
+  errorMessage?: string | null;
 }
 
-export function MapFallback({ variant, onRetry }: MapFallbackProps) {
+export function MapFallback({
+  variant,
+  onRetry,
+  errorMessage,
+}: MapFallbackProps) {
   const { t } = useTranslations();
+  const [host, setHost] = useState("");
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setHost(window.location.host), 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
   const title =
     variant === "missing-key"
       ? t("map.kakaoKeyMissingTitle")
@@ -28,6 +41,19 @@ export function MapFallback({ variant, onRetry }: MapFallbackProps) {
         <p className="mt-2 text-xs leading-relaxed text-[var(--color-text-secondary)] sm:text-sm">
           {body}
         </p>
+        {variant === "error" && host ? (
+          <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
+            {t("map.kakaoLoadFailedDetail", {
+              host,
+              reason: errorMessage || "SDK_LOAD_FAILED",
+            })}
+          </p>
+        ) : null}
+        {variant === "error" ? (
+          <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
+            {t("map.kakaoDomainHint")}
+          </p>
+        ) : null}
         {variant === "error" && onRetry ? (
           <TextButton variant="primary" className="mt-4" onClick={onRetry}>
             {t("map.kakaoRetry")}

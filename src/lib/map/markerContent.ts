@@ -10,6 +10,9 @@ const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   restaurant: "🍽",
   trash: "♻️",
   plogging: "👟",
+  attraction: "⭐",
+  leisure: "⛵",
+  event: "🎉",
 };
 
 const WASTE_SYMBOL: Record<string, string> = {
@@ -103,10 +106,12 @@ export function createMarkerContent(
         : "";
   button.setAttribute("aria-label", `${location.name}${statusHint}`);
   button.setAttribute("aria-pressed", selected ? "true" : "false");
+  const isStar = location.category === "attraction";
+  const size = selected ? 36 : 30;
   button.style.cssText = `
-    width: ${selected ? "36px" : "30px"};
-    height: ${selected ? "36px" : "30px"};
-    border-radius: 9999px;
+    width: ${size}px;
+    height: ${size}px;
+    border-radius: ${isStar ? "0" : "9999px"};
     border: 2px solid #fff;
     background: ${color};
     color: #fff;
@@ -122,9 +127,17 @@ export function createMarkerContent(
     line-height: 1;
     cursor: pointer;
     transition: transform 120ms ease;
+    ${
+      isStar
+        ? "clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);"
+        : ""
+    }
     ${unavailable ? "filter: grayscale(0.4);" : ""}
   `;
-  button.textContent = resolveMarkerSymbol(location);
+  button.textContent = isStar ? "" : resolveMarkerSymbol(location);
+  if (isStar) {
+    button.setAttribute("title", location.name);
+  }
   button.addEventListener("mouseenter", () => {
     button.style.transform = "scale(1.08)";
   });
@@ -207,14 +220,12 @@ export function createMarkerContent(
 
 export function createUserLocationContent(): HTMLElement {
   const wrapper = document.createElement("div");
-  wrapper.style.cssText = `
-    width: 18px;
-    height: 18px;
-    border-radius: 9999px;
-    border: 3px solid #fff;
-    background: #2563eb;
-    box-shadow: 0 0 0 6px rgba(37,99,235,0.25), 0 4px 10px rgba(15,23,42,0.2);
-  `;
+  wrapper.className = "map-user-location";
   wrapper.setAttribute("aria-label", "현재 위치");
+  wrapper.innerHTML = `
+    <span class="map-user-location__pulse" aria-hidden="true"></span>
+    <span class="map-user-location__ring" aria-hidden="true"></span>
+    <span class="map-user-location__dot" aria-hidden="true"></span>
+  `;
   return wrapper;
 }

@@ -26,7 +26,7 @@ export function SearchBar({
         onSubmit();
       }}
     >
-      <label className="flex min-w-0 flex-1 items-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white px-3 py-2.5 shadow-sm focus-within:border-[var(--color-ocean-400)] focus-within:ring-2 focus-within:ring-[var(--color-ocean-100)]">
+      <label className="flex min-w-0 flex-1 items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/85 px-3.5 py-2.5 shadow-[var(--shadow-soft)] transition focus-within:border-[var(--color-accent)] focus-within:ring-2 focus-within:ring-[var(--color-ocean-100)]">
         <Search
           className="h-4 w-4 shrink-0 text-[var(--color-text-muted)]"
           aria-hidden
@@ -42,7 +42,7 @@ export function SearchBar({
       </label>
       <button
         type="submit"
-        className="inline-flex h-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-ocean-600)] px-3 text-sm font-semibold text-white hover:bg-[var(--color-ocean-700)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
+        className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-4 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
       >
         {t("search.button")}
       </button>

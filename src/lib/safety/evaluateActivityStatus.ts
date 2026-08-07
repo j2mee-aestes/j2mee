@@ -4,15 +4,17 @@ import type {
   FishingAllowedStatus,
   WeatherData,
 } from "@/types/fishing";
-import {
-  ACTIVITY_STATUS_LABELS,
-  SAFETY_THRESHOLDS,
-} from "@/constants/safetyThresholds";
+import { SAFETY_THRESHOLDS } from "@/constants/safetyThresholds";
 
 interface EvaluateInput {
   fishingAllowedStatus?: FishingAllowedStatus;
   weather?: WeatherData | null;
 }
+
+export type ActivityReason = {
+  key: string;
+  values?: Record<string, string | number>;
+};
 
 function rank(status: ActivityStatus): number {
   switch (status) {
@@ -32,98 +34,118 @@ function rank(status: ActivityStatus): number {
 export function evaluateActivityStatus(
   input: EvaluateInput,
 ): ActivityEvaluation {
-  const reasons: string[] = [];
+  const reasons: ActivityReason[] = [];
   let status: ActivityStatus = "normal";
 
-  const raise = (next: ActivityStatus, reason: string) => {
-    reasons.push(reason);
+  const raise = (
+    next: ActivityStatus,
+    key: string,
+    values?: Record<string, string | number>,
+  ) => {
+    reasons.push({ key, values });
     if (rank(next) > rank(status)) {
       status = next;
     }
   };
 
   if (input.fishingAllowedStatus === "prohibited") {
-    raise("restricted", "이 장소는 낚시가 금지되어 있습니다.");
+    raise("restricted", "safety.reason.fishingProhibited");
   } else if (input.fishingAllowedStatus === "restricted") {
-    raise("restricted", "이 장소는 일부 출입 또는 낚시 제한이 있습니다.");
+    raise("restricted", "safety.reason.fishingRestricted");
   } else if (input.fishingAllowedStatus === "unknown") {
-    raise("unknown", "낚시 가능 여부를 확인할 수 없습니다.");
+    raise("unknown", "safety.reason.fishingUnknown");
   }
 
   const weather = input.weather;
   if (!weather) {
-    raise("unknown", "날씨·해양 정보가 없어 상태를 완전히 판단할 수 없습니다.");
+    raise("unknown", "safety.reason.weatherMissing");
   } else {
     const dangerWarning = weather.warnings?.find((w) => w.severity === "danger");
     const warning = weather.warnings?.find((w) => w.severity === "warning");
 
     if (dangerWarning) {
-      raise(
-        "notRecommended",
-        `기상특보: ${dangerWarning.title}`,
-      );
+      raise("notRecommended", "safety.reason.weatherAlert", {
+        title: dangerWarning.title,
+      });
     } else if (warning) {
-      raise("caution", `기상특보: ${warning.title}`);
+      raise("caution", "safety.reason.weatherAlert", {
+        title: warning.title,
+      });
     }
 
     if (
       weather.windSpeedMs !== undefined &&
       weather.windSpeedMs >= SAFETY_THRESHOLDS.windNotRecommendedMs
     ) {
-      raise(
-        "notRecommended",
-        `풍속이 강합니다 (${weather.windSpeedMs.toFixed(1)}m/s).`,
-      );
+      raise("notRecommended", "safety.reason.windStrong", {
+        value: weather.windSpeedMs.toFixed(1),
+      });
     } else if (
       weather.windSpeedMs !== undefined &&
       weather.windSpeedMs >= SAFETY_THRESHOLDS.windCautionMs
     ) {
-      raise(
-        "caution",
-        `풍속이 다소 강합니다 (${weather.windSpeedMs.toFixed(1)}m/s).`,
-      );
+      raise("caution", "safety.reason.windCaution", {
+        value: weather.windSpeedMs.toFixed(1),
+      });
     }
 
     if (
       weather.waveHeightM !== undefined &&
       weather.waveHeightM >= SAFETY_THRESHOLDS.waveNotRecommendedM
     ) {
-      raise(
-        "notRecommended",
-        `파고가 높습니다 (${weather.waveHeightM.toFixed(1)}m).`,
-      );
+      raise("notRecommended", "safety.reason.waveHigh", {
+        value: weather.waveHeightM.toFixed(1),
+      });
     } else if (
       weather.waveHeightM !== undefined &&
       weather.waveHeightM >= SAFETY_THRESHOLDS.waveCautionM
     ) {
-      raise(
-        "caution",
-        `파고에 주의가 필요합니다 (${weather.waveHeightM.toFixed(1)}m).`,
-      );
+      raise("caution", "safety.reason.waveCaution", {
+        value: weather.waveHeightM.toFixed(1),
+      });
     }
 
     if (
       weather.precipitationProbability !== undefined &&
       weather.precipitationProbability >= SAFETY_THRESHOLDS.precipCautionPercent
     ) {
-      raise(
-        "caution",
-        `강수 확률이 높습니다 (${weather.precipitationProbability}%).`,
-      );
+      raise("caution", "safety.reason.precipHigh", {
+        value: weather.precipitationProbability,
+      });
     }
   }
 
-  const uniqueReasons = [...new Set(reasons)];
+  const unique = new Map<string, ActivityReason>();
+  for (const reason of reasons) {
+    const id = `${reason.key}:${JSON.stringify(reason.values ?? {})}`;
+    if (!unique.has(id)) unique.set(id, reason);
+  }
+  const uniqueReasons = [...unique.values()];
 
   return {
     status,
-    label: ACTIVITY_STATUS_LABELS[status],
+    label: status,
     reasons:
       uniqueReasons.length > 0
-        ? uniqueReasons
-        : ["현재 공개된 정보 기준으로 특별한 주의 신호가 없습니다."],
+        ? uniqueReasons.map((item) =>
+            item.values ? `${item.key}::${JSON.stringify(item.values)}` : item.key,
+          )
+        : ["safety.reason.noAlerts"],
     evaluatedAt: new Date().toISOString(),
   };
+}
+
+export function parseActivityReason(raw: string): ActivityReason {
+  const sep = raw.indexOf("::");
+  if (sep === -1) return { key: raw };
+  try {
+    return {
+      key: raw.slice(0, sep),
+      values: JSON.parse(raw.slice(sep + 2)) as Record<string, string | number>,
+    };
+  } catch {
+    return { key: raw };
+  }
 }
 
 export function isStaleData(
@@ -144,20 +166,20 @@ export function formatRelativeTime(
 ): string {
   const fetched = Date.parse(iso);
   if (Number.isNaN(fetched)) {
-    return "시각 미상";
+    return "unknown";
   }
   const diffMs = Math.max(0, now - fetched);
   const minutes = Math.floor(diffMs / 60000);
   if (minutes < 1) {
-    return "방금 전";
+    return "justNow";
   }
   if (minutes < 60) {
-    return `${minutes}분 전`;
+    return `m:${minutes}`;
   }
   const hours = Math.floor(minutes / 60);
   if (hours < 24) {
-    return `${hours}시간 전`;
+    return `h:${hours}`;
   }
   const days = Math.floor(hours / 24);
-  return `${days}일 전`;
+  return `d:${days}`;
 }

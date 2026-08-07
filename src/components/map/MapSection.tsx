@@ -5,6 +5,7 @@ import { KakaoMap, type KakaoMapHandle } from "@/components/map/KakaoMap";
 import { MapControls } from "@/components/map/MapControls";
 import { MapFallback, MapSkeleton } from "@/components/map/MapFallback";
 import { MapFilterChips } from "@/components/map/MapFilterChips";
+import { MyLocationButton } from "@/components/map/MyLocationButton";
 import { useTranslations } from "@/context/LocaleContext";
 import { mockMapLocations } from "@/data/mockMapLocations";
 import { getAllPloggingRoutes } from "@/lib/environment/ploggingRouteRepository";
@@ -46,7 +47,7 @@ export function MapSection({
   fitRouteRequestId = 0,
 }: MapSectionProps) {
   const { t } = useTranslations();
-  const { status, retry } = useKakaoMaps();
+  const { status, retry, errorMessage } = useKakaoMaps();
   const mapRef = useRef<KakaoMapHandle>(null);
   const [locating, setLocating] = useState(false);
   const [inactiveIds, setInactiveIds] = useState<Set<string>>(new Set());
@@ -119,6 +120,10 @@ export function MapSection({
   }, [fitRouteRequestId, selectedRouteId, status, routes]);
 
   const handleCurrentLocation = () => {
+    if (locating) {
+      return;
+    }
+
     if (!navigator.geolocation) {
       onNotice(t("map.locationUnsupported"));
       return;
@@ -158,9 +163,9 @@ export function MapSection({
   return (
     <section
       aria-label={t("common.map")}
-      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-card)] sm:min-h-[440px] lg:min-h-0"
+      className="relative flex min-h-[360px] flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-map-bg)] shadow-[var(--shadow-float)] ring-1 ring-white/60 sm:min-h-[440px] lg:min-h-0"
     >
-      <div className="pointer-events-none absolute inset-x-3 top-3 z-30 flex justify-center sm:inset-x-4 sm:justify-start">
+      <div className="pointer-events-none absolute inset-x-3 top-3 z-30 hidden justify-center sm:inset-x-4 sm:justify-start lg:flex">
         <div className="pointer-events-auto max-w-full">
           <MapFilterChips
             selectedCategory={selectedCategory}
@@ -170,17 +175,23 @@ export function MapSection({
       </div>
 
       {status === "ready" ? (
-        <div className="absolute right-3 top-3 z-30 sm:right-4 sm:top-14">
-          <MapControls
-            onZoomIn={() => mapRef.current?.zoomIn()}
-            onZoomOut={() => mapRef.current?.zoomOut()}
-            onCurrentLocation={handleCurrentLocation}
-            onFitAllMarkers={() =>
-              mapRef.current?.fitLocations(visibleLocations)
-            }
-            locating={locating}
-          />
-        </div>
+        <>
+          <div className="absolute right-3 top-3 z-30 sm:right-4 lg:top-14">
+            <MapControls
+              onZoomIn={() => mapRef.current?.zoomIn()}
+              onZoomOut={() => mapRef.current?.zoomOut()}
+              onFitAllMarkers={() =>
+                mapRef.current?.fitLocations(visibleLocations)
+              }
+            />
+          </div>
+          <div className="absolute bottom-4 right-3 z-30 sm:bottom-5 sm:right-4">
+            <MyLocationButton
+              onClick={handleCurrentLocation}
+              locating={locating}
+            />
+          </div>
+        </>
       ) : null}
 
       <div className="relative min-h-[360px] flex-1 sm:min-h-[440px] lg:min-h-0">
@@ -189,7 +200,11 @@ export function MapSection({
         ) : null}
         {status === "loading" ? <MapSkeleton /> : null}
         {status === "error" ? (
-          <MapFallback variant="error" onRetry={retry} />
+          <MapFallback
+            variant="error"
+            onRetry={retry}
+            errorMessage={errorMessage}
+          />
         ) : null}
         {status === "ready" ? (
           <>
@@ -205,7 +220,7 @@ export function MapSection({
             />
             {visibleLocations.length === 0 && selectedCategory !== "plogging" ? (
               <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center p-6">
-                <p className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white/95 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-sm">
+                <p className="rounded-2xl border border-[var(--color-border)] bg-white/90 px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)] shadow-[var(--shadow-soft)] backdrop-blur-md">
                   {t("map.noPlaces")}
                 </p>
               </div>

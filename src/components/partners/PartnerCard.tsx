@@ -4,6 +4,7 @@ import { TextButton } from "@/components/common/IconButton";
 import { BusinessStatusBadge } from "@/components/partners/BusinessStatusBadge";
 import { useTranslations } from "@/context/LocaleContext";
 import { formatLocaleDistanceKm } from "@/lib/i18n/formatDistance";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { getBusinessStatus } from "@/lib/partners/getBusinessStatus";
 import type { NearbyPartnerResult } from "@/types/partner";
 
@@ -52,17 +53,20 @@ export function PartnerCard({
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
-              {partner.name}
+              {localizePlaceText(partner.name, locale)}
             </h3>
             <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
               {t(`partner.type.${partner.type}`)} ·{" "}
               {formatLocaleDistanceKm(distanceKm, locale)}
             </p>
             <p className="mt-0.5 truncate text-[11px] text-[var(--color-text-muted)]">
-              {partner.address}
+              {localizePlaceText(partner.address, locale)}
             </p>
           </div>
-          <BusinessStatusBadge status={business.status} />
+          <BusinessStatusBadge
+            status={business.status}
+            label={t(`partner.businessStatus.${business.status}`)}
+          />
         </div>
 
         <ul className="mt-2 space-y-0.5 text-xs text-[var(--color-text-secondary)]">

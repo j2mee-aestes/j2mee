@@ -7,10 +7,10 @@ import { LocationReportForm } from "@/components/environment/LocationReportForm"
 import { PloggingCompletionSummary } from "@/components/environment/PloggingCompletionSummary";
 import { PloggingSessionPanel } from "@/components/environment/PloggingSessionPanel";
 import { WastePointTypeBadge } from "@/components/environment/WastePointTypeBadge";
-import { PLOGGING_DIFFICULTY_LABELS } from "@/constants/environmentData";
-import { VERIFICATION_STATUS_LABELS } from "@/constants/safetyThresholds";
+import { useTranslations } from "@/context/LocaleContext";
 import { findNearbyWastePoints } from "@/lib/environment/findNearbyWastePoints";
 import { isStaleVerificationDate } from "@/lib/environment/isStaleVerificationDate";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type {
   PloggingRoute,
   PloggingSession,
@@ -52,6 +52,7 @@ export function PloggingRouteDetail({
   notice,
   className = "",
 }: PloggingRouteDetailProps) {
+  const { t, locale } = useTranslations();
   const [reportOpen, setReportOpen] = useState(false);
   const stale = isStaleVerificationDate(route.lastVerifiedAt);
 
@@ -69,56 +70,73 @@ export function PloggingRouteDetail({
   const disposalName = connectedWastePoints.find(
     (point) => point.id === session.disposalWastePointId,
   )?.name;
+  const name = localizePlaceText(route.name, locale);
+  const description = route.description
+    ? localizePlaceText(route.description, locale)
+    : null;
+  const difficultyKey =
+    route.difficulty === "normal" ? "normal" : route.difficulty;
+  const verification = t(`environment.verification.${route.verificationStatus}`);
 
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
       <Card as="article" className="flex flex-col gap-4 p-4">
         <div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
-            플로깅 코스 · {PLOGGING_DIFFICULTY_LABELS[route.difficulty]}
+            {t("environment.ploggingCourse")} ·{" "}
+            {t(`environment.difficulty.${difficultyKey}`)}
           </p>
           <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
-            {route.name}
+            {name}
           </h2>
-          {route.description ? (
+          {description ? (
             <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
-              {route.description}
+              {description}
             </p>
           ) : null}
           <p className="mt-2 text-xs text-[var(--color-text-muted)]">
-            검증: {VERIFICATION_STATUS_LABELS[route.verificationStatus]}
+            {t("environment.verificationLabel", { status: verification })}
             {route.lastVerifiedAt
-              ? ` · 마지막 확인일 ${route.lastVerifiedAt}`
+              ? ` · ${t("common.lastVerifiedDate", { date: route.lastVerifiedAt })}`
               : ""}
           </p>
         </div>
 
         <dl className="grid grid-cols-2 gap-2 text-xs">
           <div className="rounded-[var(--radius-md)] bg-[var(--color-surface-muted)] p-2">
-            <dt className="text-[var(--color-text-muted)]">거리</dt>
+            <dt className="text-[var(--color-text-muted)]">
+              {t("common.distanceLabel")}
+            </dt>
             <dd className="font-semibold">{route.distanceKm}km</dd>
           </div>
           <div className="rounded-[var(--radius-md)] bg-[var(--color-surface-muted)] p-2">
-            <dt className="text-[var(--color-text-muted)]">예상 시간</dt>
-            <dd className="font-semibold">약 {route.estimatedMinutes}분</dd>
+            <dt className="text-[var(--color-text-muted)]">
+              {t("environment.estimatedTime")}
+            </dt>
+            <dd className="font-semibold">
+              {t("common.approxMinutes", { count: route.estimatedMinutes })}
+            </dd>
           </div>
         </dl>
 
         {route.recommendedTimeDescription ? (
           <p className="text-xs text-[var(--color-text-secondary)]">
-            추천 이용시간: {route.recommendedTimeDescription}
+            {t("environment.recommendedTime", {
+              time: localizePlaceText(route.recommendedTimeDescription, locale),
+            })}
           </p>
         ) : null}
 
         {stale ? (
           <div className="rounded-[var(--radius-md)] border border-orange-200 bg-orange-50 px-3 py-2 text-xs text-orange-900">
-            오랫동안 현장 확인이 이루어지지 않은 코스입니다. 현재 상태가 다를 수
-            있습니다.
+            {t("environment.staleRoute")}
           </div>
         ) : null}
 
         <section>
-          <h3 className="mb-1 text-sm font-semibold">연결된 배출 장소</h3>
+          <h3 className="mb-1 text-sm font-semibold">
+            {t("environment.connectedDisposal")}
+          </h3>
           {connectedWastePoints.length > 0 ? (
             <ul className="space-y-2">
               {connectedWastePoints.map((point) => (
@@ -128,7 +146,9 @@ export function PloggingRouteDetail({
                     className="flex w-full items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] px-3 py-2 text-left text-xs hover:bg-[var(--color-surface-muted)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
                     onClick={() => onSelectWastePoint(point.id)}
                   >
-                    <span className="font-medium">{point.name}</span>
+                    <span className="font-medium">
+                      {localizePlaceText(point.name, locale)}
+                    </span>
                     <WastePointTypeBadge type={point.type} />
                   </button>
                 </li>
@@ -136,31 +156,37 @@ export function PloggingRouteDetail({
             </ul>
           ) : (
             <p className="text-xs text-[var(--color-text-muted)]">
-              연결된 배출 장소가 없습니다.
+              {t("environment.noConnectedDisposal")}
             </p>
           )}
           {nearbyFromStart.length > 0 ? (
             <p className="mt-2 text-[11px] text-[var(--color-text-muted)]">
-              시작점 근처 배출 장소도 함께 확인해 보세요.
+              {t("environment.nearbyDisposalHint")}
             </p>
           ) : null}
         </section>
 
         {route.facilities && route.facilities.length > 0 ? (
           <section>
-            <h3 className="mb-1 text-sm font-semibold">편의시설</h3>
+            <h3 className="mb-1 text-sm font-semibold">
+              {t("environment.facilities")}
+            </h3>
             <p className="text-xs text-[var(--color-text-secondary)]">
-              {route.facilities.join(" · ")}
+              {route.facilities
+                .map((item) => localizePlaceText(item, locale))
+                .join(" · ")}
             </p>
           </section>
         ) : null}
 
         {route.cautionNotes && route.cautionNotes.length > 0 ? (
           <section>
-            <h3 className="mb-1 text-sm font-semibold">주의사항</h3>
+            <h3 className="mb-1 text-sm font-semibold">
+              {t("environment.cautions")}
+            </h3>
             <ul className="space-y-0.5 text-xs text-[var(--color-text-secondary)]">
               {route.cautionNotes.map((note) => (
-                <li key={note}>· {note}</li>
+                <li key={note}>· {localizePlaceText(note, locale)}</li>
               ))}
             </ul>
           </section>
@@ -180,14 +206,16 @@ export function PloggingRouteDetail({
             disabled={scheduleAdded}
             onClick={onAddToSchedule}
           >
-            {scheduleAdded ? "일정에 추가됨" : "일정에 추가"}
+            {scheduleAdded
+              ? t("partner.addedToSchedule")
+              : t("partner.addToSchedule")}
           </TextButton>
           <TextButton
             variant="ghost"
             className="w-full"
             onClick={() => setReportOpen(true)}
           >
-            위치 오류 신고
+            {t("environment.reportLocationError")}
           </TextButton>
         </div>
 
@@ -224,7 +252,7 @@ export function PloggingRouteDetail({
         onClose={() => setReportOpen(false)}
         targetType="ploggingRoute"
         targetId={route.id}
-        targetName={route.name}
+        targetName={name}
       />
     </div>
   );

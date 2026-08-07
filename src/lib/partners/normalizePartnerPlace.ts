@@ -13,6 +13,7 @@ export function normalizePartnerPlace(
     description: raw.description,
     phone: raw.phone,
     imageUrl: raw.imageUrl,
+    imageUrls: raw.imageUrls,
     businessHours: raw.businessHours,
     closedDays: raw.closedDays,
     services: {

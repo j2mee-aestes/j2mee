@@ -49,6 +49,7 @@ export interface FishingSpot {
   sourceUrl?: string;
   nearbyMarket?: string;
   nearbyMarketDistanceKm?: number;
+  imageUrls?: string[];
 }
 
 /** Non-fishing map places (market, trash, etc.) */
@@ -84,7 +85,10 @@ export interface WeatherData {
   forecastTime: string;
   temperatureC?: number;
   feelsLikeC?: number;
+  humidityPercent?: number;
   condition?: string;
+  conditionIcon?: string;
+  weatherCode?: number;
   precipitationProbability?: number;
   precipitationMm?: number;
   windSpeedMs?: number;
@@ -92,6 +96,17 @@ export interface WeatherData {
   windGustMs?: number;
   waveHeightM?: number;
   visibilityKm?: number;
+  cloudCoverPercent?: number;
+  pressureHpa?: number;
+  isDay?: boolean;
+  hourly?: Array<{
+    time: string;
+    temperatureC: number;
+    precipitationProbability?: number;
+    condition?: string;
+    conditionIcon?: string;
+    windSpeedMs?: number;
+  }>;
   warnings?: WeatherWarning[];
   fetchedAt: string;
   sourceName: string;

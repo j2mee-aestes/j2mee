@@ -3,7 +3,9 @@
 import { TextButton } from "@/components/common/IconButton";
 import { WastePointStatusBadge } from "@/components/environment/WastePointStatusBadge";
 import { WastePointTypeBadge } from "@/components/environment/WastePointTypeBadge";
+import { useTranslations } from "@/context/LocaleContext";
 import { formatDistanceKm } from "@/lib/geo/calculateDistance";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { NearbyWastePointResult } from "@/types/environment";
 
 interface WastePointCardProps {
@@ -17,6 +19,7 @@ export function WastePointCard({
   selected = false,
   onSelect,
 }: WastePointCardProps) {
+  const { t, locale } = useTranslations();
   const { wastePoint, distanceKm } = result;
 
   return (
@@ -36,10 +39,10 @@ export function WastePointCard({
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
-              {wastePoint.name}
+              {localizePlaceText(wastePoint.name, locale)}
             </h3>
             <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-              {formatDistanceKm(distanceKm)} · 직선거리
+              {formatDistanceKm(distanceKm)} · {t("common.straightDistanceHint")}
             </p>
           </div>
           <WastePointStatusBadge status={wastePoint.status} />
@@ -49,7 +52,7 @@ export function WastePointCard({
         </div>
         {wastePoint.address ? (
           <p className="mt-1 truncate text-[11px] text-[var(--color-text-muted)]">
-            {wastePoint.address}
+            {localizePlaceText(wastePoint.address, locale)}
           </p>
         ) : null}
       </button>
@@ -58,7 +61,7 @@ export function WastePointCard({
         className="mt-2 h-8 w-full text-xs"
         onClick={() => onSelect(wastePoint.id)}
       >
-        상세보기
+        {t("partner.viewDetail")}
       </TextButton>
     </article>
   );

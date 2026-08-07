@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { KAKAO_MAP_APP_KEY } from "@/lib/map/constants";
 import {
+  getKakaoLoaderStatus,
+  isKakaoMapsReady,
   loadKakaoMapsSdk,
   resetKakaoMapsLoader,
 } from "@/lib/map/loadKakaoMaps";
@@ -20,10 +22,27 @@ interface UseKakaoMapsResult {
   retry: () => void;
 }
 
+function initialLoadState(
+  appKey: string,
+): "idle" | "loading" | "ready" | "error" {
+  if (!appKey) {
+    return "idle";
+  }
+  if (typeof window !== "undefined") {
+    if (isKakaoMapsReady() || getKakaoLoaderStatus() === "ready") {
+      return "ready";
+    }
+    if (getKakaoLoaderStatus() === "error") {
+      return "error";
+    }
+  }
+  return "loading";
+}
+
 export function useKakaoMaps(): UseKakaoMapsResult {
   const appKey = KAKAO_MAP_APP_KEY;
   const [loadState, setLoadState] = useState<"idle" | "loading" | "ready" | "error">(
-    appKey ? "loading" : "idle",
+    () => initialLoadState(appKey),
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
@@ -35,7 +54,7 @@ export function useKakaoMaps(): UseKakaoMapsResult {
 
     let cancelled = false;
 
-    loadKakaoMapsSdk(appKey)
+    void loadKakaoMapsSdk(appKey)
       .then(() => {
         if (!cancelled) {
           setLoadState("ready");
@@ -59,9 +78,6 @@ export function useKakaoMaps(): UseKakaoMapsResult {
 
   const retry = useCallback(() => {
     resetKakaoMapsLoader();
-    document
-      .querySelectorAll('script[id^="kakao-maps-sdk-"]')
-      .forEach((node) => node.remove());
     setErrorMessage(null);
     setLoadState("loading");
     setRetryCount((value) => value + 1);

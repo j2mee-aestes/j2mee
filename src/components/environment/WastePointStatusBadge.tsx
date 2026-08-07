@@ -1,5 +1,7 @@
+"use client";
+
 import { Badge } from "@/components/common/Badge";
-import { WASTE_POINT_STATUS_LABELS } from "@/constants/environmentData";
+import { useTranslations } from "@/context/LocaleContext";
 import type { WastePointStatus } from "@/types/environment";
 
 interface WastePointStatusBadgeProps {
@@ -7,6 +9,7 @@ interface WastePointStatusBadgeProps {
 }
 
 export function WastePointStatusBadge({ status }: WastePointStatusBadgeProps) {
+  const { t } = useTranslations();
   const tone =
     status === "available"
       ? "green"
@@ -16,5 +19,7 @@ export function WastePointStatusBadge({ status }: WastePointStatusBadgeProps) {
           ? "gray"
           : "blue";
 
-  return <Badge tone={tone}>{WASTE_POINT_STATUS_LABELS[status]}</Badge>;
+  return (
+    <Badge tone={tone}>{t(`environment.wastePointStatus.${status}`)}</Badge>
+  );
 }

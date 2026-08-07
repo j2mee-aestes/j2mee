@@ -1,0 +1,128 @@
+import type { LeisurePlace } from "@/types/leisure";
+
+/** Busan coastal sports/leisure facilities — research list 2026-08-07 */
+export const mockLeisurePlaces: LeisurePlace[] = [
+  {
+    id: "leisure-suyeongman-yacht",
+    imageUrls: ["/images/places/leisure-marina.jpg"],
+    name: "수영만요트경기장",
+    address: "부산광역시 해운대구 우동 1393 (해운대해변로 84 일대)",
+    coordinates: { latitude: 35.1608, longitude: 129.1415 },
+    description:
+      "부산 대표 요트·세일링·마리나 거점. 계류장과 요트 관련 시설이 밀집한 핵심 해양레저 지점입니다.",
+    activityType: "yacht",
+    seasonNote: "기상·해상 조건에 따라 운항·체험이 달라질 수 있습니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "부산관광아카이브 / 부산시 마리나 시설",
+    sourceUrl:
+      "https://map.naver.com/p/search/%EC%88%98%EC%98%81%EB%A7%8C%EC%9A%94%ED%8A%B8%EA%B2%BD%EA%B8%B0%EC%9E%A5",
+  },
+  {
+    id: "leisure-gwangan-marine-center",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
+    name: "광안리해양레포츠센터",
+    address: "부산광역시 수영구 남천동 561 일대 (광안해변로54번길 222)",
+    coordinates: { latitude: 35.1462, longitude: 129.1148 },
+    description:
+      "광안리 해변 서측 종합 해양레포츠 시설. 요트, 제트보트, 카약, SUP 등 여러 종목을 운영합니다.",
+    activityType: "yacht",
+    seasonNote: "종목·시간은 시즌·기상 조건에 따라 변경될 수 있습니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "광안리해양레포츠센터",
+    sourceUrl: "https://www.gwanganli.co.kr/",
+  },
+  {
+    id: "leisure-gwangan-sup-zone",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
+    name: "광안리 SUP Zone",
+    address: "부산광역시 수영구 남천동 해변 일대 (광안리해수욕장)",
+    coordinates: { latitude: 35.153, longitude: 129.1185 },
+    description:
+      "광안리의 잔잔한 수면을 활용한 SUP 중심 체험 구역. SUP·카약·윈드서핑 체험지로 안내됩니다.",
+    activityType: "kayak",
+    seasonNote: "해변 운영 구역 성격이라 기상·시즌에 따라 운영이 달라질 수 있습니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "한국관광공사",
+    sourceUrl:
+      "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=0b4b6186-2102-4481-af8e-1527770fb318",
+  },
+  {
+    id: "leisure-surfholic-songjeong",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
+    name: "서프홀릭 부산송정본점",
+    address: "부산광역시 해운대구 송정동 711-5 (송정해변로 50)",
+    coordinates: { latitude: 35.1786, longitude: 129.1994 },
+    description:
+      "송정해수욕장 바로 앞 대표 서핑 스쿨. 강습, 장비 렌탈, 보드 보관 등을 운영합니다.",
+    activityType: "surfing",
+    seasonNote: "봄~가을이 성수기이며, 겨울에도 슈트 강습이 가능합니다.",
+    verificationStatus: "partner",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "서프홀릭",
+    sourceUrl: "https://surfholic.co.kr/",
+  },
+  {
+    id: "leisure-mellow-surf",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
+    name: "멜로우서프",
+    address: "부산광역시 해운대구 송정광어골로 19-1 (송정동, 송정빌딩)",
+    coordinates: { latitude: 35.1794, longitude: 129.2008 },
+    description:
+      "송정해수욕장 인근 서핑 스쿨. 소인수 강습과 서프보드 렌탈·보관을 운영합니다.",
+    activityType: "surfing",
+    seasonNote: "시즌·기상 조건에 따라 강습·렌탈 가능 여부가 달라질 수 있습니다.",
+    verificationStatus: "partner",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "멜로우서프",
+    sourceUrl: "https://www.mellowsurf.co.kr/surf",
+  },
+  {
+    id: "leisure-songdo-marine-center",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
+    name: "송도해양레포츠센터",
+    address: "부산광역시 서구 암남동 135-5 (송도해변로 50)",
+    coordinates: { latitude: 35.0762, longitude: 129.0178 },
+    description:
+      "송도해수욕장 서측 해양레포츠 교육·체험 시설. 카약, 고무보트, 바나나보트, 딩기요트 등을 운영합니다.",
+    activityType: "kayak",
+    seasonNote: "교육·체험 프로그램은 예약·기상 조건에 따라 운영됩니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "송도해양레포츠센터",
+    sourceUrl: "https://www.solsc.co.kr/main/sub2_2.htm",
+  },
+  {
+    id: "leisure-songdo-sports-center",
+    imageUrls: ["/images/places/leisure-marina.jpg"],
+    name: "송도스포츠센터",
+    address: "부산광역시 서구 암남동 229-10 (송도해변로 121)",
+    coordinates: { latitude: 35.0755, longitude: 129.0205 },
+    description:
+      "송도해수욕장 해안 바로 뒤 스포츠센터. 해양레포츠 전용은 아니지만 해안 인접 생활체육 시설로 참고할 수 있습니다.",
+    activityType: "other",
+    seasonNote: "생활체육 시설로 연중 운영. 세부 종목은 센터 안내에 따릅니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "송도스포츠센터",
+    sourceUrl:
+      "https://map.naver.com/p/search/%EC%86%A1%EB%8F%84%EC%8A%A4%ED%8F%AC%EC%B8%A0%EC%84%BC%ED%84%B0",
+  },
+  {
+    id: "leisure-dadaepo-marine-center",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
+    name: "다대포해양레포츠센터",
+    address: "부산광역시 사하구 다대동 482-3 지선 (몰운대 낙조전망대 앞 공유수면)",
+    coordinates: { latitude: 35.0488, longitude: 128.9665 },
+    description:
+      "다대포의 넓은 해변과 바람을 활용한 해양레포츠 거점. 카이트보딩·카이트윙·SUP·서핑·땅콩보트 등을 운영합니다.",
+    activityType: "surfing",
+    seasonNote: "바람·시즌에 따라 운영 종목이 달라질 수 있으니 현장 확인이 필요합니다.",
+    verificationStatus: "official",
+    lastVerifiedAt: "2026-08-07",
+    sourceName: "부산 사하구 관광정보",
+    sourceUrl: "https://www.saha.go.kr/tour/contents.do?mId=0205000000",
+  },
+];

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const messagesDir = join(__dirname, "..", "messages");
-const locales = ["ko", "en", "ja", "zh-CN"];
+const locales = ["ko", "en", "ja", "zh-CN", "vi", "es", "de", "fr"];
 
 const FORBIDDEN = [/못난이/, /ugly\s*seafood/i, /uglyfish/i];
 

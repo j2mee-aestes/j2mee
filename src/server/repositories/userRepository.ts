@@ -11,6 +11,7 @@ export const userRepository = {
         email: true,
         image: true,
         preferredLocale: true,
+        mileageBalance: true,
         createdAt: true,
         updatedAt: true,
         preference: true,

@@ -1,6 +1,6 @@
 {
   "common": {
-    "serviceName": "パドパド",
+    "serviceName": "PadoPado",
     "serviceTagline": "海と人をつなぐやさしい一歩",
     "loading": "読み込み中…",
     "retry": "再試行",
@@ -35,14 +35,29 @@
     "updated": "更新",
     "selectedPoint": "選択地点",
     "myPage": "マイページ",
-    "privacy": "プライバシー"
+    "privacy": "プライバシー",
+    "home": "ホーム",
+    "dataSource": "データソース",
+    "viewSource": "ソースを見る",
+    "publicReference": "公開参照",
+    "fieldCheckNotice": "この情報は公的情報源から編集されたものです。ご来店前に営業時間やアクセスを現地にてご確認ください。",
+    "verifiedInfo": "確認済みの情報。",
+    "photoStagingNote": "一部の写真は現場の雰囲気が伝わる演出イメージです。",
+    "lastVerifiedDate": "最終確認日: {日付}",
+    "straightDistanceHint": "表示される距離は、座標からの直線推定値です。",
+    "fromOriginDistance": "{原点}からの{距離}",
+    "imagePending": "画像は近日公開予定",
+    "approxMinutes": "約 {count} 分",
+    "distanceLabel": "距離"
   },
   "search": {
     "placeholder": "地域・場所・キーワードで検索",
     "button": "検索",
-    "noResults": "検索結果がありません。",
+    "noResults": "結果がありません。",
     "resultsLabel": "検索結果",
-    "movedTo": "「{name}」へ移動しました。"
+    "movedTo": "「{name}」へ移動しました。",
+    "openInKakao": "カカオマップで「{query}」を検索",
+    "externalHint": "該当場所がない場合はカカオマップで続けて検索できます。"
   },
   "categories": {
     "all": {
@@ -69,27 +84,47 @@
       "label": "プロギングコース",
       "shortLabel": "プロギング",
       "description": "海岸清掃の散歩コース"
+    },
+    "attraction": {
+      "label": "観光スポット",
+      "shortLabel": "観光",
+      "description": "海岸の名所と散策ポイント"
+    },
+    "leisure": {
+      "label": "マリンレジャー",
+      "shortLabel": "レジャー",
+      "description": "サーフィン・ヨット・カヤック・自転車など"
+    },
+    "event": {
+      "label": "沿岸イベント",
+      "shortLabel": "イベント",
+      "description": "公式確認済みの釜山沿岸大規模行事"
     }
   },
   "map": {
     "fitAllMarkers": "すべてのマーカーを表示",
     "zoomIn": "拡大",
     "zoomOut": "縮小",
-    "currentLocation": "現在地",
+    "currentLocation": "現在地を探す",
+    "locating": "位置情報を取得中…",
     "selectPlace": "地図で場所を選択してください。",
     "noPlaces": "このカテゴリに表示する場所がありません。",
-    "locationPermissionNeeded": "現在地の権限が必要です。",
-    "locationUnavailable": "現在地を取得できません。",
-    "locationUnsupported": "このブラウザは位置情報に対応していません。",
-    "locationTimeout": "位置情報の取得がタイムアウトしました。",
+    "locationPermissionNeeded": "位置情報の権限が許可されていません。ブラウザ設定で位置情報を許可してください。",
+    "locationUnavailable": "現在地を確認できません。",
+    "locationUnsupported": "このブラウザでは現在地機能を利用できません。",
+    "locationTimeout": "位置情報の取得がタイムアウトしました。もう一度お試しください。",
     "kakaoKeyMissingTitle": "カカオマップ APIキーが設定されていません。",
     "kakaoKeyMissingBody": ".env.local に NEXT_PUBLIC_KAKAO_MAP_APP_KEY を設定してください。",
     "kakaoLoadFailedTitle": "地図を読み込めませんでした。",
-    "kakaoLoadFailedBody": "カカオ開発者コンソールとドメイン設定を確認して再試行してください。",
+    "kakaoLoadFailedBody": "カカオ開発者コンソール → アプリ設定 → プラットフォーム → Web に localhost と 127.0.0.1 を（ポートなしで）追加して保存し、再読み込みまたは再試行してください。",
     "kakaoRetry": "再試行",
     "mapLoading": "地図を読み込み中…",
+    "kakaoLoadFailedDetail": "現在のホスト: {host} · 原因: {reason}",
+    "kakaoDomainHint": "例: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "破線はスケジュール順の参考線であり、実際の道路経路ではありません。",
-    "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。"
+    "activityMapNote": "実際の移動経路は追跡しません。破線はスケジュール順の参考線です。",
+    "selectedFishingOrigin": "選択中の釣り場（{name}）",
+    "userLocationLabel": "現在地"
   },
   "fishing": {
     "targetFish": "主な対象魚",
@@ -130,19 +165,34 @@
     }
   },
   "weather": {
-    "title": "天気・風・波高",
+    "title": "天気",
     "temperature": "気温",
     "wind": "風",
     "wave": "波高",
     "staleNotice": "データが古い可能性があります。現場の案内を優先してください。",
     "marineTitle": "天気・海洋情報",
     "unavailable": "現在天気情報を提供できません。",
-    "feelsLike": "体感",
+    "loading": "天気情報を読み込み中...",
+    "loadFailed": "天気情報を読み込めませんでした。",
+    "feelsLike": "体感温度",
+    "humidity": "湿度",
     "precipProb": "降水確率",
     "precipAmount": "降水量",
     "windDirection": "風向",
+    "windSummary": "風",
     "windGust": "突風",
-    "staleDetail": "最新データでない可能性があります。最終更新: {time}"
+    "cloudCover": "雲量",
+    "pressure": "気圧",
+    "day": "昼",
+    "night": "夜",
+    "nextHours": "今後数時間",
+    "detailTitle": "リアルタイム天気詳細",
+    "detailHint": "詳細",
+    "openDetail": "リアルタイム天気の詳細を開く",
+    "refresh": "天気を更新",
+    "updatedAt": "天気更新 {time}",
+    "staleDetail": "最新データでない可能性があります。最終更新: {time}",
+    "defaultLocation": "機張"
   },
   "safety": {
     "status": {
@@ -162,7 +212,28 @@
     "machineTranslatedNotice": "この安全案内は未検収の翻訳の可能性があります。韓国語原文と現場案内も確認してください。",
     "prohibitedStart": "立入禁止・釣り禁止の場所は開始できません。スキップするか予定から削除してください。",
     "restrictedStart": "注意: 活動非推奨の場所です。現場案内を優先してください。",
-    "disclaimer": "公開予報と登録された場所情報に基づく参考情報です。現場の規制と気象警報を優先してください。"
+    "disclaimer": "公開予報と登録された場所情報に基づく参考情報です。現場の規制と気象警報を優先してください。",
+    "verification": {
+      "official": "正式",
+      "partner": "パートナー",
+      "admin": "管理者がレビューしました",
+      "community": "コミュニティ",
+      "unverified": "未検証",
+      "user": "ユーザー報告"
+    },
+    "reason": {
+      "fishingProhibited": "この場所では釣りは禁止されています。",
+      "fishingRestricted": "ここでは立ち入りや釣りが一部制限されています。",
+      "fishingUnknown": "釣れるかどうかは確認できません。",
+      "weatherMissing": "気象・海洋データが欠落しているため、ステータスが不完全です。",
+      "weatherAlert": "気象警報: {title}",
+      "windStrong": "強風 ({value} m/s)。",
+      "windCaution": "風が少し強いです ({value} m/s)。",
+      "waveHigh": "高波 ({value} m)。",
+      "waveCaution": "波の高さ ({value} m) に注目してください。",
+      "precipHigh": "降水確率が高い ({value}%)。",
+      "noAlerts": "現在公開されている情報に基づく特別な注意信号はありません。"
+    }
   },
   "partner": {
     "nearbyTitle": "周辺の水産市場",
@@ -214,12 +285,44 @@
     "inquiryRecommended": "事前問い合わせ推奨",
     "verifiedPrefix": "検証: {status}",
     "driveEstimate": "車で約{minutes}分（直線距離参考）",
-    "drivePending": "移動時間情報準備中",
+    "drivePending": "移動時間はカカオマップの経路検索でご確認ください",
     "verification": {
       "official": "公式検証",
       "partner": "パートナー",
       "admin": "管理者確認",
-      "unverified": "未検証"
+      "unverified": "未検証",
+      "user": "ユーザー報告",
+      "community": "コミュニティ"
+    },
+    "selectPrompt": "マーケットまたはレストランを選択します。",
+    "selectHint": "詳細を表示するには、マーカーまたは近くの場所を選択します。",
+    "verificationStatus": "検証: {ステータス}",
+    "noDetailYet": "詳細な利用情報はまだ登録されていません。",
+    "businessInfo": "営業時間",
+    "todayHours": "今日: {時間}",
+    "currentStatus": "ステータス: {ステータス}",
+    "closedDays": "定休日: {日}",
+    "noBusinessHours": "営業時間はご利用いただけません。",
+    "checkBeforeVisit": "ご来店前に直接ご確認ください。",
+    "servicesTitle": "サービス",
+    "usageGuide": "ご利用ガイド",
+    "usageGuideBody": "漁獲状況や保管状況によっては受け取りをお断りする場合がございます。ご来店前に店舗にご連絡の上、現場の指示に従ってください。",
+    "inquiryCta": "お問い合わせを送信する",
+    "businessStatus": {
+      "open": "開ける",
+      "closingSoon": "もうすぐ閉店",
+      "closed": "閉店",
+      "unknown": "要チェック"
+    },
+    "closedToday": "休業日({日})",
+    "weekday": {
+      "monday": "月",
+      "tuesday": "火",
+      "wednesday": "水",
+      "thursday": "木",
+      "friday": "金",
+      "saturday": "土",
+      "sunday": "太陽"
     }
   },
   "environment": {
@@ -234,9 +337,10 @@
     "emptyPlogging": "表示するプロギングコースがありません。",
     "distanceApprox": "約 {distance}",
     "difficulty": {
-      "easy": "かんたん",
-      "moderate": "ふつう",
-      "hard": "むずかしい"
+      "easy": "簡単",
+      "moderate": "適度",
+      "hard": "難しい",
+      "normal": "適度"
     },
     "wasteType": {
       "trashBin": "ゴミ箱",
@@ -249,7 +353,51 @@
     "reportIssue": "位置を報告",
     "nearbyWasteTitle": "周辺のゴミ箱・回収箱",
     "emptyWasteFiltered": "条件に合う回収場所がありません。",
-    "emptyWasteNearby": "周辺に登録された回収場所がありません。"
+    "emptyWasteNearby": "周辺に登録された回収場所がありません。",
+    "selectWaste": "収集ポイントを選択します。",
+    "verificationLabel": "確認済み: {ステータス}",
+    "statusUnknownTitle": "現在の空き状況は確認できません。",
+    "statusUnknownBody": "ご来店前に現地の状況をご確認ください。",
+    "staleWasteTitle": "この場所は長い間現地調査されていませんでした。",
+    "staleWasteBody": "所在地や営業状況は変更されている場合がございます。",
+    "acceptedTypes": "受け入れられる廃棄物の種類",
+    "noAcceptedTypes": "受け入れ可能な廃棄物の種類は登録されていません。",
+    "hoursTitle": "営業時間",
+    "hoursMissing": "時間帯はご利用いただけません。ご来店前にご確認ください。",
+    "usageNotes": "使用上の注意",
+    "reportLocationError": "場所のエラーを報告する",
+    "ploggingCourse": "プロギングルート",
+    "estimatedTime": "推定所要時間",
+    "recommendedTime": "推奨時間: {time}",
+    "staleRoute": "このルートは長い間現場で確認されていません。条件が異なる場合があります。",
+    "connectedDisposal": "接続された廃棄ポイント",
+    "noConnectedDisposal": "接続された廃棄ポイントはありません。",
+    "nearbyDisposalHint": "スタート付近の廃棄ポイントも確認してください。",
+    "facilities": "設備",
+    "cautions": "注意事項",
+    "wastePointType": {
+      "generalTrash": "一般ゴミ",
+      "recycling": "リサイクル",
+      "fishingLine": "釣り糸ビン",
+      "fishingGear": "釣り道具箱",
+      "ploggingCollection": "詰まりのドロップオフ",
+      "other": "その他のコレクション"
+    },
+    "wastePointStatus": {
+      "available": "利用可能",
+      "temporarilyUnavailable": "一時的に利用できません",
+      "removed": "削除されました",
+      "unknown": "要チェック"
+    },
+    "verification": {
+      "official": "正式",
+      "partner": "パートナー",
+      "admin": "管理者がレビューしました",
+      "community": "コミュニティ",
+      "unverified": "未検証",
+      "user": "ユーザー報告"
+    },
+    "ploggingInProgress": "プロギング進行中 · 詳細パネルで完了できます"
   },
   "schedule": {
     "title": "一日の予定を作る",
@@ -408,6 +556,8 @@
     "myPage": "マイページ",
     "myPageTitle": "マイページ",
     "myPageSubtitle": "アカウントに保存されたデータを確認・管理します。",
+    "guestMyPageSubtitle": "ログインなしでローカルのお気に入り・通知・言語を管理できます。",
+    "guestProfileHint": "ログインすると予定・活動・お気に入りをアカウントに同期できます。",
     "logout": "ログアウト",
     "profile": "プロフィール",
     "preferredLocale": "希望言語",
@@ -433,9 +583,248 @@
     "importSkip": "スキップ",
     "importSkipped": "取り込みをスキップしました。",
     "importFailed": "取り込みに失敗しました。",
-    "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）"
+    "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）",
+    "mileage": "マイレージ",
+    "mileageHint": "投稿が地図に反映されると付与されます。後日ポイント交換予定です。",
+    "staticLoginHint": "GitHub Pages版ではサーバーログインはありません。ゲストのマイページでローカルのお気に入り・通知・言語を管理できます。"
   },
   "a11y": {
     "skipToContent": "本文へスキップ"
+  },
+  "home": {
+    "nav": {
+      "label": "メインメニュー",
+      "map": "地図",
+      "contribute": "位置投稿",
+      "sources": "データ出典",
+      "privacy": "プライバシー",
+      "login": "ログイン",
+      "data": "データ",
+      "tourism": "観光",
+      "events": "イベント"
+    },
+    "hero": {
+      "mediaLabel": "PadoPado intro visual",
+      "tagline": "釣り・市場・ゴミ箱・プロギング・観光・レジャーを一つの地図で",
+      "pause": "Pause intro",
+      "play": "Play intro"
+    },
+    "cta": {
+      "openMap": "地図を開く",
+      "exploreMap": "地図を見る",
+      "contribute": "位置を投稿",
+      "getStarted": "はじめる"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "海をもっと安全に、やさしく",
+      "body": "パドパドは釣り場、水産市場、ゴミ箱、プロギング、観光、レジャーを一つの地図で案内します。"
+    },
+    "features": {
+      "cta": "見る",
+      "fishing": {
+        "title": "釣りポイント",
+        "body": "制限・安全・対象魚種を確認できます。"
+      },
+      "plogging": {
+        "title": "プロギング",
+        "body": "歩行時間や横断歩道をポップアップで確認。"
+      },
+      "bins": {
+        "title": "ゴミ箱マップ",
+        "body": "GeoJSONと写真投稿に対応。"
+      },
+      "attractions": {
+        "title": "観光・レジャー",
+        "body": "名所とレジャースポットを表示。"
+      },
+      "market": {
+        "title": "水産市場",
+        "body": "主要な水産市場と新鮮な魚介・下処理情報を案内します。"
+      }
+    },
+    "partners": {
+      "lead": "参照データ・サービス",
+      "names": "気象庁 · カカオマップ · 国立海洋調査院 · コミュニティ",
+      "link": "データ出典を見る"
+    },
+    "footerCta": {
+      "title": "地図から始めましょう",
+      "body": "プライバシーと出典はメニューから確認できます。"
+    },
+    "slides": {
+      "brand": {
+        "sub": "釣り · 市場 · 回収箱 · プロギング · 観光 · レジャーを海の地図で"
+      },
+      "features": {
+        "title": "海をもっと簡単に探索",
+        "body": "釣りポイント、水産市場、回収箱、プロギングコースを一つの地図で。"
+      },
+      "services": {
+        "line1": "釣りポイント",
+        "line2": "水産市場",
+        "line3": "廃釣り糸回収箱",
+        "line4": "プロギングコース",
+        "line5": "潮汐情報",
+        "tag": "行き先も探し物も、一度に",
+        "statFishing": "東海岸・南海岸",
+        "statMarket": "主要市場",
+        "statBins": "沿岸拠点",
+        "statPlogging": "海岸散歩道"
+      },
+      "insights": {
+        "title": "海のための動きを、もっと明確に",
+        "body": "データで確認する変化と成果",
+        "chart": "月別投稿・参加推移",
+        "regions": "地域別活動",
+        "timeline": "主な活動タイムライン",
+        "cta": "データインサイトを見る",
+        "legendReports": "投稿数",
+        "legendParticipants": "参加者数",
+        "statFishingLabel": "登録釣りポイント",
+        "statFishingSub": "全国の主要ポイント",
+        "statMarketSub": "全国の市場情報",
+        "statBinsLabel": "回収ボックス",
+        "statBinsSub": "沿岸回収インフラ",
+        "statReportsLabel": "ユーザー投稿",
+        "statReportsSub": "市民による投稿",
+        "timeline1": "釜山海雲台に釣り糸回収箱を設置",
+        "timeline2": "麗水・突山大橋付近の清掃活動",
+        "timeline3": "永宗島で海岸ごみ報告が急増",
+        "timeline4": "浦項・九龍浦市場情報を更新"
+      },
+      "dataviz": {
+        "title": "海のデータをひと目で",
+        "body": "釣り・潮汐・回収・観光情報を直感的に探索",
+        "cta": "データインサイトを見る",
+        "updated": "最終更新",
+        "tideChip": "10:20 満潮 356cm",
+        "live": "リアルタイム",
+        "labelFishing": "釣りポイント",
+        "labelTide": "潮汐情報",
+        "labelBins": "回収状況",
+        "labelTour": "観光名所",
+        "chipFishing": "釣り指数 · 最高",
+        "chipTour": "観光客数 増加"
+      }
+    }
+  },
+  "sourcesPage": {
+    "title": "データ出典",
+    "body": "参照している公開資料です。項目を押すと元サイトへ移動します。",
+    "backHome": "ホームへ"
+  },
+  "contribute": {
+    "title": "位置投稿",
+    "body": "ゴミ箱・観光名所・釣り場を投稿してください。審査後に地図へ反映します。観光・釣り場は投票500で公式反映を検討します。",
+    "bins": "ゴミ箱を投稿",
+    "binsBody": "写真と位置で回収場所を知らせてください。",
+    "attractions": "観光名所を投稿",
+    "attractionsBody": "新しい名所を投稿し投票を集めます。",
+    "fishing": "釣り場を投稿",
+    "fishingBody": "釣りポイント候補を投稿します。",
+    "mileageNote": "反映されるとマイレージが付与されます。",
+    "voteThreshold": "公式反映目安: 投票 {count}",
+    "formName": "場所名",
+    "formAddress": "住所・位置説明",
+    "formLat": "緯度",
+    "formLng": "経度",
+    "formPhoto": "現場写真",
+    "formNote": "補足",
+    "useMyLocation": "現在地を使う",
+    "submit": "送信",
+    "submitted": "受け付けました。審査後に反映します。",
+    "submitFailed": "送信に失敗しました。",
+    "needAuth": "投稿にはログインが必要です。",
+    "back": "投稿メニューへ",
+    "boardTitle": "コミュニティ投稿ボード",
+    "boardEmpty": "まだ投稿がありません。最初の投稿をしてみましょう。",
+    "vote": "投票する",
+    "voteOk": "投票が反映されました。",
+    "voteFailed": "投票に失敗しました。",
+    "alreadyVoted": "すでに投票済みです。",
+    "votesLabel": "投票 {count}",
+    "binsReviewOnly": "ゴミ箱投稿は管理者確認後に反映されます。",
+    "attractionsBoard": "観光名所候補 · 投票",
+    "fishingBoard": "釣り場候補 · 投票"
+  },
+  "ploggingPopup": {
+    "title": "コースプレビュー",
+    "walkingTime": "推定歩行時間",
+    "minutes": "{count}分",
+    "distance": "距離",
+    "crosswalks": "横断歩道",
+    "crosswalkCount": "{count}箇所",
+    "crossings": "横断案内",
+    "surface": "路面",
+    "openDetail": "詳細",
+    "close": "閉じる"
+  },
+  "attraction": {
+    "title": "観光名所",
+    "view3d": "3Dで見る",
+    "close3d": "3Dを閉じる",
+    "highlights": "ハイライト",
+    "votes": "コミュニティ投票 {count}"
+  },
+  "leisure": {
+    "title": "レジャー・スポーツ",
+    "activity": "活動タイプ",
+    "season": "シーズン案内",
+    "activityType": {
+      "surfing": "サーフィン",
+      "yacht": "ヨット",
+      "diving": "ダイビング",
+      "kayak": "カヤック",
+      "bike": "自転車",
+      "other": "他の"
+    }
+  },
+  "events": {
+    "listTitle": "釜山沿岸の大規模イベント",
+    "listHint": "2026-08-07時点で公式確認された日程です。",
+    "empty": "表示するイベントがありません。",
+    "sourceNote": "出典: 釜山市・祭組織委・公式サイト照合 (2026-08-07)",
+    "sourceName": "公式イベント案内",
+    "relation": {
+      "direct": "沿岸直接型",
+      "adjacent": "沿岸隣接型"
+    },
+    "crowdRisk": "混雑リスク",
+    "wasteRisk": "廃棄物リスク",
+    "trafficImpact": "交通影響",
+    "scale": "規模",
+    "scaleLevel": {
+      "very_large": "超大型",
+      "large": "大型",
+      "medium": "中型"
+    },
+    "risk": {
+      "very_high": "非常に高い",
+      "high": "高い",
+      "medium": "普通",
+      "low": "低い"
+    },
+    "coastalImpact": "沿岸影響",
+    "host": "主催",
+    "organizer": "主管",
+    "contact": "問い合わせ"
+  },
+  "wave": {
+    "title": "リアルタイム波",
+    "height": "波高",
+    "period": "周期",
+    "unavailable": "波情報を取得できません。",
+    "source": "気象庁海洋気象"
+  },
+  "notifications": {
+    "empty": "新しい通知はありません。",
+    "markAllRead": "すべて既読",
+    "seedTideTitle": "本日の潮位・波情報",
+    "seedTideBody": "機張沿岸の天気と波高を確認しましょう。",
+    "seedPloggingTitle": "プロギングコースのおすすめ",
+    "seedPloggingBody": "任浪・日光の海岸コースを地図で開いてみましょう。",
+    "seedFavoriteTitle": "お気に入りを続ける",
+    "seedFavoriteBody": "マイページやハートパネルから保存した場所を開けます。"
   }
 }

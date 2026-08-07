@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admin/waste-points", label: "수거함" },
   { href: "/admin/plogging-routes", label: "플로깅" },
   { href: "/admin/reports", label: "신고" },
+  { href: "/admin/contributions", label: "위치 제보" },
   { href: "/admin/translations", label: "번역 검수" },
   { href: "/admin/import", label: "가져오기" },
   { href: "/admin/system", label: "시스템" },

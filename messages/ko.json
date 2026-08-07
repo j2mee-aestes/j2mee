@@ -35,14 +35,29 @@
     "updated": "업데이트",
     "selectedPoint": "선택 지점",
     "myPage": "마이페이지",
-    "privacy": "개인정보 안내"
+    "privacy": "개인정보 안내",
+    "home": "홈",
+    "dataSource": "데이터 출처",
+    "viewSource": "원문 보기",
+    "publicReference": "공개 자료 참고",
+    "fieldCheckNotice": "공개 자료를 참고해 정리한 정보입니다. 운영시간·통제 여부 등은 방문 전 현장 안내를 확인해 주세요.",
+    "verifiedInfo": "검증된 정보입니다.",
+    "photoStagingNote": "일부 사진은 현장 분위기를 담은 연출 이미지입니다.",
+    "lastVerifiedDate": "마지막 확인일: {date}",
+    "straightDistanceHint": "표시된 거리는 좌표 기준 직선거리입니다.",
+    "fromOriginDistance": "{origin}에서 {distance}",
+    "imagePending": "이미지 준비 중",
+    "approxMinutes": "약 {count}분",
+    "distanceLabel": "거리"
   },
   "search": {
     "placeholder": "지역, 장소, 키워드로 검색해보세요",
     "button": "검색",
     "noResults": "검색 결과가 없습니다.",
     "resultsLabel": "검색 결과",
-    "movedTo": "“{name}” 위치로 이동했습니다."
+    "movedTo": "“{name}” 위치로 이동했습니다.",
+    "openInKakao": "카카오맵에서 “{query}” 검색",
+    "externalHint": "파도파도 장소가 없으면 카카오맵에서 이어서 찾아보세요."
   },
   "categories": {
     "all": {
@@ -69,27 +84,47 @@
       "label": "플로깅 코스",
       "shortLabel": "플로깅 코스",
       "description": "해안 정화 산책 코스"
+    },
+    "attraction": {
+      "label": "관광 명소",
+      "shortLabel": "관광",
+      "description": "해안 명소와 산책 포인트"
+    },
+    "leisure": {
+      "label": "해양 레저",
+      "shortLabel": "레저",
+      "description": "서핑·요트·카약·자전거 등 해안 레저"
+    },
+    "event": {
+      "label": "해안 행사",
+      "shortLabel": "행사",
+      "description": "부산 해안 대규모 행사·축제 일정"
     }
   },
   "map": {
     "fitAllMarkers": "전체 마커 보기",
     "zoomIn": "확대",
     "zoomOut": "축소",
-    "currentLocation": "현재 위치",
+    "currentLocation": "내 위치 찾기",
+    "locating": "위치 확인 중…",
     "selectPlace": "지도에서 장소를 선택해주세요.",
     "noPlaces": "현재 카테고리에 표시할 장소가 없습니다.",
-    "locationPermissionNeeded": "현재 위치 권한이 필요합니다.",
-    "locationUnavailable": "현재 위치를 확인할 수 없습니다.",
-    "locationUnsupported": "이 브라우저에서는 위치 정보를 지원하지 않습니다.",
-    "locationTimeout": "위치 확인 시간이 초과되었습니다.",
+    "locationPermissionNeeded": "위치 권한이 허용되지 않았어요. 브라우저 설정에서 위치 권한을 허용해주세요.",
+    "locationUnavailable": "현재 위치를 확인할 수 없어요.",
+    "locationUnsupported": "이 브라우저에서는 현재 위치 기능을 사용할 수 없어요.",
+    "locationTimeout": "위치 확인 시간이 초과되었어요. 다시 시도해주세요.",
     "kakaoKeyMissingTitle": "카카오맵 API 키가 설정되지 않았습니다.",
     "kakaoKeyMissingBody": ".env.local에 NEXT_PUBLIC_KAKAO_MAP_APP_KEY를 등록해주세요.",
     "kakaoLoadFailedTitle": "지도를 불러오지 못했습니다.",
-    "kakaoLoadFailedBody": "카카오 개발자 콘솔 설정과 도메인 등록을 확인한 뒤 다시 시도해주세요.",
+    "kakaoLoadFailedBody": "카카오 개발자 콘솔 → 내 애플리케이션 → 앱 설정 → 플랫폼 → Web에서 사이트 도메인에 localhost 와 127.0.0.1 을 추가한 뒤 저장하세요. (포트 번호는 넣지 않습니다) 저장 후 이 페이지를 새로고침하거나 다시 시도하세요.",
     "kakaoRetry": "다시 시도",
     "mapLoading": "지도를 불러오는 중…",
+    "kakaoLoadFailedDetail": "현재 주소: {host} · 원인: {reason}",
+    "kakaoDomainHint": "등록 예시: localhost , 127.0.0.1 , j2mee-aestes.github.io",
     "referenceLineNote": "점선은 일정 순서 참고 연결선이며 실제 도로 경로가 아닙니다.",
-    "activityMapNote": "실제 이동 경로를 추적하지 않습니다. 점선은 일정 순서 참고선입니다."
+    "activityMapNote": "실제 이동 경로를 추적하지 않습니다. 점선은 일정 순서 참고선입니다.",
+    "selectedFishingOrigin": "선택한 낚시터({name})",
+    "userLocationLabel": "현재 위치"
   },
   "fishing": {
     "targetFish": "주요 대상 어종",
@@ -130,19 +165,34 @@
     }
   },
   "weather": {
-    "title": "날씨·바람·파고",
+    "title": "날씨",
     "temperature": "기온",
     "wind": "바람",
     "wave": "파고",
     "staleNotice": "데이터가 오래되었을 수 있습니다. 현장 안내를 우선하세요.",
     "marineTitle": "날씨·해양정보",
     "unavailable": "현재 날씨정보를 제공할 수 없습니다.",
-    "feelsLike": "체감",
+    "loading": "날씨 정보를 불러오는 중...",
+    "loadFailed": "날씨 정보를 불러오지 못했습니다.",
+    "feelsLike": "체감온도",
+    "humidity": "습도",
     "precipProb": "강수확률",
     "precipAmount": "강수량",
     "windDirection": "풍향",
+    "windSummary": "바람",
     "windGust": "돌풍",
-    "staleDetail": "현재 정보는 최신 데이터가 아닐 수 있습니다. 마지막 업데이트: {time}"
+    "cloudCover": "구름량",
+    "pressure": "기압",
+    "day": "낮",
+    "night": "밤",
+    "nextHours": "앞으로 몇 시간",
+    "detailTitle": "실시간 날씨 상세",
+    "detailHint": "상세 보기",
+    "openDetail": "실시간 날씨 상세 보기",
+    "refresh": "날씨 새로고침",
+    "updatedAt": "날씨 업데이트 {time}",
+    "staleDetail": "현재 정보는 최신 데이터가 아닐 수 있습니다. 마지막 업데이트: {time}",
+    "defaultLocation": "기장"
   },
   "safety": {
     "status": {
@@ -162,7 +212,28 @@
     "machineTranslatedNotice": "이 안전 안내는 검수 전 번역일 수 있습니다. 한국어 원문과 현장 안내를 함께 확인하세요.",
     "prohibitedStart": "출입금지·낚시금지 장소는 시작할 수 없습니다. 건너뛰거나 일정에서 제거해주세요.",
     "restrictedStart": "주의: 활동 비권장 장소입니다. 현장 안내를 우선 확인하세요.",
-    "disclaimer": "공개된 예보와 등록된 장소정보를 바탕으로 한 참고 정보입니다. 현장 통제와 기상특보를 우선 확인해주세요."
+    "disclaimer": "공개된 예보와 등록된 장소정보를 바탕으로 한 참고 정보입니다. 현장 통제와 기상특보를 우선 확인해주세요.",
+    "verification": {
+      "official": "공식 검증",
+      "partner": "파트너",
+      "admin": "관리자 확인",
+      "community": "커뮤니티",
+      "unverified": "미검증",
+      "user": "사용자 제보"
+    },
+    "reason": {
+      "fishingProhibited": "이 장소는 낚시가 금지되어 있습니다.",
+      "fishingRestricted": "이 장소는 일부 출입 또는 낚시 제한이 있습니다.",
+      "fishingUnknown": "낚시 가능 여부를 확인할 수 없습니다.",
+      "weatherMissing": "날씨·해양 정보가 없어 상태를 완전히 판단할 수 없습니다.",
+      "weatherAlert": "기상특보: {title}",
+      "windStrong": "풍속이 강합니다 ({value}m/s).",
+      "windCaution": "풍속이 다소 강합니다 ({value}m/s).",
+      "waveHigh": "파고가 높습니다 ({value}m).",
+      "waveCaution": "파고에 주의가 필요합니다 ({value}m).",
+      "precipHigh": "강수 확률이 높습니다 ({value}%).",
+      "noAlerts": "현재 공개된 정보 기준으로 특별한 주의 신호가 없습니다."
+    }
   },
   "partner": {
     "nearbyTitle": "주변 수산시장",
@@ -214,12 +285,44 @@
     "inquiryRecommended": "사전 문의 권장",
     "verifiedPrefix": "검증: {status}",
     "driveEstimate": "예상 차량 이동 {minutes}분 (직선거리 참고값)",
-    "drivePending": "이동시간 정보 준비 중",
+    "drivePending": "이동 시간은 카카오맵 길찾기로 확인해 주세요",
     "verification": {
       "official": "공식 검증",
       "partner": "파트너",
       "admin": "관리자 확인",
-      "unverified": "미검증"
+      "unverified": "미검증",
+      "user": "사용자 제보",
+      "community": "커뮤니티"
+    },
+    "selectPrompt": "시장·식당을 선택해주세요.",
+    "selectHint": "지도 마커나 주변 장소 목록에서 장소를 선택하면 상세정보가 표시됩니다.",
+    "verificationStatus": "검증 상태: {status}",
+    "noDetailYet": "이 장소의 상세 이용정보가 아직 등록되지 않았습니다.",
+    "businessInfo": "영업정보",
+    "todayHours": "오늘: {hours}",
+    "currentStatus": "현재 상태: {status}",
+    "closedDays": "휴무일: {days}",
+    "noBusinessHours": "영업시간 정보가 없습니다.",
+    "checkBeforeVisit": "방문 전 직접 확인해주세요.",
+    "servicesTitle": "제공 서비스",
+    "usageGuide": "이용 안내",
+    "usageGuideBody": "잡은 수산물의 상태와 보관 방식에 따라 접수가 거절될 수 있습니다. 방문 전 점포에 직접 문의하고, 현장 안내를 우선 확인해주세요.",
+    "inquiryCta": "이용 문의하기",
+    "businessStatus": {
+      "open": "영업 중",
+      "closingSoon": "곧 영업 종료",
+      "closed": "영업 종료",
+      "unknown": "확인 필요"
+    },
+    "closedToday": "{day} 휴무",
+    "weekday": {
+      "monday": "월",
+      "tuesday": "화",
+      "wednesday": "수",
+      "thursday": "목",
+      "friday": "금",
+      "saturday": "토",
+      "sunday": "일"
     }
   },
   "environment": {
@@ -236,7 +339,8 @@
     "difficulty": {
       "easy": "쉬움",
       "moderate": "보통",
-      "hard": "어려움"
+      "hard": "어려움",
+      "normal": "보통"
     },
     "wasteType": {
       "trashBin": "쓰레기통",
@@ -249,7 +353,51 @@
     "reportIssue": "위치 제보",
     "nearbyWasteTitle": "주변 쓰레기통·수거함",
     "emptyWasteFiltered": "선택한 조건에 맞는 수거 장소가 없습니다.",
-    "emptyWasteNearby": "주변에 등록된 수거 장소가 없습니다."
+    "emptyWasteNearby": "주변에 등록된 수거 장소가 없습니다.",
+    "selectWaste": "수거 장소를 선택해주세요.",
+    "verificationLabel": "검증: {status}",
+    "statusUnknownTitle": "현재 운영 여부를 확인할 수 없습니다.",
+    "statusUnknownBody": "방문 전 현장 상태를 확인해주세요.",
+    "staleWasteTitle": "오랫동안 현장 확인이 이루어지지 않은 장소입니다.",
+    "staleWasteBody": "현재 위치와 운영 상태가 다를 수 있습니다.",
+    "acceptedTypes": "수거 가능한 쓰레기 종류",
+    "noAcceptedTypes": "등록된 수거 종류 정보가 없습니다.",
+    "hoursTitle": "이용시간",
+    "hoursMissing": "이용시간 정보가 없습니다. 방문 전 확인해 주세요.",
+    "usageNotes": "이용 시 주의사항",
+    "reportLocationError": "위치 오류 신고",
+    "ploggingCourse": "플로깅 코스",
+    "estimatedTime": "예상 시간",
+    "recommendedTime": "추천 이용시간: {time}",
+    "staleRoute": "오랫동안 현장 확인이 이루어지지 않은 코스입니다. 현재 상태가 다를 수 있습니다.",
+    "connectedDisposal": "연결된 배출 장소",
+    "noConnectedDisposal": "연결된 배출 장소가 없습니다.",
+    "nearbyDisposalHint": "시작점 근처 배출 장소도 함께 확인해 보세요.",
+    "facilities": "편의시설",
+    "cautions": "주의사항",
+    "wastePointType": {
+      "generalTrash": "일반 쓰레기",
+      "recycling": "재활용",
+      "fishingLine": "폐낚싯줄",
+      "fishingGear": "폐어구",
+      "ploggingCollection": "플로깅 집하 장소",
+      "other": "기타 수거"
+    },
+    "wastePointStatus": {
+      "available": "이용 가능",
+      "temporarilyUnavailable": "일시 이용 불가",
+      "removed": "철거됨",
+      "unknown": "확인 필요"
+    },
+    "verification": {
+      "official": "공식 검증",
+      "partner": "파트너",
+      "admin": "관리자 확인",
+      "community": "커뮤니티",
+      "unverified": "미검증",
+      "user": "사용자 제보"
+    },
+    "ploggingInProgress": "플로깅 진행 중 · 상세 패널에서 완료할 수 있습니다"
   },
   "schedule": {
     "title": "하루 일정 만들기",
@@ -390,7 +538,7 @@
   },
   "metadata": {
     "homeTitle": "파도파도",
-    "homeDescription": "낚시 장소, 수산시장·손질·식당, 쓰레기통·수거함, 플로깅 코스를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
+    "homeDescription": "낚시·수산시장·수거함·플로깅·관광·레저를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
     "scheduleTitle": "하루 일정 만들기 | 파도파도",
     "schedulesTitle": "저장된 일정 | 파도파도",
     "activitiesTitle": "활동 기록 | 파도파도",
@@ -408,6 +556,8 @@
     "myPage": "마이페이지",
     "myPageTitle": "마이페이지",
     "myPageSubtitle": "계정에 저장된 데이터를 확인하고 관리합니다.",
+    "guestMyPageSubtitle": "로그인 없이도 로컬 즐겨찾기·알림·언어를 관리할 수 있습니다.",
+    "guestProfileHint": "로그인하면 일정·활동·즐겨찾기를 계정에 동기화할 수 있습니다.",
     "logout": "로그아웃",
     "profile": "프로필",
     "preferredLocale": "선호 언어",
@@ -433,9 +583,248 @@
     "importSkip": "건너뛰기",
     "importSkipped": "가져오기를 건너뛰었습니다.",
     "importFailed": "가져오기에 실패했습니다.",
-    "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})"
+    "importDone": "가져오기 완료: 일정 {schedules}, 활동 {runs}, 즐겨찾기 {favorites} (건너뜀 {skipped})",
+    "mileage": "마일리지",
+    "mileageHint": "위치 제보가 지도에 반영되면 적립됩니다. 추후 네이버 포인트 등으로 교환할 수 있도록 준비 중입니다.",
+    "staticLoginHint": "GitHub Pages 배포본에서는 서버 로그인이 없습니다. 게스트 마이페이지에서 로컬 즐겨찾기·알림·언어를 관리하세요."
   },
   "a11y": {
     "skipToContent": "본문으로 건너뛰기"
+  },
+  "home": {
+    "nav": {
+      "label": "주요 메뉴",
+      "map": "지도",
+      "contribute": "위치 제보",
+      "sources": "데이터 출처",
+      "privacy": "개인정보",
+      "login": "로그인",
+      "data": "데이터",
+      "tourism": "관광",
+      "events": "행사"
+    },
+    "hero": {
+      "mediaLabel": "파도파도 소개 비주얼",
+      "tagline": "낚시·수산시장·수거함·플로깅·관광·레저를 한 지도에서 — 바다와 사람을 잇는 착한 발걸음",
+      "pause": "소개 정지",
+      "play": "소개 재생"
+    },
+    "cta": {
+      "openMap": "지도 열기",
+      "exploreMap": "지도 살펴보기",
+      "contribute": "위치 제보하기",
+      "getStarted": "시작하기"
+    },
+    "about": {
+      "eyebrow": "About PadoPado",
+      "title": "바다를 즐기는 방법이 더 안전하고 친절해지도록",
+      "body": "파도파도는 낚시 포인트, 수산시장·손질, 쓰레기통, 플로깅 코스, 관광명소, 레저 정보를 한곳에서 보여줍니다. 기상·파도 참고 정보와 사용자 제보로 지도를 함께 키워 갑니다."
+    },
+    "features": {
+      "cta": "바로 보기",
+      "fishing": {
+        "title": "낚시 포인트",
+        "body": "제한·안전·대상 어종을 확인하고 일정을 세울 수 있습니다."
+      },
+      "plogging": {
+        "title": "플로깅 코스",
+        "body": "걷기 시간·횡단보도 등 코스 정보를 팝업으로 확인합니다."
+      },
+      "bins": {
+        "title": "쓰레기통 지도",
+        "body": "GeoJSON 기반 수거함 위치와 사진 제보를 지원합니다."
+      },
+      "attractions": {
+        "title": "관광·레저",
+        "body": "명소와 레저 스팟을 별표·핀으로 살펴보세요."
+      },
+      "market": {
+        "title": "수산시장",
+        "body": "주요 수산시장과 신선한 수산물·손질 정보를 안내합니다."
+      }
+    },
+    "partners": {
+      "lead": "참고하는 데이터·서비스",
+      "names": "기상청 · 카카오맵 · 국립해양조사원 · 파도파도 커뮤니티",
+      "link": "데이터 출처 자세히 보기"
+    },
+    "footerCta": {
+      "title": "지금 지도에서 시작해 보세요",
+      "body": "개인정보 안내와 데이터 출처는 메뉴에서 언제든 확인할 수 있습니다."
+    },
+    "slides": {
+      "brand": {
+        "sub": "낚시 · 수산시장 · 수거함 · 플로깅 · 관광 · 레저를 바다 지도에서"
+      },
+      "features": {
+        "title": "우리 바다를 더 쉽게 탐색하다",
+        "body": "낚시 포인트, 수산시장, 쓰레기 수거함, 플로깅 코스를 한 지도에서 확인하고 바다를 더 안전하고 친절하게 즐겨보세요."
+      },
+      "services": {
+        "line1": "낚시 포인트",
+        "line2": "수산시장",
+        "line3": "폐낚싯줄 수거함",
+        "line4": "플로깅 코스",
+        "line5": "조석 정보",
+        "tag": "어디로 갈지, 무엇을 찾을지 한 번에",
+        "statFishing": "동해안·남해안",
+        "statMarket": "전국 주요 시장",
+        "statBins": "연안 주요 거점",
+        "statPlogging": "해안 산책로"
+      },
+      "insights": {
+        "title": "바다를 위한 움직임, 더 뚜렷하게",
+        "body": "데이터로 확인하는 우리의 변화와 성과",
+        "chart": "월별 제보 및 참여 추이",
+        "regions": "지역별 제보 활동",
+        "timeline": "주요 활동 타임라인",
+        "cta": "데이터 인사이트 보기",
+        "legendReports": "제보 건수",
+        "legendParticipants": "참여자 수",
+        "statFishingLabel": "등록 낚시 포인트",
+        "statFishingSub": "전국 주요 낚시 포인트",
+        "statMarketSub": "전국 수산시장 정보",
+        "statBinsLabel": "수거함·폐낚싯줄함",
+        "statBinsSub": "해안가 수거 인프라",
+        "statReportsLabel": "사용자 제보",
+        "statReportsSub": "시민이 함께한 제보",
+        "timeline1": "부산 해운대구 폐낚싯줄 수거함 설치",
+        "timeline2": "여수 돌산대교 인근 정화 활동",
+        "timeline3": "인천 영종도 해안 쓰레기 제보 급증",
+        "timeline4": "포항 구룡포 수산시장 정보 업데이트"
+      },
+      "dataviz": {
+        "title": "바다 데이터 한눈에",
+        "body": "낚시 포인트·조석·수거함·관광 정보를 직관적으로 탐색",
+        "cta": "데이터 인사이트 보기",
+        "updated": "최근 업데이트",
+        "tideChip": "10:20 만조 356cm",
+        "live": "실시간",
+        "labelFishing": "낚시 포인트",
+        "labelTide": "조석 정보",
+        "labelBins": "수거함 현황",
+        "labelTour": "관광 명소",
+        "chipFishing": "낚시 지수 · 최고",
+        "chipTour": "관광 객수 증가"
+      }
+    }
+  },
+  "sourcesPage": {
+    "title": "데이터 출처",
+    "body": "파도파도가 참고하는 공개 자료와 서비스입니다. 항목을 누르면 원문 사이트로 이동합니다.",
+    "backHome": "홈으로"
+  },
+  "contribute": {
+    "title": "위치 제보",
+    "body": "현장에서 확인한 쓰레기통·관광명소·낚시터를 제보해 주세요. 개발자 검토 후 지도에 반영됩니다. 관광명소·낚시터는 투표 500표 이상이면 공식 반영을 검토합니다.",
+    "bins": "쓰레기통 제보",
+    "binsBody": "사진과 위치정보로 수거함 위치를 알려 주세요.",
+    "attractions": "관광명소 제보",
+    "attractionsBody": "새로운 명소를 올리고 이웃의 투표를 모아 보세요.",
+    "fishing": "낚시터 제보",
+    "fishingBody": "낚시 포인트 후보를 올리고 커뮤니티 투표를 받습니다.",
+    "mileageNote": "검토 후 반영되면 마일리지가 적립됩니다. (추후 네이버 포인트 등 교환 예정)",
+    "voteThreshold": "공식 반영 기준: 투표 {count}표",
+    "formName": "장소 이름",
+    "formAddress": "주소·위치 설명",
+    "formLat": "위도",
+    "formLng": "경도",
+    "formPhoto": "현장 사진",
+    "formNote": "추가 설명",
+    "useMyLocation": "현재 위치 사용",
+    "submit": "제보 보내기",
+    "submitted": "제보가 접수되었습니다. 검토 후 반영됩니다.",
+    "submitFailed": "제보 전송에 실패했습니다.",
+    "needAuth": "제보하려면 로그인이 필요합니다.",
+    "back": "제보 메뉴로",
+    "boardTitle": "커뮤니티 제보 보드",
+    "boardEmpty": "아직 올라온 제보가 없습니다. 첫 제보를 남겨 주세요.",
+    "vote": "투표하기",
+    "voteOk": "투표가 반영되었습니다.",
+    "voteFailed": "투표에 실패했습니다.",
+    "alreadyVoted": "이미 투표한 제보입니다.",
+    "votesLabel": "투표 {count}",
+    "binsReviewOnly": "쓰레기통 제보는 관리자 검토 후 반영됩니다.",
+    "attractionsBoard": "관광명소 후보 · 투표",
+    "fishingBoard": "낚시터 후보 · 투표"
+  },
+  "ploggingPopup": {
+    "title": "코스 미리보기",
+    "walkingTime": "예상 걷기 시간",
+    "minutes": "{count}분",
+    "distance": "거리",
+    "crosswalks": "경로 횡단보도",
+    "crosswalkCount": "{count}곳",
+    "crossings": "횡단·교차 안내",
+    "surface": "노면·보행 환경",
+    "openDetail": "상세 보기",
+    "close": "닫기"
+  },
+  "attraction": {
+    "title": "관광명소",
+    "view3d": "3D로 보기",
+    "close3d": "3D 닫기",
+    "highlights": "하이라이트",
+    "votes": "커뮤니티 투표 {count}"
+  },
+  "leisure": {
+    "title": "레저·스포츠",
+    "activity": "활동 유형",
+    "season": "시즌 안내",
+    "activityType": {
+      "surfing": "서핑",
+      "yacht": "요트",
+      "diving": "다이빙",
+      "kayak": "카약",
+      "bike": "자전거",
+      "other": "기타"
+    }
+  },
+  "events": {
+    "listTitle": "부산 해안 대규모 행사",
+    "listHint": "2026-08-07 기준 일정이 공식 확인된 행사입니다.",
+    "empty": "표시할 행사가 없습니다.",
+    "sourceNote": "출처: 부산시·축제위·공식 홈페이지 교차검증 (2026-08-07)",
+    "sourceName": "공식 행사 안내",
+    "relation": {
+      "direct": "해안 직접형",
+      "adjacent": "해안 인접형"
+    },
+    "crowdRisk": "인파 위험",
+    "wasteRisk": "폐기물 위험",
+    "trafficImpact": "교통 영향",
+    "scale": "규모",
+    "scaleLevel": {
+      "very_large": "초대형",
+      "large": "대형",
+      "medium": "중형"
+    },
+    "risk": {
+      "very_high": "매우 높음",
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음"
+    },
+    "coastalImpact": "해안 영향",
+    "host": "주최",
+    "organizer": "주관",
+    "contact": "문의"
+  },
+  "wave": {
+    "title": "실시간 파도",
+    "height": "파고",
+    "period": "주기",
+    "unavailable": "파도 정보를 불러올 수 없습니다.",
+    "source": "기상청 해양기상"
+  },
+  "notifications": {
+    "empty": "새 알림이 없습니다.",
+    "markAllRead": "모두 읽음",
+    "seedTideTitle": "오늘의 조위·파고 안내",
+    "seedTideBody": "기장 연안 실시간 날씨와 파고를 확인하세요.",
+    "seedPloggingTitle": "플로깅 코스 추천",
+    "seedPloggingBody": "임랑·일광 해안 플로깅 코스를 지도에서 열어보세요.",
+    "seedFavoriteTitle": "즐겨찾기 이어서 보기",
+    "seedFavoriteBody": "저장한 장소를 마이페이지와 하트 패널에서 바로 열 수 있습니다."
   }
 }

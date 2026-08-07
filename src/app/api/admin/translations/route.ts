@@ -55,7 +55,7 @@ export async function GET() {
 
 const patchSchema = z.object({
   messageKey: z.string().min(1),
-  locale: z.enum(["ko", "en", "ja", "zh-CN"]),
+  locale: z.enum(["ko", "en", "ja", "zh-CN", "vi", "es", "de", "fr"]),
   text: z.string().min(1).max(2000),
   reviewStatus: z.enum(["reviewed", "machineTranslated"]),
   isSafety: z.boolean().optional(),

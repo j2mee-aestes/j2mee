@@ -57,7 +57,7 @@ export function AttractionDetailPanel({
             <h3 className="text-sm font-semibold">{t("attraction.highlights")}</h3>
             <ul className="mt-1 space-y-1 text-xs text-[var(--color-text-secondary)]">
               {attraction.highlights.map((item) => (
-                <li key={item}>· {item}</li>
+                <li key={item}>· {localizePlaceText(item, locale)}</li>
               ))}
             </ul>
           </div>
@@ -94,7 +94,7 @@ export function AttractionDetailPanel({
           >
             <div className="flex items-center justify-between gap-3">
               <h3 className="font-display text-lg font-semibold">
-                {attraction.name} · 3D
+                {displayName} · 3D
               </h3>
               <TextButton
                 variant="secondary"

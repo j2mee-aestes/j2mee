@@ -36,8 +36,9 @@
 
 ## 로그인 (Firebase)
 
-기존에는 **Auth.js(이메일 + 선택적 Google/Kakao OAuth)** 가 동작합니다.
-Firebase를 원하시면 아래를 주세요.
+**클라이언트 Firebase Auth** 연동 코드가 준비되어 있습니다. 아래 웹 설정을 주시면(또는 `.env.local` / GitHub Secrets에 넣어 주시면) Google·이메일 로그인이 바로 켜집니다.
+
+자세한 콘솔 설정: [`firebase-auth.md`](./firebase-auth.md)
 
 | 항목 | 환경 변수 |
 |---|---|
@@ -48,7 +49,9 @@ Firebase를 원하시면 아래를 주세요.
 | Storage Bucket (사진 제보 업로드용, 권장) | `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` |
 | Messaging Sender ID | `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` |
 
-선택: Google/Kakao를 Auth.js에 유지하려면 `GOOGLE_CLIENT_ID/SECRET`, `KAKAO_CLIENT_ID/SECRET` 도 가능합니다.
+Firebase 콘솔에서 **Google + Email/Password** 로그인 방법을 켜고, Authorized domains에 `localhost`, `j2mee-aestes.github.io` 를 추가해 주세요.
+
+선택: 서버 Auth.js OAuth를 유지하려면 `GOOGLE_CLIENT_ID/SECRET`, `KAKAO_CLIENT_ID/SECRET` 도 가능합니다.
 
 ## 쓰레기통 GeoJSON
 
@@ -93,3 +96,4 @@ DB에는 `mileageBalance` / `MileageLedger` 스키마가 준비되어 있습니�
 
 - `NEXT_PUBLIC_KAKAO_MAP_APP_KEY` 를 빌드 환경에 넣어야 정적 사이트에서도 지도가 뜹니다.
 - 카카오 콘솔에 `j2mee-aestes.github.io` 도메인 등록이 필요합니다.
+- Firebase 로그인을 쓰려면 `NEXT_PUBLIC_FIREBASE_*` 도 빌드 시 넣고, Firebase Authorized domains에 `j2mee-aestes.github.io` 를 등록하세요.

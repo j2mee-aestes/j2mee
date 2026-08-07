@@ -5,13 +5,15 @@ import { IconButton } from "@/components/common/IconButton";
 import { LanguageSelector } from "@/components/i18n/LanguageSelector";
 import { HeaderQuickPanels } from "@/components/layout/HeaderQuickPanels";
 import { HeaderWeatherChip } from "@/components/weather/HeaderWeatherChip";
+import { useFirebaseAuth } from "@/context/FirebaseAuthContext";
 import { useTranslations } from "@/context/LocaleContext";
 import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { publicPath } from "@/lib/paths";
 import type { SearchablePlace } from "@/data/mockMapLocations";
-import { LogIn, Menu, X } from "lucide-react";
+import { LogIn, LogOut, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 
 interface HeaderProps {
   mobileMenuOpen: boolean;
@@ -43,6 +45,18 @@ export function Header({
   externalKakaoQuery = null,
 }: HeaderProps) {
   const { t, locale } = useTranslations();
+  const { data: session, status } = useSession();
+  const firebase = useFirebaseAuth();
+  const signedIn = status === "authenticated" || Boolean(firebase.user);
+
+  const onLogout = () => {
+    void (async () => {
+      if (firebase.user) await firebase.signOut();
+      if (status === "authenticated") {
+        await signOut({ callbackUrl: "/" });
+      }
+    })();
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_oklab,white_72%,transparent)] shadow-[var(--shadow-soft)] backdrop-blur-2xl">
@@ -98,19 +112,45 @@ export function Header({
               {t("common.privacy")}
             </Link>
             <Link href="/my" className={`hidden md:inline-flex ${navLinkClass}`}>
-              {t("auth.myPage")}
+              {signedIn
+                ? session?.user?.name ||
+                  firebase.user?.displayName ||
+                  t("auth.myPage")
+                : t("auth.myPage")}
             </Link>
-            <Link href="/login" className={`hidden md:inline-flex ${navCtaClass}`}>
-              <LogIn className="h-4 w-4" aria-hidden />
-              {t("common.login")}
-            </Link>
-            <Link
-              href="/login"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.65)] sm:hidden"
-              aria-label={t("common.login")}
-            >
-              <LogIn className="h-4 w-4" />
-            </Link>
+            {signedIn ? (
+              <button
+                type="button"
+                onClick={onLogout}
+                className={`hidden md:inline-flex ${navLinkClass}`}
+              >
+                <LogOut className="h-4 w-4" aria-hidden />
+                {t("auth.logout")}
+              </button>
+            ) : (
+              <Link href="/login" className={`hidden md:inline-flex ${navCtaClass}`}>
+                <LogIn className="h-4 w-4" aria-hidden />
+                {t("common.login")}
+              </Link>
+            )}
+            {signedIn ? (
+              <button
+                type="button"
+                onClick={onLogout}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-white/80 text-[var(--color-text-primary)] sm:hidden"
+                aria-label={t("auth.logout")}
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.65)] sm:hidden"
+                aria-label={t("common.login")}
+              >
+                <LogIn className="h-4 w-4" />
+              </Link>
+            )}
           </div>
         </div>
 
@@ -124,7 +164,6 @@ export function Header({
 
           <div className="flex flex-wrap items-center gap-2 xl:ml-auto">
             <HeaderWeatherChip />
-
             <LanguageSelector compact className="hidden sm:flex" />
           </div>
         </div>

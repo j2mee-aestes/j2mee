@@ -586,7 +586,34 @@
     "mileageHint": "Verdient, wenn Ihr Beitrag veröffentlicht wird. Später gegen Punkte einlösbar.",
     "guestMyPageSubtitle": "Verwalte lokale Favoriten, Benachrichtigungen und Sprache ohne Anmeldung.",
     "guestProfileHint": "Melde dich an, um Zeitpläne, Aktivitäten und Favoriten mit deinem Konto zu synchronisieren.",
-    "staticLoginHint": "Dieser GitHub-Pages-Build hat kein Server-Login. Nutzen Sie die Gast-Meine-Seite für lokale Favoriten, Benachrichtigungen und Sprache."
+    "staticLoginHint": "Auf GitHub Pages ermöglichen Firebase-Webschlüssel Browser-Login. Sonst Gast-Meine-Seite nutzen.",
+    "firebaseSubtitle": "Mit Google oder E-Mail über Firebase anmelden.",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "orEmail": "oder E-Mail",
+    "register": "Konto erstellen",
+    "firebasePrivacyNote": "Die Anmeldung erfolgt über Firebase Authentication und funktioniert auch auf GitHub Pages.",
+    "firebaseSetupNeeded": "Mit NEXT_PUBLIC_FIREBASE_* aktivieren Sie Google/E-Mail-Login. Bis dahin Gast-Meine-Seite nutzen.",
+    "firebaseMyPageSubtitle": "Mit Firebase angemeldet. Favoriten und Benachrichtigungen bleiben in diesem Browser.",
+    "firebaseSignedInVia": "Angemeldet über {provider}",
+    "firebaseLocalSyncHint": "Ohne Server-API bleiben Pläne/Meilen lokal auf dem statischen Host.",
+    "loggedOut": "Abgemeldet.",
+    "firebaseError": {
+      "invalidEmail": "Ungültige E-Mail.",
+      "userDisabled": "Dieses Konto ist deaktiviert.",
+      "invalidCredential": "E-Mail oder Passwort falsch.",
+      "emailInUse": "Diese E-Mail wird bereits verwendet.",
+      "weakPassword": "Passwort muss mindestens 6 Zeichen haben.",
+      "popupClosed": "Anmeldefenster geschlossen. Bitte erneut versuchen.",
+      "popupBlocked": "Popup blockiert. Bitte Popups erlauben.",
+      "network": "Netzwerkfehler. Verbindung prüfen.",
+      "notConfigured": "Firebase ist nicht konfiguriert.",
+      "generic": "Fehler bei der Anmeldung. Bitte erneut versuchen.",
+      "unauthorizedDomain": "Diese Domain ist in Firebase nicht autorisiert. j2mee-aestes.github.io hinzufügen.",
+      "operationNotAllowed": "Google-Anmeldung ist in Firebase deaktiviert. Unter Authentication → Sign-in method aktivieren.",
+      "accountExists": "Konto mit derselben E-Mail existiert bereits mit anderer Methode.",
+      "invalidApiKey": "Firebase-API-Schlüssel ungültig. apiKey erneut aus der Konsole kopieren."
+    },
+    "firebaseRedirecting": "Google-Anmeldung wird abgeschlossen… bitte warten."
   },
   "a11y": {
     "skipToContent": "Zum Inhalt springen"

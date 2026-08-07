@@ -586,7 +586,34 @@
     "mileageHint": "Se obtiene cuando se publica tu contribución. Canjeable por puntos más adelante.",
     "guestMyPageSubtitle": "Gestiona favoritos, notificaciones e idioma locales sin iniciar sesión.",
     "guestProfileHint": "Inicia sesión para sincronizar horarios, actividades y favoritos con tu cuenta.",
-    "staticLoginHint": "Esta versión de GitHub Pages no tiene inicio de sesión en servidor. Use Mi página (invitado) para favoritos, notificaciones e idioma locales."
+    "staticLoginHint": "En GitHub Pages, las claves Firebase permiten iniciar sesión en el navegador. Sin ellas, use Mi página de invitado.",
+    "firebaseSubtitle": "Inicie sesión con Google o correo mediante Firebase.",
+    "continueWithGoogle": "Continuar con Google",
+    "orEmail": "o correo",
+    "register": "Crear cuenta",
+    "firebasePrivacyNote": "El inicio de sesión lo gestiona Firebase Authentication y funciona en GitHub Pages.",
+    "firebaseSetupNeeded": "Añada las claves NEXT_PUBLIC_FIREBASE_* para activar Google/correo. Mientras, use Mi página de invitado.",
+    "firebaseMyPageSubtitle": "Sesión Firebase activa. Favoritos y notificaciones quedan en este navegador.",
+    "firebaseSignedInVia": "Sesión vía {provider}",
+    "firebaseLocalSyncHint": "En hosting estático sin API, horarios/puntos quedan locales por ahora.",
+    "loggedOut": "Sesión cerrada.",
+    "firebaseError": {
+      "invalidEmail": "Correo no válido.",
+      "userDisabled": "Esta cuenta está deshabilitada.",
+      "invalidCredential": "Correo o contraseña incorrectos.",
+      "emailInUse": "Este correo ya está en uso.",
+      "weakPassword": "La contraseña debe tener al menos 6 caracteres.",
+      "popupClosed": "Se cerró la ventana de inicio. Inténtelo de nuevo.",
+      "popupBlocked": "Se bloqueó la ventana emergente. Permítala.",
+      "network": "Error de red. Compruebe la conexión.",
+      "notConfigured": "Firebase no está configurado.",
+      "generic": "Error al iniciar sesión. Inténtelo de nuevo.",
+      "unauthorizedDomain": "Este dominio no está autorizado en Firebase. Añada j2mee-aestes.github.io.",
+      "operationNotAllowed": "Google está desactivado en Firebase. Actívelo en Authentication → Sign-in method.",
+      "accountExists": "Ya existe una cuenta con el mismo correo y otro método.",
+      "invalidApiKey": "La API key de Firebase no es válida. Vuelva a copiar apiKey de la consola."
+    },
+    "firebaseRedirecting": "Completando el inicio con Google… espere."
   },
   "a11y": {
     "skipToContent": "Saltar al contenido"

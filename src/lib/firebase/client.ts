@@ -1,8 +1,10 @@
 /**
- * Firebase client scaffold.
- * Provide NEXT_PUBLIC_FIREBASE_* keys to enable. Auth.js remains the primary
- * session layer until Firebase Auth is fully wired.
+ * Firebase Web client bootstrap.
+ * Keys: NEXT_PUBLIC_FIREBASE_* (see docs/REQUIRED_KEYS.md / docs/auth-setup.md).
  */
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getAuth, type Auth } from "firebase/auth";
+
 export type FirebaseClientConfig = {
   apiKey: string;
   authDomain: string;
@@ -10,6 +12,7 @@ export type FirebaseClientConfig = {
   storageBucket?: string;
   messagingSenderId?: string;
   appId: string;
+  measurementId?: string;
 };
 
 export function getFirebaseClientConfig(): FirebaseClientConfig | null {
@@ -30,9 +33,33 @@ export function getFirebaseClientConfig(): FirebaseClientConfig | null {
     messagingSenderId:
       process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID?.trim(),
     appId,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID?.trim(),
   };
 }
 
 export function isFirebaseConfigured(): boolean {
   return getFirebaseClientConfig() !== null;
+}
+
+let appSingleton: FirebaseApp | null = null;
+let authSingleton: Auth | null = null;
+
+export function getFirebaseApp(): FirebaseApp | null {
+  const config = getFirebaseClientConfig();
+  if (!config) return null;
+  if (typeof window === "undefined") return null;
+
+  if (!appSingleton) {
+    appSingleton = getApps().length > 0 ? getApp() : initializeApp(config);
+  }
+  return appSingleton;
+}
+
+export function getFirebaseAuth(): Auth | null {
+  const app = getFirebaseApp();
+  if (!app) return null;
+  if (!authSingleton) {
+    authSingleton = getAuth(app);
+  }
+  return authSingleton;
 }

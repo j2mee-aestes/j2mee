@@ -586,7 +586,34 @@
     "mileageHint": "Gagné lorsque votre contribution est publiée. Échangeable contre des points plus tard.",
     "guestMyPageSubtitle": "Manage local favorites, notifications, and language without signing in.",
     "guestProfileHint": "Sign in to sync schedules, activities, and favorites to your account.",
-    "staticLoginHint": "Cette version GitHub Pages n’a pas de connexion serveur. Utilisez Ma page (invité) pour les favoris, notifications et la langue locaux."
+    "staticLoginHint": "Sur GitHub Pages, les clés Firebase permettent la connexion navigateur. Sinon, utilisez Ma page invité.",
+    "firebaseSubtitle": "Connectez-vous avec Google ou e-mail via Firebase.",
+    "continueWithGoogle": "Continuer avec Google",
+    "orEmail": "ou e-mail",
+    "register": "Créer un compte",
+    "firebasePrivacyNote": "La connexion est gérée par Firebase Authentication et fonctionne aussi sur GitHub Pages.",
+    "firebaseSetupNeeded": "Ajoutez NEXT_PUBLIC_FIREBASE_* pour activer Google/e-mail. En attendant, utilisez Ma page invité.",
+    "firebaseMyPageSubtitle": "Connecté via Firebase. Favoris et notifications restent dans ce navigateur.",
+    "firebaseSignedInVia": "Connecté via {provider}",
+    "firebaseLocalSyncHint": "Sans API serveur, horaires/points restent locaux sur l’hébergement statique.",
+    "loggedOut": "Déconnecté.",
+    "firebaseError": {
+      "invalidEmail": "E-mail invalide.",
+      "userDisabled": "Ce compte est désactivé.",
+      "invalidCredential": "E-mail ou mot de passe incorrect.",
+      "emailInUse": "Cet e-mail est déjà utilisé.",
+      "weakPassword": "Le mot de passe doit contenir au moins 6 caractères.",
+      "popupClosed": "La fenêtre de connexion a été fermée. Réessayez.",
+      "popupBlocked": "Popup bloquée. Autorisez les popups.",
+      "network": "Erreur réseau. Vérifiez la connexion.",
+      "notConfigured": "Firebase n’est pas configuré.",
+      "generic": "Erreur lors de la connexion. Réessayez.",
+      "unauthorizedDomain": "Ce domaine n’est pas autorisé dans Firebase. Ajoutez j2mee-aestes.github.io.",
+      "operationNotAllowed": "Google est désactivé dans Firebase. Activez-le dans Authentication → Sign-in method.",
+      "accountExists": "Un compte existe déjà avec le même e-mail via une autre méthode.",
+      "invalidApiKey": "Clé API Firebase invalide. Recopiez apiKey depuis la console SDK."
+    },
+    "firebaseRedirecting": "Finalisation de la connexion Google… veuillez patienter."
   },
   "a11y": {
     "skipToContent": "Passer au contenu"

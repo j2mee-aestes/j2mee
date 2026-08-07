@@ -2,6 +2,7 @@
 
 import { LocalImportPanel } from "@/components/auth/LocalImportPanel";
 import { TextButton } from "@/components/common/IconButton";
+import { useFirebaseAuth } from "@/context/FirebaseAuthContext";
 import { useLocaleContext, useTranslations } from "@/context/LocaleContext";
 import { mockMapLocations } from "@/data/mockMapLocations";
 import {
@@ -52,6 +53,7 @@ export default function MyPage() {
   const { t, locale } = useTranslations();
   const { setLocale } = useLocaleContext();
   const { data: session, status } = useSession();
+  const firebase = useFirebaseAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [localFavorites, setLocalFavorites] = useState<LocalFavorite[]>([]);
@@ -60,7 +62,9 @@ export default function MyPage() {
   const [activityCount, setActivityCount] = useState(0);
   const [notice, setNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const authenticated = status === "authenticated";
+  const authJsAuthenticated = status === "authenticated";
+  const firebaseAuthenticated = Boolean(firebase.user);
+  const authenticated = authJsAuthenticated || firebaseAuthenticated;
 
   const refreshLocal = useCallback(() => {
     setLocalFavorites(loadLocalFavorites());
@@ -108,15 +112,15 @@ export default function MyPage() {
       refreshLocal();
       if (status === "authenticated") {
         void refresh();
-      } else if (status === "unauthenticated") {
+      } else if (status === "unauthenticated" && firebase.ready) {
         setLoading(false);
       }
     });
-  }, [status, refresh, refreshLocal]);
+  }, [status, refresh, refreshLocal, firebase.ready]);
 
   const onLocaleChange = async (next: SupportedLocale) => {
     setLocale(next);
-    if (!authenticated) {
+    if (!authJsAuthenticated) {
       setNotice(t("auth.localeSaved"));
       return;
     }
@@ -130,6 +134,17 @@ export default function MyPage() {
     }
     setNotice(t("auth.localeSaved"));
     void refresh();
+  };
+
+  const onLogout = async () => {
+    if (firebaseAuthenticated) {
+      await firebase.signOut();
+    }
+    if (authJsAuthenticated) {
+      await signOut({ callbackUrl: "/" });
+      return;
+    }
+    setNotice(t("auth.loggedOut"));
   };
 
   const onExport = async () => {
@@ -196,7 +211,11 @@ export default function MyPage() {
     void refresh();
   };
 
-  if (status === "loading" || loading) {
+  if (
+    status === "loading" ||
+    !firebase.ready ||
+    (authJsAuthenticated && loading)
+  ) {
     return (
       <div className="mx-auto max-w-3xl px-3 py-8 text-sm text-[var(--color-text-secondary)]">
         {t("common.loading")}
@@ -204,8 +223,15 @@ export default function MyPage() {
     );
   }
 
-  const shownFavorites = authenticated ? favorites : [];
-  const guestFavorites = !authenticated ? localFavorites : [];
+  const shownFavorites = authJsAuthenticated ? favorites : [];
+  const guestFavorites = !authJsAuthenticated ? localFavorites : [];
+  const displayName =
+    profile?.name ??
+    session?.user?.name ??
+    firebase.user?.displayName ??
+    t("common.unknown");
+  const displayEmail =
+    profile?.email ?? session?.user?.email ?? firebase.user?.email ?? "";
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-3 py-4 sm:px-4">
@@ -214,7 +240,9 @@ export default function MyPage() {
           <h1 className="text-xl font-bold">{t("auth.myPageTitle")}</h1>
           <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
             {authenticated
-              ? t("auth.myPageSubtitle")
+              ? firebaseAuthenticated && !authJsAuthenticated
+                ? t("auth.firebaseMyPageSubtitle")
+                : t("auth.myPageSubtitle")
               : t("auth.guestMyPageSubtitle")}
           </p>
         </div>
@@ -232,10 +260,7 @@ export default function MyPage() {
             {t("common.home")}
           </Link>
           {authenticated ? (
-            <TextButton
-              variant="ghost"
-              onClick={() => void signOut({ callbackUrl: "/" })}
-            >
+            <TextButton variant="ghost" onClick={() => void onLogout()}>
               {t("auth.logout")}
             </TextButton>
           ) : (
@@ -262,23 +287,34 @@ export default function MyPage() {
         <h2 className="text-sm font-bold">{t("auth.profile")}</h2>
         {authenticated ? (
           <>
-            <p className="mt-2 text-sm">
-              {profile?.name ?? session?.user?.name ?? t("common.unknown")}
-            </p>
+            <p className="mt-2 text-sm">{displayName}</p>
             <p className="text-xs text-[var(--color-text-secondary)]">
-              {profile?.email ?? session?.user?.email}
+              {displayEmail}
             </p>
-            <div className="mt-4 rounded-2xl bg-[var(--color-accent-soft)] px-3 py-3">
-              <p className="text-xs font-semibold text-[var(--color-accent-strong)]">
-                {t("auth.mileage")}
+            {firebaseAuthenticated ? (
+              <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
+                {t("auth.firebaseSignedInVia", {
+                  provider: firebase.user?.providerId ?? "firebase",
+                })}
               </p>
-              <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-[var(--color-ink)]">
-                {profile?.mileageBalance ?? 0}
+            ) : null}
+            {authJsAuthenticated ? (
+              <div className="mt-4 rounded-2xl bg-[var(--color-accent-soft)] px-3 py-3">
+                <p className="text-xs font-semibold text-[var(--color-accent-strong)]">
+                  {t("auth.mileage")}
+                </p>
+                <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-[var(--color-ink)]">
+                  {profile?.mileageBalance ?? 0}
+                </p>
+                <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
+                  {t("auth.mileageHint")}
+                </p>
+              </div>
+            ) : (
+              <p className="mt-3 text-xs text-[var(--color-text-secondary)]">
+                {t("auth.firebaseLocalSyncHint")}
               </p>
-              <p className="mt-1 text-[11px] text-[var(--color-text-secondary)]">
-                {t("auth.mileageHint")}
-              </p>
-            </div>
+            )}
           </>
         ) : (
           <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
@@ -348,16 +384,16 @@ export default function MyPage() {
         )}
       </section>
 
-      {authenticated ? <LocalImportPanel onImported={() => void refresh()} /> : null}
+      {authJsAuthenticated ? <LocalImportPanel onImported={() => void refresh()} /> : null}
 
       <section className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-sm font-bold">{t("common.favorites")}</h2>
           <span className="text-xs text-[var(--color-text-muted)]">
-            {authenticated ? favorites.length : localFavorites.length}
+            {authJsAuthenticated ? favorites.length : localFavorites.length}
           </span>
         </div>
-        {authenticated ? (
+        {authJsAuthenticated ? (
           shownFavorites.length === 0 ? (
             <p className="mt-2 text-xs text-[var(--color-text-secondary)]">
               {t("auth.noFavorites")}
@@ -416,7 +452,7 @@ export default function MyPage() {
         )}
       </section>
 
-      {authenticated ? (
+      {authJsAuthenticated ? (
         <section className="space-y-3 rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white p-4">
           <h2 className="text-sm font-bold">{t("auth.savedData")}</h2>
           <p className="text-xs text-[var(--color-text-secondary)]">

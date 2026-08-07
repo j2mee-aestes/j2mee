@@ -586,7 +586,29 @@
     "importDone": "Imported: schedules {schedules}, activities {runs}, favorites {favorites} (skipped {skipped})",
     "mileage": "Mileage",
     "mileageHint": "Earned when your contribution is published. Redeemable for points later.",
-    "staticLoginHint": "This GitHub Pages build has no server login. Use guest My Page for local favorites, notifications, and language."
+    "staticLoginHint": "On GitHub Pages, Firebase web keys enable browser login. Without keys, use guest My Page.",
+    "firebaseSubtitle": "Sign in with Google or email via Firebase.",
+    "continueWithGoogle": "Continue with Google",
+    "orEmail": "or email",
+    "register": "Create account",
+    "firebasePrivacyNote": "Sign-in is handled by Firebase Authentication and works in the browser on GitHub Pages.",
+    "firebaseSetupNeeded": "Add NEXT_PUBLIC_FIREBASE_* web keys to enable Google/email login. Until then, use guest My Page.",
+    "firebaseMyPageSubtitle": "Signed in with Firebase. Favorites and notifications stay in this browser for now.",
+    "firebaseSignedInVia": "Signed in via {provider}",
+    "firebaseLocalSyncHint": "On static hosting without server APIs, schedules/mileage stay local for now.",
+    "loggedOut": "Signed out.",
+    "firebaseError": {
+      "invalidEmail": "Invalid email address.",
+      "userDisabled": "This account is disabled.",
+      "invalidCredential": "Incorrect email or password.",
+      "emailInUse": "This email is already in use.",
+      "weakPassword": "Password must be at least 6 characters.",
+      "popupClosed": "Sign-in popup was closed. Try again.",
+      "popupBlocked": "Popup was blocked. Allow popups for this site.",
+      "network": "Network error. Check your connection.",
+      "notConfigured": "Firebase is not configured.",
+      "generic": "Something went wrong during sign-in. Please try again."
+    }
   },
   "a11y": {
     "skipToContent": "Skip to content"

@@ -586,7 +586,29 @@
     "importDone": "Đã nhập: lịch trình {lịch trình}, hoạt động {chạy}, yêu thích {yêu thích} (bỏ qua {bỏ qua})",
     "mileage": "Số dặm",
     "mileageHint": "Kiếm được khi đóng góp của bạn được xuất bản. Có thể đổi lấy điểm sau này.",
-    "staticLoginHint": "Bản GitHub Pages không có đăng nhập máy chủ. Dùng trang Của tôi (khách) để quản lý yêu thích, thông báo và ngôn ngữ cục bộ."
+    "staticLoginHint": "Trên GitHub Pages, khóa Firebase cho phép đăng nhập trình duyệt. Không có khóa thì dùng trang khách.",
+    "firebaseSubtitle": "Đăng nhập Google hoặc email qua Firebase.",
+    "continueWithGoogle": "Tiếp tục với Google",
+    "orEmail": "hoặc email",
+    "register": "Đăng ký",
+    "firebasePrivacyNote": "Đăng nhập do Firebase Authentication xử lý và dùng được trên GitHub Pages.",
+    "firebaseSetupNeeded": "Thêm khóa NEXT_PUBLIC_FIREBASE_* để bật đăng nhập Google/email. Tạm dùng trang Của tôi (khách).",
+    "firebaseMyPageSubtitle": "Đã đăng nhập Firebase. Yêu thích và thông báo lưu trên trình duyệt này.",
+    "firebaseSignedInVia": "Đăng nhập qua {provider}",
+    "firebaseLocalSyncHint": "Trên hosting tĩnh không API, lịch/điểm tạm dùng dữ liệu cục bộ.",
+    "loggedOut": "Đã đăng xuất.",
+    "firebaseError": {
+      "invalidEmail": "Email không hợp lệ.",
+      "userDisabled": "Tài khoản đã bị vô hiệu.",
+      "invalidCredential": "Email hoặc mật khẩu không đúng.",
+      "emailInUse": "Email đã được dùng.",
+      "weakPassword": "Mật khẩu tối thiểu 6 ký tự.",
+      "popupClosed": "Cửa sổ đăng nhập đã đóng. Thử lại.",
+      "popupBlocked": "Popup bị chặn. Hãy cho phép popup.",
+      "network": "Lỗi mạng. Kiểm tra kết nối.",
+      "notConfigured": "Chưa cấu hình Firebase.",
+      "generic": "Có lỗi khi đăng nhập. Thử lại."
+    }
   },
   "a11y": {
     "skipToContent": "Chuyển đến nội dung"

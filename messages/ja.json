@@ -586,7 +586,29 @@
     "importDone": "取り込み完了: 予定 {schedules}、活動 {runs}、お気に入り {favorites}（スキップ {skipped}）",
     "mileage": "マイレージ",
     "mileageHint": "投稿が地図に反映されると付与されます。後日ポイント交換予定です。",
-    "staticLoginHint": "GitHub Pages版ではサーバーログインはありません。ゲストのマイページでローカルのお気に入り・通知・言語を管理できます。"
+    "staticLoginHint": "GitHub PagesではFirebaseウェブキーがあればブラウザログインできます。ない場合はゲストのマイページを使ってください。",
+    "firebaseSubtitle": "FirebaseでGoogleまたはメールログインが使えます。",
+    "continueWithGoogle": "Googleで続ける",
+    "orEmail": "またはメール",
+    "register": "新規登録",
+    "firebasePrivacyNote": "ログインはFirebase Authenticationで処理され、GitHub Pagesでもブラウザから利用できます。",
+    "firebaseSetupNeeded": "NEXT_PUBLIC_FIREBASE_* キーを設定するとGoogle/メールログインが有効になります。今はゲストのマイページをご利用ください。",
+    "firebaseMyPageSubtitle": "Firebaseアカウントでログイン中です。お気に入り・通知はこのブラウザに保存されます。",
+    "firebaseSignedInVia": "ログイン方法: {provider}",
+    "firebaseLocalSyncHint": "サーバーAPIのない静的配信では、予定・マイレージ同期の代わりにローカルデータを使います。",
+    "loggedOut": "ログアウトしました。",
+    "firebaseError": {
+      "invalidEmail": "メール形式が正しくありません。",
+      "userDisabled": "無効化されたアカウントです。",
+      "invalidCredential": "メールまたはパスワードが正しくありません。",
+      "emailInUse": "すでに使われているメールです。",
+      "weakPassword": "パスワードは6文字以上にしてください。",
+      "popupClosed": "ログインウィンドウが閉じられました。もう一度お試しください。",
+      "popupBlocked": "ポップアップがブロックされました。許可してください。",
+      "network": "ネットワークエラーが発生しました。",
+      "notConfigured": "Firebaseが設定されていません。",
+      "generic": "ログイン中に問題が発生しました。もう一度お試しください。"
+    }
   },
   "a11y": {
     "skipToContent": "本文へスキップ"

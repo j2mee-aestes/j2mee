@@ -586,7 +586,29 @@
     "importDone": "导入完成：行程 {schedules}、活动 {runs}、收藏 {favorites}（跳过 {skipped}）",
     "mileage": "里程",
     "mileageHint": "上报被发布后会发放。后续可兑换积分。",
-    "staticLoginHint": "此 GitHub Pages 版本无服务器登录。请在访客“我的页面”管理本地收藏、通知与语言。"
+    "staticLoginHint": "在 GitHub Pages 上配置 Firebase Web 密钥即可浏览器登录；否则请使用访客我的页面。",
+    "firebaseSubtitle": "可通过 Firebase 使用 Google 或邮箱登录。",
+    "continueWithGoogle": "使用 Google 继续",
+    "orEmail": "或使用邮箱",
+    "register": "注册",
+    "firebasePrivacyNote": "登录由 Firebase Authentication 处理，也可在 GitHub Pages 浏览器中使用。",
+    "firebaseSetupNeeded": "配置 NEXT_PUBLIC_FIREBASE_* 后可启用 Google/邮箱登录。目前请使用访客我的页面。",
+    "firebaseMyPageSubtitle": "已通过 Firebase 登录。收藏与通知暂存于此浏览器。",
+    "firebaseSignedInVia": "登录方式：{provider}",
+    "firebaseLocalSyncHint": "无服务器 API 的静态站点暂用本地数据，不同步行程/里程。",
+    "loggedOut": "已退出登录。",
+    "firebaseError": {
+      "invalidEmail": "邮箱格式不正确。",
+      "userDisabled": "该账户已停用。",
+      "invalidCredential": "邮箱或密码不正确。",
+      "emailInUse": "该邮箱已被使用。",
+      "weakPassword": "密码至少 6 个字符。",
+      "popupClosed": "登录窗口已关闭，请重试。",
+      "popupBlocked": "弹窗被拦截，请允许本站弹窗。",
+      "network": "网络错误，请检查连接。",
+      "notConfigured": "未配置 Firebase。",
+      "generic": "登录时出现问题，请重试。"
+    }
   },
   "a11y": {
     "skipToContent": "跳到正文"

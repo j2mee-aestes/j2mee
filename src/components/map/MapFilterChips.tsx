@@ -31,10 +31,10 @@ export function MapFilterChips({
             type="button"
             aria-pressed={selected}
             onClick={() => onCategoryChange(category.id)}
-            className={`inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold backdrop-blur-md transition duration-200 ${
+            className={`inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-[var(--shadow-soft)] backdrop-blur-md transition duration-200 ${
               selected
-                ? "border-transparent text-white shadow-[0_12px_28px_-12px_rgba(3,18,40,0.65)]"
-                : "border-sky-200/30 bg-[rgba(8,28,58,0.72)] text-sky-50 shadow-[0_10px_24px_-14px_rgba(3,18,40,0.55)] hover:-translate-y-0.5 hover:bg-[rgba(11,42,84,0.88)]"
+                ? "border-transparent text-white shadow-[0_10px_24px_-12px_rgba(11,36,71,0.5)]"
+                : "border-white/70 bg-white/85 text-[var(--color-text-primary)] hover:-translate-y-0.5 hover:bg-white"
             }`}
             style={selected ? { backgroundColor: category.color } : undefined}
           >

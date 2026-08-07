@@ -1,0 +1,2 @@
+파도파도 static export for GitHub Pages
+URL: https://j2mee-aestes.github.io/j2mee/

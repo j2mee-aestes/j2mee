@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* AirSide-inspired soft light system — ocean product, not purple/cream clichés */
-  --color-ink: #0b1f33;
-  --color-mist: #eef6fb;
-  --color-foam: #f7fbfe;
-  --color-sky: #7ec8e3;
-  --color-accent: #0b9bb8;
-  --color-accent-strong: #087a94;
-  --color-accent-soft: #d7f1f7;
+  /* Premium navy-blue system matching the landing reference frames */
+  --color-ink: #0b2447;
+  --color-mist: #eef4fb;
+  --color-foam: #f7fafd;
+  --color-sky: #93c5fd;
+  --color-accent: #1d4ed8;
+  --color-accent-strong: #0b2447;
+  --color-accent-soft: #e3ecfb;
 
-  --color-ocean-50: #f3fafc;
-  --color-ocean-100: #e4f4f9;
-  --color-ocean-200: #c5e8f2;
-  --color-ocean-400: #4db8d4;
-  --color-ocean-500: #1aa6c4;
-  --color-ocean-600: #0b9bb8;
-  --color-ocean-700: #087a94;
-  --color-ocean-800: #0b1f33;
+  --color-ocean-50: #f4f8fd;
+  --color-ocean-100: #e7effa;
+  --color-ocean-200: #ccdff5;
+  --color-ocean-400: #60a5fa;
+  --color-ocean-500: #3b82f6;
+  --color-ocean-600: #1d4ed8;
+  --color-ocean-700: #1e40af;
+  --color-ocean-800: #0b2447;
 
   --color-teal-50: #eefaf6;
   --color-teal-200: #b6ead9;
@@ -31,13 +31,13 @@
   --color-orange-600: #ea580c;
 
   --color-surface: #f4f8fc;
-  --color-surface-muted: #e8f1f7;
-  --color-map-bg: #cfe8f2;
-  --color-map-land: #e4f3ec;
-  --color-border: #d5e4ee;
-  --color-text-primary: #0b1f33;
-  --color-text-secondary: #4a6578;
-  --color-text-muted: #8aa0b2;
+  --color-surface-muted: #e9f0f8;
+  --color-map-bg: #d3e4f5;
+  --color-map-land: #e7f1ea;
+  --color-border: #dbe6f1;
+  --color-text-primary: #0b2447;
+  --color-text-secondary: #4a637e;
+  --color-text-muted: #8ba0b6;
 
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
@@ -69,9 +69,9 @@ body {
 
 body {
   background:
-    radial-gradient(120% 80% at 0% -10%, rgba(126, 200, 227, 0.35), transparent 55%),
-    radial-gradient(90% 60% at 100% 0%, rgba(11, 155, 184, 0.12), transparent 50%),
-    linear-gradient(180deg, #eef6fb 0%, var(--color-surface) 42%, #eef5f2 100%);
+    radial-gradient(120% 80% at 0% -10%, rgba(147, 197, 253, 0.32), transparent 55%),
+    radial-gradient(90% 60% at 100% 0%, rgba(29, 78, 216, 0.1), transparent 50%),
+    linear-gradient(180deg, #eef4fb 0%, var(--color-surface) 42%, #eff4f8 100%);
   color: var(--foreground);
   font-family: var(--font-plex), "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
@@ -192,6 +192,22 @@ body {
 
 .landing-float {
   animation: landing-float 6.5s ease-in-out infinite;
+}
+
+@keyframes landing-kenburns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.09) translate3d(-1.2%, 1%, 0);
+  }
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+.landing-kenburns {
+  animation: landing-kenburns 26s ease-in-out infinite;
 }
 
 button,

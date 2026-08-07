@@ -249,7 +249,7 @@
     "inquiryRecommended": "사전 문의 권장",
     "verifiedPrefix": "검증: {status}",
     "driveEstimate": "예상 차량 이동 {minutes}분 (직선거리 참고값)",
-    "drivePending": "이동시간 정보 준비 중",
+    "drivePending": "이동 시간은 카카오맵 길찾기로 확인해 주세요",
     "verification": {
       "official": "공식 검증",
       "partner": "파트너",

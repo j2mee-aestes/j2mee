@@ -42,7 +42,7 @@ export const mockWeatherProvider = {
             ]
           : [],
       fetchedAt: new Date().toISOString(),
-      sourceName: "파도파도 mock 날씨",
+      sourceName: "참고용 추정 정보 (실시간 연동 실패 시)",
     };
   },
 };

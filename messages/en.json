@@ -249,7 +249,7 @@
     "inquiryRecommended": "Advance inquiry recommended",
     "verifiedPrefix": "Verified: {status}",
     "driveEstimate": "Est. drive {minutes} min (straight-line reference)",
-    "drivePending": "Travel time coming soon",
+    "drivePending": "Check travel time via Kakao Map directions",
     "verification": {
       "official": "Official",
       "partner": "Partner",

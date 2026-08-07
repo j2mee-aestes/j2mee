@@ -1,5 +1,11 @@
 "use client";
 
+import { publicPath } from "@/lib/paths";
+
+function resolveSrc(src: string): string {
+  return src.startsWith("/") ? publicPath(src) : src;
+}
+
 type PlaceImageGalleryProps = {
   images?: string[];
   alt: string;
@@ -33,7 +39,7 @@ export function PlaceImageGallery({
       <div className="relative h-40 overflow-hidden rounded-2xl border border-[var(--color-border)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={images[0]}
+          src={resolveSrc(images[0])}
           alt={alt}
           className="h-full w-full object-cover"
           loading="lazy"
@@ -48,7 +54,7 @@ export function PlaceImageGallery({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={src}
+                src={resolveSrc(src)}
                 alt=""
                 className="h-full w-full object-cover"
                 loading="lazy"

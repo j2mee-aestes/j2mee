@@ -35,7 +35,7 @@ export function MobileCategoryBar({
               onClick={() => onCategoryChange(category.id)}
               className={`inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition duration-200 ${
                 selected
-                  ? "border-transparent text-white shadow-[0_10px_24px_-12px_rgba(14,116,144,0.55)]"
+                  ? "border-transparent text-white shadow-[0_10px_24px_-12px_rgba(11,36,71,0.55)]"
                   : "border-[var(--color-border)] bg-white/85 text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]"
               }`}
               style={selected ? { backgroundColor: category.color } : undefined}

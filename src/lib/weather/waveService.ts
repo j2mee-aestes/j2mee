@@ -1,5 +1,4 @@
 import type { Coordinates } from "@/types/map";
-import { mockWeatherProvider } from "@/lib/weather/mockWeatherProvider";
 
 export type WaveData = {
   waveHeightM: number;
@@ -9,8 +8,20 @@ export type WaveData = {
   locationName?: string;
 };
 
+const MARINE_URL = "https://marine-api.open-meteo.com/v1/marine";
+
+interface MarineResponse {
+  current?: {
+    time?: string;
+    wave_height?: number;
+    wave_period?: number;
+  };
+}
+
 /**
- * Live wave snapshot. Prefers KMA marine key when present; else derives from mock weather.
+ * Live wave snapshot.
+ * 1) KMA marine endpoint when a key is configured
+ * 2) Open-Meteo Marine API (no key, realtime model data)
  */
 export async function getWaveData(
   coordinates: Coordinates,
@@ -43,16 +54,32 @@ export async function getWaveData(
         }
       }
     } catch {
-      // fall through to mock
+      // fall through to Open-Meteo Marine
     }
   }
 
-  const weather = await mockWeatherProvider.getWeather(coordinates);
+  const url = new URL(MARINE_URL);
+  url.searchParams.set("latitude", String(coordinates.latitude));
+  url.searchParams.set("longitude", String(coordinates.longitude));
+  url.searchParams.set("current", "wave_height,wave_period");
+  url.searchParams.set("timezone", "Asia/Seoul");
+
+  const response = await fetch(url.toString(), {
+    headers: { Accept: "application/json" },
+    next: { revalidate: 900 },
+  });
+  if (!response.ok) {
+    throw new Error("WAVE_FETCH_FAILED");
+  }
+  const payload = (await response.json()) as MarineResponse;
+  const current = payload.current;
+  if (current?.wave_height == null) {
+    throw new Error("WAVE_FETCH_FAILED");
+  }
   return {
-    waveHeightM: weather.waveHeightM ?? 0.6,
-    wavePeriodSec: 6.5,
-    fetchedAt: weather.fetchedAt,
-    sourceName: "기상청 해양기상 (mock)",
-    locationName: weather.locationName,
+    waveHeightM: Number(current.wave_height),
+    wavePeriodSec: Number(current.wave_period ?? 0),
+    fetchedAt: new Date().toISOString(),
+    sourceName: "Open-Meteo Marine (실시간 파고)",
   };
 }

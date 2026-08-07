@@ -11,15 +11,6 @@ interface AsyncState<T> {
   reload: () => void;
 }
 
-async function readErrorMessage(response: Response): Promise<string> {
-  try {
-    const payload = (await response.json()) as { message?: string };
-    return payload.message ?? "데이터를 불러오는 중 문제가 발생했습니다.";
-  } catch {
-    return "데이터를 불러오는 중 문제가 발생했습니다.";
-  }
-}
-
 export function useWeatherData(
   spotId: string | null,
   date: string,
@@ -100,22 +91,50 @@ export function useWeatherData(
   };
 }
 
-export function useWaveData(spotId: string | null): AsyncState<{
+interface WaveState {
   waveHeightM?: number;
   wavePeriodSec?: number;
   fetchedAt?: string;
   sourceName?: string;
-}> {
-  const [data, setData] = useState<{
-    waveHeightM?: number;
-    wavePeriodSec?: number;
-    fetchedAt?: string;
-    sourceName?: string;
-  } | null>(null);
+}
+
+async function fetchMarineWaveClient(
+  latitude: number,
+  longitude: number,
+  signal?: AbortSignal,
+): Promise<WaveState> {
+  const url = new URL("https://marine-api.open-meteo.com/v1/marine");
+  url.searchParams.set("latitude", String(latitude));
+  url.searchParams.set("longitude", String(longitude));
+  url.searchParams.set("current", "wave_height,wave_period");
+  url.searchParams.set("timezone", "Asia/Seoul");
+  const response = await fetch(url.toString(), { signal });
+  if (!response.ok) throw new Error("WAVE_FETCH_FAILED");
+  const payload = (await response.json()) as {
+    current?: { wave_height?: number; wave_period?: number };
+  };
+  if (payload.current?.wave_height == null) {
+    throw new Error("WAVE_FETCH_FAILED");
+  }
+  return {
+    waveHeightM: Number(payload.current.wave_height),
+    wavePeriodSec: Number(payload.current.wave_period ?? 0),
+    fetchedAt: new Date().toISOString(),
+    sourceName: "Open-Meteo Marine (실시간 파고)",
+  };
+}
+
+export function useWaveData(
+  spotId: string | null,
+  coordinates?: { latitude: number; longitude: number } | null,
+): AsyncState<WaveState> {
+  const [data, setData] = useState<WaveState | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [tick, setTick] = useState(0);
   const reload = useCallback(() => setTick((value) => value + 1), []);
+  const lat = coordinates?.latitude;
+  const lng = coordinates?.longitude;
 
   useEffect(() => {
     if (!spotId) return;
@@ -124,18 +143,28 @@ export function useWaveData(spotId: string | null): AsyncState<{
       setLoading(true);
       setError(null);
     });
-    fetch(`/api/wave?spotId=${encodeURIComponent(spotId)}`, {
-      signal: controller.signal,
-    })
-      .then(async (response) => {
-        if (!response.ok) throw new Error(await readErrorMessage(response));
-        return response.json();
-      })
-      .then((payload) => {
-        setData(payload);
+
+    const run = async () => {
+      try {
+        try {
+          const response = await fetch(
+            `/api/wave?spotId=${encodeURIComponent(spotId)}`,
+            { signal: controller.signal },
+          );
+          if (response.ok) {
+            setData(await response.json());
+            setLoading(false);
+            return;
+          }
+        } catch {
+          // Static hosting (GitHub Pages) has no API route — fall through.
+        }
+        if (lat === undefined || lng === undefined) {
+          throw new Error("WAVE_FETCH_FAILED");
+        }
+        setData(await fetchMarineWaveClient(lat, lng, controller.signal));
         setLoading(false);
-      })
-      .catch((err: unknown) => {
+      } catch (err: unknown) {
         if (controller.signal.aborted) return;
         setData(null);
         setError(
@@ -144,9 +173,12 @@ export function useWaveData(spotId: string | null): AsyncState<{
             : "데이터를 불러오는 중 문제가 발생했습니다.",
         );
         setLoading(false);
-      });
+      }
+    };
+
+    void run();
     return () => controller.abort();
-  }, [spotId, tick]);
+  }, [spotId, tick, lat, lng]);
 
   return {
     data: spotId ? data : null,

@@ -76,8 +76,8 @@
     "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EA%B8%B0%EC%9E%A5%EC%8B%9C%EC%9E%A5",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
-      "https://placehold.co/800x500/ea580c/ffffff?text=Gijang+Market"
+      "/images/places/place-fishmarket-1.jpg",
+      "/images/places/place-fishmarket-2.jpg"
     ]
   },
   {
@@ -164,8 +164,8 @@
     "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%ED%95%B4%EC%9A%B4%EB%8C%80%EC%8B%9C%EC%9E%A5",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1519708227414-c9e5edc0f5a5?w=800&q=80",
-      "https://placehold.co/800x500/c2410c/ffffff?text=Haeundae+Market"
+      "/images/places/place-fishmarket-2.jpg",
+      "/images/places/place-fishmarket-1.jpg"
     ]
   },
   {
@@ -236,8 +236,8 @@
     "sourceName": "공개 지도·시장 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EC%9E%90%EA%B0%88%EC%B9%98%EC%8B%9C%EC%9E%A5",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=800&q=80",
-      "https://placehold.co/800x500/9a3412/ffffff?text=Jagalchi"
+      "/images/places/place-jagalchi.jpg",
+      "/images/places/place-fishmarket-1.jpg"
     ]
   },
   {
@@ -324,8 +324,8 @@
     "sourceName": "공개 지도·해안 상권 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EB%8C%80%EB%B3%80%ED%95%AD%20%EC%88%98%EC%82%B0%EB%AC%BC%20%EC%A7%81%ED%8C%90%C2%B7%ED%9A%9F%EC%A7%91%EC%B4%8C",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&q=80",
-      "https://placehold.co/800x500/9a3412/ffffff?text=Daebyeon"
+      "/images/places/place-fishmarket-2.jpg",
+      "/images/places/spot-breakwater-1.jpg"
     ]
   },
   {
@@ -407,7 +407,7 @@
     "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EB%82%A8%ED%95%AD%ED%9A%9F%EC%A7%91",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800&q=80"
+      "/images/places/place-hoe-restaurant.jpg"
     ]
   },
   {
@@ -491,7 +491,7 @@
     "sourceName": "공개 업소 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%ED%8C%8C%EB%8F%84%ED%9A%9F%EC%A7%91",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=800&q=80"
+      "/images/places/place-hoe-restaurant.jpg"
     ]
   },
   {
@@ -578,8 +578,7 @@
     "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EB%8C%80%EB%B3%80%ED%95%AD%20%EC%86%90%EC%A7%88%20%EC%A7%80%EC%9B%90%20%EC%A0%90%ED%8F%AC",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
-      "https://placehold.co/800x500/7c2d12/ffffff?text=Processing"
+      "/images/places/place-processing.jpg"
     ]
   },
   {
@@ -659,7 +658,7 @@
     "sourceName": "공개 해안 상권 안내 참고 (해안선 15km 이내)",
     "sourceUrl": "https://map.kakao.com/?q=%EC%9D%BC%EA%B4%91%20%ED%95%B4%EC%95%88%20%EC%88%98%EC%82%B0%EB%AC%BC%20%ED%8C%90%EB%A7%A4%EC%9E%A5",
     "imageUrls": [
-      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80"
+      "/images/places/place-fishmarket-2.jpg"
     ]
   }
 ]

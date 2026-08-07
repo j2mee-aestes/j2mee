@@ -249,7 +249,7 @@
     "inquiryRecommended": "建议提前咨询",
     "verifiedPrefix": "验证：{status}",
     "driveEstimate": "预计驾车 {minutes} 分钟（直线距离参考）",
-    "drivePending": "出行时间信息准备中",
+    "drivePending": "出行时间请通过 Kakao 地图路线查询确认",
     "verification": {
       "official": "官方验证",
       "partner": "合作方",

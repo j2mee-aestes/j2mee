@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   useCallback,
   useEffect,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -200,7 +199,6 @@ function InsightStat({
 
 export function LandingHome() {
   const { t } = useTranslations();
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(true);
   const [slideIndex, setSlideIndex] = useState(0);
   const [slideProgress, setSlideProgress] = useState(0);
@@ -214,16 +212,6 @@ export function LandingHome() {
   const togglePlay = useCallback(() => {
     setPlaying((value) => !value);
   }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (playing) {
-      void video.play().catch(() => undefined);
-    } else {
-      video.pause();
-    }
-  }, [playing, slideId]);
 
   useEffect(() => {
     if (!playing) return;
@@ -283,7 +271,7 @@ export function LandingHome() {
         <header className="mb-3 flex items-center justify-between gap-3 sm:mb-4">
           <Link href="/" className="flex min-w-0 items-center gap-2.5">
             <Image
-              src="/images/padopado-logo.png"
+              src={publicPath("/images/padopado-logo.png")}
               alt={t("common.serviceName")}
               width={42}
               height={42}
@@ -312,24 +300,20 @@ export function LandingHome() {
           <div className="relative flex min-h-[76vh] flex-1 flex-col overflow-hidden rounded-[1.9rem] shadow-[0_44px_110px_-38px_rgba(6,26,50,0.62)] sm:rounded-[2.35rem] lg:min-h-[80vh]">
             {/* Slide backgrounds */}
             {slideId === "brand" ? (
-              <>
-                <video
-                  ref={videoRef}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  src={publicPath("/videos/ocean-hero.mp4")}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                  poster={publicPath("/images/ocean-horizon.jpg")}
+              <div className="absolute inset-0 overflow-hidden" aria-hidden>
+                <div
+                  className={`absolute inset-[-6%] bg-cover bg-center ${
+                    playing ? "landing-kenburns" : ""
+                  }`}
+                  style={{
+                    backgroundImage: `url(${publicPath("/images/korea-night-map.jpg")})`,
+                  }}
+                  role="img"
                   aria-label={t("home.hero.mediaLabel")}
                 />
-                <div
-                  className="absolute inset-0 bg-[linear-gradient(115deg,rgba(5,18,40,0.72)_0%,rgba(6,26,54,0.42)_46%,rgba(6,22,46,0.55)_100%)]"
-                  aria-hidden
-                />
-              </>
+                <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(4,14,34,0.66)_0%,rgba(5,20,46,0.28)_48%,rgba(4,16,38,0.5)_100%)]" />
+                <div className="landing-dots absolute inset-0 text-sky-300/12" />
+              </div>
             ) : null}
 
             {slideId === "features" || slideId === "insights" ? (

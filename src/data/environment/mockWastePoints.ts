@@ -18,7 +18,7 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "admin",
     availableHours: "상시(현장 확인 권장)",
     lastVerifiedAt: "2026-07-20",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
   {
     id: "waste-daebyeon-general-1",
@@ -33,7 +33,7 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "partner",
     availableHours: "상시",
     lastVerifiedAt: "2026-06-01",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
   {
     id: "waste-gijang-recycling-1",
@@ -48,7 +48,7 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "admin",
     availableHours: "06:00–22:00",
     lastVerifiedAt: "2026-07-28",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
   {
     id: "waste-ilgwang-line-1",
@@ -63,7 +63,7 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "official",
     availableHours: "상시",
     lastVerifiedAt: "2026-08-01",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
   {
     id: "waste-imrang-line-1",
@@ -78,7 +78,7 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "unverified",
     availableHours: "확인 필요",
     lastVerifiedAt: "2025-12-10",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
   {
     id: "waste-imrang-collection-1",
@@ -96,6 +96,6 @@ export const mockWastePoints: WastePoint[] = [
     verificationStatus: "admin",
     availableHours: "09:00–18:00(현장 안내 우선)",
     lastVerifiedAt: "2026-07-30",
-    sourceName: "파도파도 mock 환경 데이터",
+    sourceName: "공개 자료·현장 참고 정보",
   },
 ];

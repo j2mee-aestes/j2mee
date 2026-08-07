@@ -42,7 +42,7 @@ export function SearchBar({
       </label>
       <button
         type="submit"
-        className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-4 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.55)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
+        className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-4 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ocean-500)]"
       >
         {t("search.button")}
       </button>

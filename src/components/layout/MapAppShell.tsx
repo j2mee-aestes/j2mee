@@ -256,7 +256,10 @@ export function MapAppShell() {
     selectedDate,
     selectedFishing?.coordinates ?? null,
   );
-  const waveState = useWaveData(fishingSpotId);
+  const waveState = useWaveData(
+    fishingSpotId,
+    selectedFishing?.coordinates ?? null,
+  );
   const [weatherDetailOpen, setWeatherDetailOpen] = useState(false);
   const [weatherDetail, setWeatherDetail] = useState<WeatherData | null>(null);
   const [weatherDetailLoading, setWeatherDetailLoading] = useState(false);

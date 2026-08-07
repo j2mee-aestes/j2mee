@@ -5,6 +5,7 @@ import { IconButton } from "@/components/common/IconButton";
 import { LanguageSelector } from "@/components/i18n/LanguageSelector";
 import { HeaderWeatherChip } from "@/components/weather/HeaderWeatherChip";
 import { useTranslations } from "@/context/LocaleContext";
+import { publicPath } from "@/lib/paths";
 import type { SearchablePlace } from "@/data/mockMapLocations";
 import {
   Bell,
@@ -32,7 +33,7 @@ const navLinkClass =
   "inline-flex h-10 items-center rounded-full border border-[var(--color-border)] bg-white/70 px-3.5 text-sm font-semibold text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]";
 
 const navCtaClass =
-  "inline-flex h-10 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.65)] transition hover:-translate-y-0.5 hover:brightness-105";
+  "inline-flex h-10 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] px-3.5 text-sm font-semibold text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.65)] transition hover:-translate-y-0.5 hover:brightness-105";
 
 export function Header({
   mobileMenuOpen,
@@ -62,11 +63,11 @@ export function Header({
 
           <Link href="/" className="group flex min-w-0 items-center gap-3">
             <Image
-              src="/images/padopado-logo.png"
+              src={publicPath("/images/padopado-logo.png")}
               alt={t("common.serviceName")}
               width={44}
               height={44}
-              className="h-11 w-11 shrink-0 rounded-2xl object-cover shadow-[0_12px_28px_-14px_rgba(14,116,144,0.55)] transition duration-300 group-hover:scale-[1.03]"
+              className="h-11 w-11 shrink-0 rounded-2xl object-cover shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] transition duration-300 group-hover:scale-[1.03]"
               priority
             />
             <div className="min-w-0">
@@ -112,7 +113,7 @@ export function Header({
             </Link>
             <Link
               href="/login"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.65)] sm:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.65)] sm:hidden"
               aria-label={t("common.login")}
             >
               <LogIn className="h-4 w-4" />

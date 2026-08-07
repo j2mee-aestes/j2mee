@@ -4,6 +4,7 @@ import type { LeisurePlace } from "@/types/leisure";
 export const mockLeisurePlaces: LeisurePlace[] = [
   {
     id: "leisure-suyeongman-yacht",
+    imageUrls: ["/images/places/leisure-marina.jpg"],
     name: "수영만요트경기장",
     address: "부산광역시 해운대구 우동 1393 (해운대해변로 84 일대)",
     coordinates: { latitude: 35.1608, longitude: 129.1415 },
@@ -19,6 +20,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-gwangan-marine-center",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
     name: "광안리해양레포츠센터",
     address: "부산광역시 수영구 남천동 561 일대 (광안해변로54번길 222)",
     coordinates: { latitude: 35.1462, longitude: 129.1148 },
@@ -33,6 +35,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-gwangan-sup-zone",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
     name: "광안리 SUP Zone",
     address: "부산광역시 수영구 남천동 해변 일대 (광안리해수욕장)",
     coordinates: { latitude: 35.153, longitude: 129.1185 },
@@ -48,6 +51,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-surfholic-songjeong",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
     name: "서프홀릭 부산송정본점",
     address: "부산광역시 해운대구 송정동 711-5 (송정해변로 50)",
     coordinates: { latitude: 35.1786, longitude: 129.1994 },
@@ -62,6 +66,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-mellow-surf",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
     name: "멜로우서프",
     address: "부산광역시 해운대구 송정광어골로 19-1 (송정동, 송정빌딩)",
     coordinates: { latitude: 35.1794, longitude: 129.2008 },
@@ -76,6 +81,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-songdo-marine-center",
+    imageUrls: ["/images/places/leisure-sup.jpg"],
     name: "송도해양레포츠센터",
     address: "부산광역시 서구 암남동 135-5 (송도해변로 50)",
     coordinates: { latitude: 35.0762, longitude: 129.0178 },
@@ -90,6 +96,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-songdo-sports-center",
+    imageUrls: ["/images/places/leisure-marina.jpg"],
     name: "송도스포츠센터",
     address: "부산광역시 서구 암남동 229-10 (송도해변로 121)",
     coordinates: { latitude: 35.0755, longitude: 129.0205 },
@@ -105,6 +112,7 @@ export const mockLeisurePlaces: LeisurePlace[] = [
   },
   {
     id: "leisure-dadaepo-marine-center",
+    imageUrls: ["/images/places/leisure-surfing.jpg"],
     name: "다대포해양레포츠센터",
     address: "부산광역시 사하구 다대동 482-3 지선 (몰운대 낙조전망대 앞 공유수면)",
     coordinates: { latitude: 35.0488, longitude: 128.9665 },

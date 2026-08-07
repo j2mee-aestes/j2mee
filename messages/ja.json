@@ -249,7 +249,7 @@
     "inquiryRecommended": "事前問い合わせ推奨",
     "verifiedPrefix": "検証: {status}",
     "driveEstimate": "車で約{minutes}分（直線距離参考）",
-    "drivePending": "移動時間情報準備中",
+    "drivePending": "移動時間はカカオマップの経路検索でご確認ください",
     "verification": {
       "official": "公式検証",
       "partner": "パートナー",

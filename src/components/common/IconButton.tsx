@@ -37,7 +37,7 @@ interface TextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const buttonVariants: Record<NonNullable<TextButtonProps["variant"]>, string> = {
   primary:
-    "bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.55)] hover:brightness-105",
+    "bg-[linear-gradient(135deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(11,36,71,0.55)] hover:brightness-105",
   secondary:
     "border border-[var(--color-border)] bg-white/80 text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] hover:border-[var(--color-accent-soft)] hover:bg-[var(--color-accent-soft)]",
   ghost:

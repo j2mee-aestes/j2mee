@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Outfit } from "next/font/google";
+import { IBM_Plex_Sans_KR, Nanum_Myeongjo } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
 import {
   DEFAULT_LOCALE,
@@ -10,16 +10,16 @@ import {
 import { lookupMessage } from "@/i18n/messages";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const plexSans = IBM_Plex_Sans_KR({
+  variable: "--font-plex",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const myeongjo = Nanum_Myeongjo({
+  variable: "--font-myeongjo",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "700", "800"],
 });
 
 const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
@@ -56,7 +56,7 @@ export default async function RootLayout({
   return (
     <html
       lang={htmlLang}
-      className={`${manrope.variable} ${outfit.variable} h-full antialiased`}
+      className={`${plexSans.variable} ${myeongjo.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://dapi.kakao.com" />

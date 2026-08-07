@@ -54,8 +54,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-manrope);
-  --font-display: var(--font-outfit);
+  --font-sans: var(--font-plex);
+  --font-display: var(--font-myeongjo);
 }
 
 * {
@@ -73,11 +73,98 @@ body {
     radial-gradient(90% 60% at 100% 0%, rgba(11, 155, 184, 0.12), transparent 50%),
     linear-gradient(180deg, #eef6fb 0%, var(--color-surface) 42%, #eef5f2 100%);
   color: var(--foreground);
-  font-family: var(--font-manrope), "Noto Sans KR", sans-serif;
+  font-family: var(--font-plex), "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
 .font-display {
-  font-family: var(--font-outfit), var(--font-manrope), "Noto Sans KR", sans-serif;
+  font-family: var(--font-myeongjo), "Apple SD Gothic Neo", serif;
+}
+
+.font-brand {
+  font-family: var(--font-myeongjo), "Apple SD Gothic Neo", serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+@keyframes landing-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.975);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes landing-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes landing-bar-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0.35);
+    transform-origin: bottom;
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes landing-sky-drift {
+  0% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate3d(-1.4%, 0.7%, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes landing-sky-drift-alt {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(1.1%, -0.5%, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+}
+
+.landing-slide {
+  animation: landing-slide-in 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-slide-item {
+  animation: landing-item-in 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-bar {
+  animation: landing-bar-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.landing-sky {
+  animation: landing-sky-drift 32s ease-in-out infinite;
+}
+
+.landing-sky-slow {
+  animation: landing-sky-drift-alt 40s ease-in-out infinite;
 }
 
 button,

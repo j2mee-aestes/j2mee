@@ -1,11 +1,13 @@
 "use client";
 
 import {
+  completeGoogleRedirect,
   firebaseAuthReady,
+  firebaseErrorDebug,
   mapFirebaseAuthError,
   registerWithEmailPassword,
   signInWithEmailPassword,
-  signInWithGooglePopup,
+  signInWithGoogle,
   signOutFirebase,
   subscribeFirebaseAuth,
   type FirebaseAuthUser,
@@ -24,11 +26,13 @@ type FirebaseAuthContextValue = {
   configured: boolean;
   ready: boolean;
   user: FirebaseAuthUser | null;
-  signInGoogle: () => Promise<void>;
+  signInGoogle: (callbackUrl?: string) => Promise<"ok" | "redirecting">;
   signInEmail: (email: string, password: string) => Promise<void>;
   registerEmail: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   mapError: (error: unknown) => string;
+  debugError: (error: unknown) => string;
+  completeRedirect: () => Promise<FirebaseAuthUser | null>;
 };
 
 const FirebaseAuthContext = createContext<FirebaseAuthContextValue | null>(
@@ -46,11 +50,16 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
       setUser(null);
       return;
     }
+
+    let active = true;
     const unsubscribe = subscribeFirebaseAuth((next) => {
+      if (!active) return;
       setUser(next);
       setReady(true);
     });
+
     return () => {
+      active = false;
       unsubscribe?.();
     };
   }, [configured]);
@@ -65,8 +74,11 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
     return mapFirebaseAuthError(String(error ?? "unknown"));
   }, []);
 
-  const signInGoogle = useCallback(async () => {
-    await signInWithGooglePopup();
+  const debugError = useCallback((error: unknown) => firebaseErrorDebug(error), []);
+
+  const signInGoogle = useCallback(async (callbackUrl = "/my") => {
+    const result = await signInWithGoogle(callbackUrl);
+    return result === "redirecting" ? "redirecting" : "ok";
   }, []);
 
   const signInEmail = useCallback(async (email: string, password: string) => {
@@ -81,6 +93,8 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
     await signOutFirebase();
   }, []);
 
+  const completeRedirect = useCallback(async () => completeGoogleRedirect(), []);
+
   const value = useMemo(
     () => ({
       configured,
@@ -91,6 +105,8 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
       registerEmail,
       signOut,
       mapError,
+      debugError,
+      completeRedirect,
     }),
     [
       configured,
@@ -101,6 +117,8 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
       registerEmail,
       signOut,
       mapError,
+      debugError,
+      completeRedirect,
     ],
   );
 

@@ -607,8 +607,12 @@
       "popupBlocked": "Popup was blocked. Allow popups for this site.",
       "network": "Network error. Check your connection.",
       "notConfigured": "Firebase is not configured.",
-      "generic": "Something went wrong during sign-in. Please try again."
-    }
+      "generic": "Something went wrong during sign-in. Please try again.",
+      "unauthorizedDomain": "This domain is not authorized in Firebase. Add j2mee-aestes.github.io in Authorized domains.",
+      "operationNotAllowed": "Google sign-in is disabled in Firebase. Enable Google under Authentication → Sign-in method.",
+      "accountExists": "An account already exists with the same email using a different sign-in method."
+    },
+    "firebaseRedirecting": "Finishing Google sign-in… please wait."
   },
   "a11y": {
     "skipToContent": "Skip to content"

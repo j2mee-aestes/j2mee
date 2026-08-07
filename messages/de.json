@@ -607,8 +607,12 @@
       "popupBlocked": "Popup blockiert. Bitte Popups erlauben.",
       "network": "Netzwerkfehler. Verbindung prüfen.",
       "notConfigured": "Firebase ist nicht konfiguriert.",
-      "generic": "Fehler bei der Anmeldung. Bitte erneut versuchen."
-    }
+      "generic": "Fehler bei der Anmeldung. Bitte erneut versuchen.",
+      "unauthorizedDomain": "Diese Domain ist in Firebase nicht autorisiert. j2mee-aestes.github.io hinzufügen.",
+      "operationNotAllowed": "Google-Anmeldung ist in Firebase deaktiviert. Unter Authentication → Sign-in method aktivieren.",
+      "accountExists": "Konto mit derselben E-Mail existiert bereits mit anderer Methode."
+    },
+    "firebaseRedirecting": "Google-Anmeldung wird abgeschlossen… bitte warten."
   },
   "a11y": {
     "skipToContent": "Zum Inhalt springen"

@@ -607,8 +607,12 @@
       "popupBlocked": "Popup bị chặn. Hãy cho phép popup.",
       "network": "Lỗi mạng. Kiểm tra kết nối.",
       "notConfigured": "Chưa cấu hình Firebase.",
-      "generic": "Có lỗi khi đăng nhập. Thử lại."
-    }
+      "generic": "Có lỗi khi đăng nhập. Thử lại.",
+      "unauthorizedDomain": "Domain chưa được Firebase cho phép. Thêm j2mee-aestes.github.io vào Authorized domains.",
+      "operationNotAllowed": "Google đăng nhập đang tắt trên Firebase. Bật Google trong Authentication → Sign-in method.",
+      "accountExists": "Email này đã tồn tại với phương thức đăng nhập khác."
+    },
+    "firebaseRedirecting": "Đang hoàn tất đăng nhập Google… vui lòng chờ."
   },
   "a11y": {
     "skipToContent": "Chuyển đến nội dung"

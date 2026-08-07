@@ -3,11 +3,12 @@
 import { TextButton } from "@/components/common/IconButton";
 import { useFirebaseAuth } from "@/context/FirebaseAuthContext";
 import { useTranslations } from "@/context/LocaleContext";
+import { consumeAuthCallback } from "@/lib/firebase/auth";
 import { isFirebaseConfigured } from "@/lib/firebase/client";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, Suspense, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 
 const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
@@ -27,17 +28,58 @@ function LoginForm() {
   );
   const [mode, setMode] = useState<"signin" | "register">("signin");
   const [error, setError] = useState<string | null>(null);
+  const [errorDetail, setErrorDetail] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [checkingRedirect, setCheckingRedirect] = useState(firebaseEnabled);
 
-  const finish = () => {
-    router.push(callbackUrl);
+  const finish = (nextUrl?: string) => {
+    router.push(nextUrl || callbackUrl);
     router.refresh();
   };
+
+  useEffect(() => {
+    if (!firebaseEnabled) {
+      setCheckingRedirect(false);
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      try {
+        const user = await firebase.completeRedirect();
+        if (cancelled) return;
+        if (user || firebase.user) {
+          finish(consumeAuthCallback(callbackUrl));
+          return;
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(t(firebase.mapError(err)));
+          setErrorDetail(firebase.debugError(err));
+        }
+      } finally {
+        if (!cancelled) setCheckingRedirect(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // Only run on mount / when firebase becomes ready
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firebaseEnabled, firebase.ready]);
+
+  useEffect(() => {
+    if (!firebaseEnabled || checkingRedirect) return;
+    if (firebase.user) {
+      finish(consumeAuthCallback(callbackUrl));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firebase.user, checkingRedirect, firebaseEnabled]);
 
   const onFirebaseEmail = async (event: FormEvent) => {
     event.preventDefault();
     setPending(true);
     setError(null);
+    setErrorDetail(null);
     try {
       if (mode === "register") {
         await firebase.registerEmail(email, password);
@@ -47,6 +89,7 @@ function LoginForm() {
       finish();
     } catch (err) {
       setError(t(firebase.mapError(err)));
+      setErrorDetail(firebase.debugError(err));
     } finally {
       setPending(false);
     }
@@ -55,12 +98,17 @@ function LoginForm() {
   const onGoogle = async () => {
     setPending(true);
     setError(null);
+    setErrorDetail(null);
     try {
-      await firebase.signInGoogle();
+      const result = await firebase.signInGoogle(callbackUrl);
+      if (result === "redirecting") {
+        // Browser navigates to Google; keep pending state.
+        return;
+      }
       finish();
     } catch (err) {
       setError(t(firebase.mapError(err)));
-    } finally {
+      setErrorDetail(firebase.debugError(err));
       setPending(false);
     }
   };
@@ -99,9 +147,18 @@ function LoginForm() {
           </p>
         </div>
 
+        {(checkingRedirect || pending) && !error ? (
+          <p
+            className="rounded-[var(--radius-md)] border border-sky-200 bg-sky-50 px-3 py-2 text-xs text-sky-900"
+            role="status"
+          >
+            {t("auth.firebaseRedirecting")}
+          </p>
+        ) : null}
+
         <button
           type="button"
-          disabled={pending}
+          disabled={pending || checkingRedirect}
           onClick={() => void onGoogle()}
           className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white text-sm font-semibold text-[var(--color-text-primary)] shadow-[var(--shadow-soft)] transition hover:bg-sky-50 disabled:opacity-60"
         >
@@ -175,15 +232,20 @@ function LoginForm() {
             />
           </div>
           {error ? (
-            <p className="text-xs text-red-700" role="alert">
-              {error}
-            </p>
+            <div className="space-y-1" role="alert">
+              <p className="text-xs text-red-700">{error}</p>
+              {errorDetail ? (
+                <p className="break-all text-[10px] text-red-500/90">
+                  {errorDetail}
+                </p>
+              ) : null}
+            </div>
           ) : null}
           <TextButton
             type="submit"
             variant="primary"
             className="w-full"
-            disabled={pending}
+            disabled={pending || checkingRedirect}
           >
             {pending
               ? t("common.loading")
@@ -206,6 +268,7 @@ function LoginForm() {
       </div>
     );
   }
+
 
   if (isStaticExport) {
     return (

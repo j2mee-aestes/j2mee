@@ -607,8 +607,12 @@
       "popupBlocked": "ポップアップがブロックされました。許可してください。",
       "network": "ネットワークエラーが発生しました。",
       "notConfigured": "Firebaseが設定されていません。",
-      "generic": "ログイン中に問題が発生しました。もう一度お試しください。"
-    }
+      "generic": "ログイン中に問題が発生しました。もう一度お試しください。",
+      "unauthorizedDomain": "このドメインはFirebaseで許可されていません。Authorized domainsに j2mee-aestes.github.io を追加してください。",
+      "operationNotAllowed": "FirebaseでGoogleログインが無効です。Authentication → Sign-in method でGoogleを有効にしてください。",
+      "accountExists": "同じメールが別のログイン方法で既に登録されています。"
+    },
+    "firebaseRedirecting": "Googleログイン処理中です。しばらくお待ちください。"
   },
   "a11y": {
     "skipToContent": "本文へスキップ"

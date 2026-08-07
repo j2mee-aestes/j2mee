@@ -607,8 +607,12 @@
       "popupBlocked": "팝업이 차단되었습니다. 브라우저에서 팝업을 허용해주세요.",
       "network": "네트워크 오류가 발생했습니다.",
       "notConfigured": "Firebase 설정이 없습니다.",
-      "generic": "로그인 중 문제가 발생했습니다. 다시 시도해주세요."
-    }
+      "generic": "로그인 중 문제가 발생했습니다. 다시 시도해주세요.",
+      "unauthorizedDomain": "이 도메인이 Firebase에 허용되지 않았습니다. 콘솔 Authorized domains에 j2mee-aestes.github.io 를 추가하세요.",
+      "operationNotAllowed": "Firebase에서 Google 로그인이 꺼져 있습니다. Authentication → Sign-in method에서 Google을 사용 설정하세요.",
+      "accountExists": "같은 이메일이 다른 로그인 방식으로 이미 가입되어 있습니다."
+    },
+    "firebaseRedirecting": "Google 로그인 처리 중… 잠시만 기다려 주세요."
   },
   "a11y": {
     "skipToContent": "본문으로 건너뛰기"

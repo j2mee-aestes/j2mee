@@ -607,8 +607,12 @@
       "popupBlocked": "Se bloqueó la ventana emergente. Permítala.",
       "network": "Error de red. Compruebe la conexión.",
       "notConfigured": "Firebase no está configurado.",
-      "generic": "Error al iniciar sesión. Inténtelo de nuevo."
-    }
+      "generic": "Error al iniciar sesión. Inténtelo de nuevo.",
+      "unauthorizedDomain": "Este dominio no está autorizado en Firebase. Añada j2mee-aestes.github.io.",
+      "operationNotAllowed": "Google está desactivado en Firebase. Actívelo en Authentication → Sign-in method.",
+      "accountExists": "Ya existe una cuenta con el mismo correo y otro método."
+    },
+    "firebaseRedirecting": "Completando el inicio con Google… espere."
   },
   "a11y": {
     "skipToContent": "Saltar al contenido"

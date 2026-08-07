@@ -22,6 +22,7 @@ async function readErrorMessage(response: Response): Promise<string> {
 export function useWeatherData(
   spotId: string | null,
   date: string,
+  coordinates?: { latitude: number; longitude: number } | null,
 ): AsyncState<WeatherData> {
   const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -29,9 +30,12 @@ export function useWeatherData(
   const [tick, setTick] = useState(0);
 
   const reload = useCallback(() => setTick((value) => value + 1), []);
+  const lat = coordinates?.latitude;
+  const lng = coordinates?.longitude;
+  const enabled = Boolean(spotId || (lat !== undefined && lng !== undefined));
 
   useEffect(() => {
-    if (!spotId) {
+    if (!enabled) {
       return;
     }
 
@@ -41,10 +45,19 @@ export function useWeatherData(
       setError(null);
     });
 
-    fetch(
-      `/api/weather?spotId=${encodeURIComponent(spotId)}&date=${encodeURIComponent(date)}`,
-      { signal: controller.signal },
-    )
+    const params = new URLSearchParams();
+    if (spotId) {
+      params.set("spotId", spotId);
+    }
+    if (lat !== undefined && lng !== undefined) {
+      params.set("lat", String(lat));
+      params.set("lng", String(lng));
+    }
+    if (date) {
+      params.set("date", date);
+    }
+
+    fetch(`/api/weather?${params.toString()}`, { signal: controller.signal })
       .then(async (response) => {
         if (!response.ok) {
           throw new Error(await readErrorMessage(response));
@@ -69,12 +82,12 @@ export function useWeatherData(
       });
 
     return () => controller.abort();
-  }, [spotId, date, tick]);
+  }, [spotId, date, tick, enabled, lat, lng]);
 
   return {
-    data: spotId ? data : null,
-    loading: spotId ? loading : false,
-    error: spotId ? error : null,
+    data: enabled ? data : null,
+    loading: enabled ? loading : false,
+    error: enabled ? error : null,
     reload,
   };
 }

@@ -85,7 +85,10 @@ export interface WeatherData {
   forecastTime: string;
   temperatureC?: number;
   feelsLikeC?: number;
+  humidityPercent?: number;
   condition?: string;
+  conditionIcon?: string;
+  weatherCode?: number;
   precipitationProbability?: number;
   precipitationMm?: number;
   windSpeedMs?: number;
@@ -93,6 +96,7 @@ export interface WeatherData {
   windGustMs?: number;
   waveHeightM?: number;
   visibilityKm?: number;
+  isDay?: boolean;
   warnings?: WeatherWarning[];
   fetchedAt: string;
   sourceName: string;

@@ -235,7 +235,11 @@ export function MapAppShell() {
       .filter((point): point is NonNullable<typeof point> => point !== null);
   }, [selectedRoute]);
 
-  const weatherState = useWeatherData(fishingSpotId, selectedDate);
+  const weatherState = useWeatherData(
+    fishingSpotId,
+    selectedDate,
+    selectedFishing?.coordinates ?? null,
+  );
   const waveState = useWaveData(fishingSpotId);
 
   const syncUrl = useCallback(

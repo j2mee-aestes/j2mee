@@ -12,6 +12,7 @@ export async function GET(request: Request) {
 
     let latitude: number | undefined;
     let longitude: number | undefined;
+    let locationName: string | undefined;
 
     if (spotId) {
       const spot = getFishingSpotById(spotId);
@@ -23,6 +24,7 @@ export async function GET(request: Request) {
       }
       latitude = spot.coordinates.latitude;
       longitude = spot.coordinates.longitude;
+      locationName = spot.name;
     } else if (lat && lng) {
       latitude = Number(lat);
       longitude = Number(lng);
@@ -40,10 +42,10 @@ export async function GET(request: Request) {
       );
     }
 
-    const weather = await getWeather(
-      { latitude, longitude },
-      date,
-    );
+    const weather = await getWeather({ latitude, longitude }, date);
+    if (locationName) {
+      weather.locationName = locationName;
+    }
 
     return NextResponse.json(weather, {
       headers: {

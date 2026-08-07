@@ -146,18 +146,23 @@
     }
   },
   "weather": {
-    "title": "Weather, wind & waves",
+    "title": "Weather",
     "temperature": "Temperature",
     "wind": "Wind",
     "wave": "Wave height",
     "staleNotice": "This data may be outdated. Follow on-site guidance first.",
     "marineTitle": "Weather & marine info",
     "unavailable": "Weather information is unavailable right now.",
+    "loading": "Loading weather…",
+    "loadFailed": "Could not load weather information.",
     "feelsLike": "Feels like",
+    "humidity": "Humidity",
     "precipProb": "Precip. chance",
     "precipAmount": "Precipitation",
     "windDirection": "Wind dir.",
+    "windSummary": "Wind",
     "windGust": "Gust",
+    "updatedAt": "Updated {time}",
     "staleDetail": "This may not be the latest data. Last update: {time}"
   },
   "safety": {

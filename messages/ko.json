@@ -146,18 +146,23 @@
     }
   },
   "weather": {
-    "title": "날씨·바람·파고",
+    "title": "날씨",
     "temperature": "기온",
     "wind": "바람",
     "wave": "파고",
     "staleNotice": "데이터가 오래되었을 수 있습니다. 현장 안내를 우선하세요.",
     "marineTitle": "날씨·해양정보",
     "unavailable": "현재 날씨정보를 제공할 수 없습니다.",
-    "feelsLike": "체감",
+    "loading": "날씨 정보를 불러오는 중...",
+    "loadFailed": "날씨 정보를 불러오지 못했습니다.",
+    "feelsLike": "체감온도",
+    "humidity": "습도",
     "precipProb": "강수확률",
     "precipAmount": "강수량",
     "windDirection": "풍향",
+    "windSummary": "바람",
     "windGust": "돌풍",
+    "updatedAt": "날씨 업데이트 {time}",
     "staleDetail": "현재 정보는 최신 데이터가 아닐 수 있습니다. 마지막 업데이트: {time}"
   },
   "safety": {

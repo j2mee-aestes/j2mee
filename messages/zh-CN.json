@@ -146,18 +146,23 @@
     }
   },
   "weather": {
-    "title": "天气·风·浪高",
+    "title": "天气",
     "temperature": "气温",
     "wind": "风",
     "wave": "浪高",
     "staleNotice": "数据可能已过期。请优先遵循现场指引。",
     "marineTitle": "天气·海洋信息",
     "unavailable": "当前无法提供天气信息。",
-    "feelsLike": "体感",
+    "loading": "正在加载天气…",
+    "loadFailed": "无法加载天气信息。",
+    "feelsLike": "体感温度",
+    "humidity": "湿度",
     "precipProb": "降水概率",
     "precipAmount": "降水量",
     "windDirection": "风向",
+    "windSummary": "风",
     "windGust": "阵风",
+    "updatedAt": "天气更新 {time}",
     "staleDetail": "信息可能不是最新。最后更新：{time}"
   },
   "safety": {

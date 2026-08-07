@@ -12,9 +12,9 @@ import {
   Heart,
   LogIn,
   Menu,
-  Waves,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 interface HeaderProps {
@@ -62,12 +62,14 @@ export function Header({
           </IconButton>
 
           <Link href="/" className="group flex min-w-0 items-center gap-3">
-            <div
-              className="ui-glow-pulse flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[linear-gradient(145deg,var(--color-accent),var(--color-accent-strong))] text-white shadow-[0_12px_28px_-14px_rgba(14,116,144,0.7)] transition duration-300 group-hover:scale-[1.03]"
-              aria-hidden
-            >
-              <Waves className="h-5 w-5" />
-            </div>
+            <Image
+              src="/images/padopado-logo.png"
+              alt={t("common.serviceName")}
+              width={44}
+              height={44}
+              className="h-11 w-11 shrink-0 rounded-2xl object-cover shadow-[0_12px_28px_-14px_rgba(14,116,144,0.55)] transition duration-300 group-hover:scale-[1.03]"
+              priority
+            />
             <div className="min-w-0">
               <p className="font-display truncate text-[1.35rem] font-semibold leading-none tracking-[-0.04em] text-[var(--color-ink)] sm:text-[1.55rem]">
                 {t("common.serviceName")}

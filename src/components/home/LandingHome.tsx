@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   useCallback,
   useEffect,
@@ -206,9 +207,14 @@ export function LandingHome() {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1220px] flex-col px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
         <header className="mb-3 flex items-center justify-between gap-3">
           <Link href="/" className="flex min-w-0 items-center gap-2.5">
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-[#0b2447] text-white shadow-[0_10px_24px_-12px_rgba(11,36,71,0.8)]">
-              <Waves className="h-5 w-5" aria-hidden />
-            </span>
+            <Image
+              src="/images/padopado-logo.png"
+              alt={t("common.serviceName")}
+              width={40}
+              height={40}
+              className="h-10 w-10 shrink-0 rounded-full object-cover shadow-[0_10px_24px_-12px_rgba(11,36,71,0.55)]"
+              priority
+            />
             <span className="font-brand text-[1.35rem] text-[#0b2447] sm:text-[1.55rem]">
               {t("common.serviceName")}
             </span>

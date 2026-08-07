@@ -1,0 +1,4 @@
+:HL["/j2mee/_next/static/chunks/36_6ehoz1zwfv.css","style"]
+:HL["/j2mee/_next/static/chunks/0ku839y7xwrey.css","style"]
+:HL["/j2mee/_next/static/chunks/1rxsktqxya_z8.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"eJZuXVfrM0Qdd644Oar00"}

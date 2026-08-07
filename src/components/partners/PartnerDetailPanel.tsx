@@ -9,11 +9,9 @@ import { BusinessStatusBadge } from "@/components/partners/BusinessStatusBadge";
 import { CatchPolicySection } from "@/components/partners/CatchPolicySection";
 import { PartnerInquiryForm } from "@/components/partners/PartnerInquiryForm";
 import { PartnerServiceBadges } from "@/components/partners/PartnerServiceBadges";
-import {
-  PARTNER_TYPE_LABELS,
-  PARTNER_VERIFICATION_LABELS,
-} from "@/constants/partners";
+import { useTranslations } from "@/context/LocaleContext";
 import { formatDistanceKm } from "@/lib/geo/calculateDistance";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import { getBusinessStatus } from "@/lib/partners/getBusinessStatus";
 import type { Coordinates } from "@/types/map";
 import type { PartnerPlace } from "@/types/partner";
@@ -40,13 +38,14 @@ export function PartnerDetailPanel({
   notice,
   className = "",
 }: PartnerDetailPanelProps) {
+  const { t, locale } = useTranslations();
   const [inquiryOpen, setInquiryOpen] = useState(false);
 
   if (!partner) {
     return (
       <EmptyState
-        title="시장·식당을 선택해주세요."
-        description="지도 마커나 주변 장소 목록에서 장소를 선택하면 상세정보가 표시됩니다."
+        title={t("partner.selectPrompt")}
+        description={t("partner.selectHint")}
         icon={<MapPin className="h-6 w-6" />}
         className={className}
       />
@@ -54,30 +53,37 @@ export function PartnerDetailPanel({
   }
 
   const business = getBusinessStatus(partner.businessHours);
+  const statusLabel = t(`partner.businessStatus.${business.status}`);
   const hasDetail =
     Boolean(partner.description) ||
     Boolean(partner.catchPolicy) ||
     Boolean(partner.businessHours?.length);
+  const name = localizePlaceText(partner.name, locale);
+  const address = localizePlaceText(partner.address, locale);
+  const description = partner.description
+    ? localizePlaceText(partner.description, locale)
+    : null;
+  const verification = t(`partner.verification.${partner.verificationStatus}`);
 
   return (
     <div className={`flex flex-col gap-3 ${className}`}>
       <Card as="article" className="flex flex-col gap-4 p-4">
         <div>
           <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ocean-600)]">
-            {PARTNER_TYPE_LABELS[partner.type]}
+            {t(`partner.type.${partner.type}`)}
           </p>
           <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-lg font-bold text-[var(--color-text-primary)]">
-              {partner.name}
+              {name}
             </h2>
-            <BusinessStatusBadge status={business.status} />
+            <BusinessStatusBadge status={business.status} label={statusLabel} />
           </div>
           <p className="mt-1 flex items-start gap-1.5 text-sm text-[var(--color-text-secondary)]">
             <MapPin
               className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-ocean-500)]"
               aria-hidden
             />
-            <span>{partner.address}</span>
+            <span>{address}</span>
           </p>
           {partner.phone ? (
             <p className="mt-1.5 flex items-center gap-1.5 text-sm">
@@ -91,8 +97,10 @@ export function PartnerDetailPanel({
             </p>
           ) : null}
           <p className="mt-2 text-xs text-[var(--color-text-muted)]">
-            검증 상태: {PARTNER_VERIFICATION_LABELS[partner.verificationStatus]}
-            {partner.lastVerifiedAt ? ` · 마지막 확인일 ${partner.lastVerifiedAt}` : ""}
+            {t("partner.verificationStatus", { status: verification })}
+            {partner.lastVerifiedAt
+              ? ` · ${t("common.lastVerifiedDate", { date: partner.lastVerifiedAt })}`
+              : ""}
           </p>
         </div>
 
@@ -104,28 +112,31 @@ export function PartnerDetailPanel({
                 ? [partner.imageUrl]
                 : undefined
           }
-          alt={partner.name}
-          pendingLabel="이미지 준비 중"
+          alt={name}
+          pendingLabel={t("common.imagePending")}
         />
 
         {distanceKm !== null && distanceKm !== undefined && originLabel ? (
           <div className="rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface-muted)] px-3 py-2 text-xs text-[var(--color-text-secondary)]">
             <p className="font-semibold text-[var(--color-text-primary)]">
-              {originLabel}에서 {formatDistanceKm(distanceKm)}
+              {t("common.fromOriginDistance", {
+                origin: localizePlaceText(originLabel, locale),
+                distance: formatDistanceKm(distanceKm),
+              })}
             </p>
-            <p className="mt-0.5">표시된 거리는 좌표 기준 직선거리입니다.</p>
+            <p className="mt-0.5">{t("common.straightDistanceHint")}</p>
           </div>
         ) : null}
 
-        {partner.description ? (
+        {description ? (
           <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
-            {partner.description}
+            {description}
           </p>
         ) : null}
 
         {!hasDetail ? (
           <p className="text-sm text-[var(--color-text-secondary)]">
-            이 장소의 상세 이용정보가 아직 등록되지 않았습니다.
+            {t("partner.noDetailYet")}
           </p>
         ) : null}
 
@@ -134,20 +145,30 @@ export function PartnerDetailPanel({
             id="partner-hours-heading"
             className="mb-2 text-sm font-semibold text-[var(--color-text-primary)]"
           >
-            영업정보
+            {t("partner.businessInfo")}
           </h3>
           {partner.businessHours && partner.businessHours.length > 0 ? (
             <div className="space-y-1 text-xs text-[var(--color-text-secondary)]">
-              <p>오늘: {business.todayHoursLabel}</p>
-              <p>현재 상태: {business.label}</p>
+              <p>
+                {t("partner.todayHours", {
+                  hours: localizePlaceText(business.todayHoursLabel, locale),
+                })}
+              </p>
+              <p>{t("partner.currentStatus", { status: statusLabel })}</p>
               {partner.closedDays && partner.closedDays.length > 0 ? (
-                <p>휴무일: {partner.closedDays.join(", ")}</p>
+                <p>
+                  {t("partner.closedDays", {
+                    days: partner.closedDays
+                      .map((day) => localizePlaceText(day, locale))
+                      .join(", "),
+                  })}
+                </p>
               ) : null}
             </div>
           ) : (
             <div className="text-xs text-[var(--color-text-secondary)]">
-              <p>영업시간 정보가 없습니다.</p>
-              <p className="mt-0.5">방문 전 직접 확인해주세요.</p>
+              <p>{t("partner.noBusinessHours")}</p>
+              <p className="mt-0.5">{t("partner.checkBeforeVisit")}</p>
             </div>
           )}
         </section>
@@ -157,7 +178,7 @@ export function PartnerDetailPanel({
             id="partner-services-heading"
             className="mb-2 text-sm font-semibold text-[var(--color-text-primary)]"
           >
-            제공 서비스
+            {t("partner.servicesTitle")}
           </h3>
           <PartnerServiceBadges services={partner.services} />
         </section>
@@ -172,12 +193,9 @@ export function PartnerDetailPanel({
           className="rounded-[var(--radius-md)] border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-900"
         >
           <h3 id="partner-guide-heading" className="font-semibold">
-            이용 안내
+            {t("partner.usageGuide")}
           </h3>
-          <p className="mt-1">
-            잡은 수산물의 상태와 보관 방식에 따라 접수가 거절될 수 있습니다.
-            방문 전 점포에 직접 문의하고, 현장 안내를 우선 확인해주세요.
-          </p>
+          <p className="mt-1">{t("partner.usageGuideBody")}</p>
         </section>
 
         <DataSourceInfo
@@ -194,14 +212,16 @@ export function PartnerDetailPanel({
             disabled={scheduleAdded}
             onClick={onAddToSchedule}
           >
-            {scheduleAdded ? "일정에 추가됨" : "일정에 추가"}
+            {scheduleAdded
+              ? t("partner.addedToSchedule")
+              : t("partner.addToSchedule")}
           </TextButton>
           <TextButton
             variant="primary"
             className="w-full"
             onClick={() => setInquiryOpen(true)}
           >
-            이용 문의하기
+            {t("partner.inquiryCta")}
           </TextButton>
         </div>
 
@@ -216,7 +236,7 @@ export function PartnerDetailPanel({
       </Card>
 
       <PartnerInquiryForm
-        partnerName={partner.name}
+        partnerName={name}
         open={inquiryOpen}
         onClose={() => setInquiryOpen(false)}
       />

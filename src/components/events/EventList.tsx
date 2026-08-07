@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/common/Card";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { CoastalEvent } from "@/types/event";
 import { CalendarDays, MapPin } from "lucide-react";
 
@@ -21,7 +22,7 @@ export function EventList({
   selectedEventId,
   onSelectEvent,
 }: EventListProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
 
   return (
     <Card className="p-4">
@@ -48,7 +49,7 @@ export function EventList({
                 }`}
               >
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                  {event.name}
+                  {localizePlaceText(event.name, locale)}
                 </p>
                 <p className="mt-1 flex items-center gap-1 text-[11px] text-[var(--color-text-secondary)]">
                   <CalendarDays className="h-3 w-3" aria-hidden />
@@ -56,7 +57,9 @@ export function EventList({
                 </p>
                 <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[var(--color-text-muted)]">
                   <MapPin className="h-3 w-3" aria-hidden />
-                  {event.venues.join(" · ")}
+                  {event.venues
+                    .map((venue) => localizePlaceText(venue, locale))
+                    .join(" · ")}
                 </p>
               </button>
             </li>

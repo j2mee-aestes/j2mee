@@ -1,6 +1,6 @@
 {
   "common": {
-    "serviceName": "波到波到",
+    "serviceName": "PadoPado",
     "serviceTagline": "连接大海与人的善意脚步",
     "loading": "加载中…",
     "retry": "重试",
@@ -36,7 +36,19 @@
     "selectedPoint": "所选地点",
     "myPage": "我的页面",
     "privacy": "隐私说明",
-    "home": "首页"
+    "home": "首页",
+    "dataSource": "数据来源",
+    "viewSource": "查看源码",
+    "publicReference": "公开参考",
+    "fieldCheckNotice": "此信息是根据公共来源编制的。请在参观前确认现场开放时间和访问方式。",
+    "verifiedInfo": "已核实信息。",
+    "photoStagingNote": "有些照片是传达现场气氛的摆设图像。",
+    "lastVerifiedDate": "上次验证：{日期}",
+    "straightDistanceHint": "显示的距离是坐标的直线估计值。",
+    "fromOriginDistance": "距{原点}的{距离}",
+    "imagePending": "图片即将推出",
+    "approxMinutes": "大约 {count} 分钟",
+    "distanceLabel": "距离"
   },
   "search": {
     "placeholder": "按地区、地点或关键词搜索",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "此安全提示可能是未经审校的翻译。请同时查看韩文原文与现场公告。",
     "prohibitedStart": "禁止出入或禁止钓鱼的地点无法开始。请跳过或从行程中移除。",
     "restrictedStart": "注意：该地点不建议活动。请优先确认现场指引。",
-    "disclaimer": "基于公开预报与登记地点信息的参考内容。请优先遵守现场管制与气象预警。"
+    "disclaimer": "基于公开预报与登记地点信息的参考内容。请优先遵守现场管制与气象预警。",
+    "verification": {
+      "official": "官方的",
+      "partner": "伙伴",
+      "admin": "管理员已审核",
+      "community": "社区",
+      "unverified": "未验证",
+      "user": "用户反馈"
+    }
   },
   "partner": {
     "nearbyTitle": "附近水产市场",
@@ -255,7 +275,39 @@
       "official": "官方验证",
       "partner": "合作方",
       "admin": "管理员确认",
-      "unverified": "未验证"
+      "unverified": "未验证",
+      "user": "用户反馈",
+      "community": "社区"
+    },
+    "selectPrompt": "选择一个市场或餐厅。",
+    "selectHint": "选择一个标记或附近的地点以查看详细信息。",
+    "verificationStatus": "验证：{状态}",
+    "noDetailYet": "详细的使用信息尚未注册。",
+    "businessInfo": "营业时间",
+    "todayHours": "今天：{小时}",
+    "currentStatus": "状态：{状态}",
+    "closedDays": "休息日：{天}",
+    "noBusinessHours": "营业时间不可用。",
+    "checkBeforeVisit": "请在访问前直接确认。",
+    "servicesTitle": "服务",
+    "usageGuide": "使用指南",
+    "usageGuideBody": "根据捕捞状况和储存情况，可能会被拒绝接收。参观前请先联系商店并遵循现场指导。",
+    "inquiryCta": "发送询问",
+    "businessStatus": {
+      "open": "打开",
+      "closingSoon": "即将结束",
+      "closed": "关闭",
+      "unknown": "需要检查"
+    },
+    "closedToday": "休息（{天}）",
+    "weekday": {
+      "monday": "周一",
+      "tuesday": "星期二",
+      "wednesday": "周三",
+      "thursday": "星期四",
+      "friday": "周五",
+      "saturday": "星期六",
+      "sunday": "太阳"
     }
   },
   "environment": {
@@ -270,9 +322,10 @@
     "emptyPlogging": "没有可显示的净滩路线。",
     "distanceApprox": "约 {distance}",
     "difficulty": {
-      "easy": "简单",
-      "moderate": "中等",
-      "hard": "困难"
+      "easy": "简单的",
+      "moderate": "缓和",
+      "hard": "难的",
+      "normal": "缓和"
     },
     "wasteType": {
       "trashBin": "垃圾桶",
@@ -285,7 +338,50 @@
     "reportIssue": "报告位置",
     "nearbyWasteTitle": "附近垃圾桶·回收箱",
     "emptyWasteFiltered": "没有符合条件的回收点。",
-    "emptyWasteNearby": "附近没有登记的回收点。"
+    "emptyWasteNearby": "附近没有登记的回收点。",
+    "selectWaste": "选择一个收集点。",
+    "verificationLabel": "已验证：{状态}",
+    "statusUnknownTitle": "无法确认当前的可用性。",
+    "statusUnknownBody": "请在参观前检查现场情况。",
+    "staleWasteTitle": "这个地方已经很久没有实地考察过了。",
+    "staleWasteBody": "位置或操作状态可能已更改。",
+    "acceptedTypes": "可接受的废物类型",
+    "noAcceptedTypes": "未登记可接受的废物类型。",
+    "hoursTitle": "时间",
+    "hoursMissing": "营业时间不可用。请在访问前检查。",
+    "usageNotes": "使用说明",
+    "reportLocationError": "报告位置错误",
+    "ploggingCourse": "伐木路线",
+    "estimatedTime": "预计时间",
+    "recommendedTime": "建议时间：{时间}",
+    "staleRoute": "这条路线已经很久没有实地考察过了。条件可能有所不同。",
+    "connectedDisposal": "连接的处置点",
+    "noConnectedDisposal": "没有连接的处置点。",
+    "nearbyDisposalHint": "还要检查起点附近的处置点。",
+    "facilities": "设施",
+    "cautions": "注意事项",
+    "wastePointType": {
+      "generalTrash": "一般垃圾",
+      "recycling": "回收",
+      "fishingLine": "鱼线箱",
+      "fishingGear": "渔具箱",
+      "ploggingCollection": "Plogging 下降",
+      "other": "其他收藏"
+    },
+    "wastePointStatus": {
+      "available": "可用的",
+      "temporarilyUnavailable": "暂时不可用",
+      "removed": "已删除",
+      "unknown": "需要检查"
+    },
+    "verification": {
+      "official": "官方的",
+      "partner": "伙伴",
+      "admin": "管理员已审核",
+      "community": "社区",
+      "unverified": "未验证",
+      "user": "用户反馈"
+    }
   },
   "schedule": {
     "title": "创建一日行程",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "休闲运动",
     "activity": "活动类型",
-    "season": "季节说明"
+    "season": "季节说明",
+    "activityType": {
+      "surfing": "冲浪",
+      "yacht": "游艇",
+      "diving": "潜水",
+      "kayak": "皮艇",
+      "bike": "自行车",
+      "other": "其他"
+    }
   },
   "events": {
     "listTitle": "釜山沿岸大型活动",

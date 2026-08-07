@@ -36,7 +36,19 @@
     "selectedPoint": "Điểm đã chọn",
     "myPage": "Trang của tôi",
     "privacy": "Sự riêng tư",
-    "home": "Trang chủ"
+    "home": "Trang chủ",
+    "dataSource": "Nguồn dữ liệu",
+    "viewSource": "Xem nguồn",
+    "publicReference": "Tài liệu tham khảo công khai",
+    "fieldCheckNotice": "Thông tin này được tổng hợp từ các nguồn công cộng. Vui lòng xác nhận giờ và quyền truy cập vào trang web trước khi truy cập.",
+    "verifiedInfo": "Thông tin đã được xác minh.",
+    "photoStagingNote": "Một số bức ảnh là hình ảnh được dàn dựng để truyền tải không khí của trang web.",
+    "lastVerifiedDate": "Xác minh lần cuối: {date}",
+    "straightDistanceHint": "Khoảng cách hiển thị là ước tính đường thẳng từ tọa độ.",
+    "fromOriginDistance": "{khoảng cách} từ {nguồn gốc}",
+    "imagePending": "Hình ảnh sắp ra mắt",
+    "approxMinutes": "Khoảng {count} phút",
+    "distanceLabel": "Khoảng cách"
   },
   "search": {
     "placeholder": "Tìm kiếm theo khu vực, địa điểm hoặc từ khóa",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "Văn bản an toàn này có thể là một bản dịch chưa được xác minh. Kiểm tra bản gốc tiếng Hàn và thông báo tại chỗ.",
     "prohibitedStart": "Các điểm bị cấm không thể được bắt đầu. Bỏ qua hoặc loại bỏ chúng khỏi lịch trình.",
     "restrictedStart": "Thận trọng: vị trí này không được khuyến khích. Kiểm tra hướng dẫn tại chỗ trước.",
-    "disclaimer": "Thông tin tham khảo dựa trên dự báo công cộng và dữ liệu địa điểm đã đăng ký. Luôn ưu tiên kiểm soát tại chỗ và cảnh báo thời tiết."
+    "disclaimer": "Thông tin tham khảo dựa trên dự báo công cộng và dữ liệu địa điểm đã đăng ký. Luôn ưu tiên kiểm soát tại chỗ và cảnh báo thời tiết.",
+    "verification": {
+      "official": "Chính thức",
+      "partner": "Cộng sự",
+      "admin": "Quản trị viên đã xem xét",
+      "community": "Cộng đồng",
+      "unverified": "Chưa được xác minh",
+      "user": "Người dùng báo cáo"
+    }
   },
   "partner": {
     "nearbyTitle": "Chợ hải sản lân cận",
@@ -255,7 +275,39 @@
       "official": "Chính thức",
       "partner": "Cộng sự",
       "admin": "Quản trị viên đã xác minh",
-      "unverified": "Chưa được xác minh"
+      "unverified": "Chưa được xác minh",
+      "user": "Người dùng báo cáo",
+      "community": "Cộng đồng"
+    },
+    "selectPrompt": "Chọn một khu chợ hoặc nhà hàng.",
+    "selectHint": "Chọn một điểm đánh dấu hoặc địa điểm lân cận để xem chi tiết.",
+    "verificationStatus": "Xác minh: {trạng thái}",
+    "noDetailYet": "Thông tin sử dụng chi tiết chưa được đăng ký.",
+    "businessInfo": "Giờ làm việc",
+    "todayHours": "Hôm nay: {giờ}",
+    "currentStatus": "Trạng thái: {trạng thái}",
+    "closedDays": "Đã đóng cửa: {ngày}",
+    "noBusinessHours": "Giờ làm việc không có sẵn.",
+    "checkBeforeVisit": "Vui lòng xác nhận trực tiếp trước khi ghé thăm.",
+    "servicesTitle": "Dịch vụ",
+    "usageGuide": "Hướng dẫn sử dụng",
+    "usageGuideBody": "Việc chấp nhận có thể bị từ chối tùy thuộc vào điều kiện đánh bắt và bảo quản. Liên hệ với cửa hàng trước khi ghé thăm và làm theo hướng dẫn tại chỗ.",
+    "inquiryCta": "Gửi yêu cầu",
+    "businessStatus": {
+      "open": "Mở",
+      "closingSoon": "Sắp đóng cửa",
+      "closed": "Đã đóng",
+      "unknown": "Cần kiểm tra"
+    },
+    "closedToday": "Đã đóng cửa ({day})",
+    "weekday": {
+      "monday": "Thứ hai",
+      "tuesday": "thứ ba",
+      "wednesday": "Thứ tư",
+      "thursday": "Thứ năm",
+      "friday": "Thứ Sáu",
+      "saturday": "Đã ngồi",
+      "sunday": "Mặt trời"
     }
   },
   "environment": {
@@ -272,7 +324,8 @@
     "difficulty": {
       "easy": "Dễ",
       "moderate": "Vừa phải",
-      "hard": "Cứng"
+      "hard": "Cứng",
+      "normal": "Vừa phải"
     },
     "wasteType": {
       "trashBin": "Thùng rác",
@@ -285,7 +338,50 @@
     "reportIssue": "Báo cáo vị trí",
     "nearbyWasteTitle": "Thùng rác và điểm thu gom gần đó",
     "emptyWasteFiltered": "Không có điểm thu thập nào phù hợp với bộ lọc.",
-    "emptyWasteNearby": "Không có điểm thu gom đã đăng ký gần đó."
+    "emptyWasteNearby": "Không có điểm thu gom đã đăng ký gần đó.",
+    "selectWaste": "Chọn điểm thu gom.",
+    "verificationLabel": "Đã xác minh: {trạng thái}",
+    "statusUnknownTitle": "Tính khả dụng hiện tại không thể được xác nhận.",
+    "statusUnknownBody": "Vui lòng kiểm tra điều kiện tại chỗ trước khi đến thăm.",
+    "staleWasteTitle": "Nơi này đã lâu không được kiểm tra thực địa.",
+    "staleWasteBody": "Vị trí hoặc trạng thái hoạt động có thể đã thay đổi.",
+    "acceptedTypes": "Các loại chất thải được chấp nhận",
+    "noAcceptedTypes": "Không có loại chất thải được chấp nhận nào được đăng ký.",
+    "hoursTitle": "Giờ",
+    "hoursMissing": "Giờ không có sẵn. Vui lòng kiểm tra trước khi ghé thăm.",
+    "usageNotes": "ghi chú sử dụng",
+    "reportLocationError": "Báo cáo lỗi vị trí",
+    "ploggingCourse": "Lộ trình Plogging",
+    "estimatedTime": "Thời gian dự kiến",
+    "recommendedTime": "Thời gian đề xuất: {time}",
+    "staleRoute": "Tuyến đường này đã lâu không được kiểm tra thực địa. Điều kiện có thể khác nhau.",
+    "connectedDisposal": "Các điểm xử lý được kết nối",
+    "noConnectedDisposal": "Không có điểm xử lý được kết nối.",
+    "nearbyDisposalHint": "Đồng thời kiểm tra các điểm xử lý gần điểm bắt đầu.",
+    "facilities": "Cơ sở",
+    "cautions": "Cảnh báo",
+    "wastePointType": {
+      "generalTrash": "Thùng rác chung",
+      "recycling": "Tái chế",
+      "fishingLine": "Thùng đựng dây câu",
+      "fishingGear": "Thùng đựng dụng cụ câu cá",
+      "ploggingCollection": "Plogging thả xuống",
+      "other": "Bộ sưu tập khác"
+    },
+    "wastePointStatus": {
+      "available": "Có sẵn",
+      "temporarilyUnavailable": "Tạm thời không có",
+      "removed": "LOẠI BỎ",
+      "unknown": "Cần kiểm tra"
+    },
+    "verification": {
+      "official": "Chính thức",
+      "partner": "Cộng sự",
+      "admin": "Quản trị viên đã xem xét",
+      "community": "Cộng đồng",
+      "unverified": "Chưa được xác minh",
+      "user": "Người dùng báo cáo"
+    }
   },
   "schedule": {
     "title": "Tạo lịch trình trong ngày",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "Giải trí & thể thao",
     "activity": "Hoạt động",
-    "season": "ghi chú mùa"
+    "season": "ghi chú mùa",
+    "activityType": {
+      "surfing": "Lướt sóng",
+      "yacht": "du thuyền",
+      "diving": "Lặn",
+      "kayak": "Thuyền Kayak",
+      "bike": "Xe đạp",
+      "other": "Khác"
+    }
   },
   "events": {
     "listTitle": "Sự kiện lớn ven biển Busan",

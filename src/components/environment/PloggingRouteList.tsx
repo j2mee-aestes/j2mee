@@ -3,6 +3,7 @@
 import { Card } from "@/components/common/Card";
 import { EmptyState } from "@/components/common/EmptyState";
 import { PloggingRouteCard } from "@/components/environment/PloggingRouteCard";
+import { useTranslations } from "@/context/LocaleContext";
 import { getAllPloggingRoutes } from "@/lib/environment/ploggingRouteRepository";
 import { Footprints } from "lucide-react";
 import { useMemo } from "react";
@@ -18,12 +19,13 @@ export function PloggingRouteList({
   onSelectRoute,
   className = "",
 }: PloggingRouteListProps) {
+  const { t } = useTranslations();
   const routes = useMemo(() => getAllPloggingRoutes(), []);
 
   if (routes.length === 0) {
     return (
       <EmptyState
-        title="등록된 플로깅 코스가 없습니다."
+        title={t("environment.emptyPlogging")}
         icon={<Footprints className="h-5 w-5" />}
         className={className}
       />
@@ -33,7 +35,7 @@ export function PloggingRouteList({
   return (
     <Card className={`flex flex-col gap-3 p-4 ${className}`}>
       <h3 className="text-sm font-bold text-[var(--color-text-primary)]">
-        플로깅 코스
+        {t("environment.ploggingTitle")}
       </h3>
       <ul className="space-y-2">
         {routes.map((route) => (

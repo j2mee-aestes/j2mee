@@ -36,7 +36,19 @@
     "selectedPoint": "선택 지점",
     "myPage": "마이페이지",
     "privacy": "개인정보 안내",
-    "home": "홈"
+    "home": "홈",
+    "dataSource": "데이터 출처",
+    "viewSource": "원문 보기",
+    "publicReference": "공개 자료 참고",
+    "fieldCheckNotice": "공개 자료를 참고해 정리한 정보입니다. 운영시간·통제 여부 등은 방문 전 현장 안내를 확인해 주세요.",
+    "verifiedInfo": "검증된 정보입니다.",
+    "photoStagingNote": "일부 사진은 현장 분위기를 담은 연출 이미지입니다.",
+    "lastVerifiedDate": "마지막 확인일: {date}",
+    "straightDistanceHint": "표시된 거리는 좌표 기준 직선거리입니다.",
+    "fromOriginDistance": "{origin}에서 {distance}",
+    "imagePending": "이미지 준비 중",
+    "approxMinutes": "약 {count}분",
+    "distanceLabel": "거리"
   },
   "search": {
     "placeholder": "지역, 장소, 키워드로 검색해보세요",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "이 안전 안내는 검수 전 번역일 수 있습니다. 한국어 원문과 현장 안내를 함께 확인하세요.",
     "prohibitedStart": "출입금지·낚시금지 장소는 시작할 수 없습니다. 건너뛰거나 일정에서 제거해주세요.",
     "restrictedStart": "주의: 활동 비권장 장소입니다. 현장 안내를 우선 확인하세요.",
-    "disclaimer": "공개된 예보와 등록된 장소정보를 바탕으로 한 참고 정보입니다. 현장 통제와 기상특보를 우선 확인해주세요."
+    "disclaimer": "공개된 예보와 등록된 장소정보를 바탕으로 한 참고 정보입니다. 현장 통제와 기상특보를 우선 확인해주세요.",
+    "verification": {
+      "official": "공식 검증",
+      "partner": "파트너",
+      "admin": "관리자 확인",
+      "community": "커뮤니티",
+      "unverified": "미검증",
+      "user": "사용자 제보"
+    }
   },
   "partner": {
     "nearbyTitle": "주변 수산시장",
@@ -255,7 +275,39 @@
       "official": "공식 검증",
       "partner": "파트너",
       "admin": "관리자 확인",
-      "unverified": "미검증"
+      "unverified": "미검증",
+      "user": "사용자 제보",
+      "community": "커뮤니티"
+    },
+    "selectPrompt": "시장·식당을 선택해주세요.",
+    "selectHint": "지도 마커나 주변 장소 목록에서 장소를 선택하면 상세정보가 표시됩니다.",
+    "verificationStatus": "검증 상태: {status}",
+    "noDetailYet": "이 장소의 상세 이용정보가 아직 등록되지 않았습니다.",
+    "businessInfo": "영업정보",
+    "todayHours": "오늘: {hours}",
+    "currentStatus": "현재 상태: {status}",
+    "closedDays": "휴무일: {days}",
+    "noBusinessHours": "영업시간 정보가 없습니다.",
+    "checkBeforeVisit": "방문 전 직접 확인해주세요.",
+    "servicesTitle": "제공 서비스",
+    "usageGuide": "이용 안내",
+    "usageGuideBody": "잡은 수산물의 상태와 보관 방식에 따라 접수가 거절될 수 있습니다. 방문 전 점포에 직접 문의하고, 현장 안내를 우선 확인해주세요.",
+    "inquiryCta": "이용 문의하기",
+    "businessStatus": {
+      "open": "영업 중",
+      "closingSoon": "곧 영업 종료",
+      "closed": "영업 종료",
+      "unknown": "확인 필요"
+    },
+    "closedToday": "{day} 휴무",
+    "weekday": {
+      "monday": "월",
+      "tuesday": "화",
+      "wednesday": "수",
+      "thursday": "목",
+      "friday": "금",
+      "saturday": "토",
+      "sunday": "일"
     }
   },
   "environment": {
@@ -272,7 +324,8 @@
     "difficulty": {
       "easy": "쉬움",
       "moderate": "보통",
-      "hard": "어려움"
+      "hard": "어려움",
+      "normal": "보통"
     },
     "wasteType": {
       "trashBin": "쓰레기통",
@@ -285,7 +338,50 @@
     "reportIssue": "위치 제보",
     "nearbyWasteTitle": "주변 쓰레기통·수거함",
     "emptyWasteFiltered": "선택한 조건에 맞는 수거 장소가 없습니다.",
-    "emptyWasteNearby": "주변에 등록된 수거 장소가 없습니다."
+    "emptyWasteNearby": "주변에 등록된 수거 장소가 없습니다.",
+    "selectWaste": "수거 장소를 선택해주세요.",
+    "verificationLabel": "검증: {status}",
+    "statusUnknownTitle": "현재 운영 여부를 확인할 수 없습니다.",
+    "statusUnknownBody": "방문 전 현장 상태를 확인해주세요.",
+    "staleWasteTitle": "오랫동안 현장 확인이 이루어지지 않은 장소입니다.",
+    "staleWasteBody": "현재 위치와 운영 상태가 다를 수 있습니다.",
+    "acceptedTypes": "수거 가능한 쓰레기 종류",
+    "noAcceptedTypes": "등록된 수거 종류 정보가 없습니다.",
+    "hoursTitle": "이용시간",
+    "hoursMissing": "이용시간 정보가 없습니다. 방문 전 확인해 주세요.",
+    "usageNotes": "이용 시 주의사항",
+    "reportLocationError": "위치 오류 신고",
+    "ploggingCourse": "플로깅 코스",
+    "estimatedTime": "예상 시간",
+    "recommendedTime": "추천 이용시간: {time}",
+    "staleRoute": "오랫동안 현장 확인이 이루어지지 않은 코스입니다. 현재 상태가 다를 수 있습니다.",
+    "connectedDisposal": "연결된 배출 장소",
+    "noConnectedDisposal": "연결된 배출 장소가 없습니다.",
+    "nearbyDisposalHint": "시작점 근처 배출 장소도 함께 확인해 보세요.",
+    "facilities": "편의시설",
+    "cautions": "주의사항",
+    "wastePointType": {
+      "generalTrash": "일반 쓰레기",
+      "recycling": "재활용",
+      "fishingLine": "폐낚싯줄",
+      "fishingGear": "폐어구",
+      "ploggingCollection": "플로깅 집하 장소",
+      "other": "기타 수거"
+    },
+    "wastePointStatus": {
+      "available": "이용 가능",
+      "temporarilyUnavailable": "일시 이용 불가",
+      "removed": "철거됨",
+      "unknown": "확인 필요"
+    },
+    "verification": {
+      "official": "공식 검증",
+      "partner": "파트너",
+      "admin": "관리자 확인",
+      "community": "커뮤니티",
+      "unverified": "미검증",
+      "user": "사용자 제보"
+    }
   },
   "schedule": {
     "title": "하루 일정 만들기",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "레저·스포츠",
     "activity": "활동 유형",
-    "season": "시즌 안내"
+    "season": "시즌 안내",
+    "activityType": {
+      "surfing": "서핑",
+      "yacht": "요트",
+      "diving": "다이빙",
+      "kayak": "카약",
+      "bike": "자전거",
+      "other": "기타"
+    }
   },
   "events": {
     "listTitle": "부산 해안 대규모 행사",

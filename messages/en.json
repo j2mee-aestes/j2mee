@@ -36,7 +36,19 @@
     "selectedPoint": "Selected point",
     "myPage": "My page",
     "privacy": "Privacy",
-    "home": "Home"
+    "home": "Home",
+    "dataSource": "Data source",
+    "viewSource": "View source",
+    "publicReference": "Public reference",
+    "fieldCheckNotice": "This information is compiled from public sources. Please confirm hours and access on site before visiting.",
+    "verifiedInfo": "Verified information.",
+    "photoStagingNote": "Some photos are staged images that convey the atmosphere of the site.",
+    "lastVerifiedDate": "Last verified: {date}",
+    "straightDistanceHint": "Distances shown are straight-line estimates from coordinates.",
+    "fromOriginDistance": "{distance} from {origin}",
+    "imagePending": "Image coming soon",
+    "approxMinutes": "About {count} min",
+    "distanceLabel": "Distance"
   },
   "search": {
     "placeholder": "Search by area, place, or keyword",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "This safety text may be an unverified translation. Check the Korean original and on-site notices.",
     "prohibitedStart": "Prohibited spots cannot be started. Skip or remove them from the schedule.",
     "restrictedStart": "Caution: this spot is not recommended. Check on-site guidance first.",
-    "disclaimer": "Reference information based on public forecasts and registered place data. Always prioritize on-site controls and weather alerts."
+    "disclaimer": "Reference information based on public forecasts and registered place data. Always prioritize on-site controls and weather alerts.",
+    "verification": {
+      "official": "Official",
+      "partner": "Partner",
+      "admin": "Admin reviewed",
+      "community": "Community",
+      "unverified": "Unverified",
+      "user": "User report"
+    }
   },
   "partner": {
     "nearbyTitle": "Nearby seafood markets",
@@ -255,7 +275,39 @@
       "official": "Official",
       "partner": "Partner",
       "admin": "Admin verified",
-      "unverified": "Unverified"
+      "unverified": "Unverified",
+      "user": "User report",
+      "community": "Community"
+    },
+    "selectPrompt": "Select a market or restaurant.",
+    "selectHint": "Choose a marker or nearby place to see details.",
+    "verificationStatus": "Verification: {status}",
+    "noDetailYet": "Detailed usage information has not been registered yet.",
+    "businessInfo": "Business hours",
+    "todayHours": "Today: {hours}",
+    "currentStatus": "Status: {status}",
+    "closedDays": "Closed: {days}",
+    "noBusinessHours": "Business hours are unavailable.",
+    "checkBeforeVisit": "Please confirm directly before visiting.",
+    "servicesTitle": "Services",
+    "usageGuide": "Usage guide",
+    "usageGuideBody": "Acceptance may be refused depending on catch condition and storage. Contact the shop before visiting and follow on-site guidance.",
+    "inquiryCta": "Send inquiry",
+    "businessStatus": {
+      "open": "Open",
+      "closingSoon": "Closing soon",
+      "closed": "Closed",
+      "unknown": "Check needed"
+    },
+    "closedToday": "Closed ({day})",
+    "weekday": {
+      "monday": "Mon",
+      "tuesday": "Tue",
+      "wednesday": "Wed",
+      "thursday": "Thu",
+      "friday": "Fri",
+      "saturday": "Sat",
+      "sunday": "Sun"
     }
   },
   "environment": {
@@ -272,7 +324,8 @@
     "difficulty": {
       "easy": "Easy",
       "moderate": "Moderate",
-      "hard": "Hard"
+      "hard": "Hard",
+      "normal": "Moderate"
     },
     "wasteType": {
       "trashBin": "Trash bin",
@@ -285,7 +338,50 @@
     "reportIssue": "Report location",
     "nearbyWasteTitle": "Nearby bins & collection points",
     "emptyWasteFiltered": "No collection points match the filters.",
-    "emptyWasteNearby": "No registered collection points nearby."
+    "emptyWasteNearby": "No registered collection points nearby.",
+    "selectWaste": "Select a collection point.",
+    "verificationLabel": "Verified: {status}",
+    "statusUnknownTitle": "Current availability cannot be confirmed.",
+    "statusUnknownBody": "Please check on-site conditions before visiting.",
+    "staleWasteTitle": "This place has not been field-checked for a long time.",
+    "staleWasteBody": "Location or operating status may have changed.",
+    "acceptedTypes": "Accepted waste types",
+    "noAcceptedTypes": "No accepted waste types are registered.",
+    "hoursTitle": "Hours",
+    "hoursMissing": "Hours are unavailable. Please check before visiting.",
+    "usageNotes": "Usage notes",
+    "reportLocationError": "Report location error",
+    "ploggingCourse": "Plogging route",
+    "estimatedTime": "Estimated time",
+    "recommendedTime": "Recommended time: {time}",
+    "staleRoute": "This route has not been field-checked for a long time. Conditions may differ.",
+    "connectedDisposal": "Connected disposal points",
+    "noConnectedDisposal": "No connected disposal points.",
+    "nearbyDisposalHint": "Also check disposal points near the start.",
+    "facilities": "Facilities",
+    "cautions": "Cautions",
+    "wastePointType": {
+      "generalTrash": "General trash",
+      "recycling": "Recycling",
+      "fishingLine": "Fishing line bin",
+      "fishingGear": "Fishing gear bin",
+      "ploggingCollection": "Plogging drop-off",
+      "other": "Other collection"
+    },
+    "wastePointStatus": {
+      "available": "Available",
+      "temporarilyUnavailable": "Temporarily unavailable",
+      "removed": "Removed",
+      "unknown": "Check needed"
+    },
+    "verification": {
+      "official": "Official",
+      "partner": "Partner",
+      "admin": "Admin reviewed",
+      "community": "Community",
+      "unverified": "Unverified",
+      "user": "User report"
+    }
   },
   "schedule": {
     "title": "Create a day schedule",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "Leisure & sports",
     "activity": "Activity",
-    "season": "Season notes"
+    "season": "Season notes",
+    "activityType": {
+      "surfing": "Surfing",
+      "yacht": "Yacht",
+      "diving": "Diving",
+      "kayak": "Kayak",
+      "bike": "Bike",
+      "other": "Other"
+    }
   },
   "events": {
     "listTitle": "Busan coastal large events",

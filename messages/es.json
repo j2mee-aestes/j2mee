@@ -36,7 +36,19 @@
     "selectedPoint": "Punto seleccionado",
     "myPage": "mi pagina",
     "privacy": "Privacidad",
-    "home": "Hogar"
+    "home": "Hogar",
+    "dataSource": "fuente de datos",
+    "viewSource": "Ver fuente",
+    "publicReference": "Referencia pública",
+    "fieldCheckNotice": "Esta información se recopila de fuentes públicas. Confirme el horario y el acceso en el sitio antes de visitar.",
+    "verifiedInfo": "Información verificada.",
+    "photoStagingNote": "Algunas fotografías son imágenes escenificadas que transmiten la atmósfera del sitio.",
+    "lastVerifiedDate": "Última verificación: {fecha}",
+    "straightDistanceHint": "Las distancias mostradas son estimaciones en línea recta a partir de coordenadas.",
+    "fromOriginDistance": "{distancia} de {origen}",
+    "imagePending": "Imagen próximamente",
+    "approxMinutes": "Aproximadamente {count} minutos",
+    "distanceLabel": "Distancia"
   },
   "search": {
     "placeholder": "Buscar por área, lugar o palabra clave",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "Este texto de seguridad puede ser una traducción no verificada. Consulte los avisos originales en coreano y en el sitio.",
     "prohibitedStart": "No se pueden iniciar puntos prohibidos. Omítelos o elimínelos del programa.",
     "restrictedStart": "Precaución: este lugar no es recomendado. Consulte primero la orientación en el sitio.",
-    "disclaimer": "Información de referencia basada en previsiones públicas y datos de lugares registrados. Priorice siempre los controles in situ y las alertas meteorológicas."
+    "disclaimer": "Información de referencia basada en previsiones públicas y datos de lugares registrados. Priorice siempre los controles in situ y las alertas meteorológicas.",
+    "verification": {
+      "official": "Oficial",
+      "partner": "Pareja",
+      "admin": "Administrador revisado",
+      "community": "Comunidad",
+      "unverified": "Inconfirmado",
+      "user": "Informe de usuario"
+    }
   },
   "partner": {
     "nearbyTitle": "Mercados de mariscos cercanos",
@@ -255,7 +275,39 @@
       "official": "Oficial",
       "partner": "Pareja",
       "admin": "Administrador verificado",
-      "unverified": "Inconfirmado"
+      "unverified": "Inconfirmado",
+      "user": "Informe de usuario",
+      "community": "Comunidad"
+    },
+    "selectPrompt": "Seleccione un mercado o restaurante.",
+    "selectHint": "Elija un marcador o lugar cercano para ver los detalles.",
+    "verificationStatus": "Verificación: {estado}",
+    "noDetailYet": "La información de uso detallada aún no se ha registrado.",
+    "businessInfo": "Horario comercial",
+    "todayHours": "Hoy: {horas}",
+    "currentStatus": "Estado: {estado}",
+    "closedDays": "Cerrado: {días}",
+    "noBusinessHours": "El horario comercial no está disponible.",
+    "checkBeforeVisit": "Por favor confirme directamente antes de visitar.",
+    "servicesTitle": "Servicios",
+    "usageGuide": "Guía de uso",
+    "usageGuideBody": "La aceptación puede rechazarse según las condiciones de la captura y el almacenamiento. Póngase en contacto con la tienda antes de visitarla y siga las instrucciones del sitio.",
+    "inquiryCta": "Enviar consulta",
+    "businessStatus": {
+      "open": "Abierto",
+      "closingSoon": "Cerrando pronto",
+      "closed": "Cerrado",
+      "unknown": "Cheque necesario"
+    },
+    "closedToday": "Cerrado ({día})",
+    "weekday": {
+      "monday": "Lun",
+      "tuesday": "Mar",
+      "wednesday": "Casarse",
+      "thursday": "Jue",
+      "friday": "Vie",
+      "saturday": "Se sentó",
+      "sunday": "Sol"
     }
   },
   "environment": {
@@ -272,7 +324,8 @@
     "difficulty": {
       "easy": "Fácil",
       "moderate": "Moderado",
-      "hard": "Duro"
+      "hard": "Duro",
+      "normal": "Moderado"
     },
     "wasteType": {
       "trashBin": "papelera",
@@ -285,7 +338,50 @@
     "reportIssue": "Ubicación del informe",
     "nearbyWasteTitle": "Contenedores y puntos de recogida cercanos",
     "emptyWasteFiltered": "Ningún punto de recogida coincide con los filtros.",
-    "emptyWasteNearby": "No hay puntos de recogida registrados cerca."
+    "emptyWasteNearby": "No hay puntos de recogida registrados cerca.",
+    "selectWaste": "Seleccione un punto de recogida.",
+    "verificationLabel": "Verificado: {estado}",
+    "statusUnknownTitle": "La disponibilidad actual no se puede confirmar.",
+    "statusUnknownBody": "Por favor consulte las condiciones del sitio antes de visitarlo.",
+    "staleWasteTitle": "Este lugar no ha sido inspeccionado durante mucho tiempo.",
+    "staleWasteBody": "Es posible que la ubicación o el estado operativo hayan cambiado.",
+    "acceptedTypes": "Tipos de residuos aceptados",
+    "noAcceptedTypes": "No se registran tipos de residuos aceptados.",
+    "hoursTitle": "Horas",
+    "hoursMissing": "Los horarios no están disponibles. Por favor consulte antes de visitar.",
+    "usageNotes": "Notas de uso",
+    "reportLocationError": "Informar error de ubicación",
+    "ploggingCourse": "Ruta de plogging",
+    "estimatedTime": "Tiempo estimado",
+    "recommendedTime": "Hora recomendada: {hora}",
+    "staleRoute": "Esta ruta no ha sido comprobada en el campo desde hace mucho tiempo. Las condiciones pueden diferir.",
+    "connectedDisposal": "Puntos de eliminación conectados",
+    "noConnectedDisposal": "No hay puntos de eliminación conectados.",
+    "nearbyDisposalHint": "Compruebe también los puntos de eliminación cerca de la salida.",
+    "facilities": "Instalaciones",
+    "cautions": "Precauciones",
+    "wastePointType": {
+      "generalTrash": "basura general",
+      "recycling": "Reciclaje",
+      "fishingLine": "Papelera para hilo de pescar",
+      "fishingGear": "contenedor de aparejos de pesca",
+      "ploggingCollection": "Bajada de plogging",
+      "other": "Otra colección"
+    },
+    "wastePointStatus": {
+      "available": "Disponible",
+      "temporarilyUnavailable": "No disponible temporalmente",
+      "removed": "Remoto",
+      "unknown": "Cheque necesario"
+    },
+    "verification": {
+      "official": "Oficial",
+      "partner": "Pareja",
+      "admin": "Administrador revisado",
+      "community": "Comunidad",
+      "unverified": "Inconfirmado",
+      "user": "Informe de usuario"
+    }
   },
   "schedule": {
     "title": "Crear un horario diurno",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "Ocio y deportes",
     "activity": "Actividad",
-    "season": "notas de temporada"
+    "season": "notas de temporada",
+    "activityType": {
+      "surfing": "Surf",
+      "yacht": "Yate",
+      "diving": "Buceo",
+      "kayak": "Kayac",
+      "bike": "Bicicleta",
+      "other": "Otro"
+    }
   },
   "events": {
     "listTitle": "Grandes eventos costeros de Busan",

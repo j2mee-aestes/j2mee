@@ -1,6 +1,6 @@
 {
   "common": {
-    "serviceName": "パドパド",
+    "serviceName": "PadoPado",
     "serviceTagline": "海と人をつなぐやさしい一歩",
     "loading": "読み込み中…",
     "retry": "再試行",
@@ -36,7 +36,19 @@
     "selectedPoint": "選択地点",
     "myPage": "マイページ",
     "privacy": "プライバシー",
-    "home": "ホーム"
+    "home": "ホーム",
+    "dataSource": "データソース",
+    "viewSource": "ソースを見る",
+    "publicReference": "公開参照",
+    "fieldCheckNotice": "この情報は公的情報源から編集されたものです。ご来店前に営業時間やアクセスを現地にてご確認ください。",
+    "verifiedInfo": "確認済みの情報。",
+    "photoStagingNote": "一部の写真は現場の雰囲気が伝わる演出イメージです。",
+    "lastVerifiedDate": "最終確認日: {日付}",
+    "straightDistanceHint": "表示される距離は、座標からの直線推定値です。",
+    "fromOriginDistance": "{原点}からの{距離}",
+    "imagePending": "画像は近日公開予定",
+    "approxMinutes": "約 {count} 分",
+    "distanceLabel": "距離"
   },
   "search": {
     "placeholder": "地域・場所・キーワードで検索",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "この安全案内は未検収の翻訳の可能性があります。韓国語原文と現場案内も確認してください。",
     "prohibitedStart": "立入禁止・釣り禁止の場所は開始できません。スキップするか予定から削除してください。",
     "restrictedStart": "注意: 活動非推奨の場所です。現場案内を優先してください。",
-    "disclaimer": "公開予報と登録された場所情報に基づく参考情報です。現場の規制と気象警報を優先してください。"
+    "disclaimer": "公開予報と登録された場所情報に基づく参考情報です。現場の規制と気象警報を優先してください。",
+    "verification": {
+      "official": "正式",
+      "partner": "パートナー",
+      "admin": "管理者がレビューしました",
+      "community": "コミュニティ",
+      "unverified": "未検証",
+      "user": "ユーザー報告"
+    }
   },
   "partner": {
     "nearbyTitle": "周辺の水産市場",
@@ -255,7 +275,39 @@
       "official": "公式検証",
       "partner": "パートナー",
       "admin": "管理者確認",
-      "unverified": "未検証"
+      "unverified": "未検証",
+      "user": "ユーザー報告",
+      "community": "コミュニティ"
+    },
+    "selectPrompt": "マーケットまたはレストランを選択します。",
+    "selectHint": "詳細を表示するには、マーカーまたは近くの場所を選択します。",
+    "verificationStatus": "検証: {ステータス}",
+    "noDetailYet": "詳細な利用情報はまだ登録されていません。",
+    "businessInfo": "営業時間",
+    "todayHours": "今日: {時間}",
+    "currentStatus": "ステータス: {ステータス}",
+    "closedDays": "定休日: {日}",
+    "noBusinessHours": "営業時間はご利用いただけません。",
+    "checkBeforeVisit": "ご来店前に直接ご確認ください。",
+    "servicesTitle": "サービス",
+    "usageGuide": "ご利用ガイド",
+    "usageGuideBody": "漁獲状況や保管状況によっては受け取りをお断りする場合がございます。ご来店前に店舗にご連絡の上、現場の指示に従ってください。",
+    "inquiryCta": "お問い合わせを送信する",
+    "businessStatus": {
+      "open": "開ける",
+      "closingSoon": "もうすぐ閉店",
+      "closed": "閉店",
+      "unknown": "要チェック"
+    },
+    "closedToday": "休業日({日})",
+    "weekday": {
+      "monday": "月",
+      "tuesday": "火",
+      "wednesday": "水",
+      "thursday": "木",
+      "friday": "金",
+      "saturday": "土",
+      "sunday": "太陽"
     }
   },
   "environment": {
@@ -270,9 +322,10 @@
     "emptyPlogging": "表示するプロギングコースがありません。",
     "distanceApprox": "約 {distance}",
     "difficulty": {
-      "easy": "かんたん",
-      "moderate": "ふつう",
-      "hard": "むずかしい"
+      "easy": "簡単",
+      "moderate": "適度",
+      "hard": "難しい",
+      "normal": "適度"
     },
     "wasteType": {
       "trashBin": "ゴミ箱",
@@ -285,7 +338,50 @@
     "reportIssue": "位置を報告",
     "nearbyWasteTitle": "周辺のゴミ箱・回収箱",
     "emptyWasteFiltered": "条件に合う回収場所がありません。",
-    "emptyWasteNearby": "周辺に登録された回収場所がありません。"
+    "emptyWasteNearby": "周辺に登録された回収場所がありません。",
+    "selectWaste": "収集ポイントを選択します。",
+    "verificationLabel": "確認済み: {ステータス}",
+    "statusUnknownTitle": "現在の空き状況は確認できません。",
+    "statusUnknownBody": "ご来店前に現地の状況をご確認ください。",
+    "staleWasteTitle": "この場所は長い間現地調査されていませんでした。",
+    "staleWasteBody": "所在地や営業状況は変更されている場合がございます。",
+    "acceptedTypes": "受け入れられる廃棄物の種類",
+    "noAcceptedTypes": "受け入れ可能な廃棄物の種類は登録されていません。",
+    "hoursTitle": "営業時間",
+    "hoursMissing": "時間帯はご利用いただけません。ご来店前にご確認ください。",
+    "usageNotes": "使用上の注意",
+    "reportLocationError": "場所のエラーを報告する",
+    "ploggingCourse": "プロギングルート",
+    "estimatedTime": "推定所要時間",
+    "recommendedTime": "推奨時間: {time}",
+    "staleRoute": "このルートは長い間現場で確認されていません。条件が異なる場合があります。",
+    "connectedDisposal": "接続された廃棄ポイント",
+    "noConnectedDisposal": "接続された廃棄ポイントはありません。",
+    "nearbyDisposalHint": "スタート付近の廃棄ポイントも確認してください。",
+    "facilities": "設備",
+    "cautions": "注意事項",
+    "wastePointType": {
+      "generalTrash": "一般ゴミ",
+      "recycling": "リサイクル",
+      "fishingLine": "釣り糸ビン",
+      "fishingGear": "釣り道具箱",
+      "ploggingCollection": "詰まりのドロップオフ",
+      "other": "その他のコレクション"
+    },
+    "wastePointStatus": {
+      "available": "利用可能",
+      "temporarilyUnavailable": "一時的に利用できません",
+      "removed": "削除されました",
+      "unknown": "要チェック"
+    },
+    "verification": {
+      "official": "正式",
+      "partner": "パートナー",
+      "admin": "管理者がレビューしました",
+      "community": "コミュニティ",
+      "unverified": "未検証",
+      "user": "ユーザー報告"
+    }
   },
   "schedule": {
     "title": "一日の予定を作る",
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "レジャー・スポーツ",
     "activity": "活動タイプ",
-    "season": "シーズン案内"
+    "season": "シーズン案内",
+    "activityType": {
+      "surfing": "サーフィン",
+      "yacht": "ヨット",
+      "diving": "ダイビング",
+      "kayak": "カヤック",
+      "bike": "自転車",
+      "other": "他の"
+    }
   },
   "events": {
     "listTitle": "釜山沿岸の大規模イベント",

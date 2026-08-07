@@ -1,5 +1,7 @@
+"use client";
+
 import { Badge } from "@/components/common/Badge";
-import { WASTE_POINT_TYPE_LABELS } from "@/constants/environmentData";
+import { useTranslations } from "@/context/LocaleContext";
 import type { WastePointType } from "@/types/environment";
 
 interface WastePointTypeBadgeProps {
@@ -7,6 +9,7 @@ interface WastePointTypeBadgeProps {
 }
 
 export function WastePointTypeBadge({ type }: WastePointTypeBadgeProps) {
+  const { t } = useTranslations();
   const tone =
     type === "fishingLine" || type === "fishingGear"
       ? "teal"
@@ -16,5 +19,7 @@ export function WastePointTypeBadge({ type }: WastePointTypeBadgeProps) {
           ? "blue"
           : "gray";
 
-  return <Badge tone={tone}>{WASTE_POINT_TYPE_LABELS[type]}</Badge>;
+  return (
+    <Badge tone={tone}>{t(`environment.wastePointType.${type}`)}</Badge>
+  );
 }

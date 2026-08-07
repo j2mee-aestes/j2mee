@@ -36,7 +36,19 @@
     "selectedPoint": "Point sélectionné",
     "myPage": "Ma page",
     "privacy": "Confidentialité",
-    "home": "Maison"
+    "home": "Maison",
+    "dataSource": "Source de données",
+    "viewSource": "Voir la source",
+    "publicReference": "Référence publique",
+    "fieldCheckNotice": "Ces informations sont compilées à partir de sources publiques. Veuillez confirmer les heures et l'accès sur place avant de visiter.",
+    "verifiedInfo": "Informations vérifiées.",
+    "photoStagingNote": "Certaines photos sont des images mises en scène qui traduisent l’ambiance du site.",
+    "lastVerifiedDate": "Dernière vérification : {date}",
+    "straightDistanceHint": "Les distances indiquées sont des estimations en ligne droite à partir des coordonnées.",
+    "fromOriginDistance": "{distance} de {origine}",
+    "imagePending": "Image à venir",
+    "approxMinutes": "Environ {count} minutes",
+    "distanceLabel": "Distance"
   },
   "search": {
     "placeholder": "Rechercher par zone, lieu ou mot-clé",
@@ -198,7 +210,15 @@
     "machineTranslatedNotice": "Ce texte de sécurité peut être une traduction non vérifiée. Vérifiez les avis coréens originaux et sur place.",
     "prohibitedStart": "Les spots interdits ne peuvent pas être démarrés. Ignorez-les ou supprimez-les du planning.",
     "restrictedStart": "Attention : cet endroit est déconseillé. Vérifiez d’abord les conseils sur place.",
-    "disclaimer": "Informations de référence basées sur les prévisions publiques et les données de lieux enregistrées. Donnez toujours la priorité aux contrôles sur site et aux alertes météorologiques."
+    "disclaimer": "Informations de référence basées sur les prévisions publiques et les données de lieux enregistrées. Donnez toujours la priorité aux contrôles sur site et aux alertes météorologiques.",
+    "verification": {
+      "official": "Officiel",
+      "partner": "Partenaire",
+      "admin": "L'administrateur a examiné",
+      "community": "Communauté",
+      "unverified": "Non vérifié",
+      "user": "Signalement utilisateur"
+    }
   },
   "partner": {
     "nearbyTitle": "Marchés de fruits de mer à proximité",
@@ -255,7 +275,39 @@
       "official": "Officiel",
       "partner": "Partenaire",
       "admin": "Administrateur vérifié",
-      "unverified": "Non vérifié"
+      "unverified": "Non vérifié",
+      "user": "Signalement utilisateur",
+      "community": "Communauté"
+    },
+    "selectPrompt": "Sélectionnez un marché ou un restaurant.",
+    "selectHint": "Choisissez un marqueur ou un lieu à proximité pour voir les détails.",
+    "verificationStatus": "Vérification : {statut}",
+    "noDetailYet": "Les informations détaillées sur l'utilisation n'ont pas encore été enregistrées.",
+    "businessInfo": "Heures d'ouverture",
+    "todayHours": "Aujourd'hui : {heures}",
+    "currentStatus": "Statut : {statut}",
+    "closedDays": "Fermé : {jours}",
+    "noBusinessHours": "Les heures d'ouverture ne sont pas disponibles.",
+    "checkBeforeVisit": "Veuillez confirmer directement avant de visiter.",
+    "servicesTitle": "Services",
+    "usageGuide": "Guide d'utilisation",
+    "usageGuideBody": "L'acceptation peut être refusée en fonction de l'état de la capture et de son stockage. Contactez la boutique avant de vous rendre et suivez les instructions sur place.",
+    "inquiryCta": "Envoyer une demande",
+    "businessStatus": {
+      "open": "Ouvrir",
+      "closingSoon": "Bientôt fermé",
+      "closed": "Fermé",
+      "unknown": "Chèque nécessaire"
+    },
+    "closedToday": "Fermé ({jour})",
+    "weekday": {
+      "monday": "Lun",
+      "tuesday": "Mar",
+      "wednesday": "Épouser",
+      "thursday": "Jeu",
+      "friday": "Ven",
+      "saturday": "Assis",
+      "sunday": "Soleil"
     }
   },
   "environment": {
@@ -272,7 +324,8 @@
     "difficulty": {
       "easy": "Facile",
       "moderate": "Modéré",
-      "hard": "Dur"
+      "hard": "Dur",
+      "normal": "Modéré"
     },
     "wasteType": {
       "trashBin": "Poubelle",
@@ -285,7 +338,50 @@
     "reportIssue": "Emplacement du rapport",
     "nearbyWasteTitle": "Poubelles et points de collecte à proximité",
     "emptyWasteFiltered": "Aucun point de collecte ne correspond aux filtres.",
-    "emptyWasteNearby": "Aucun point de collecte enregistré à proximité."
+    "emptyWasteNearby": "Aucun point de collecte enregistré à proximité.",
+    "selectWaste": "Sélectionnez un point de collecte.",
+    "verificationLabel": "Vérifié : {statut}",
+    "statusUnknownTitle": "La disponibilité actuelle ne peut pas être confirmée.",
+    "statusUnknownBody": "Veuillez vérifier les conditions sur place avant de visiter.",
+    "staleWasteTitle": "Cet endroit n'a pas été vérifié sur le terrain depuis longtemps.",
+    "staleWasteBody": "L'emplacement ou l'état de fonctionnement peuvent avoir changé.",
+    "acceptedTypes": "Types de déchets acceptés",
+    "noAcceptedTypes": "Aucun type de déchet accepté n’est enregistré.",
+    "hoursTitle": "Heures",
+    "hoursMissing": "Les horaires ne sont pas disponibles. Veuillez vérifier avant de visiter.",
+    "usageNotes": "Notes d'utilisation",
+    "reportLocationError": "Signaler une erreur de localisation",
+    "ploggingCourse": "Itinéraire de plogging",
+    "estimatedTime": "Temps estimé",
+    "recommendedTime": "Heure recommandée : {time}",
+    "staleRoute": "Cet itinéraire n'a pas été vérifié sur le terrain depuis longtemps. Les conditions peuvent différer.",
+    "connectedDisposal": "Déchetteries connectées",
+    "noConnectedDisposal": "Pas de points d'élimination connectés.",
+    "nearbyDisposalHint": "Vérifiez également les points d'élimination à proximité du départ.",
+    "facilities": "Installations",
+    "cautions": "Précautions",
+    "wastePointType": {
+      "generalTrash": "Déchets généraux",
+      "recycling": "Recyclage",
+      "fishingLine": "Bac à ligne de pêche",
+      "fishingGear": "Bac à matériel de pêche",
+      "ploggingCollection": "Dépôt de plogging",
+      "other": "Autre collection"
+    },
+    "wastePointStatus": {
+      "available": "Disponible",
+      "temporarilyUnavailable": "Temporairement indisponible",
+      "removed": "Supprimé",
+      "unknown": "Chèque nécessaire"
+    },
+    "verification": {
+      "official": "Officiel",
+      "partner": "Partenaire",
+      "admin": "L'administrateur a examiné",
+      "community": "Communauté",
+      "unverified": "Non vérifié",
+      "user": "Signalement utilisateur"
+    }
   },
   "schedule": {
     "title": "Créer un planning journalier",
@@ -472,8 +568,8 @@
     "importDone": "Importés : horaires {schedules}, activités {runs}, favoris {favoris} (ignorés {skipped})",
     "mileage": "Kilométrage",
     "mileageHint": "Gagné lorsque votre contribution est publiée. Échangeable contre des points plus tard.",
-    "guestMyPageSubtitle": "Gérez favoris, notifications et langue locaux sans vous connecter.",
-    "guestProfileHint": "Connectez-vous pour synchroniser agendas, activités et favoris avec votre compte."
+    "guestMyPageSubtitle": "Manage local favorites, notifications, and language without signing in.",
+    "guestProfileHint": "Sign in to sync schedules, activities, and favorites to your account."
   },
   "a11y": {
     "skipToContent": "Passer au contenu"
@@ -657,7 +753,15 @@
   "leisure": {
     "title": "Loisirs & sports",
     "activity": "Activité",
-    "season": "Notes de saison"
+    "season": "Notes de saison",
+    "activityType": {
+      "surfing": "Surf",
+      "yacht": "Yacht",
+      "diving": "Plongée",
+      "kayak": "Kayak",
+      "bike": "Vélo",
+      "other": "Autre"
+    }
   },
   "events": {
     "listTitle": "Grands événements côtiers de Busan",
@@ -697,13 +801,13 @@
     "source": "Météo marine KMA"
   },
   "notifications": {
-    "empty": "Aucune nouvelle notification.",
-    "markAllRead": "Marquer tout comme lu",
-    "seedTideTitle": "Conseil de marée et de vague du jour",
-    "seedTideBody": "Consultez la météo et les vagues en direct pour la côte de Gijang.",
-    "seedPloggingTitle": "Suggestion d'itinéraire de plogging",
-    "seedPloggingBody": "Ouvrez les routes de plogging côtières d'Imrang et d'Ilgwang sur la carte.",
-    "seedFavoriteTitle": "Continuer avec les favoris",
-    "seedFavoriteBody": "Ouvrez les lieux enregistrés depuis Ma page ou le panneau cœur."
+    "empty": "No new notifications.",
+    "markAllRead": "Mark all read",
+    "seedTideTitle": "Today’s tide & wave tip",
+    "seedTideBody": "Check live weather and waves for the Gijang coast.",
+    "seedPloggingTitle": "Plogging route suggestion",
+    "seedPloggingBody": "Open Imrang and Ilgwang coastal plogging routes on the map.",
+    "seedFavoriteTitle": "Continue with favorites",
+    "seedFavoriteBody": "Open saved places from My page or the heart panel."
   }
 }

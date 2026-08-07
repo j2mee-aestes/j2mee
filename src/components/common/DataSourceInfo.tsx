@@ -1,3 +1,8 @@
+"use client";
+
+import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
+
 interface DataSourceInfoProps {
   sourceName?: string;
   lastVerifiedAt?: string;
@@ -14,11 +19,18 @@ export function DataSourceInfo({
   isMock = true,
   className = "",
 }: DataSourceInfoProps) {
+  const { t, locale } = useTranslations();
+  const localizedSource = sourceName
+    ? localizePlaceText(sourceName, locale)
+    : null;
+
   return (
     <div
       className={`rounded-2xl border border-[var(--color-border)] bg-[var(--color-foam)]/80 p-3 text-xs text-[var(--color-text-secondary)] ${className}`}
     >
-      <p className="font-semibold text-[var(--color-text-primary)]">데이터 출처</p>
+      <p className="font-semibold text-[var(--color-text-primary)]">
+        {t("common.dataSource")}
+      </p>
       {sourceUrl ? (
         <a
           href={sourceUrl}
@@ -26,24 +38,23 @@ export function DataSourceInfo({
           rel="noreferrer"
           className="mt-1 inline-flex font-semibold text-[var(--color-accent-strong)] underline-offset-2 hover:underline"
         >
-          {sourceName ?? "원문 보기"} →
+          {localizedSource ?? t("common.viewSource")} →
         </a>
       ) : (
-        <p className="mt-1">{sourceName ?? "공개 자료 참고"}</p>
+        <p className="mt-1">{localizedSource ?? t("common.publicReference")}</p>
       )}
       {isMock ? (
-        <p className="mt-1">
-          공개 자료를 참고해 정리한 정보입니다. 운영시간·통제 여부 등은 방문
-          전 현장 안내를 확인해 주세요.
-        </p>
+        <p className="mt-1">{t("common.fieldCheckNotice")}</p>
       ) : (
-        <p className="mt-1">검증된 정보입니다.</p>
+        <p className="mt-1">{t("common.verifiedInfo")}</p>
       )}
       <p className="mt-0.5 text-[10px] text-[var(--color-text-muted)]">
-        일부 사진은 현장 분위기를 담은 연출 이미지입니다.
+        {t("common.photoStagingNote")}
       </p>
       {lastVerifiedAt ? (
-        <p className="mt-0.5">마지막 확인일: {lastVerifiedAt}</p>
+        <p className="mt-0.5">
+          {t("common.lastVerifiedDate", { date: lastVerifiedAt })}
+        </p>
       ) : null}
     </div>
   );

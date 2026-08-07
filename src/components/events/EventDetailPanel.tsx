@@ -4,6 +4,7 @@ import { Card } from "@/components/common/Card";
 import { DataSourceInfo } from "@/components/common/DataSourceInfo";
 import { TextButton } from "@/components/common/IconButton";
 import { useTranslations } from "@/context/LocaleContext";
+import { localizePlaceText } from "@/lib/i18n/localizePlaceText";
 import type { CoastalEvent } from "@/types/event";
 import { CalendarDays, MapPin, Waves } from "lucide-react";
 
@@ -30,7 +31,7 @@ export function EventDetailPanel({
   onDirections,
   notice,
 }: EventDetailPanelProps) {
-  const { t } = useTranslations();
+  const { t, locale } = useTranslations();
 
   return (
     <Card className="p-4">
@@ -38,7 +39,7 @@ export function EventDetailPanel({
         {t(`events.relation.${event.coastalRelation}`)}
       </p>
       <h2 className="mt-1 font-display text-lg font-bold text-[var(--color-text-primary)]">
-        {event.name}
+        {localizePlaceText(event.name, locale)}
       </h2>
       <p className="mt-2 flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)]">
         <CalendarDays className="h-3.5 w-3.5" aria-hidden />
@@ -46,11 +47,11 @@ export function EventDetailPanel({
       </p>
       <p className="mt-1 flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)]">
         <MapPin className="h-3.5 w-3.5" aria-hidden />
-        {event.address}
+        {localizePlaceText(event.address, locale)}
       </p>
 
       <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-secondary)]">
-        {event.summary}
+        {localizePlaceText(event.summary, locale)}
       </p>
 
       <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
@@ -79,7 +80,7 @@ export function EventDetailPanel({
         </p>
         <ul className="mt-2 space-y-1.5 text-[11px] text-[var(--color-text-secondary)]">
           {event.coastalImpact.map((item) => (
-            <li key={item}>· {item}</li>
+            <li key={item}>· {localizePlaceText(item, locale)}</li>
           ))}
         </ul>
       </div>
@@ -87,16 +88,23 @@ export function EventDetailPanel({
       {event.notes && event.notes.length > 0 ? (
         <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-[11px] text-amber-900">
           {event.notes.map((note) => (
-            <p key={note}>{note}</p>
+            <p key={note}>{localizePlaceText(note, locale)}</p>
           ))}
         </div>
       ) : null}
 
       {(event.host || event.organizer || event.contact) && (
         <div className="mt-3 text-[11px] text-[var(--color-text-muted)]">
-          {event.host ? <p>{t("events.host")}: {event.host}</p> : null}
+          {event.host ? (
+            <p>
+              {t("events.host")}: {localizePlaceText(event.host, locale)}
+            </p>
+          ) : null}
           {event.organizer ? (
-            <p>{t("events.organizer")}: {event.organizer}</p>
+            <p>
+              {t("events.organizer")}:{" "}
+              {localizePlaceText(event.organizer, locale)}
+            </p>
           ) : null}
           {event.contact ? <p>{t("events.contact")}: {event.contact}</p> : null}
         </div>

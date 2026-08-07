@@ -223,13 +223,13 @@ export async function getCurrentWeather(
   url.searchParams.set("wind_speed_unit", "ms");
   url.searchParams.set("timezone", "auto");
 
-  const { detail: _detail, ...fetchInit } = init ?? {};
   const response = await fetch(url.toString(), {
-    ...fetchInit,
     headers: {
       Accept: "application/json",
-      ...(fetchInit.headers ?? {}),
+      ...(init?.headers ?? {}),
     },
+    signal: init?.signal,
+    cache: init?.cache,
   });
 
   if (!response.ok) {

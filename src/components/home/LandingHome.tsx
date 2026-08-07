@@ -38,6 +38,11 @@ const NAV = [
     labelKey: "home.nav.tourism" as const,
     id: "tourism",
   },
+  {
+    href: "/map?category=event",
+    labelKey: "home.nav.events" as const,
+    id: "events",
+  },
   { href: "/login", labelKey: "home.nav.login" as const, id: "login" },
 ];
 

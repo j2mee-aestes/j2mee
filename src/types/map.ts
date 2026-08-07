@@ -5,7 +5,8 @@ export type MapCategory =
   | "trash"
   | "plogging"
   | "attraction"
-  | "leisure";
+  | "leisure"
+  | "event";
 
 export type CategoryFilter = "all" | MapCategory;
 

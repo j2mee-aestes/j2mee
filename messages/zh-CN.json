@@ -82,6 +82,11 @@
       "label": "海洋休闲",
       "shortLabel": "休闲",
       "description": "冲浪、游艇、皮划艇、海滨骑行等"
+    },
+    "event": {
+      "label": "沿岸活动",
+      "shortLabel": "活动",
+      "description": "已官方确认的釜山沿岸大型活动"
     }
   },
   "map": {
@@ -479,7 +484,8 @@
       "privacy": "隐私",
       "login": "登录",
       "data": "数据",
-      "tourism": "观光"
+      "tourism": "观光",
+      "events": "活动"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -622,6 +628,36 @@
     "title": "休闲运动",
     "activity": "活动类型",
     "season": "季节说明"
+  },
+  "events": {
+    "listTitle": "釜山沿岸大型活动",
+    "listHint": "以 2026-08-07 为准已官方确认的日程。",
+    "empty": "暂无可显示活动。",
+    "sourceNote": "来源：釜山市/组委会/官网交叉核对 (2026-08-07)",
+    "sourceName": "官方活动信息",
+    "relation": {
+      "direct": "沿岸直接型",
+      "adjacent": "沿岸邻近型"
+    },
+    "crowdRisk": "人流风险",
+    "wasteRisk": "垃圾风险",
+    "trafficImpact": "交通影响",
+    "scale": "规模",
+    "scaleLevel": {
+      "very_large": "超大型",
+      "large": "大型",
+      "medium": "中型"
+    },
+    "risk": {
+      "very_high": "非常高",
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "coastalImpact": "沿岸影响",
+    "host": "主办",
+    "organizer": "承办",
+    "contact": "咨询"
   },
   "wave": {
     "title": "实时海浪",

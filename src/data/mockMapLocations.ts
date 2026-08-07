@@ -38,6 +38,13 @@ import {
   getLeisurePlaceById,
   searchLeisurePlaces,
 } from "@/lib/leisure/leisureRepository";
+import {
+  getAllCoastalEvents,
+  getCoastalEventById,
+  searchCoastalEvents,
+} from "@/lib/events/eventRepository";
+import { coastalEventToMapLocation } from "@/lib/map/eventMapLocation";
+import type { CoastalEvent } from "@/types/event";
 import type { AttractionPlace } from "@/types/attraction";
 import type { LeisurePlace } from "@/types/leisure";
 import type { FishingSpot } from "@/types/fishing";
@@ -50,7 +57,8 @@ export type SearchablePlace =
   | WastePoint
   | PloggingRoute
   | AttractionPlace
-  | LeisurePlace;
+  | LeisurePlace
+  | CoastalEvent;
 
 function fishingSpotToMapLocation(spot: FishingSpot): MapLocation {
   return {
@@ -72,6 +80,7 @@ export const mockMapLocations: MapLocation[] = [
   ...getAllPloggingRoutes().flatMap(ploggingRouteToMapLocations),
   ...getAllAttractions().map(attractionPlaceToMapLocation),
   ...getAllLeisurePlaces().map(leisurePlaceToMapLocation),
+  ...getAllCoastalEvents().map(coastalEventToMapLocation),
 ];
 
 export function getLocationDetailById(
@@ -101,6 +110,10 @@ export function getLocationDetailById(
   const leisure = getLeisurePlaceById(id);
   if (leisure) {
     return leisure;
+  }
+  const event = getCoastalEventById(id);
+  if (event) {
+    return event;
   }
   return null;
 }
@@ -133,6 +146,7 @@ export function searchMockLocations(query: string): SearchablePlace[] {
     ...searchPloggingRoutes(query),
     ...searchAttractions(query),
     ...searchLeisurePlaces(query),
+    ...searchCoastalEvents(query),
   ];
 }
 
@@ -177,7 +191,8 @@ export function isAttraction(
       !("spotType" in value) &&
       !("status" in value) &&
       !("startPoint" in value) &&
-      !("difficulty" in value),
+      !("difficulty" in value) &&
+      !("coastalRelation" in value),
   );
 }
 
@@ -185,4 +200,10 @@ export function isLeisure(
   value: SearchablePlace | null,
 ): value is LeisurePlace {
   return Boolean(value && "activityType" in value);
+}
+
+export function isCoastalEvent(
+  value: SearchablePlace | null,
+): value is CoastalEvent {
+  return Boolean(value && "coastalRelation" in value && "startDate" in value);
 }

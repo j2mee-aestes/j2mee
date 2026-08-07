@@ -82,6 +82,11 @@
       "label": "Marine leisure",
       "shortLabel": "Leisure",
       "description": "Surfing, yacht, kayak, coastal bike and more"
+    },
+    "event": {
+      "label": "Coastal events",
+      "shortLabel": "Events",
+      "description": "Confirmed large coastal events in Busan"
     }
   },
   "map": {
@@ -479,7 +484,8 @@
       "privacy": "Privacy",
       "login": "Log in",
       "data": "Data",
-      "tourism": "Sights"
+      "tourism": "Sights",
+      "events": "Events"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -622,6 +628,36 @@
     "title": "Leisure & sports",
     "activity": "Activity",
     "season": "Season notes"
+  },
+  "events": {
+    "listTitle": "Busan coastal large events",
+    "listHint": "Officially confirmed schedules as of 2026-08-07.",
+    "empty": "No events to show.",
+    "sourceNote": "Sources: Busan City / festival organizers / official sites (2026-08-07)",
+    "sourceName": "Official event info",
+    "relation": {
+      "direct": "Direct coastal",
+      "adjacent": "Coastal-adjacent"
+    },
+    "crowdRisk": "Crowd risk",
+    "wasteRisk": "Waste risk",
+    "trafficImpact": "Traffic impact",
+    "scale": "Scale",
+    "scaleLevel": {
+      "very_large": "Very large",
+      "large": "Large",
+      "medium": "Medium"
+    },
+    "risk": {
+      "very_high": "Very high",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "coastalImpact": "Coastal impact",
+    "host": "Host",
+    "organizer": "Organizer",
+    "contact": "Contact"
   },
   "wave": {
     "title": "Live waves",

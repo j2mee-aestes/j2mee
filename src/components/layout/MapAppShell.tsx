@@ -25,6 +25,7 @@ import { DEFAULT_SELECTED_LOCATION_ID } from "@/data/fishing-spots/mockFishingSp
 import {
   getLocationDetailById,
   isAttraction,
+  isCoastalEvent,
   isFishingSpot,
   isLeisure,
   isPartnerPlace,
@@ -33,6 +34,9 @@ import {
   searchMockLocations,
   type SearchablePlace,
 } from "@/data/mockMapLocations";
+import { getAllCoastalEvents } from "@/lib/events/eventRepository";
+import { EventDetailPanel } from "@/components/events/EventDetailPanel";
+import { EventList } from "@/components/events/EventList";
 import { useWaveData, useWeatherData } from "@/hooks/useSpotEnvironmentData";
 import { useScheduleContext } from "@/context/ScheduleContext";
 import { apiJson } from "@/lib/auth/clientApi";
@@ -60,6 +64,7 @@ function placeTypeForLocation(locationId: string): LocalFavorite["placeType"] {
   if (isPloggingRoute(place)) return "plogging";
   if (isAttraction(place)) return "attraction";
   if (isLeisure(place)) return "leisure";
+  if (isCoastalEvent(place)) return "event";
   return "fishing";
 }
 
@@ -110,6 +115,9 @@ function resolvePlaceCategory(place: SearchablePlace): CategoryFilter {
   }
   if (isLeisure(place)) {
     return "leisure";
+  }
+  if (isCoastalEvent(place)) {
+    return "event";
   }
   return "all";
 }
@@ -200,6 +208,12 @@ export function MapAppShell() {
     ? selectedLocation
     : null;
   const selectedLeisure = isLeisure(selectedLocation) ? selectedLocation : null;
+  const selectedEvent = isCoastalEvent(selectedLocation)
+    ? selectedLocation
+    : null;
+  const coastalEvents = useMemo(() => getAllCoastalEvents(), []);
+  const showEventList =
+    selectedCategory === "event" || selectedCategory === "all";
 
   const relatedFishingSpot = useMemo(() => {
     if (!relatedFishingSpotId) {
@@ -664,6 +678,22 @@ export function MapAppShell() {
               <LeisureDetailPanel place={selectedLeisure} />
             ) : null}
 
+            {selectedEvent ? (
+              <EventDetailPanel
+                event={selectedEvent}
+                onDirections={() => setPanelNotice(t("common.directionsNotice"))}
+                notice={panelNotice}
+              />
+            ) : null}
+
+            {showEventList ? (
+              <EventList
+                events={coastalEvents}
+                selectedEventId={selectedEvent?.id ?? null}
+                onSelectEvent={selectAndFocusLocation}
+              />
+            ) : null}
+
             {selectedFishing ? (
               <LocationDetailPanel
                 location={selectedFishing}
@@ -684,7 +714,8 @@ export function MapAppShell() {
             !selectedRoute &&
             !selectedFishing &&
             !selectedAttraction &&
-            !selectedLeisure ? (
+            !selectedLeisure &&
+            !selectedEvent ? (
               <LocationDetailPanel
                 location={null}
                 isFavorite={false}

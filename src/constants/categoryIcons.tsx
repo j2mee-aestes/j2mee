@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import {
   Bike,
+  CalendarDays,
   Fish,
   Footprints,
   LayoutGrid,
@@ -23,6 +24,7 @@ export function getCategoryIcon(
     plogging: <Footprints className={className} />,
     attraction: <Star className={className} />,
     leisure: <Bike className={className} />,
+    event: <CalendarDays className={className} />,
   };
   return icons[category];
 }

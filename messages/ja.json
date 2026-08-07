@@ -82,6 +82,11 @@
       "label": "マリンレジャー",
       "shortLabel": "レジャー",
       "description": "サーフィン・ヨット・カヤック・自転車など"
+    },
+    "event": {
+      "label": "沿岸イベント",
+      "shortLabel": "イベント",
+      "description": "公式確認済みの釜山沿岸大規模行事"
     }
   },
   "map": {
@@ -479,7 +484,8 @@
       "privacy": "プライバシー",
       "login": "ログイン",
       "data": "データ",
-      "tourism": "観光"
+      "tourism": "観光",
+      "events": "イベント"
     },
     "hero": {
       "mediaLabel": "PadoPado intro visual",
@@ -622,6 +628,36 @@
     "title": "レジャー・スポーツ",
     "activity": "活動タイプ",
     "season": "シーズン案内"
+  },
+  "events": {
+    "listTitle": "釜山沿岸の大規模イベント",
+    "listHint": "2026-08-07時点で公式確認された日程です。",
+    "empty": "表示するイベントがありません。",
+    "sourceNote": "出典: 釜山市・祭組織委・公式サイト照合 (2026-08-07)",
+    "sourceName": "公式イベント案内",
+    "relation": {
+      "direct": "沿岸直接型",
+      "adjacent": "沿岸隣接型"
+    },
+    "crowdRisk": "混雑リスク",
+    "wasteRisk": "廃棄物リスク",
+    "trafficImpact": "交通影響",
+    "scale": "規模",
+    "scaleLevel": {
+      "very_large": "超大型",
+      "large": "大型",
+      "medium": "中型"
+    },
+    "risk": {
+      "very_high": "非常に高い",
+      "high": "高い",
+      "medium": "普通",
+      "low": "低い"
+    },
+    "coastalImpact": "沿岸影響",
+    "host": "主催",
+    "organizer": "主管",
+    "contact": "問い合わせ"
   },
   "wave": {
     "title": "リアルタイム波",

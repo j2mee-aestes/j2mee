@@ -12,6 +12,7 @@ const CATEGORY_SYMBOL: Record<MapCategory, string> = {
   plogging: "👟",
   attraction: "⭐",
   leisure: "⛵",
+  event: "🎉",
 };
 
 const WASTE_SYMBOL: Record<string, string> = {

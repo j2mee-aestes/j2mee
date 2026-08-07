@@ -82,6 +82,11 @@
       "label": "해양 레저",
       "shortLabel": "레저",
       "description": "서핑·요트·카약·자전거 등 해안 레저"
+    },
+    "event": {
+      "label": "해안 행사",
+      "shortLabel": "행사",
+      "description": "부산 해안 대규모 행사·축제 일정"
     }
   },
   "map": {
@@ -479,7 +484,8 @@
       "privacy": "개인정보",
       "login": "로그인",
       "data": "데이터",
-      "tourism": "관광"
+      "tourism": "관광",
+      "events": "행사"
     },
     "hero": {
       "mediaLabel": "파도파도 소개 비주얼",
@@ -622,6 +628,36 @@
     "title": "레저·스포츠",
     "activity": "활동 유형",
     "season": "시즌 안내"
+  },
+  "events": {
+    "listTitle": "부산 해안 대규모 행사",
+    "listHint": "2026-08-07 기준 일정이 공식 확인된 행사입니다.",
+    "empty": "표시할 행사가 없습니다.",
+    "sourceNote": "출처: 부산시·축제위·공식 홈페이지 교차검증 (2026-08-07)",
+    "sourceName": "공식 행사 안내",
+    "relation": {
+      "direct": "해안 직접형",
+      "adjacent": "해안 인접형"
+    },
+    "crowdRisk": "인파 위험",
+    "wasteRisk": "폐기물 위험",
+    "trafficImpact": "교통 영향",
+    "scale": "규모",
+    "scaleLevel": {
+      "very_large": "초대형",
+      "large": "대형",
+      "medium": "중형"
+    },
+    "risk": {
+      "very_high": "매우 높음",
+      "high": "높음",
+      "medium": "보통",
+      "low": "낮음"
+    },
+    "coastalImpact": "해안 영향",
+    "host": "주최",
+    "organizer": "주관",
+    "contact": "문의"
   },
   "wave": {
     "title": "실시간 파도",

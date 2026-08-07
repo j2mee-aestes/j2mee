@@ -18,6 +18,7 @@ export const CATEGORY_COLORS: Record<MapCategory, string> = {
   plogging: "#0d9488",
   attraction: "#ca8a04",
   leisure: "#0f766e",
+  event: "#db2777",
 };
 
 export const CATEGORIES: CategoryConfig[] = [
@@ -77,6 +78,14 @@ export const CATEGORIES: CategoryConfig[] = [
     color: CATEGORY_COLORS.leisure,
     showInFilterChips: true,
   },
+  {
+    id: "event",
+    label: "해안 행사",
+    shortLabel: "행사",
+    description: "부산 해안 대규모 행사·축제 일정",
+    color: CATEGORY_COLORS.event,
+    showInFilterChips: true,
+  },
 ];
 
 export const FILTER_CHIP_CATEGORIES = CATEGORIES.filter(
@@ -91,6 +100,7 @@ export const CATEGORY_TYPE_LABELS: Record<MapCategory, string> = {
   plogging: "플로깅 코스",
   attraction: "관광 명소",
   leisure: "해양 레저",
+  event: "해안 행사",
 };
 
 export function getCategoryConfig(id: CategoryFilter): CategoryConfig {
